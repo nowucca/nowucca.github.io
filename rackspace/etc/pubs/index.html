@@ -1,0 +1,338 @@
+<HTML>
+<HEAD>
+<TITLE> Steven Atkinson's Publications Page </TITLE>
+</HEAD>
+
+
+<BODY>
+<HR>
+<H1>Steven Atkinson's Publications Page</H1>
+<HR>
+<H3> The Object-oriented formal specification language Object-Z </H3>
+Much of my research is based around the formal specification
+language Object-Z.  This <A HREF="ozoview.ps.gz"> overview</A>
+should provide some assistance to those unfamiliar with
+Object-Z. For more information about Object-Z and its
+family of related publications, please email 
+<A HREF="mailto:svrc@cs.uq.edu.au"><em>svrc@cs.uq.edu.au</em></A>.
+<HR>
+<H2> Index </H2>
+If you do download any of these papers, I would appreciate hearing
+any comments that you may have.  
+<UL>
+    <LI> <A HREF="#THESIS"> Formal Engineering of Software Library Systems</A>
+         <EM>  (My PhD Thesis currently under examination) </EM>
+    <LI> <A HREF="#COGDEF"> Cognitive Deficiencies in Software Library Design</A>
+    <LI> <A HREF="#WISR8"> Examining Behavioural Retrieval</A>
+    <LI> <A HREF="#TOOLS21"> A Formal Model for Integrated Retrieval from Software Libraries </A>
+    <LI> <A HREF="#CONFIRMREPORT"> Engineering Software Library Systems </A>
+    <LI> <A HREF="#RETRIEVAL"> A Unifying Model for Retrieval from Reusable Software Libraries</A>
+    <LI> <A HREF="#PELKS"> Formalizing the Proposed Eiffel Library Kernel Standard</A> 
+    <LI> <A HREF="#BR"> A Methodology for Behavioural Retrieval from Class Libraries</A> 
+    <LI> <A HREF="#HONOURS"> An open architecture object store system for persistent abstract syntax trees</A> 
+</UL>
+<HR>
+
+<H2> Publications </H2>
+
+The publications below are linked to compressed PostScript files (i.e. in .ps.gz format). <P><HR>
+<A NAME="THESIS">
+<strong> Formal Engineering of Software Library Systems</strong><p>
+<strong>  Abstract: </strong>
+The reuse of complete software developments and the processes used to
+create them has the potential to significantly ease the process of
+software engineering, by providing a source of verified software
+artefacts.<P>
+
+Software libraries are collections of software artefacts which have
+been aggregated to form a resource-rich environment, from which
+software engineers can reuse the efforts of others during subsequent
+software development.  By storing such information, software libraries
+serve as a vehicle for the exchange of ideas and experience between
+software engineers.<P>
+
+It is argued that reuse of software artefacts can be achieved through
+the utilisation of software libraries.  However, software library
+systems are not yet common or mature phenomena, and as such are
+themselves candidates for software engineering analysis.<P>
+
+The goal of this thesis is to provide a reasoned formal specification
+of a software library system, to serve as a precise, clear context in
+which to analyse and discuss general software library structures and
+processes.  This yields a formal basis for the continuing development
+of software library designs and implementations, promoting the
+development of new reuse-oriented software engineering techniques.<P>
+
+Through formalisation of software libraries, deficiencies of existing
+software libraries are identified, suggesting new ways of modelling
+library artefacts and operations.  As the new models are developed,
+processes for formulating library policies are proposed.
+A library of object-oriented class declarations is also
+developed to serve as an illustration of the new models and processes.<P>
+
+Ultimately, the formal specifications and processes gathered together
+in this thesis form a coherent description of software library
+systems.  This promotes the effective reuse of software artefacts by
+providing a more formal structure for their storage and dissemination.
+<P>
+
+<A HREF="thesis-submitted.ps.gz">
+        Formal Engineering of Software Library Systems</A>
+   (<em>441447 bytes</em>)
+   Steven Atkinson.
+     A Ph.D. thesis, submitted to <em> <A HREF="http://www.it.uq.edu.au/">The School of Information Technology</A> </em>, at <em> <A HREF="http://www.uq.edu.au/">The University of
+Queensland</A> </em> , October 1, 1997.  This work was done within the <em> <A HREF="http://svrc.it.uq.edu.au/">Software Verification Research Centre</A>. </em>
+
+<HR>
+
+<A NAME="COGDEF">
+<strong> Cognitive Deficiencies in Software Library Design </strong><p>
+<strong>  Abstract: </strong>
+If the role of software libraries is to communicate information about
+software artefacts between software engineers, it is vital that the
+information be stored in such a manner as to be readily
+understandable.  The designs of existing software libraries present
+several cognitive impediments to a software engineer, hindering the
+understanding of library organisation and content.
+
+In this paper, a focused review of existing software libraries is
+undertaken.  Shortcomings of the designs of existing software
+libraries and resulting cognitive deficiencies are identified.  The
+design problems to be discussed are: the hiding of underlying library
+structure, the inadequacy of component interfaces, the problems of
+querying large collections, and the subjective nature of component
+organisation.  Having encountered these problems with existing
+software libraries, some avenues for alleviating them are identified.<P>
+
+<A HREF="apsec97.ps.gz">
+        Cognitive Deficiencies in Software Library Design</A>
+   (<em>64143 bytes</em>)
+   Steven Atkinson.
+     Submitted to <em> The Joint 1997 Asian-Pacific Software Engineering Conference and International Computer Science Conference <A HREF="http://www.cs.ust.hk/conferences/APSEC97/"> (APSEC'97/ICSC'97)</A></em>, to be held in <A HREF="http://www.hkta.org/">Hong Kong</A>, December 1997.
+
+<HR>
+
+
+
+<A NAME="WISR8">
+<strong> Examining Behavioural Retrieval </strong><p>
+
+<strong>  Abstract: </strong>
+The challenge of software reuse is to record software development
+knowledge in such a way that it is readily stored digitally and easily
+retrieved, understood and used by other software engineers.  Hence at the
+highest level, the process of retrieval from a repository is to take a
+description of a problem, and search for stored
+knowledge which may help to solve the described problem.
+
+The purpose of component retrieval is therefore concerned with
+finding component behaviours which solve a problem described by a query.
+Most proposed component retrieval schemes simulate
+this search for desired behaviour, either by using text-based,
+vocabulary classification, structural matching or specification
+matching techniques.  Of course, most retrieval schemes also consider
+contextual aspects, such as resource usage, efficiency and
+internal representation.
+
+A theoretical definition of behavioural retrieval is required to
+describe the ideal (modulo contextual aspects) retrieval scheme,
+despite its probable inefficiency in practice.  In this paper a
+theoretical definition of behavioural retrieval is outlined, showing
+that useful, exploitable structure does exist in behaviour.<P>
+
+<A HREF="wisr8.ps.gz">
+	Examining Behavioural Retrieval</A>
+   (<em>37407 bytes</em>)
+   Steven Atkinson.
+     <em> Proc. Eigth Annual Workshop on Software Reuse: 
+     <A HREF="http://www.umcs.maine.edu/~ftp/wisr/wisr8/wisr8.html"> WISR8</A></em>,
+     Held in March 1997.
+
+<HR>
+
+
+
+<A NAME="TOOLS21">
+<strong> A Formal Model for Integrated Retrieval from Software Libraries </strong><P>
+
+<strong> Abstract: </strong>
+The central problem associated with libraries of object-oriented
+software components is that of retrieval: how to find in the library
+those components that can be used in the construction of a particular
+application.  Approaches to this problem can be classified into three
+categories based upon the way components are represented: external
+classification, structural matching and behavioural.  The aim of the
+research described in this paper is to unify these existing approaches
+to the component retrieval problem into a formally specified
+object-oriented framework, providing a model enabling comparison and
+description of integrated retrieval schemes.<P>
+
+<A HREF="tools21.ps.gz">
+   A Formal Model for Integrated Retrieval from Software Libraries</A>
+   (<em>60959 bytes</em>)
+   Steven Atkinson.  
+   To appear in 
+     <em> Proc. Technology of Object-Oriented Languages and
+     Systems: <A HREF="http://www.sd.monash.edu.au/Tools"> TOOLS 21</A></em>,
+     Prentice Hall 1996.
+
+<HR>
+
+<A NAME="CONFIRMREPORT">
+<strong> Engineering Software Library Systems </strong><P>
+
+<strong> Abstract: </strong> 
+The reuse of complete software developments and the processes used
+to create them has the potential to significantly ease the process of
+software engineering, by providing a source of verified software
+artifacts.  It is suggested that reuse of software artifacts can be
+achieved through the utilization of software libraries. However,
+software library systems are not yet common or mature phenomena, and
+as such are themselves candidates for the application of requirements
+analysis, formal specification, design and other software engineering
+activities.  A more formal approach to the analysis of software
+library requirements and their specification will provide a basis for
+the development of useful software libraries.<P>
+
+<A HREF="confirmation-report.ps.gz">
+   Engineering Software Library Systems (Confirmation Report)</A>
+   (<em>53566 bytes</em>)
+   Steven Atkinson.  Slides from my <A HREF="confirmation-seminar.ps.gz"> confirmation seminar</A> are available, and a slightly modified set of slides from
+<A HREF="oo-workshop.ps.gz"> the TOOLS Pacific Workshop for Research Students in Object-Oriented Systems</A> are also available.
+
+<HR>
+
+<A NAME="RETRIEVAL">
+<strong> 
+A Unifying Model for Retrieval from Reusable Software Libraries
+</strong><P>
+
+<strong> Abstract: </strong> 
+The central problem associated with libraries of reusable software
+components is that of retrieval: how to find in the library those
+components that can be used in the construction of a particular
+application.  There have been three major proposed solutions
+to this problem: faceted (classification), signature-matching
+(structural) and behavioural (functional) retrieval.
+The aim of this paper is to unify these existing approaches to
+the component retrieval problem into a formally specified framework,
+providing a model upon which meaningful comparisons are made and principles
+formulated.<P>
+
+<A HREF="tr95-41.ps.gz">
+     A Unifying Model for Retrieval from Reusable Software Libraries</A>
+     (<em>51409 bytes</em>)
+     Steven Atkinson.
+     Technical Report Number 95-41, Software Verification Research 
+     Centre, Dept. of Computer Science, Univ of Queensland, Australia 1995.
+
+<HR>
+
+<A NAME="PELKS">
+<strong>
+Formalizing the Proposed Eiffel Library Kernel Standard
+</strong><P>
+
+<strong> Abstract: </strong> 
+The Proposed Eiffel Library Kernel Standard has been created for
+the purpose of promoting multi-platform interoperability using the
+Eiffel language.  It consists of a set of twenty class specifications,
+called the library kernel, which serve as a benchmark
+against which proposed library implementations can be tested for
+compatibility with the standard.  The rules for kernel compatibility
+should be clear and unambiguous in order to ensure that the
+interoperability sought is not compromised.  A formal specification
+language offers the precision and degree of confidence required. This
+paper presents a model of the Proposed Eiffel Library Kernel Standard
+in the formal specification language Object-Z, which has been
+advocated for the specification of standards.<P>
+
+ <A HREF="tr95-35.ps.gz">
+     Formalizing the Proposed Eiffel Library Kernel Standard</A>
+     (<em>68403 bytes</em>)
+     Steven Atkinson.
+     Technical Report Number 95-35, Software Verification Research Centre,
+     Dept. of Computer Science, Univ of Queensland, Australia 1995.
+     A more recent version appears as <A HREF="tools18.ps.gz"> Formalizing the Eiffel Library
+     Standard</A>, in 
+     <em> Proc. Technology of Object-Oriented Languages and 
+     Systems: <A HREF="http://www.sd.monash.edu.au/Tools"> TOOLS 18</A></em>, 
+     pages 323-335,
+     Prentice Hall 1995.
+
+<HR>
+
+<A NAME="BR">
+<strong>
+     A Methodology for Behavioural Retrieval from Class Libraries
+</strong><P>
+
+<strong> Abstract: </strong> 
+The central problem associated with libraries of reusable software
+components such as classes is that of retrieval: how to find in the
+library those classes that can be used in the construction of a
+particular application.  At the heart of class retrieval is the issue
+of behaviour: to decide if a library class is appropriate for a
+particular application it is necessary to know how objects of that
+class behave, i.e. how they react when sent messages by their
+environment.  In this paper a methodology for searching libraries to
+find classes whose objects behave in some specified manner is defined.
+In general, it will not be possible to find a class whose objects
+behave exactly as required.  In this case the methodology
+finds classes whose objects best approximate the specified behaviour
+in a precisely defined sense.  The aim is to retrieve classes that can
+be easily modified to define objects that behave exactly as required.<P>
+
+  <A HREF="tr94-28.ps.gz">
+     A Methodology for Behavioural retrieval from class libraries</A>
+     (<em>61518 bytes</em>)
+     Steven Atkinson and Roger Duke.
+     Technical Report Number 94-28, Software Verification Research Centre,
+     Dept. of Computer Science, Univ of Queensland, Australia 1994.
+     A <A HREF="behavioural-retrieval.ps.gz"> shortened version </A>
+     appears in <em> Australian Computer Science Communications</em>, 
+     17(1):13--20, January 1995.
+
+<HR>
+
+<A NAME="HONOURS">
+<strong>
+ An open architecture object store system for persistent abstract
+  syntax trees 
+</strong> <P>
+
+<strong> Abstract: </strong> 
+Researchers in the field of software re-engineering have recognised
+that transformations acting upon the abstract
+syntax trees of source programs are a useful method of
+preserving the semantics of program constructs whilst
+changing the language in which they are expressed.
+Software re-engineering environments will therefore require infrastructure
+support for storing abstract syntax trees.  This report describes
+the development of an open architecture object store system which
+provides this support, and then demonstrates how the openness of the system
+allows communication of abstract syntax structures between the system and
+multiple external languages.<P>
+
+<A HREF="honours-report.ps.gz">
+ An open architecture object store system for persistent abstract
+  syntax trees</A>
+(<em>168649 bytes</em>)
+     Steven Atkinson.  
+  Honours Thesis. Available here or upon request via email to the author at
+  atkis@cs.uq.edu.au and from the Department of Computer Science, University of
+  Queensland, St Lucia, AUSTRALIA 4072., November 1993.
+
+
+  <HR>
+  Back to <A HREF="../index.html"> Steven Atkinson's Home Page </A>
+  <P>
+
+  <ADDRESS>
+  Last updated: 21 May, 1997
+  </ADDRESS>
+
+  </BODY>
+
+
+</HTML>

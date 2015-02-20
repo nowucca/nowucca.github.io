@@ -1,0 +1,90 @@
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+Sub Application_OnStart
+	'==FrontPage Generated - startspan==
+	Dim FrontPage_UrlVars(1)
+	'--Project Data Connection
+		Application("Sample_ConnectionString") = "DRIVER={Microsoft Access Driver (*.mdb)};DBQ=URL=fpdb/fpnwind.mdb"
+		FrontPage_UrlVars(0) = "Sample_ConnectionString"
+		Application("Sample_ConnectionTimeout") = 15
+		Application("Sample_CommandTimeout") = 30
+		Application("Sample_CursorLocation") = 3
+		Application("Sample_RuntimeUserName") = ""
+		Application("Sample_RuntimePassword") = ""
+	'--
+	Application("FrontPage_UrlVars") = FrontPage_UrlVars
+	'==FrontPage Generated - endspan==
+End Sub
+Sub Session_OnStart
+	FrontPage_StartSession '==FrontPage Generated==
+End Sub
+Sub FrontPage_StartSession
+	On Error Resume Next
+	if Len(Application("FrontPage_VRoot")) > 0 then Exit Sub
+	' discover the VRoot for the current page;
+	' walk back up VPath until we find global.asa
+	Vroot = Request.ServerVariables("PATH_INFO")
+	strG1 = "global.asa"
+	strG2 = "Global.asa"
+	iCount = 0
+	do while Len(Vroot) > 1
+		idx = InStrRev(Vroot, "/")
+		if idx > 0 then
+			Vroot = Left(Vroot,idx)
+		else
+			' error; assume root web
+			Vroot = "/"
+		end if
+		if FrontPage_FileExists(Server.MapPath(Vroot & strG1)) then exit do
+		if FrontPage_FileExists(Server.MapPath(Vroot & strG2)) then exit do
+		if Right(Vroot,1) = "/" then Vroot = Left(Vroot,Len(Vroot)-1)
+		iCount = iCount + 1
+		if iCount > 100 then
+			' error; assume root web
+			Vroot = "/"
+			exit do
+		end if
+	loop
+	' map all URL= attributes in _ConnectionString variables
+	Application.Lock
+	if Len(Application("FrontPage_VRoot")) = 0 then
+		Application("FrontPage_VRoot") = Vroot
+		UrlVarArray = Application("FrontPage_UrlVars")
+		for i = 0 to UBound(UrlVarArray)
+			if Len(UrlVarArray(i)) > 0 then FrontPage_MapUrl(UrlVarArray(i))
+		next
+	end if
+	Application.Unlock
+End Sub
+Sub FrontPage_MapUrl(AppVarName)
+	' convert URL attribute in conn string to absolute file location
+	strVal = Application(AppVarName)
+	strKey = "URL="
+	idxStart = InStr(strVal, strKey)
+	If idxStart = 0 Then Exit Sub
+	strBefore = Left(strVal, idxStart - 1)
+	idxStart = idxStart + Len(strKey)
+	idxEnd = InStr(idxStart, strVal, ";")
+	If idxEnd = 0 Then
+		strAfter = ""
+		strURL = Mid(strVal, idxStart)
+	Else
+		strAfter = ";" & Mid(strVal, idxEnd + 1)
+		strURL = Mid(strVal, idxStart, idxEnd - idxStart)
+	End If
+	strOut = strBefore & Server.MapPath(Application("FrontPage_VRoot") & strURL) & strAfter
+	Application(AppVarName) = strOut
+End Sub
+Function FrontPage_FileExists(fspath)
+	On Error Resume Next
+	FrontPage_FileExists = False
+	set fs = CreateObject("Scripting.FileSystemObject")
+	Err.Clear
+	set istream = fs.OpenTextFile(fspath)
+	if Err.Number = 0 then
+		FrontPage_FileExists = True
+		istream.Close
+	end if
+	set istream = Nothing
+	set fs = Nothing
+End Function
+</SCRIPT>

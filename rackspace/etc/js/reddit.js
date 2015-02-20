@@ -1,0 +1,1 @@
+<script language="JavaScript" src="http://reddit.com/browse.js?sort=new&amp;t=hour" type="text/javascript"></script>
