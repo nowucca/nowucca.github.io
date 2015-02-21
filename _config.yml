@@ -1,0 +1,13 @@
+# Site settings
+title: Steven Atkinson - Software Technologist
+email: steven at atkinson dot net
+description: > # this means to ignore newlines until "baseurl:"
+  "Build software in progressive layers, with test cases; never be rigid or closed. 
+   Have respect for fellow team members; work hard on the things that matter."
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://steven.atkinson.net" # the base hostname & protocol for your site
+twitter_username: sr_atkinson
+github_username:  nowucca
+
+# Build settings
+markdown: kramdown
