@@ -16,4 +16,4 @@ In a previous life as a budding academic, I was an advocate for formal methods i
 
 [linkedin-profile]: https://linkedin.com/in/satkinson
 [svrc-home]: http://www.itee.uq.edu.au/research 
-[my-publications]: {{site.url}}/pubs/index.html
+[my-publications]: {{site.url}}/rackspace/pubs/index.html
