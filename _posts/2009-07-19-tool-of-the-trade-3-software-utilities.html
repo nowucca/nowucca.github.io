@@ -1,0 +1,18 @@
+---
+layout: post
+title: 'Tool of the Trade 3: Software Utilities'
+date: 2009-07-19 22:54:53.000000000 -07:00
+categories:
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>There is a whole class of software solutions, usually called 'utilities', that seem to be required wherever you work, in whatever runtime system you have.  For websites, I have a small list of utility classes that I usually develop or find equivalents for:</p>
+<p>- <em><strong>Link generator</strong></em>: How does the website generate links, secured when needed?  Often a URL builder in one form or another that can deal with URI encoding is needed.</p>
+<p>- <em><strong>Tracers, Counters, Logging Subsystem</strong></em>: It's really important to have a standard set of abstractions to measure timings, log events and even just count how many times a code path is executed.  This will be invaluable performance measurement and debugging infrastructure that can grow as your site does.  Even the simplest site can benefit from logging.</p>
+<p>- <em><strong>Secure tokens</strong></em>: This is a strange one that only recently became apparent as a utility to me - you will be generating 'tokens', sending them out into the real world, and when you get them back you will be tying them up to some authentication purpose.  Additional requirements are often that they can be versioned, are valid for a certain period of time and can be individually, by category or globally revoked. I've built and seen about 7 of these systems, and often you build it more than once within a company!</p>
+<p>- <em><strong>Encryption libraries</strong></em>: You are going to need a hardware or software solution for storing sensitive data, and for digesting data.  Usually a combination of both hardware and software for the appropriately paranoid.  If you even think of storing an encrypted password, rather than a digest of it, you'll probably want to protect it in memory using software and/or get it encrypted to disk as soon as possible.  Either way, I'm sure we've all written wrappers around core encryption libraries in the past - you'll want this in your toolchest, along with a security policy that makes sense for the site.</p>
+<p>- <em><strong>Admin Management Tools</strong></em>: A side application to be used for monitoring and/or customer support.</p>
+<p>What other core utilities are there for website development?</p>

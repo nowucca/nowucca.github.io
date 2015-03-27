@@ -1,0 +1,20 @@
+---
+layout: post
+title: Solution for Network hassles when Dragging Around the MacBook Pro
+date: 2014-12-18 12:48:33.000000000 -08:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>I drag around my MacBook Pro to different networks every day.</p>
+<p>Sometimes, there are hassles connecting to a network, wired or wifi.</p>
+<p>This little script can be used to kick the network interfaces a little bit to potentially fix strange states they find themselves in:</p>
+<p>{% highlight bash linenos %}<br />
+$ for if in $(ifconfig -l)<br />
+do<br />
+  sudo ifconfig $if down<br />
+  sudo ifconfig $if up<br />
+done<br />
+{% endhighlight %}</p>

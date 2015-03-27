@@ -1,0 +1,31 @@
+---
+layout: post
+title: 'Tool of the Trade 1: Testing Tools and Strategy'
+date: 2009-07-07 23:02:42.000000000 -07:00
+categories:
+- Design Pattern
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>Is a customer ever going to tell you how to test your software?  No - they just assume you will test it and it will work.</p>
+<p>A testing strategy is always worth considering first when building a website.  <a href="http://cacm.acm.org/magazines/2009/5/24633-logic-of-lemmings-in-compiler-innovation/fulltext" target="_blank">Especially if you are using a dynamic language as your server-side request handler</a>.  Let's face it - it is not sexy or cool to manually or automatically run a bunch of test cases  against your system.  But considering the question of how to test effectively can tell you a lot about the nature of your system at a macro-level - something good to be conscious of continuously that often is not.  A pedantic regime of regression tests only very rarely assists with showing real surprises; too pedantic and your large test suite is wastefully expensive, but too frivolous and you are going to need a customer support team - if you are lucky and don't crash hard!</p>
+<p>Here are some key decision points for developing a testing strategy and choosing the appropriate tools; the decision points really help you make a few tradeoffs from the start.</p>
+<ul>
+<li><em>What test environments does the organization require?</em> Many companies establish development, testing and production infrastructures, replicating the database and applications in each environment.  This allows development, testing and the live site to be used independently and concurrently.  Often this is accompanied by a regime of either recreating or refreshing the development and testing databases on a schedule.  All of this can be expensive and may grow over time as the site grows.</li>
+</ul>
+<ul>
+<li><em>Do I require automated testing at all?</em> It is surprising how far you can get with no automated testing regime at all.  It requires a level of attention not usually required of QA engineers, and perhaps a funded customer support channel as a backup, but it can be a legitimate business decision for the short to medium term.</li>
+</ul>
+<ul>
+<li><em>What styles of automated testing are available to me?</em> I have seen testing regimes that start with black-box testing, record/playback automated black box, intelligent UI-agnostic form-aware link-aware automated black box, in-container request/response testing, integration testing of a unified business layer, integration testing of a module collection, unit-tests for a module and unit tests for some classes.  I don't think any of them scale particularly well.  Right now you are better off choosing those that match your design the most, remembering not to be too pedantic about testing.</li>
+</ul>
+<ul>
+<li><em>Do I need a layered code design or is a flatter design acceptable?</em> Often we start by building a typical 3-tier (MVC)-presentation, Services and Data-Access layered system for websites.  If it is a quick and dirty site, this may not be the most productive use of your time (have to edit multiple files, follow a process for feature development).   Perhaps it's ok to rely on refactoring when and if the site grows?  Until then, only share code when completely obvious.</li>
+</ul>
+<ul>
+<li><em>How am I going to keep the test cycle fast and efficient?</em> Whether you are performing automated testing or not, it will be worth considering what the workflow of QA engineers will be.  Often they will be heavy users of a bug system, issue tracking system for support and good ones will be clients of the production databases for troubleshooting and ad-hoc queries.  Determination of the test cycle workflow will also impact what your release cycle can be.  Shorter is sweeter.  At a technical level, one can also consider using mock objects to make the tests run fast.</li>
+</ul>
+<p>Testing strategies can help define how business resources are used, the tone of the company and the release cycle for your software.  The consideration of testing processes is a vital tool in the construction of websites (and software) - one which many business owners will implicitly require.</p>

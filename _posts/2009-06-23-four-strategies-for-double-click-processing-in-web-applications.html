@@ -1,0 +1,48 @@
+---
+layout: post
+title: Four Strategies for Double-Click Processing in Web Applications
+date: 2009-06-23 23:03:18.000000000 -07:00
+categories:
+- Design Pattern
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<h2>Introduction</h2>
+<p>For most web application / REST form POSTs, you usually do not have a concern with double-click protection.  But, sometimes it is important to worry about double-clicks, and NOT processing two or more requests independently and simultaneously.</p>
+<p>Let us suppose you are implementing a form POST in a web application where a commerce transaction is involved.  At some stage, some customer will accidentally or purposefully double-click the FORM submit button, creating two or more processing threads in your web application that perform the same task twice.  A number of issues can arise when this happens:</p>
+<ul>
+<li>Race conditions:  simultaneous uses of server-side session state that are not anticipated by the code (we developers tend to think one-thread at a time for use cases usually) causing data corruption or transaction failure.</li>
+<li>Double-Processing: You perform two commerce transactions for the customer, when their intention was to perform only one.  This may lead to multiple credit card charges in the worst case, requiring remedial action on the part of the business owners.</li>
+<li>Misinformation: The customer be given an impression that their commerce transaction failed when in fact it was processed.  This can happen when the thread that performs the action may not be the thread reporting back to the browser (which is usually the last thread to get through the request).</li>
+</ul>
+<p>In this article, we describe how one can go about minimizing the chances of these double-click issues arising. I offer four integrated strategies for handling the processing of double-clicks for commerce transactions.  The strategies involve avoidance, detection, prevention, and recovery from double-clicks, while minimizing race conditions.</p>
+<blockquote><p>An aside concerning deadlocks and double-clicks: If your code involves locking, the multiple clicks will spawn threads that may grab the lock resources in different orders. This could cause deadlocks at which point your commerce transactions would both be blocked.  This would be indicative of a more general problem with your locking strategies or design. I am not going to discuss strategies for deadlock detection, prevention or avoidance techniques here. It is assumed that you are not grabbing locks in different orders during the commerce transaction, or are handling that correctly, so I will not talk about deadlocks further - they are out of scope.</p></blockquote>
+<h2>Strategies in Detail</h2>
+<p>There are four levels of protection, described in the next sections.</p>
+<h3>Avoidance: Javascript to Disable the Submit Button</h3>
+<p>We disable the transaction submit button when it is clicked the first time on the page.</p>
+<p>This is not foolproof, but it is very good at reducing the issue. If javascript is disabled or slow, we need to do more.</p>
+<h3>Prevention: Prevent Double Transactions When Possible</h3>
+<p>We see if a transaction has been made since we sent the triggering page; if so we simply confirm the latest transaction rather than process another transaction.</p>
+<p>This covers the common case where someone gets impatient and clicks a second time, after the first transaction is complete but JUST before the browser shows the success page. This is not foolproof, but covers the common case where a badly-timed click can trigger a second unwanted transaction.</p>
+<h3>Detection: A Lock to Detect Fast-Double-Clicks</h3>
+<p>This happens when the user somehow clicks the submit button multiple times in succession, or when a bot attempts multiple transactions at once or in rapid succession.  We use a lock to detect the presence of a winning thread who processes the transactions.  Other threads wait for the winning thread to complete, and one of them will confirm the transaction to the user.</p>
+<p>In some more detail because this is the heart of the solution: We hold a 'transaction-lock' on a stable client identifier for the duration of the transaction to prevent multiple-transactions due to fast clicking. By locking the transactions to one-per stable-client-id, we set up the world so that we get one 'click' that is the processing click (holding the lock), and all other clicks (let's call them locked-out clicks). One of the locked out clicks will become the one responsible for sending the response back to the user (let's call it the display-click).</p>
+<p>All locked-out clicks wait for the processing click to finish. Once that happens, they all look for the completed transaction data and confirm that data back to the client.This ensures the client gets their confirmation, and completes the purchase. These just happen via separate 'clicks' and is better than doing nothing.</p>
+<h3>Recovery: Fallback Messaging to the Clent</h3>
+<p>You might ask about what happens if the locked-out threads remain locked, or if there is no completed transaction data to send back etc.</p>
+<p>A locked-out thread remains locked for 25 seconds (configurable). When this happens, we have fallback logic that tries very hard to send the appropriate confirmation back to the client using the prevention strategy above. If we just cannot be sure that the transaction succeeded, we really need to provide a way for client to go check for themselves, perhaps with a link to a transaction history page.</p>
+<h2>Suggested Test Cases</h2>
+<ul>
+<li>Test naive double clicking with Javascript  on and off: at most one transaction should result.</li>
+<li>Test slow-double clicking after the response starts coming back to the browser: at most one transaction should result.</li>
+<li>Test a programatic quick submission of multiple POSTs to exercise detection strategy: at most one transaction should result.</li>
+<li>Artificially  hold a lock for a client. Make sure that you get the recovery strategy when performing the transaction. No transaction should result.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>At first glance something seems wrong intuitively that we would ever need a recovery strategy here, but threads could be starved and we never would want to give wrong information to the client; sometimes you can never be sure if the transaction completed when a lock times out.  By implementing all these strategies together, and using the prevention strategy to avoid un-necessarily throwing up the hands with the recovery strategy, we reduce the likelihood of the identified issues (Race conditions, double-transactions and mis-information) about a key transaction to a level that most businesses could tolerate.  We should only pullout this bag of tricks for important transactions.  For example, at Netflix we use modified versions of these strategies for gift purchases and starting memberships, both of which are commerce transactions in the purest sense.</p>
+<h3>Acknowledgements</h3>
+<p>Thanks to Jason Brown for detection strategy design and implementation, and Mohan Doriaswamy  for prevention srategy design.</p>

@@ -1,0 +1,15 @@
+---
+layout: post
+title: 'Tool of the Trade 2: Software Design Guidelines'
+date: 2009-07-13 22:14:23.000000000 -07:00
+categories:
+- Design Pattern
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>Design guidelines are critical for a successful software project.  No customer will ever demand this directly, or understand it.    I think there is a design at two levels for software - a macro and micro.  Macro level design has to do with technology choices and data flow.  Micro-design has to do with code organization and dependencies within the macro bounds.  It's really important for a team to agree on the <em><strong>feeling</strong></em> of a software system design at both these levels; that is to have a basic idea that we are all painting a landscape and not a Cubist. The conceptual foundation,  and the feeling you get from the codebase in conjunction with the team's feelings about it really matters!  If the code design standards are not agreed upon, the codebase slips, and people's attitudes slip with it.  At the other extreme, setting design in stone defeats the SOFT of software. It takes a strong personality to motivate the engineers and the business owners to address the issues when the slippage happens.</p>
+<p>I've seen alot of different attitudes to design 'guidelines', mostly to do with the level of enforcement.  When guidelines become enforced, the resulting software can be beautifully conceptually elegant.  When guidelines are not enforced, the resulting software can be a dumpling soup of dependencies (that is, code that looks like it's separated into distinct globs but it all falls apart if you pick one thing up). But enforcement is usually inversely proportional to happiness - if your company wants to scale for 10+ years, you need to be a carrot-giver rather than a stick carrier.</p>
+<p>So what is the key to a healthy codebase? If the goal is a happy team with a flexible codebase then make it so the organically easiest thing to do is to follow the patterns, at least well enough to preserve the macro picture of the product.  Relegate the painful bits of coding to side-issues but track them as well; always be flexible in admitting new patterns when there is a clear advantage, but <strong>FUND THE CODE HEALING</strong> necessary to make the code base look like the change was there from the start.  If the funding is large, perhaps it is still a side issue.  <strong>DON'T</strong> make the change is 10% of places that it is needed and then rely on other people to follow the new pattern - it WON'T HAPPEN.</p>

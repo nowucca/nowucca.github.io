@@ -1,0 +1,38 @@
+---
+layout: post
+title: Case Insensistive Regular Expressions in Java
+date: 2011-08-08 07:24:01.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>Thanks to <a href="http://www.devdaily.com/blog/post/java/java-how-case-insensitive-search-string-matches-method" target="_blank">this post</a>, I've discovered how to use case insensitive regular expressions.</p>
+<p>Simply start your regular expression with "?i:".  So "(?i:REGEX)" matches REGEX case insensitively.</p>
+<p>In the code example below, one can use this to extract out an attribute value inside quotes when the attribute name is case-insensitive.</p>
+<p>{% highlight java linenos %}<br />
+public static void main(String[] args) {<br />
+        String example = &quot;somePrefix NAME=\&quot;value\&quot; someSuffix&quot;;</p>
+<p>        Pattern p = Pattern.compile(&quot;(.*)\\s(?i:name=)(\&quot;(.*)\&quot;)\\s(.*)&quot;);<br />
+        Matcher m = p.matcher(example);<br />
+        if (m.matches()) {</p>
+<p>            MatchResult mr = m.toMatchResult();</p>
+<p>            for( int i = 0; i &amp;lt;= mr.groupCount(); i++) {<br />
+                System.out.println(&quot;Group &quot;+i+&quot;: &quot;+mr.group(i));<br />
+            }<br />
+        }</p>
+<p>        if ( m.matches() &amp;amp;&amp;amp; m.groupCount()&amp;gt;=3) {<br />
+            System.out.println(&quot;Extracted value: &quot;+m.group(3));<br />
+        }</p>
+<p>    }<br />
+{% endhighlight %}</p>
+<p>The code output yielded is:</p>
+<pre>
+Group 0: somePrefix NAME="value" someSuffix
+Group 1: somePrefix
+Group 2: "value"
+Group 3: value
+Group 4: someSuffix
+Extracted value: value
+</pre>

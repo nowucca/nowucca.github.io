@@ -1,0 +1,24 @@
+---
+layout: post
+title: 'Case Study: Migrating Netty 3 to Netty 4 APIs'
+date: 2014-08-12 17:29:10.000000000 -07:00
+categories: []
+tags: []
+status: draft
+type: post
+published: false
+---
+<p>In this blog post I walk through some of the issues I encountered when upgrading a customer socket server with a custom socket protocol from Netty 3 to Netty 4 high performance Java networking library.</p>
+<p>Firstly I recommend you read the<a href="http://netty.io/wiki/user-guide-for-4.x.html"> guide for the basics of Netty 4</a>.</p>
+<p>The following are some of the more obvious areas of difference from Netty 3:</p>
+<ul class="task-list">
+<li>new EventLoopGroup initialization, with listeners looks cleaner and keeps client/server differences minimal</li>
+<li>No more need to releaseExternalResources</li>
+<li>Use writeAndFlush not write - flushes need to be explicit</li>
+<li>messages need to be "released", the new SimpleUpstreamHandlers do this automatically but if not using those pay attention to releasing messages.</li>
+<li>Use ByteUtil for some operations previously found in ChannelHandlers</li>
+</ul>
+<p>&nbsp;</p>
+<p>References</p>
+<p>[1] <a class="commit-link" href="https://github.com/nowucca/shurly/commit/1d6be4336418ec621caaae9a936fd8c19667f4de">nowucca/shurly@<tt>1d6be43</tt></a> for a commit that shows changes required to upgrade spanning a server, client, encoders and decoders.</p>
+<p>&nbsp;</p>

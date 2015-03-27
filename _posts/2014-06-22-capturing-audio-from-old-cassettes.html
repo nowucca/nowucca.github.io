@@ -1,0 +1,32 @@
+---
+layout: post
+title: Capturing Audio from Old Cassettes
+date: 2014-06-22 08:38:53.000000000 -07:00
+categories:
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>I have about 50-100 old tapes I saved from my teens and twenties.</p>
+<p>What's the best way to digitize these tapes?  I have Mac OSX, so I did some research and found <a href="http://www.amazon.com/gp/product/B008ASIZR4/ref=oh_details_o02_s00_i00?ie=UTF8&amp;psc=1">this awesome USB cassette capture device</a> and a fantastic piece of software called Audacity for MacOSX.</p>
+<p>Purchase the capture device, plug it in via USB.</p>
+<p><img id="landingImage" class="a-dynamic-image  a-stretch-vertical" src="{{site.url}}/assets/2112iVODifL.jpg" alt="Handy USB Cassette Player and Tape-to-MP3 Digital Converter" /></p>
+<p>Download <a href="http://audacity.sourceforge.net/">Audacity 2.0.5</a> and the <a href="http://manual.audacityteam.org/o/man/faq_installation_and_plug_ins.html#lame">LAME encoder plugin</a> if you want to save MP3 files.</p>
+<p><img src="{{site.url}}/assets/audacity-windows-small.jpg" alt="Screenshots" /></p>
+<p><a href="http://www.amazon.com/review/R24N4XLWHPAGP3/ref=cm_cr_dp_title?ie=UTF8&amp;ASIN=B008ASIZR4&amp;nodeID=172282&amp;store=electronics">This review gives some instructions</a> for first using Audacity.  I'll copy it here as well in case it goes away - this is just the raw basics of how to use Audacity.</p>
+<blockquote><p>Briefly, hook up the player via USB, download Audacity 2.0.5 (free), change Mac System Preferences - Sound - Input - to "USB PnP Audio Device". In Audacity, go to the Transport tab and turn off Overdub, and turn on Software Playthrough (can also be changed under Audacity - Preferences - Recording).</p>
+<p>When playing your tape, press the round red "recording" button in the Audacity window; without pressing it I couldn't hear the playback. When song is finished, press the square brown "stop" button. To save the recorded song, go to File - export - and name your file and format (I used AIFF for Mac). Once saved to my desktop, I then delete the recording from Audacity by clicking the 'X' beside Audio Track in the Audacity window. I haven't played around with all the filters and effects yet. I converted only around 20 songs so far, so cannot judge longevity of the unit yet.</p></blockquote>
+<p>Once you've played around with Audacity for a while, you'll start to think - this is still hard to capture songs from 50 audio tapes.  So here is my current workflow for helping.</p>
+<p><strong>Timed Recordings:</strong> I don't have time to listen to all these tapes, but they have to play to capture.  Use Transport/TimerRecord in Audacity to record for 45 minutes per side.  This means you don't have to worry about coming back to stop capturing right on time.</p>
+<p><img class="alignleft  wp-image-277" src="{{site.url}}/assets/audacity_timer_record_progress_and_audacity_and_gorilla-icloud_psafe3.png" alt="Audacity_Timer_Record_Progress_and_Audacity_and_gorilla-icloud_psafe3" width="403" height="292" /></p>
+<p>&nbsp;</p>
+<p><strong>Tape Hiss Removal (Works great, Must do)</strong>: Once captured, I select about a 5 second tape hiss section, and use Effect/Noise Removal/Get Noise Profile.  Then I hit Cmd-A to select the whole audio track, and use Effect Noise Removal/OK to remove the hiss from the whole audio track.  I use the default settings and this cleans up the tape hiss wonderfully!  See <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;cad=rja&amp;uact=8&amp;ved=0CCoQtwIwAQ&amp;url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DlAmTk3XVJkE&amp;ei=bfemU_35OY7roASSj4GwAQ&amp;usg=AFQjCNEAUFPDQfY164iJzyBeC0thnfGTmQ&amp;sig2=Vf0xHyp6b0GLlc-k7m6jMQ">this tutorial </a>for more detail.</p>
+<p><strong>Automatically Finding and Labeling Multiple Songs:</strong> If you have multiple songs that you've captured, you want to export them easily into individual files. Use Analyze/Sound Finder (<a href="http://manual.audacityteam.org/o/man/silence_finder_and_sound_finder.html">see manual documentation here</a>) to automatically find sections of sound and make labels for the songs.  You might have to tweak settings or delete some spurious labels using Tracks/Edit Labels, but it's not too hard to get it sorted out so that you have a label track under the captured audio with labels (numbered) for each song.  I then name each label using the song name instead of a number, and export using File/Export Multiple.  You still get a chance to edit each song's metadata as you export them - awesome.<br />
+<strong>Use File/Export Multiple</strong>.  I export using variable bit-rate MP3 at the highest quality.  A 5 minute song might be about 10 megabytes, but the quality is fantastic.</p>
+<p>&nbsp;</p>
+<p>That's it - so if you have a desire to capture some good quality songs from old tapes you can do it on MacOSX (currently I use 10.9.3) really well and get some great high quality digital encoded songs from those old tapes.</p>
+<p>Good luck!</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

@@ -1,0 +1,23 @@
+---
+layout: post
+title: Progressively-Enhanced Deductive Continuous Component Testing
+date: 2013-08-11 21:01:30.000000000 -07:00
+categories:
+- Technology
+tags:
+- continuous integration
+- testware
+status: publish
+type: post
+published: true
+---
+<p>There has been an uptake of continuous integration systems (<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CEwQFjAA&amp;url=https%3A%2F%2Fwww.atlassian.com%2Fsoftware%2Fbamboo&amp;ei=7FoIUsS7LsjAyAGcqIDoDw&amp;usg=AFQjCNGim3yOJxv-yQ4cDNJge87iwyyBAQ&amp;bvm=bv.50500085,d.aWc" target="_blank">Bamboo</a>, <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CEsQFjAA&amp;url=http%3A%2F%2Fjenkins-ci.org%2F&amp;ei=G1sIUsjPNbCgyQG7sICAAQ&amp;usg=AFQjCNEg9n54GhchxIYPppm5IrgJ6XssCA&amp;bvm=bv.50500085,d.aWc" target="_blank">jenkins</a>) in recent years.  The goal is to automate a graph of dependent component builds, generating binary artifacts and associated component documentation, test results etc. At one extreme, <a href="http://prezi.com/l4hsfyhmmajx/continuous-deployment-at-wealthfront-qcon-san-francisco-2010/" target="_blank">some companies use these systems as a pipeline to push to production from every developer checkin</a>, or be ready to push to production at predefined times every day.</p>
+<p>To achieve close to that extreme, it becomes necessary to heavily optimize the speed of your tests.  This is usually done by ensuring that the testing is done in-memory, using in-memory databases, email servers and other testware and mock frameworks.  To make use of these mocks and testware, one learns to code to interfaces, or at least APIs that can be easily mocked.</p>
+<p>In the effort for speed, what if something goes wrong and a test fails?  The idea of progressively-enhancing tests in a deductive manner <strong>is to run test suites in phases that following the logic of what a developer investigating a failure would take</strong>.</p>
+<p><a href="{{site.url}}/assets/3coloryinyang.jpeg"><img class="alignleft size-full wp-image-264" alt="3coloryinyang" src="{{site.url}}/assets/3coloryinyang.jpeg" width="196" height="257" /></a></p>
+<p>&nbsp;</p>
+<p><em><strong>Phase 1: "Lightning"</strong></em>: developers maintain tests and they succeed more than they fail, so perform a full run optimized for success and speed.</p>
+<p><em><strong>Phase 2: "Sherlock":</strong></em> the first thing a developer now does is run failing tests again in isolation, so run just the failing tests again.  If they now succeed, we likely have a test-ware or intermittent issue.  Yuck, but at least we found out quickly.  If the tests still fail, we can proceed to the next phase.</p>
+<p><em><strong>Phase 3: "Watson"</strong></em>: the developer will now want more information on the failing tests, so we re-run the tests but with debug logging turned on for all the test-ware components to gather as much evidence as possible for the failure.  If they now succeed, we have a test-ware issue, or a logging issue.  Yuck again.  If the tests fail again, we have more information now.</p>
+<p><em><strong>Phase 4: "Deductions"</strong></em>: the developer will now want to examine all the evidence, arrange to learn and write helper scripts to analyze the evidence over time as developers see certain classes of failures, and put summary information about failures front-and-center.</p>
+<p>We should <strong>AUTOMATE THIS LOGIC</strong> that developers use to investigate issues into our continuous integration systems.</p>

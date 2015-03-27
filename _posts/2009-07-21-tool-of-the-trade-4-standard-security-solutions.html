@@ -1,0 +1,18 @@
+---
+layout: post
+title: 'Tool of the Trade 4: Standard Security Solutions'
+date: 2009-07-21 20:02:03.000000000 -07:00
+categories:
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>All security concerns that are not high-level concerns (such as 'store credit cards securely') will not be brought up by customers, but standard tools of the trade are able to help.</p>
+<p>I want to concentrate on two high level aspects of website security: authentication, and authorization.  If you have authored a few web sites, you see the same problems arising over and over: how to identify customers, validate their data, and how to grant them rights to perform website actions or show different views.  These sort of issues tend to become common QA test cases that can yield surprising failures over time in regression suites unless the foundation for the system is solid.</p>
+<h2>Authentication</h2>
+<p>This is the problem of how to identify a customer <strong>and their data</strong> when they make a request.  Typical solutions range from a plain-text cookie through to standard and then custom HTTP session management solutions.   In my mind authentication also covers standard solutions for securing round-tripped page parameters in HTML hidden input elements.  Cross site request forgery ( XSRF ) and the <a href="http://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" target="_blank">Top 10 list from OWASP</a> include additional common security problems that are solved by nuances of authentication regimes.</p>
+<h2>Authorization</h2>
+<p>There are<a href="http://ramsnotes.blogspot.com/2009/07/roles-and-permissions-authorization.html" target="_blank"> two main kinds of authorization regimes</a>.  Over time, I have seen privilege-based systems scale well - where the code focuses on the privileges  required for an activity rather than the roles that may have the permissions.  The system is more  naturally immune to unanticipated changes to roles' privileges, and the code is more stable over time.  The upshot is to consider the privileges required for different system behavior first, and only then identify the roles of the system.  This is usually the reverse of the role-based analysis often touted by development methodologies.</p>
+<p>There are usually four relations in these sort of systems: User &lt;-&gt; Groups,  Groups &lt;-&gt; Groups, Groups &lt;-&gt; Roles and Roles &lt;-&gt; Privileges.  The question of a user holding a privilege becomes a hierarchical search through their groups for roles containing the privilege.</p>

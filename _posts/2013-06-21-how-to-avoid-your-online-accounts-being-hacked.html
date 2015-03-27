@@ -1,0 +1,37 @@
+---
+layout: post
+title: How to Avoid Your Online Accounts Being Hacked
+date: 2013-06-21 01:49:55.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>From time to time, your email account might get hacked.   Friends start reporting strange Viagra emails coming from you.  Why is this happening to you?  Well, unless (like <a href="http://en.wikipedia.org/wiki/PlayStation_Network_outage" target="_blank">Sony</a> or <a href="http://labs.spotify.com/2013/06/18/creative-usernames/" target="_blank">Spotify</a>) the site was hacked, you were hacked because you chose a bad password.  It's your own fault.</p>
+<p><strong>Big deal</strong> - if you are lucky you can change the password and everything is fine?  <strong>Wrong</strong>.</p>
+<h2>The Problems When Your Email Account Is Hacked</h2>
+<p>We are now much more knowledgable and <a href="http://krebsonsecurity.com/2013/06/the-value-of-a-hacked-email-account/" target="_blank">informed about some scenarios that can occur and what the value of your account information</a> is online.  The <a href="http://www.emptyage.com/post/28679875595/yes-i-was-hacked-hard" target="_blank">walls could certainly be closing  in</a> on your identity and digital well-being.</p>
+<p><a style="line-height:1.714285714;font-size:1rem;" href="http://stevenatkinson.files.wordpress.com/2013/06/squeezed.jpeg"><img alt="squeezed" src="{{site.url}}/assets/squeezed.jpeg" width="275" height="183" /></a></p>
+<p><em>"I'm hacked and I can't get out."</em></p>
+<p>When your account gets hacked, be aware of 2 things:</p>
+<ul>
+<li>any information/attachments that contains birth-dates, sensitive documents have been slurped.  100% for sure.  Do an audit.  Cancel credit card numbers that were in your emails, etc.</li>
+<li>immediately remember and change all the accounts that use the same password - because you probably use the same password for lots of Internet sites, right?</li>
+</ul>
+<p>The essence of this password problem is an old problem - we have made it<a href="http://xkcd.com/936/" target="_blank"> too easy for humans to forget their password, and too easy for attackers to discover our passwords</a>.  So we pick simple mnemonics or phrases, that can be guessed very easily.  Consequences for revelation of emails for people are higher than ever.</p>
+<h2 class="mceTemp">The Working Solution for Me Now</h2>
+<h3>Password-Safe Files</h3>
+<p><a href="http://stevenatkinson.files.wordpress.com/2013/06/safe.jpeg"><img class="size-full wp-image-260" alt="A &quot;safe file&quot; contains encrypted passwords" src="{{site.url}}/assets/safe.jpeg" width="190" height="265" /></a> A "safe file" contains encrypted passwords</p>
+<p>I'm using the<a href="http://en.wikipedia.org/wiki/Pwsafe" target="_blank"> Password Safe concept</a> of "safe" files containing Blowfish (now TwoFish-) encrypted passwords, <a href="http://www.nmrc.org/pub/review/psafe-1.7.html" target="_blank">developed by Bruce Schneier.</a></p>
+<p>Each "safe" is a file that has a collection of login entries, each containing a name, url, and password at minimum.     The program can generate new passwords, that are hard to remember and very hard to crack.</p>
+<p>Let's say we create a new login entry for linkedin.com.  We generate a new password, and then change our password at linkedin.com to the generated password.  Now you have the protection of a great password, and all you have to do is copy the generated password from the "safe"'s linkedin.com login entry every time you log in to the website.</p>
+<p>The "safe" file has all the important entries, so it needs to be encrypted itself.  So each "safe' needs a master password to decrypt - that is the only password you will need to remember.</p>
+<h3>How I Use "Safe" Files</h3>
+<p>I need a central place to store a "safe" file in the <a href="http://sourceforge.net/p/passwordsafe/code/5212/tree/trunk/pwsafe/pwsafe/docs/formatV3.txt" target="_blank">Password Safe file format</a>.   I choose DropBox because I can easily share the one "safe" file across multiple devices.</p>
+<p>For my Mac Desktop:  Use <a href="https://github.com/zdia/gorilla/wiki" target="_blank">Password Gorilla</a> as the interface to the "safe" file on Dropbox.</p>
+<p>For my iPad and iPhone: Use <a href="http://app77.com/pwSafe/" target="_blank">pwSafe</a> (port of Password Safe) and their Dropbox Sync feature to access the same "safe" file.  A four-finger swipe left and right  achieves nice copy/paste from the "pwSafe" app to websites/ other apps that need passwords entered.</p>
+<p>There is a<a href="http://passwordsafe.sourceforge.net/relatedprojects.shtml"> good resource for information about other clients</a> that can see safes.</p>
+<h3>Astute Readers Will See A Problem</h3>
+<p>it might be a bad idea to store my Dropbox account password in the "safe' file that is on DropBox.  I could easily run into a situation where I could lose access to Dropbox and hence all my passwords.  I've decided to make a separate "safe" file on a USB key or 3 that I stash and/or carry around with me that contains the Dropbox details contained inside.  If I need to remember the Dropbox account password, I can also write it down on a piece of paper too.</p>
+<p>In this way, you can safely have ALL your passwords be nice, random long generated ones.</p>

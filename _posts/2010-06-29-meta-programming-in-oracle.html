@@ -1,0 +1,33 @@
+---
+layout: post
+title: Meta-Programming in Oracle
+date: 2010-06-29 09:07:25.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>If you find yourself writing very similar routines in Oracle that all follow the same "Pattern", consider using some features of the "EXECUTE IMMEDIATE" statement and GLOBAL FUNCTIONS to capture that pattern and make it reusable.  You can start your own little personal library of Oracle routines based on this pattern.</p>
+<p>Let's look at a concrete problem: I was faced with a task to clone data spread across multiple Oracle tables with key constraints in 3 levels of master-detail relations. The clones should have the same "object graph", that is the same set of relations between them as the originals, with their 'LOCATION_ID' being different.  This was part of opening up new locations for the $dayjob business.</p>
+<p>As an engineer experienced with certain deployment issues, when I wrote a script to do anything, including this cloning, it was important to me that the script be re-runnable, so if any errors occurred during the running of the script, we could re-run the script and simply not try to migrate objects that had already been migrated.  So, I found myself writing almost the same routine to see whether an object at each level of these master-detail relationships existed.  I got sick of writing "SELECT some_id INTO result_id FROM some_table WHERE some_column = some_value".</p>
+<p>It turns out, by reading the Oracle manual, it is possible to use a small piece of meta-programming to make one single routine that will work for all tables.  So the key to this is that the <a href="http://download.oracle.com/docs/cd/B19306_01/appdev.102/b14261/executeimmediate_statement.htm" target="_blank">EXECUTE IMMEDIATE </a>statement can be used to build and execute SQL statements, and one can capture results and use bind variables to build generic queries.  Here is a routine that can look to see whether a row with a particular value for a field exists, and if it does, provides it's id.  This works for single-key, single-id "objects" in Oracle, but can easily be extended for more complex situations.</p>
+<pre><span style="font-family:Consolas, Monaco, 'Courier New', Courier, monospace;line-height:18px;font-size:12px;white-space:pre;"> </span><span style="line-height:18px;font-size:12px;white-space:pre;"><span style="color:#000000;">FUNCTION FIND_OBJECT(in_id_field VARCHAR2, </span></span><span style="line-height:18px;font-size:12px;white-space:pre;"><span style="color:#000000;">in_table_name VARCHAR2, i</span></span><span style="line-height:18px;font-size:12px;white-space:pre;"><span style="color:#000000;">n_search_field VARCHAR2, i</span></span><span style="line-height:18px;font-size:12px;white-space:pre;"><span style="color:#000000;">n_search_value VARCHAR2</span></span><span style="line-height:18px;font-size:12px;white-space:pre;"><span style="color:#000000;"> ) RETURN NUMBER</span></span></pre>
+<pre><span style="color:#000000;">  IS</span>
+
+<span style="color:#000000;">    v_result NUMBER := Constantsp.int_UNKNOWN_ERROR;</span>
+
+<span style="color:#000000;">  BEGIN</span>
+
+<span style="color:#000000;">   EXECUTE IMMEDIATE 'SELECT ' || in_id_field || ' FROM ' || in_table_name || ' WHERE ' || in_search_field || ' = :value'</span>
+
+<span style="color:#000000;">   INTO v_result USING in_search_value;</span>
+
+<span style="color:#000000;">   RETURN NVL(v_result, Constantsp.int_UNKNOWN_ERROR);</span>
+
+<span style="color:#000000;">  END FIND_OBJECT;</span>
+<span style="color:#000000;">
+</span>
+<span style="color:#000000;">
+</span></pre>
+<p>So if you ever find yourself in the unfortunate position of writing Oracle database scripts using PL/SQL, and want to speed things up a little, use this meta-programming technique and it will save you some time and repetition.</p>

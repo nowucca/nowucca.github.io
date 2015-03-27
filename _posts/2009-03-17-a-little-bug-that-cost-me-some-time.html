@@ -1,0 +1,25 @@
+---
+layout: post
+title: A little bug that cost me some time
+date: 2009-03-17 06:01:38.000000000 -07:00
+categories:
+- Software Development Story
+- Technology
+tags:
+- operator precedence
+- software
+status: publish
+type: post
+published: true
+---
+<p>Sometimes as developers we all have that bug that is hiding in plain sight.  I think it it valuable to share real world experience and share some of these ones because you never know when you will encounter the same things again.</p>
+<p>So, I have this bug hiding in plain sight - I am trying to manually 'adjust' a memberId before computing a percentage-based MOD for multivariate testing cell assignment.  Why am I adjusting the memberId like this?  Well, over time, using an adjustment will help avoid selecting the same poor customers for new experiences.  So my method looks like this (please bear in mind this is a cooked-up version so spare me questions):</p>
+<pre>        public int testBasedCellAssignment(String testId, int memberIdAdjustment, int percentage) {
+          if (( memberIdProvider.getMemberId() + memberIdAdjustment % 100 ) &lt; percentage ) {
+             return memberTestService.allocateValue(testId);
+          }
+          return memberTestService.defaultValue(testId);
+        }</pre>
+<p>This will always return the default value for the test.  Why?</p>
+<p>...</p>
+<p>Well because the MOD (%) operator binds more tightly than PLUS (+).  Because we have more than 100 members at work, the IF condition is never true.   This of course was not immediately obvious - in fact I only worked it out in the car on the way home.</p>

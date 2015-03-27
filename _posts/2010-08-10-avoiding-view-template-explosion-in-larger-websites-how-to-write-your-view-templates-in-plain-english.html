@@ -1,0 +1,24 @@
+---
+layout: post
+title: 'Avoiding View Template Explosion in Larger Websites: How to write your View
+  Templates in Plain English'
+date: 2010-08-10 10:46:04.000000000 -07:00
+categories:
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>The Problem: You have a page on a  website whose messaging becomes highly conditional on customer state.  Many messaging and page module nuances are controlled by many aspects of your system state.  For shorthand, let us say this is a "legislation" page (due to the obscure rules and levels of conditionality that is usually embodied by legistative text).</p>
+<p><strong>The Natural solution</strong>: Most of the time, a legislation page, once written lives on forever.  So the natural basic solution that comes up is to not solve it - add more conditional logic to the page view template, and/or to add more information to the model object(s) backing the page.  This leads to a complex and bloated view for the page.  No one will read your piece of legislation, and no-one will want to amend it.  Amendments may even creep in as included-views.  The idea of amendments leads to the next solution.  But this solution is fine, as long as you do not have to scale.</p>
+<p><strong>The Divide-It-and-Hide-it Solution</strong>: Break the pages into "components" or "blocks" or "modules" and use a separate include for each module.  Often this leads to development of a model object for each component, or it makes the page conceptually more difficult to visualize as a user-interface-engineer, especially for things like box models, padding and margin sizes  and stretch constraints. To obtain control of the whole, on would need to amalgamate all the legislative text together to maintain a cohesive picture.  Looking and trying to maintain your hidden-included view templates is not feasible; they will only ever be viewed as standalone documents, and bugs about how they break the larger page are just waiting to happen.</p>
+<p><strong>Double-Interpreter Solution</strong>: Break the pages into "blocks".  Each block has a name.  Build a domain-specific interpreter for your system state: given the state, page and block name, this interpreter retrieves and interprets different snippets of text.  As we are evaluating the outer view template, these blocks have their contents retrieved and interpreted by another text template engine (Velocity, StringTemplate, Freemarker) and expanded into the block's contents.  This way, you are building an domain-specific interpreter within your outer view-tempalte interpreter - hence "double-interpreter" solution.   By using a second interpreter, you achieve these things:</p>
+<ul>
+<li>The complex conditionality of your state gets embedded into the logic that maps system state to pieces of text</li>
+<li>Each text is simpler, readable in isolation and solves one 'bottom level' condition.</li>
+<li>You can easily gather up texts and their conditions to give to product management.</li>
+<li>You can use the second level of interpreter to still refer to dynamic values of system state to fill in 'holes' of your text.  You don't lose the power to do that.</li>
+<li>You can use the inner interpreter dynamic lookup of text  to dynamically change saidtext without redeploying the system.</li>
+</ul>
+<p>You can then use such a dynamic system to fill in more blocks over time, and make this system participate in smarter page construction schemes (early sending of JS and CSS, smart 'blocks' with SLAs to backend content providers with static fallbacks etc.).  But that's the subject of a different post.</p>

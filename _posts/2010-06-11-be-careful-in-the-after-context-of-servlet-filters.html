@@ -1,0 +1,16 @@
+---
+layout: post
+title: Be careful in the "after" context of servlet filters
+date: 2010-06-11 10:27:46.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>I am using the POST-REDIRECT-GET paradigm for some new code at the $dayjob.  One of the problems with this pattern is that it becomes hard to handle bounces between servers / non-sticky sessions well.  Why?  Well if there is some data you need to remember even if you move to another server (such as flow parameters, or in general view-state) that is too long to squeeze into a redirect Location: header, what can one do?</p>
+<p>The problem at hand is - you want to save some state across a redirect (perhaps to avoid database hits during the view page).  That state cannot fit into a GET request.  The state need not be remembered beyond the lifetime of the view request - it can therefore be considered transient.</p>
+<p>I see two options in this case - use a storage technology on your server-side that is shared amongst your server farm or use a cookie to save your transient view state.  I prefer the cookie solution because the data is small-ish and transient.  We could spread the data over multiple cookies if it grew large enough.</p>
+<p>So now to implementation design.  This saving of state seems like a perfect fit for a servlet filter or interceptor-in-a-filter liek Struts2 provides for.  The saving a restoration of the view state is a separate concern, and should be separate from the processing of the request if possible.  However, be warned that if your redirect (HttpServletResponse.sendRedirect) occurs before you try to write the cookie in your separate interceptor, your cookie is silently not written in Tomcat 6.0.10 because the response has been committed already (see highlighted section from the Servlet 2.5 API below).</p>
+<p><a href="http://stevenatkinson.files.wordpress.com/2010/06/6-11-2010-10-14-29-am.png"><img class="alignleft size-full wp-image-135" title="6-11-2010 10-14-29 AM" src="{{site.url}}/assets/6-11-2010-10-14-29-am.png" alt="" width="450" height="88" /></a></p>
+<p>To solve this problem, I was forced to take the saving of the cookie and place it into your application logic as a little post-action piece of logic, and before the redirect response is committed.  You may not need to have a separate filter or interceptor any more.  The restoration of the cookie data can also be placed intot he application logic to keep it symmetrical.  In my case, there was another reason for the filter to exist, namely setting up and restoring some other objects that did not require an uncommitted response.  So I decided to leave the restoration with the filter, and keep the code polluting application space to a minimum.</p>

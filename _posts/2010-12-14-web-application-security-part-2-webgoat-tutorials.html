@@ -1,0 +1,53 @@
+---
+layout: post
+title: HTTP Splitting
+date: 2010-12-14 02:15:29.000000000 -08:00
+categories: []
+tags:
+- security
+status: publish
+type: post
+published: true
+---
+<p>Tonight I am trying to install WebScarab so I can complete the webgoat tutorials (at least some of them).</p>
+<p>I have to back track and install java on my laptop to run the installer (java jdk - web scarab - web goat is the stack so far).</p>
+<p>I'd like to work through WebGoat and get to SQL injection attacks - I'd like to be able to see what that looks like, basically because this xkcd comic is hilarious: <a href="http://xkcd.com/327/">http://xkcd.com/327/</a>.</p>
+<p>Ack:  webgoat died in java 6 with this exception from the installer:</p>
+<pre>Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+at com.izforge.izpack.panels.ShortcutPanel.isValidated(ShortcutPanel.jav
+a:575)
+at com.izforge.izpack.installer.InstallerFrame.navigateNext(InstallerFra
+me.java:914)
+at com.izforge.izpack.installer.InstallerFrame$NavigationHandler.actionP
+erformed(InstallerFrame.java:957)</pre>
+<p>Easily solved - simply go to \Prgram Files\WebScarab and launch the webscarab.jar by hand - the only thing this stops is the shortcuts being created. So now I'm wondering about the wisdom of going with Java 6 AWT with this tool that is from 2007, but I'll give it  a go.</p>
+<p>Now I am running WebScarab, I decided to also install Wireshark to have around.  Already had Firebug installed too.</p>
+<p>So I just tested and webscarab appears to be working.  It appears to be nicer than tcpmon from axis.  I'm going to try it out - editing a request on-the-fly seems like a nice feature for debugging issues.</p>
+<h1>First Attack Vector - HTTP Splitting</h1>
+<p>Okay, so I am just working through the HTTP splitting attack - this is using carriage return and line feeds to inject fake responses.</p>
+<p>This can obviously be avoided by filtering input characters to exclude control characters.  An important concern for internationalization.</p>
+<p>I think the key idea is to fool the browser into doing a 302 redirect with a parameter that can contain an encoded line feed and "HTTP/1.1 200 OK" header.  When the server writes out the Location: header for the redirect, we end up simulating a 200 OK on a new line.  The browser interprets this as a second response and you can inject whatever content you like - add an accurate content-length and the browser renders it and whats more stops at the end of your content.</p>
+<p>Example:  (see also <a href="http://www.securiteam.com/securityreviews/5WP0E2KFGK.html">http://www.securiteam.com/securityreviews/5WP0E2KFGK.html</a>):</p>
+<pre>someparameterval
+Content-Length: 0
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 21
+&lt;html&gt;Hacked&lt;/html&gt;</pre>
+<p>One arranges for a 302 to happen where a parameter has a value like:</p>
+<p>someparameterval%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-Type:%20text/html%0d%0aContent-Length:%2022%0d%0a%0d%0a&lt;html&gt;Hacked&lt;/html&gt;</p>
+<p>This ends up rendering a response like:</p>
+<pre>HTTP/1.1 302 Found 
+Date: Tue, 14 Dec 2010 11:11:07 GMT
+Server: Apache/1.3.29 (Unix) mod_ssl/2.8.16 OpenSSL/0.9.7c
+Location: http://attackedhost.com/someurl?parameter=someparameterval
+Content-length: 0
+HTTP/1.1 200 OK
+Content-length: 22 
+&lt;html&gt;Hacked&lt;/html&gt;</pre>
+<p><em><em>...rest of 302 headers....</em></em></p>
+<p>This attack vector supports others (cache poisoning for example uses a future Last-Modified header with this vector to fool browsers into caching a attack site).  In a sense this attack is not "pure" - it relies on browsers being "naive" and starting processing of the second response in the middle of the 302 response.  Less than satisfying....</p>
+<p>One thought is that many companies protect request parameters but not response ones - we could attack from within a company by setting funny values in these parameters too on the server responses.  That would be more interesting to protect against....</p>
+<p><em><em><br />
+</em></em></p>

@@ -1,0 +1,26 @@
+---
+layout: post
+title: 'Generate your Website Database Layer: NORM not ORM'
+date: 2010-12-14 00:10:11.000000000 -08:00
+categories:
+- Design Pattern
+- Technology
+tags:
+- database orm startup
+status: publish
+type: post
+published: true
+---
+<p>What is NORM?</p>
+<p>The "Natural Object Relational Model"  is a play on "Object Relational Model" (ORM).  The key idea is to completely generate your database layer from the natural relational schema first, using standard ORM patterns.  This is the opposite of what many top-down methodologies (hibernate) and model-driven "CASE" tools provide.  It allows for accurate modelling of legacy and larger relational databases also.</p>
+<p>Normally, database layers for websites are model based.  One is supposed to start with the objects, model them in some notation, and possibly annotate them to describe how they are stored.  Then the database or interpreting engine transforms the models into database classes, whose object instances at runtime generate queries - most ORM database systems generate the DML statements on the fly based on object values and annotated "instructions".</p>
+<p>The idea of NORM is to generate up-front all the code from the relational database itself, using database metadata and "instructions".  This makes it possible to work with legacy databases.</p>
+<p>I'll go into more detail in a future post about some of the code, and what instructions look like, but the key concept is to interpret the existing database schema, with some declarative instructions on how to generate database classes that handle natural, inner and outer joins, aggregate functions and even group by functionality.  See how we can also pass-through database-specific syntax for SQL when needed.</p>
+<p>In a nutshell, this has worked well at a couple of startups so far - the generated classes model database table accesses, and one can support natural and outer joins for objects declaratively with the "instructions".</p>
+<p>Why generate a database layer?</p>
+<p>Almost everything you need is defined in the schema already - one should not have to repeat one's self.  With a minimal set of instructions, one can generate 100% of your database/persistence layer.  One can even use this technique for no-SQL "schema-less" databases by inferring a schema from sample data.</p>
+<p>How do I handle complex database-specific queries?</p>
+<p>NORM systems always allow for a pass-through that allows complex queries.  Try to avoid them.  But if you must use database-specific features for efficiency....you should be able to.</p>
+<p>How is this different from Hibernate-type systems?</p>
+<p>We start by modelling the database itself and generating abstract objects, rather than abstract models turning into database access.  We enjoy all the same advantages in terms of the DRY principle and naming consistency.  Additionally, generating the database layer yields benefits in that we can adorn generated classes with extra behavior (e.g. performance tracers) by changing the generator.</p>
+<p>&nbsp;</p>

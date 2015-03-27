@@ -1,0 +1,130 @@
+---
+layout: post
+title: Migrating a Single Page Webapp to Real-time Event Driven Architecture
+date: 2013-04-23 05:48:37.000000000 -07:00
+categories: []
+tags: []
+status: draft
+type: post
+published: false
+---
+<p>Introduce Messaging to Your Web Clients</p>
+<p>* Add in a web messaging component.  Kaazing Messaging Gateway offers many clients, enterprise-class features and is free to try for up to 50 connections.</p>
+<p>Security, Authentication and Authorization</p>
+<p>* Deploy a message queue for each customer in your system.</p>
+<p>* Integrate messaging security with your existing authentication regime</p>
+<p>* Implement an Authorization factory</p>
+<p>Replace all XHR calls with asynchronous messaging</p>
+<p>* Adapt all XHR calls in your web application to become XHR-RequestMessage and XHR-ResponseMessage objects on the message bus.</p>
+<p>&nbsp;</p>
+<h1>Example Application Spec</h1>
+<p>Let's say you have a single page webapp to combine results from multiple search engines.</p>
+<p>The user enters in one or two search terms, and results are found and displayed on a per-engine basis.  Each result has an associated URL.  The first way of combining results is to group each engine's results by origin of the URL, and assign a score to each group (# results in group to start).  All groups across engines are combined, and ranked according to combined score from each engine.</p>
+<p>For example:</p>
+<p>Search: tesla s rentals</p>
+<p>Bing:</p>
+<ul id="wg0">
+<li>
+<div>
+<div>
+<div>
+<h3><a href="http://www.prnewswire.com/news-releases/the-tesla-model-s-comes-to-mpg-car-rental-201310001.html">The <strong>Tesla</strong> Model <strong>S</strong> Comes to MPG Car <strong>Rental</strong> -- LOS ANGELES, …</a></h3>
+</div>
+<div><cite>http://www.prnewswire.com/news-releases/the-tesla-model-s-comes-to-mpg-car-rental-201310001.html PR Newswire</cite>2 days ago</div>
+<p>The <strong>Tesla</strong> Model <strong>S</strong> Comes to MPG Car <strong>Rental</strong>. History Making Motor Trend 2013 Car of the Year Comes to Southern California'<strong>s</strong> Premier Green Car <strong>Rental</strong> Agency.</p>
+</div>
+</div>
+</li>
+<li>
+<div>
+<div>
+<div>
+<h3><a href="http://www.exoticcarrentals.biz/tesla-electric-car.html"><strong>Tesla</strong> Motors Electric Car <strong>Rentals</strong> - Exotic Car <strong>Rental</strong> Luxury Car …</a></h3>
+</div>
+<div><cite>www.exoticcar<strong>rentals</strong>.biz/<strong>tesla</strong>-electric-car.html</cite></div>
+<p><strong>Tesla</strong> electric car <strong>rentals</strong>. ... Electric Car <strong>Rentals</strong>: I couldn't believe it when I heard about the <strong>Tesla</strong> Electric car. 100% electric and it looks great.</p>
+</div>
+</div>
+</li>
+<li>
+<div>
+<div>
+<div>
+<h3><a href="http://www.automotiveworld.com/news-releases/the-tesla-model-s-comes-to-mpg-car-rental/">The <strong>Tesla</strong> Model <strong>S</strong> Comes to MPG Car <strong>Rental</strong> - Automotive World</a></h3>
+</div>
+<div><cite>www.automotiveworld.com/.../the-<strong>tesla</strong>-model-<strong>s</strong>-comes-to-mpg-car-<strong>rental</strong></cite></div>
+<p>History Making Motor Trend 2013 Car of the Year Comes to Southern California'<strong>s</strong> Premier Green Car <strong>Rental</strong> Agency It'<strong>s</strong> not every day that you even get to l</p>
+</div>
+</div>
+</li>
+<li>
+<div>
+<div>
+<div>
+<h3><a href="http://www.montereyherald.com/digitalextras/ci_22934250/teslas-fuzzy-math-would-put-model-s-your"><strong>Tesla</strong>'<strong>s</strong> fuzzy math would put a Model <strong>S</strong> in your driveway for $543 ...</a></h3>
+</div>
+<div>
+<div><a href="http://www.montereyherald.com/digitalextras/ci_22934250/teslas-fuzzy-math-would-put-model-s-your"><img id="fdemb_0" alt="Tesla's fuzzy math would put a Model S in your driveway for $543 per month" src="{{site.url}}/assets/2Q==" width="48" height="48" /></a></div>
+<div><cite>www.montereyherald.com/digitalextras/ci_22934250/<strong>teslas</strong>-fuzzy-math...</cite></div>
+<p>Apr 03, 2013 · <strong>Tesla</strong>'<strong>s</strong> somewhat fuzzy math assumes your time is worth $100 an hour, ... 2 ROOMS FOR <strong>RENT</strong> (Top <strong>Rentals</strong>) 1BA/1BA (Top <strong>Rentals</strong>) Monterey 3bd 2ba (Top <strong>Rentals</strong>)</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<div>
+<div>
+<div>
+<h3><a href="http://www.kotatv.com/story/21872768/the-tesla-model-s-comes-to-mpg-car-rental">The <strong>Tesla</strong> Model <strong>S</strong> Comes to MPG Car <strong>Rental</strong> - KOTA Territory …</a></h3>
+</div>
+<div><cite>www.kotatv.com/.../21872768/the-<strong>tesla</strong>-model-<strong>s</strong>-comes-to-mpg-car-<strong>rental</strong></cite></div>
+<p>KOTATV.com, KOTA-TV, KOTA Territory news,Rapid City news,Black Hills news,Spearfish news,Sturgis news,Lead-Deadwood news,Custer news,Gillette …</p>
+</div>
+</div>
+</li>
+</ul>
+<p>Google:</p>
+<ol id="rso">
+<li>
+<h3><a href="http://www.cnbc.com/id/100614201">The <em>Tesla</em> Model <em>S</em> Comes to MPG Car <em>Rental</em></a></h3>
+<div>
+<div><cite>www.cnbc.com/id/100614201</cite><a id="srsl_0"></a></div>
+<p>2 days ago – LOS ANGELES, April 3, 2013/ PRNewswire/-- It's not every day that you even get to look at– much less drive– a car that is poised to make some <b>...</b></p>
+</div>
+</li>
+<li>
+<div> <a href="http://www.reuters.com/article/2013/04/03/ca-mpg-rental-tesla-s-idUSnPnLA88475+160+PRN20130403">The <em>Tesla</em> Model <em>S</em> Comes to MPG Car <em>Rental</em> | Reuters</a></div>
+<div></div>
+<div>
+<div><cite>www.reuters.com/.../ca-mpg-<b>rental</b>-<b>tesla</b>-<b>s</b>-idUSnPnLA88475+...</cite><a id="srsl_1"></a></div>
+<p>2 days ago – For best results when printing this announcement, please click on the <b>...</b></p>
+</div>
+</li>
+<li>
+<div><a style="font-size:1.142857143rem;line-height:1.846153846;" href="http://clubsportiva.com/exotic-car-rentals/tesla-model-s-performance-edition"><em>Tesla</em> Model <em>S</em> Performance Edition <em>Rentals</em> | Club Sportiva</a></div>
+<div></div>
+<div>
+<div><cite>clubsportiva.com/...<b>rentals</b>/<b>tesla</b>-model-<b>s</b>-performance-edition</cite><a id="srsl_2"></a></div>
+<p>Year: 2012. MSRP: $105,000. Seats: 5. Engine: 310kW Electric Motor. Horsepower: 416 HP. Torque: 443 ft/lbs. Transmission: Automatic. Driveline: RWD. Weight <b>...</b></p>
+</div>
+</li>
+<li>
+<div> T<a style="font-size:1.142857143rem;line-height:1.846153846;" href="http://blog.clubsportiva.com/tesla-model-s-an-electrifying-feat-of-american-engineering-you-dont-want-to-miss/"><em>esla</em> Model <em>S</em>: An Electrifying Feat of American Engineering You <b>...</b></a></div>
+<div></div>
+<div>
+<div><cite>blog.clubsportiva.com/<b>tesla</b>-model-<b>s</b>-an-electrifying-feat-of-a...</cite><a id="srsl_3"></a></div>
+<p>Jan 10, 2013 – Our <em>Tesla</em> Model <em>S rental</em> is a vehicle that is hard to contain your excitement over, so let's dive right into the best part, the center of the loaf, <b>...</b></p>
+</div>
+</li>
+<li>
+<div> <a style="font-size:1.142857143rem;line-height:1.846153846;" href="http://www.getaround.com/Halo">Rent a White <em>Tesla</em> Roadster in San Francisco - Getaround</a></div>
+<div></div>
+<div>
+<div><cite>www.getaround.com/Halo</cite><a id="srsl_4"></a></div>
+<p>This <em>Tesla</em> Roadster <em>S</em> has all the upgrades including a premium suspension system <b>...</b>http://www.<em>teslamotors</em>.com/roadster Estimate 25 miles in range per <em>rental</em> <b>..</b></p>
+</div>
+</li>
+</ol>
+<p>Bing (Grouped by origin, with scores)</p>
+<p>Google (Grouped by origin, with scores)</p>
+<p>Combined (Grouped by origin, with scores)</p>

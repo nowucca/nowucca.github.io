@@ -1,0 +1,24 @@
+---
+layout: post
+title: Using A WebSocket Gateway in Your Application Architecture
+date: 2015-01-10 13:42:51.000000000 -08:00
+categories: []
+tags: []
+status: draft
+type: post
+published: false
+---
+<p>In this article, I discuss advantages of using the Open Source Kaazing WebSocket gateway as a foundation for higher level application development.</p>
+<h2>What are HTML5 WebSockets?</h2>
+<p>HTML5 WebSockets are full-duplex TCP-based connections that are designed to traverse the World-Wide Web, using a standard protocol(1) and a standard API(2).   They allow a browser or desktop to form a secured, persistent two-way socket with a WebSocket server or gateway.  Notably, this allows data to be pushed to the client without the need to resort to older non-standard HTTP-push techniques(3), using a streaming metaphor.</p>
+<p>There are quite a few WebSocket servers available(4), and a JSR proposal(5) for integration of WebSockets into an existing application server now implemented in Tomcat and Spring containers.  Current support for WebSockets in the major browsers can be seen at caniuse.com/?search#websocket.   An interesting blog series, "<a href="http://blog.kaazing.com/2010/02/22/5-signs-you-need-html5-web-sockets-part-1/">5 signs you need HTML5 WebSockets</a>" further justifies why HTML5 WebSockets are here to stay and make sense in a business IT strategy.</p>
+<h2>Why Use HTML5 WebSockets?</h2>
+<p>The fabric of the World Wide Web changes with WebSockets, because WebSockets are a persistent, reliable bi-directional mode of communicating amongst devices on the Internet. This means they are a standards-based foundation for communication using higher-level protocols, much in the same way as many popular protocols are built on top of TCP.</p>
+<ul>
+<li>WebSockets can be used from browser, mobile native and desktop environments.</li>
+<li>WebSockets can be used to push model object updates to edge-caches or client devices without polling</li>
+<li>WebSockets allow large amounts of data to be shared in realtime to client devices</li>
+<li>Using enterprise features from WebSocket servers and gateways, WebSockets can be secured, and load-balanced.</li>
+</ul>
+<p>WebSockets are also slightly more efficient as a protocol compared to the new HTTP/2.0 binary framing protocols (see http://queue.acm.org/detail.cfm?id=2555617) due to a smaller number of overhead bytes per frame.</p>
+<h2>Protocols using HTML5 WebSockets</h2>

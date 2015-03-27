@@ -1,0 +1,16 @@
+---
+layout: post
+title: Anatomy of a Software Worm
+date: 2009-03-23 10:10:20.000000000 -07:00
+categories:
+- Technology
+tags:
+- encryption
+- software
+- worm
+status: publish
+type: post
+published: true
+---
+<p>This is an <a href="http://ping.fm/SFH4w" target="_blank">SRI paper</a> discussing the anatomy of a software worm.  A software worm is a virus that can be used to spread other viruses - they provide "piggyback payload potential". Here is the most interesting part from my current perspective - the worms are set up to periodically synchronize with a known set of IP addresses, and request binary payload updates that contain new viruses.</p>
+<p>What I find most amusing is that the authors of these worms actually have a great case for using public key encryption to make sure that only viruses published by 4092-bit private keys can be used as binary payloads. http://ping.fm/SFH4w</p>

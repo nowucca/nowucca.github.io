@@ -1,0 +1,32 @@
+---
+layout: post
+title: 'Uniformly Random Integers in Java: A Negative Experience'
+date: 2012-02-03 14:38:08.000000000 -08:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>In Java, there is a difference between these calls:</p>
+<p>{% highlight java linenos %}</p>
+<p>Random random = new SecureRandom();</p>
+<p>int result = random.nextInt();</p>
+<p>int resultBounded = random.nextInt(Integer.MAX_VALUE);</p>
+<p>{% endhighlight %}</p>
+<p>The first result will range from -Integer.MAX_VALUE+1 to Integer.MAX_VALUE.<br />
+The bounded result will range from 0 to Integer.MAX_VALUE (inclusive).</p>
+<p>All of this is clearly defined in the Javadoc.</p>
+<p>However, when combined with bitwise operators that preserve the sign bit, it is easy to get an infinite loop:</p>
+<p>{% highlight Java linenos %}</p>
+<p>    public static int sizeOfEncodedInteger(int value) {<br />
+        int contentLength = 0;<br />
+        do {<br />
+            value &gt;&gt;= 8;<br />
+            contentLength++;<br />
+        } while (value != 0);<br />
+        return contentLength;<br />
+    }</p>
+<p>    sizeOfEncodedInteger(result); // can infinite loop<br />
+    sizeOfEncodedInteger(resultBounded); // cannot infinite loop<br />
+{% endhighlight %}</p>

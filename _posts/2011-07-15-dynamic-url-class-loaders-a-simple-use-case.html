@@ -1,0 +1,74 @@
+---
+layout: post
+title: 'Dynamic URL Class Loaders: A Simple Use Case'
+date: 2011-07-15 23:39:22.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>I recently discovered the usefulness of dynamically loading classes into a JVM and thought I would document the discovery.</p>
+<p>Java has a class called a URL class loader (URLClassLoader).  You can create one using a URL and install it as the current thread's class loader.  Any references to new classes will use the URL class loader first before looking at the parent class loader.</p>
+<p>{% highlight java linenos %}<br />
+URL[] urls = ...<br />
+ClassLoader originalClassLoader = Thread.currentThread().getClassLoader();<br />
+ClassLoader newClassLoader = new URLClassLoader(urls, originalClassLoader);</p>
+<p>try {<br />
+    Thread.currentThread().setContextClassLoader(newClassLoader);<br />
+    // write code to load new classes<br />
+} finally {<br />
+    Thread.currentThread().setCLassLoader(originalClassLoader);<br />
+}<br />
+{% endhighlight %}</p>
+<p>The example and the way I used this was for loading in JNDI initial contexts.  See <a href="http://download.oracle.com/javase/jndi/tutorial/beyond/misc/classloader.html">this tutorial</a> for an example.<br />
+One can use this to load groups of classes together from a local jar file.<br />
+I found it useful to extend this a little with the ability to walk a file system searching for jar files to load using a single class loader.</p>
+<p>{% highlight java linenos %}<br />
+public class JarSeekingURLClassLoader extends URLClassLoader {</p>
+<p>    public JarSeekingURLClassLoader(File file, ClassLoader parent) throws MalformedURLException {<br />
+        super(makeUrls(file), parent);<br />
+    }</p>
+<p>    private static URL[] makeUrls(File file) throws MalformedURLException {<br />
+        List&lt;URL&gt; urls = new ArrayList&lt;URL&gt;();<br />
+        urls.add(file.toURI().toURL());<br />
+        File[] jarFilesAndDirs = file.listFiles(new FilenameFilter() {<br />
+            @Override<br />
+            public boolean accept(File dir, String name) {<br />
+                return dir.isDirectory() || name.endsWith(&quot;.jar&quot;);<br />
+            }<br />
+        });<br />
+        if (jarFilesAndDirs != null) {<br />
+            for (File jarOrDir : jarFilesAndDirs) {<br />
+                if (jarOrDir.isDirectory()) {<br />
+                    urls.addAll(Arrays.asList(makeUrls(jarOrDir)));<br />
+                } else {<br />
+                    urls.add(jarOrDir.toURI().toURL());<br />
+                }<br />
+            }<br />
+        }<br />
+        return urls.toArray(new URL[urls.size()]);<br />
+    }</p>
+<p>    public JarSeekingURLClassLoader(File file) throws MalformedURLException {<br />
+        super(makeUrls(file));<br />
+    }</p>
+<p>    public JarSeekingURLClassLoader(File file, ClassLoader parent, URLStreamHandlerFactory factory) throws MalformedURLException {<br />
+        super(makeUrls(file), parent, factory);<br />
+    }<br />
+}<br />
+{% endhighlight %}</p>
+<p>One can of course use these two patterns together to arrange to dynamically load a directory full of JAR files using a single class loader.</p>
+<p>{% highlight java linenos %}<br />
+URL[] urls = ...<br />
+ClassLoader originalClassLoader = Thread.currentThread().getClassLoader();<br />
+ClassLoader newClassLoader = new JarSeekingURLClassLoader(new File(Config.getDynamicLibraryLocation());</p>
+<p>try {<br />
+    Thread.currentThread().setContextClassLoader(newClassLoader);<br />
+    // write code to load new classes<br />
+    Class.forName(&quot;com.dynamic.library.class&quot;);<br />
+} finally {<br />
+    Thread.currentThread().setCLassLoader(originalClassLoader);<br />
+}<br />
+{% endhighlight %}</p>
+<p>This trick is handy if you need to simplify your compile time dependencies.</p>
+<p>This is of course getting close to building a dynamic loading system like OSGi, but sometimes small concepts are more efficient.</p>

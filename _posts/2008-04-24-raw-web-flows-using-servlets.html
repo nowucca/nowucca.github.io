@@ -1,0 +1,34 @@
+---
+layout: post
+title: Raw Web Flows using Servlets
+date: 2008-04-24 18:27:41.000000000 -07:00
+tags:
+- java web flow servlet technology
+status: publish
+type: post
+published: true
+---
+<p>I've worked on several small and larger Java web applications.  One common problem at the web presentation layer is how to arrange for web page 'flows' - a task-oriented group of pages that are designed to be visited in sequence, can be entered from multiple entry points and can be exited at any time or followed through to 'completion'.  Complications arise:</p>
+<ul>
+<li>some of the pages may be optional, or conditionally shown</li>
+<li>error conditions within the flow need to be handled</li>
+<li>customer bookmark pages within the flow, so each page needs to be aware that the customer state may not be 'as arranged for'</li>
+<li>where to 'go back' to after flow completion depends on entry points and state and needs to be carried</li>
+<li>it is hard to detect when a customer leaves the flow to another arbitrary page</li>
+</ul>
+<p>One potential solution for this problem is to encode flows as a master-servlet, where each page is a detail-servlet. The master servlet is responsible for evaluating request and session state, and making a determination as to which flow page should be shown, and forward or redirect to the correct page. The detail page servlets can reasonably be used for bookmark-arrival-detection, handling error conditions according to product needs (e.g. looping back to the page on form errors, having a flow-error page).</p>
+<p>Using master-detail servlets get you the flow, but remembering 'go-back' context (which could be nested if you are in a flow in-a-flow situation) remains a separate problem.  WIth this approach, I have seen a couple of approaches.  One is simply to store the goback context in the HTTP session.  The other is to use custom tags that generate links and forms that maintain the go-back context as an encoded series of urls (abbreviated).   This means you are not using your session to store flow information, avoiding management of when to add and clear flow context.</p>
+<p>Some more detail on the custom-tag idea - the idea is to have a few tags that generate links and forms, that are 'goback-aware'.</p>
+<ul>
+<li>a tag to override the &lt;a&gt; tag to maintain (encoded) the go-back context as a series of page keys,</li>
+<li>a &lt;goback&gt; tag to render a link to go back to the outer context (useful for embedding exit links in flow pages)</li>
+<li>a &lt;form&gt; tag that round-trips any goback context as hidden parameters to be made available on the next page</li>
+<li>a redirect mechanism that preserves the goback parameters if necessary</li>
+<li>a &lt;a-no-goback&gt; tag that renders a link that loses the goback context (useful for forgetting all goback context)</li>
+</ul>
+<p>This takes some work to arrange for the tags to be understood and used by everyone on the team, but it's clean and allwos control of context.</p>
+<p>The remaining problem is how to detect when you leave a flow.  Ideally, the system woudlbe aware enough to generate events or provide joinpoints for these actions, and listeners could handle various concerns (session cleanup, flow-level logging, test-data-collection etc).  Using the master-servlet, this becomes problematic because people can leavea  flow using arbitrary urls.  So, we would need to embed knowledge of flow-urls into a core place (e.g. a BaseServlet) in order to detect flow entry and exit conditions - a place where allr equests come through.  This is a centralization of flow knowledge that could become a service your application provides.  One could manage it via a database or configuration files etc.</p>
+<p>There are a number of web flow solutions out there - this article described a roll-your-own master-detail servlet design and some shortcomings.</p>
+<p>See also: http://www.springframework.org/webflow</p>
+
+{% include twitter_plug.html %}

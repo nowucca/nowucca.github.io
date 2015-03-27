@@ -1,0 +1,20 @@
+---
+layout: post
+title: IaaS Software Design Guidelines
+date: 2009-04-14 02:26:43.000000000 -07:00
+categories:
+- Technology
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>There are more <a href="http://en.wikipedia.org/wiki/Infrastructure_as_a_Service">Infrastructure-as-a-Service</a> (IaaS) providers offering services to the public. Current providers include Amazon's Web Services (http://aws.amazon.com), GoGrid by GoDaddy and others.  As the infrastructure becomes compelling to medium and large enterprises in addition to startups, we will see some re-establishment of some enterprise computing principles and guidelines.</p>
+<p>Here are some thoughts and an outline of issues to think about when designing IaaS software stacks:</p>
+<p><strong>IaaS Software Design Guidelines</strong></p>
+<p>* Data Storage: Are you looking for a file-based mounted device?  Does the same filesystem need to be mounted on one or more machines at a time?  Does it need to elastically scale?  Are you offered access to a storage tier via a web service?  What is the performance like for large or small binary files?  What are the storage limits offered by your IaaS provider?  What are the storage costs, and how will they grow as your user base grows?</p>
+<p>* <a title="ACID vs BASE databases" href="http://queue.acm.org/detail.cfm?id=1394128" target="_blank">ACID vs BASE databases and the CAP theorem</a>:  How are you going to handle transactional data?  Will your database design scale to millions of concurrent users? Do you need to use a relational database at all?  How will you handle data replication and fault tolerance for transactional data?</p>
+<p>* Security on Leased Infrastructure: On leased infrastructure, the ideal security would be to protect your data on the wire, memory and in disk.  Passwords should be encrypted when stored.  A central key management service that is part of an authentication regime seems to be one way to go.  Another way to go is to distribute keystores around your ecosystem, with a master unlock function.  You could consider having connection tokens between services, that are required to initiate a connection.  You can also consider having session or interaction tokens that identify an interaction betwen services and must be presented with each request.</p>
+<p>* Discovery services - load balancing: The discovery problem is given a very few IP addresses, how does one discover the IP addresses of one among hundreds of machines in the cloud? This calls for a generic discovery service that is responsible for connecting requests to the correct services. Many IaaS providers are not yet providing administratable hardware load-balancers as part of their offering, so together with this discovery service one may consider implementing a load-balancing feature as well, to balance load among servers of the same type (e.g. cache servers, web servers etc).</p>
+<p>* Authentication and Access Control Services: Ideally one can use <a href="http://www.acegisecurity.org/">Acegi security</a> or some other central service that models members, groups with roles and privileges assigned to those roles.  Systems of these kinds solve access-control questions by asking of a member has a particular privilege.  Consider modelling your servers as people, with each having access roles and privileges.  Then all agents in your IaaS ecosystem will use a single decision-maker for access control issues.</p>
+<p>* Sessions and Interactions between Services: The <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST philosophy</a> is worth considering as a choice for protocol amongst services.  Put simply, REST means using HTTP as a protocol, and designing resource-oriented services (URIs are resources).  REST tries to keep the server stateless as much as possible.  Other options are SOAP and other RPC-style or custom protocols (of which I have been involved with 3).  This tends to get religious pretty quickly - one advantage to REST is to reduce the scope of server-state when at all possible.</p>

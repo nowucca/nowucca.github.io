@@ -1,0 +1,33 @@
+---
+layout: post
+title: Chaining JAAS Login Modules Together
+date: 2012-10-03 01:26:14.000000000 -07:00
+categories: []
+tags: []
+status: draft
+type: post
+published: false
+---
+<p>In this post I provide some simple examples to explain the concept of chaining login modules together using the JAAS framework.  Online, examples were few and far between, and this is something that is important to understand if you are building a JAAS-compatible login strategy.</p>
+<p>I'll start with a quick JAAS primer, and then provide some examples with code as to how you can chain modules together.</p>
+<h1>JAAS Quickstart</h1>
+<p>The Java Authentication and Authorization Service (JAAS) is a framework designed to unify the process of authentication in general.  The main reference guide<a href="http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/JAASRefGuide.html" target="_blank">[3]</a> provides a basic overview of the classes in the framework, and the online JaaS book<a href="http://jaasbook.com">[5]</a> is valuable reading as well.  Here I will attempt to explain those concepts relevant to chaining of login modules as a very rudimentary introduction.</p>
+<p>To do authentication in the JAAS style, there are two aspects to the login/authentication process: Application Space and Authentication Space.</p>
+<p>Application Space: All objects owned by and available within the application surrounding JAAS to support a login attempt.</p>
+<p>Authentication Space: All login module-accessible objects that are created by a JAAS login context.</p>
+<h2>The Process of Login: A Primer</h2>
+<p>The application owns the construction of a LoginContext object.  A new LoginContext is expected to be created for each login attempt (it is the unit of thread safety).  When created, a LoginContext captures authentication details from the application that is needed by the login module chain (for example, a username/password or an authentication token).  These details are put into "callback" objects to become accessible to the authentication space login modules.</p>
+<p>The LoginContext then establishes a shared-state map to provide login modules with a means of communicating data down the chain, and arranges for a application-provided Subject or a fresh Subject object to be instantiated.  Once the shared-state and subject are initialized, the login module configuration is read from a JAAS Configuration object that the application defines.</p>
+<p>The LoginContext then instantiates (using reflection) each login module, then runs the init, login and commit API on each configured login module in turn.  If the process succeeds, the LoginContext makes the Subject object available as a logged-in Subject, otherwise a LoginException is thrown.</p>
+<p>Each LoginModule can either take input using the LoginContext callback objects, or access input from shared-state or both.  Each login module can also access configured options from its JAAS Configuration.</p>
+<p>Introduction to LoginModule Chaining</p>
+<p>The "chain" of login modules is configured in the application, and used by the LoginContext object during the login process to sequentially instantiate LoginModule objects.  Typically, the first LoginModule captures information available to the authentication process, serving as a credential-producer, storing credentials from application space into shared state.  The next LoginModule filters the credentials, inspecting them and transforming them into a form where the next type of LoginModule, a credential-validator, can validate the credentials against a source of truth.</p>
+<p>- Types of LoginModule:  credential producer, credential filter, credential validator.</p>
+<p>Arranging for Chaining with Callbacks and Shared State</p>
+<p>- note the useFirstPass/tryFirstPass and storePass/clearPass options on standard modules and explain how these can be used</p>
+<p>References</p>
+<p><a href="http://download.oracle.com/docs/cd/E19575-01/820-3740/adrcd/index.html" target="_blank">[1]</a> Authentication Chaining Control Types: http://download.oracle.com/docs/cd/E19575-01/820-3740/adrcd/index.html</p>
+<p><a href="http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/JAASLMDevGuide.html" target="_blank">[2]</a> Login Module Developer's Guide (Java v1.4.2, a bit old) http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/JAASLMDevGuide.html#Step 3</p>
+<p><a href="http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/JAASRefGuide.html" target="_blank">[3]</a> Jaas Reference Guide:  http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/JAASRefGuide.html</p>
+<p><a href="http://stackoverflow.com/questions/628416/jaas-for-human-beings">[4]</a> How can I learn about JAAS?: http://stackoverflow.com/questions/628416/jaas-for-human-beings</p>
+<p><a href="http://jaasbook.com">[5]</a> JaaS in Action: http://jaasbook.com</p>

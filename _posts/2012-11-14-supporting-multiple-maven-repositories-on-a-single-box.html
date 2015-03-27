@@ -1,0 +1,39 @@
+---
+layout: post
+title: Supporting Multiple Maven Repositories on a Single Box
+date: 2012-11-14 02:37:57.000000000 -08:00
+categories:
+- Software Development Story
+- Technology
+tags:
+- mvn
+- software
+- technology
+status: publish
+type: post
+published: true
+---
+<p>If you find yourself wishing you could support multiple maven repositories on a single development box:</p>
+<ul>
+<li>to separate work for different clients
+</li>
+<li>to separate work from personal development, or
+</li>
+<li>for managing branches with clashing version numbers
+</li>
+</ul>
+<p>the good news is you can easily start using different maven repositories on a single box by using the "-s" or "--settings" option.</p>
+<p>For example:<br />
+<code>alias my-mvn="mvn -s ~/.m2/my-settings.xml"</code></p>
+<p>Then in the my-settings.xml I specify the <code>localRepository</code>:</p>
+<p>{% highlight xml linenos %}<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</p>
+<p>&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;<br />
+          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br />
+          xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;<br />
+  &lt;localRepository&gt;/path/to/homedir/.m2/my-repository&lt;/localRepository&gt;<br />
+  &lt;interactiveMode&gt;true&lt;/interactiveMode&gt;<br />
+  &lt;offline&gt;false&lt;/offline&gt;</p>
+<p>&lt;/settings&gt;<br />
+{% endhighlight %}</p>
+<p>Et voila!  Seamless builds for my-mvn ending up in a separate repository.</p>

@@ -1,0 +1,58 @@
+---
+layout: post
+title: '"Roll Your Own" Protocols over HTML5 WebSockets'
+date: 2014-08-10 19:46:14.000000000 -07:00
+categories: []
+tags: []
+status: draft
+type: post
+published: false
+---
+<p>In this article, I discuss advantages and an example of using HTML5 WebSockets as a foundation for higher level application protocols.</p>
+<h2>What are HTML5 WebSockets?</h2>
+<p>HTML5 WebSockets are full-duplex TCP-based connections that are designed to traverse the World-Wide Web, using a standard protocol(1) and a standard API(2).   They allow a browser or desktop to form a secured, persistent two-way socket with a WebSocket server or gateway.  Notably, this allows data to be pushed to the client without the need to resort to older non-standard HTTP-push techniques(3).</p>
+<p>There are quite a few WebSocket servers available(4), and a JSR proposal(5) for how to integrate WebSockets into an existing application server.  Current support for WebSockets in the major browsers can be seen at caniuse.com/?search#websocket.   An interesting blog series, "5 signs you need HTML5 WebSockets" further justifies why HTML5 WebSockets are here to stay and make sense in a business IT strategy.</p>
+<h2>Why Use HTML5 WebSockets?</h2>
+<p>The fabric of the World Wide Web changes with WebSockets, because WebSockets are a persistent, reliable bi-directional mode of communicating amongst devices on the Internet. This means they are a standards-based foundation for communication using higher-level protocols, much in the same way as many popular protocols are built on top of TCP.</p>
+<ul>
+<li>WebSockets can be used from browser, mobile native and desktop environments.</li>
+<li>WebSockets can be used to push model object updates to edge-caches or client devices without polling</li>
+<li>WebSockets allow large amounts of data to be shared in realtime to client devices</li>
+<li>Using enterprise features from WebSocket servers and gateways, WebSockets can be secured, and load-balanced.</li>
+</ul>
+<h2>Protocols using HTML5 WebSockets</h2>
+<p>WebSocket Handshake....</p>
+<p>Protocol specification...</p>
+<p>Client library with abstract public API...</p>
+<h3>Existing Protocols over WebSockets</h3>
+<p>SwaggerSockets  REST over WebSockets (JSON-based) (Wordnik)</p>
+<p>Kaazing Gateway JMS Edition (STOMP over WebSockets)   (Kaazing)</p>
+<p><a href="http://tech.kaazing.com/documentation/html5/3.4/dev-protocol/p_protocol_client.html">How to Build a WebSocket Client</a> (Kaazing)</p>
+<p>RDP (Remote Spark)</p>
+<h2>An Example Protocol: A Basic URL shortening service.</h2>
+<h3>Define Protocol</h3>
+<p>Let us define a text protocol for the purposes of an example: SHURLEY: a protocol that lets clients shorten URLs.</p>
+<p>Message format: &lt;magicBytes:int&gt; &lt;version:unsigned-byte&gt; &lt;command:unsigned-byte&gt; &lt;messageId:int&gt; &lt;commandData&gt;</p>
+<p>&lt;magicBytes&gt; ::= 0x5355524C</p>
+<p>&lt;version&gt; ::= 0x01</p>
+<p>&lt;command&gt; ::= &lt;shrink&gt; | &lt;shrunk&gt; | &lt;error&gt;| &lt;follow&gt;</p>
+<p>&lt;shrink&gt; ::=  0x01</p>
+<p>&lt;shrunk&gt; ::= 0x02</p>
+<p>&lt;error&gt; ::= 0x03</p>
+<p>&lt;follow&gt; ::= 0x04</p>
+<p>&lt;commandData&gt; ::= &lt;shrinkData&gt; | &lt;shrunkData&gt; | &lt;errorData&gt;| &lt;followData&gt;</p>
+<p>&lt;shrinkData&gt; ::=  &lt;longUriLen:int&gt;&lt;longUri:utf8-encoded&gt;</p>
+<p>&lt;followData&gt; ::=  &lt;shortUriLen:int&gt;&lt;shortUri:utf8-encoded&gt;</p>
+<p>&lt;shrunkData&gt; ::= &lt;longUriLen:int&gt;&lt;longUri:utf8-encoded&gt;&lt;shortUriLen:int&gt;&lt;shortUri:utf8-encoded&gt;</p>
+<p>&lt;errorData&gt; ::= &lt;errorCode:uint&gt; &lt;reasonLength:int&gt; &lt;reason:utf8-encoded&gt;</p>
+<p>(mention about Thrift, Avro and ProtocolBuf schema-based IDLs)</p>
+<h3>Write Javascript Client</h3>
+<p>text box, "shrink"</p>
+<p>populates a little table of 5 most recent shrinks</p>
+<p>click on a shrink and it displays the full url underneath to redirect with a go button</p>
+<h3>Install a WebSockets Server or Gateway</h3>
+<h3>Implement The Actual Shortening Service</h3>
+<p>interface URIShrinker  URI shrink(URI source)</p>
+<p>Netty gives implementors of socket-servers a huge boost in productivity and quality.</p>
+<p>Conclusion</p>
+<p>We have seen how to "roll your own" protocol on top of WebSockets, and how to extend the reach of that protocol over the web to all kinds of clients, focussing on a Javascript client for an example.  This pattern can be used with more, richer protocols and HTML5 clients to deliver real-time world-class HTML5 applications, with no need for a middle tier.</p>

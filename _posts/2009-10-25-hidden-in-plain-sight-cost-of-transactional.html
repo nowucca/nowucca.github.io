@@ -1,0 +1,15 @@
+---
+layout: post
+title: Hidden-in-plain-sight cost of @Transactional
+date: 2009-10-25 09:49:28.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>This week I discovered why @Transactional(readOnly=true) is not cost free.<br />
+The whole concept of read only transaction is <a href="http://www.codeinstructions.com/2009/04/read-only-transactions-with-spring-and.html" target="_blank">platform-dependent and confusing</a> to start with.</p>
+<p>A read-only transaction with proxies / aspects will still grab a connection and install it in a thread local to implement the readonly transaction.  While this fulfils what you said, it often will not be what you want - it leads to connection pool thrashing if you put in onto a 'hot' method.</p>
+<p>In the case I saw this week, we had put the annotation on a cache-backed database-free method in 'sympathy' while adding the annotation for a couple of new write-only api methods.  This cache method turned out to be called 14 times per page and thrashed the database pool so much that even with pool retries enabled we were getting pool errors and throughput losses.</p>
+<p>So, my current thinking is not to annotate read-only transactions and only annotate the top-level transaction entry points, with proxies around all your Daos to ensure you only get one transaction.  And never add annotations in sympathy without a good reason other than 'it can't hurt'.  Because maybe it will!</p>

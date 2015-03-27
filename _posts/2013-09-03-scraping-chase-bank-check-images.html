@@ -1,0 +1,13 @@
+---
+layout: post
+title: Scraping Chase Bank Check Images
+date: 2013-09-03 00:48:05.000000000 -07:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+---
+<p>In this post I am sharing a little iMacros for Chrome script that lets you scrape Chase Bank check images from your Chase checking account.</p>
+<p>For about a year I've been hand downloading Chase check images every now and then.  But this little iMacros script has helped tonight - it's not yet handling all the work of downloading images yet, or extra pages of check images, but it is a start:</p>
+<pre>VERSION BUILD=6060703 RECORDER=CR<br />URL GOTO=https://banking.chase.com/AccountActivity/AccountDetails.aspx?AI=NNNNNNNNN&amp;PageIndex=1<br />WAIT SECONDS=3<br />TAG POS=1 TYPE=SELECT FORM=ID:AccountDetails ATTR=ID:TxnTypesList CONTENT=%CHECK_WITHDRAWS<br />TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:AccountDetails ATTR=ID:btnShowTxntype<br />WAIT SECONDS=4<br />TAG POS={{!LOOP}} TYPE=A ATTR=TXT:(view)<br />PAUSE</pre>
