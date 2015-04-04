@@ -44,5 +44,3 @@ published: true
 </ul>
 <h2>Conclusion</h2>
 <p>At first glance something seems wrong intuitively that we would ever need a recovery strategy here, but threads could be starved and we never would want to give wrong information to the client; sometimes you can never be sure if the transaction completed when a lock times out.  By implementing all these strategies together, and using the prevention strategy to avoid un-necessarily throwing up the hands with the recovery strategy, we reduce the likelihood of the identified issues (Race conditions, double-transactions and mis-information) about a key transaction to a level that most businesses could tolerate.  We should only pullout this bag of tricks for important transactions.  For example, at Netflix we use modified versions of these strategies for gift purchases and starting memberships, both of which are commerce transactions in the purest sense.</p>
-<h3>Acknowledgements</h3>
-<p>Thanks to Jason Brown for detection strategy design and implementation, and Mohan Doriaswamy  for prevention srategy design.</p>
