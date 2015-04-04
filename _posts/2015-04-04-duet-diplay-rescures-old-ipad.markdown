@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Duet Display can Rescuse Your Old iPad"
+title:  "Duet Display can Rescue Your Old iPad"
 date:   2015-04-04 
 ---
 
