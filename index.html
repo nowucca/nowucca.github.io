@@ -4,20 +4,27 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <h1 class="page-heading">What is nowucca.com?</h1>
+
+  <p>
+  nowucca is short for "no worries", and typifies the sort of self-reliant good-natured get-stuff-done mentality that I strive to bring to my life whenever possible.
+  </p>
+
+  <p>this site captures some professional thoughts and random stuff that happens in my life as a software developer and technologist.  it serves as a sort of memory of my working life along with some other thoughts that spring to mind from a technology or sometimes personal perspective.</p>
+
+  <div class="concept">
+  <h1 class="page-heading">Most Recent Posts</h1>
 
   <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
+    {% for post in site.posts limit:3 %}
+      <li><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span> &raquo; <a class="post-link" href="{{ post.url | prepend: site.baseurl }}) ">{{ post.title }}</a> </li>
     {% endfor %}
   </ul>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+  <span><a href="{{ "/archive.html" | prepend: site.baseurl }}">view all posts</a> or subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a><span>
+  </div>
+
+
+  
 
 </div>
