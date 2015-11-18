@@ -1,7 +1,6 @@
 ---
-layout: page
-title: About Me
-permalink: /license/
+layout: plain
+permalink: /license.text/
 ---
 Copyright 2007-2015, Steven Atkinson. All rights reserved.
 
