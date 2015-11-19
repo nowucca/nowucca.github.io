@@ -1,7 +1,7 @@
 ---
 layout: plain
 charset: utf-8
-permalink: /license.text/
+permalink: /license.txt/
 ---
 Copyright 2007-2015, Steven Atkinson. All rights reserved.
 
