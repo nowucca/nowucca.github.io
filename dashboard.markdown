@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Dashboard
-permalink: /dashboard/
+permalink: /private_nowucca/dashboard/
 ---
 
 <img src="images/wealthfront.png" alt="Wealthfront details" class="photo" />
