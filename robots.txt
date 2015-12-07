@@ -1,0 +1,7 @@
+---
+layout: plain
+charset: utf-8
+permalink: /robots.txt
+---
+User-agent: *
+Disallow: /private_nowucca
