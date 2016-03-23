@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Monitoring Currency Rates with CasperJS and applescript"
+title:  "Monitoring Currency Rates with CasperJS and AppleScript"
 date:   2016-03-17
 ---
 
@@ -14,7 +14,7 @@ use spot deals to transfer at the latest possible exchange rate.  Their fees are
 and you simply transfer money to their account in Australia, and they pay into your US account (or vice-versa) a day or two later.
 
 One feature they offer is a built-in alert system where you can be notified if the rate changes above or goes below specified thresholds.
-Their built-in alert system was terrible, mainly because it was too slow - by the tim eyou received a text or read an email, the rate had changed,
+Their built-in alert system was terrible, mainly because it was too slow - by the time you received a text or read an email, the rate had changed,
 often significantly.
 
 ## The solution
