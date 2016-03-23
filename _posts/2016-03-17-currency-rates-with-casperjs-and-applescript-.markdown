@@ -41,6 +41,9 @@ I highly recommend grabbing [Resurrectio], a chrome extension that really helps 
 and make authoring scripts by example a breeze.
 
 After installation, the Javascript flavor you author scrapers in is reasonably high level.
+
+Full code is available at [this GitHub repository][2].
+
 Here is a sample of the top of the scraper for us forex:
 
 {% highlight javascript %}
@@ -49,6 +52,7 @@ var mouse = require("mouse").create(casper);
 var fs = require('fs');
 var utils = require('utils');
 
+# Read in credentials
 var config = JSON.parse(fs.read('./src/test/resources/usforex.config'));
 var url = 'https://www.usforex.com/login/login';
 
@@ -103,3 +107,4 @@ $ for i in `seq 1 120`
 [PhantomJS]: http://http://phantomjs.org/
 [Resurrectio]: https://github.com/ebrehault/resurrectio
 [1]: http://apple.stackexchange.com/questions/57412/how-can-i-trigger-a-notification-center-notification-from-an-applescript-or-shel
+[2]: https://github.com/nowucca/progmetrix
