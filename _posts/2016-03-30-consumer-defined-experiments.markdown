@@ -2,6 +2,7 @@
 layout: post
 title:  "Technology Customers should be able to run their own experiments"
 date:   2016-03-30
+comments: true
 ---
 
 Let's expose the benefits of experiments (AB or "multivariate" testing) to the consumers of technology apps.
