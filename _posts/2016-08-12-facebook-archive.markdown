@@ -13,7 +13,8 @@ So they say it will take a while and that they will email me when it' done.
 Seems like somebody has actually tasked engineers with this - it's a great thing for personal data management.
 
 I'm trying to lay off Facebook/Twitter and go back to being a techno-nerd with a limited online profile for a while.
-Too many people can link my nowucca users, with my real name and then my Facebook account, for no good reason that I can think of.
+Too many people can link my nowucca users, with my real name and then my Facebook account,
+for no good reason that I can think of.
 
 
 So the only option is really to stop using social media and usernames all over multiple services.
