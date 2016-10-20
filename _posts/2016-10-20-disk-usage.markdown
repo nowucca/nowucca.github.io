@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Free up disc space on a Mac using command line utilities"
-date:   2016-08-12
+date:   2016-10-20
 comments: true
 ---
 
