@@ -54,7 +54,7 @@ var utils = require('utils');
 
 # Read in credentials
 var config = JSON.parse(fs.read('./src/test/resources/usforex.config'));
-var url = 'https://www.usforex.com/login/login';
+var url = 'https://www.ofx.com/en-us/login/login';
 
 casper.start(url, function openedLoginPage() {
     this.echo(this.getTitle());
@@ -102,7 +102,7 @@ $ for i in `seq 1 120`
   done
 {% endhighlight %}
 
-[USForex]: https://usforex.com
+[USForex]: https://www.ofx.com/en-us/
 [CasperJS]: http://casperjs.org
 [PhantomJS]: http://http://phantomjs.org/
 [Resurrectio]: https://github.com/ebrehault/resurrectio
