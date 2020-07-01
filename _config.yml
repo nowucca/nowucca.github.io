@@ -2,10 +2,10 @@
 title: nowucca.com - personal software technology blog
 email: steven@nowucca.com
 description: > # this means to ignore newlines until "baseurl:"
-  "Build software in progressive layers, with test cases; never be rigid or closed. 
+  "Build software in progressive layers, with test cases; never be rigid or closed.
    Have respect for fellow team members; work hard on the things that matter."
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://nowucca.com" # the base hostname & protocol for your site
+url: "https://nowucca.com" # the base hostname & protocol for your site
 twitter_username: nowucca
 twitter_username2: sr_atkinson
 github_username:  nowucca
