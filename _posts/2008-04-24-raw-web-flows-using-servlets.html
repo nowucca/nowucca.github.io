@@ -30,5 +30,3 @@ published: true
 <p>The remaining problem is how to detect when you leave a flow.  Ideally, the system woudlbe aware enough to generate events or provide joinpoints for these actions, and listeners could handle various concerns (session cleanup, flow-level logging, test-data-collection etc).  Using the master-servlet, this becomes problematic because people can leavea  flow using arbitrary urls.  So, we would need to embed knowledge of flow-urls into a core place (e.g. a BaseServlet) in order to detect flow entry and exit conditions - a place where allr equests come through.  This is a centralization of flow knowledge that could become a service your application provides.  One could manage it via a database or configuration files etc.</p>
 <p>There are a number of web flow solutions out there - this article described a roll-your-own master-detail servlet design and some shortcomings.</p>
 <p>See also: http://www.springframework.org/webflow</p>
-
-{% include twitter_plug.html %}

@@ -12,3 +12,4 @@ github_username:  nowucca
 
 # Build settings
 markdown: kramdown
+theme: jekyll-theme-primer

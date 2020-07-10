@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Debugging Issues with Enterprise Shield™"
-date:   2015-05-04 
+date:   2015-05-04
 ---
 
 When I worked at Kaazing, I wrote the first implementation of their [Enterprise Shield™][enterprise-shield-doc] (a.k.a reverse connections) feature for the networking gateway.
@@ -43,7 +43,7 @@ The stable state of the system was a collection of prepared connections between 
 				|          | <--(prepared)--> |              |
 				+----------+                  +--------------+
 
-Having taken care of all these concerns, we were faced with this challenge: **On very slow virtual machines, running Ubuntu, we were never reaching the stable state.  We would thrash, and would continue building and tearing down both the SOCKS and the prepared WebSocket connections.**  
+Having taken care of all these concerns, we were faced with this challenge: **On very slow virtual machines, running Ubuntu, we were never reaching the stable state.  We would thrash, and would continue building and tearing down both the SOCKS and the prepared WebSocket connections.**
 
 Recreating the same Ubuntu version on a VirtualBox machine and throttling the CPU fortunately reproduced the same errors.
 Here's the issues that we encountered.
@@ -114,9 +114,9 @@ The bad and fixed code:
         IoBuffer buffer = (IoBuffer) message;
         int discriminator = buffer.get(0) & 0xff;
     }
-    
+
 // Good code is smarter for coalesced buffers.
-        
+
     @Override
     public void messageReceived (NextFilter nextFilter, IoSession session,
             Object message)throws Exception {
@@ -146,11 +146,9 @@ THe fix was to avoid the race condition by making it impossible to receive a PON
 
 If you are interested in the Kaazing Gateway and the Enterprise Shield features, head on over to:
 
-* the [open source community edition of the Kaazing WebSocket Gateway][kaazing-org], 
-* download the free fully functional version of the [commercial Kaazing WebSocket Gateway](http://developer.kaazing.com/downloads/)  or 
+* the [open source community edition of the Kaazing WebSocket Gateway][kaazing-org],
+* download the free fully functional version of the [commercial Kaazing WebSocket Gateway](http://developer.kaazing.com/downloads/)  or
 * browse the [documentation explaining Enterprise Shield][enterprise-shield-doc].
-
-{% include twitter_plug.html %}
 
 [enterprise-shield-doc]: http://developer.kaazing.com/documentation/5.0/reverse-connectivity/o_rc_checklist.html
 [kaazing-org]: http://kaazing.org/
