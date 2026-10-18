@@ -121,6 +121,19 @@
   .tag.check{color:var(--amber);border:1px solid rgba(255,180,84,.35);background:rgba(255,180,84,.07)}
   .tag.ref{color:var(--muted);border:1px solid var(--line)}
 
+  /* card for a pin tapped on the map */
+  .pin{cursor:pointer}
+  .pin:focus{outline:none}
+  .pin:focus-visible .pin-dot{stroke:var(--text);stroke-width:3}
+  .pick{border:1px solid rgba(255,180,84,.45);border-radius:14px;padding:8px 8px 9px;margin-bottom:6px;
+    background:rgba(255,180,84,.035);box-shadow:0 0 26px -10px rgba(255,180,84,.45)}
+  .pick-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 2px 8px 6px}
+  .pick-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+  .pick-x{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:var(--panel);
+    color:var(--text);cursor:pointer;display:grid;place-items:center;padding:0;transition:.15s;flex:none}
+  .pick-x:hover{border-color:var(--amber);color:var(--amber);background:rgba(255,180,84,.1)}
+  .pick-x:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
   /* links on venue names */
   .stop h3 a,.tl-body h5 a{color:inherit;text-decoration:none}
   .stop h3 a:hover,.tl-body h5 a:hover{color:var(--amber)}
@@ -225,6 +238,13 @@
       </div>
 
       <div class="list">
+        <div class="pick" id="pick" hidden>
+          <div class="pick-head">
+            <span class="pick-label" id="pick-label" aria-live="polite"></span>
+            <button class="pick-x" id="pick-x" aria-label="Close this card" title="Close"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+          </div>
+          <div id="pick-card"></div>
+        </div>
         <div class="list-head"><span>Crawl order — inward</span><span>Dir · dist</span></div>
         <div id="list"></div>
       </div>
@@ -237,7 +257,7 @@
       </div>
       <div>
         <h4>Notes</h4>
-        <p id="foot-notes">Tap a venue name to open its site. <span data-personal>Unconfirmed venues are tagged on their card. </span>District crawls live under the Playbooks tab, not as pins.</p>
+        <p id="foot-notes">Tap a number on the map to pull up its card; tap a venue name to open its site. <span data-personal>Unconfirmed venues are tagged on their card. </span>District crawls live under the Playbooks tab, not as pins.</p>
       </div>
     </div>
   </section>
@@ -504,10 +524,10 @@
   var showNames=n<=18;
   STOPS.forEach(function(s,i){
     var kind=(i===0?"start":(i===n-1?"home":(s.been?"been":"mid")));
-    var grp=el('g',{"class":"pin",style:"animation-delay:"+(0.4+i*0.13)+"s"});
+    var grp=el('g',{"class":"pin",style:"animation-delay:"+(0.4+i*0.13)+"s","data-i":i,tabindex:"0",role:"button","aria-label":"Stop "+(i+1)+": "+s.n});
     grp.appendChild(el('circle',{cx:s.x,cy:s.y,r:"19",fill:"url(#glow)",opacity:".42"}));
     var fill=kind==="start"?"var(--pink)":(kind==="been"?"var(--green)":(kind==="home"?"var(--amber-bright)":"var(--amber)"));
-    grp.appendChild(el('circle',{cx:s.x,cy:s.y,r:"13.5",fill:fill,stroke:"var(--ink)","stroke-width":"2"}));
+    grp.appendChild(el('circle',{"class":"pin-dot",cx:s.x,cy:s.y,r:"13.5",fill:fill,stroke:"var(--ink)","stroke-width":"2"}));
     var num=el('text',{x:s.x,y:s.y+5,"text-anchor":"middle","font-family":"var(--font-mono)","font-weight":"700","font-size":"13.5",fill:"var(--ink)"});
     num.textContent=(i+1);grp.appendChild(num);
     if(showNames){
@@ -540,6 +560,46 @@
     s.no=i+1;
     var kind=(i===0?"start":(i===n-1?"home":(s.been?"been":"mid")));
     list.appendChild(stopCard(s,i+1,kind,false));
+  });
+
+  // ---------- TAPPED PIN → CARD ----------
+  var pick=document.getElementById('pick'), pickCard=document.getElementById('pick-card'),
+      pickLabel=document.getElementById('pick-label'), picked=-1;
+  var ring=el('circle',{r:"20",fill:"none",stroke:"var(--text)","stroke-width":"2.5","pointer-events":"none",opacity:"0"});
+  scene.appendChild(ring);
+  function showPick(i){
+    var s=STOPS[i]; picked=i;
+    pickLabel.textContent="Stop "+s.no+" of "+n;
+    pickCard.innerHTML='';
+    pickCard.appendChild(stopCard(s,s.no,(i===0?"start":(i===n-1?"home":(s.been?"been":"mid"))),true));
+    ring.setAttribute('cx',s.x);ring.setAttribute('cy',s.y);ring.setAttribute('opacity','1');
+    pick.hidden=false;
+    pick.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  }
+  function closePick(){
+    if(picked<0)return;
+    var back=pick.contains(document.activeElement)?scene.querySelector('.pin[data-i="'+picked+'"]'):null;
+    pick.hidden=true;pickCard.innerHTML='';ring.setAttribute('opacity','0');picked=-1;
+    if(back)back.focus();
+  }
+  document.getElementById('pick-x').addEventListener('click',closePick);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closePick();});
+  // The map captures the pointer for panning, so pins never get a click: a tap is a
+  // single pointer going down and up on a pin without dragging.
+  var mapSvg=document.getElementById('map'), tap=null, downs=0;
+  mapSvg.addEventListener('pointerdown',function(e){
+    downs++;
+    var p=e.target.closest&&e.target.closest('.pin');
+    tap=(downs===1&&p)?{i:+p.getAttribute('data-i'),id:e.pointerId,x:e.clientX,y:e.clientY}:null;
+  });
+  mapSvg.addEventListener('pointerup',function(e){
+    if(tap&&e.pointerId===tap.id&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<8)showPick(tap.i);
+    tap=null;downs=Math.max(0,downs-1);
+  });
+  mapSvg.addEventListener('pointercancel',function(){tap=null;downs=Math.max(0,downs-1);});
+  scene.addEventListener('keydown',function(e){
+    var p=e.target.closest&&e.target.closest('.pin');
+    if(p&&(e.key==='Enter'||e.key===' ')){e.preventDefault();showPick(+p.getAttribute('data-i'));}
   });
 
   // ---------- BY CATEGORY ----------
