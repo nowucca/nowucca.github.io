@@ -88,8 +88,9 @@
     cursor:pointer;display:grid;place-items:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:.15s;line-height:1;padding:0}
   .zoomctl button:hover{border-color:var(--amber);color:var(--amber)}
   .zoomctl button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
-  .maphint{position:absolute;left:18px;bottom:12px;font-family:var(--font-mono);font-size:10px;
+  .maphint{position:absolute;left:18px;right:62px;bottom:12px;font-family:var(--font-mono);font-size:10px;
     letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.55;z-index:2;pointer-events:none}
+  @media(max-width:420px){.maphint .wheel{display:none}}
 
   .list{display:flex;flex-direction:column;gap:9px}
   .list-head{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
@@ -213,7 +214,7 @@
             <button id="zout" aria-label="Zoom out" title="Zoom out">&minus;</button>
             <button id="zreset" aria-label="Reset zoom" title="Reset view">⤢</button>
           </div>
-          <span class="maphint">scroll / pinch to zoom · drag to pan</span>
+          <span class="maphint"><span class="wheel">scroll / </span>pinch to zoom · drag to pan</span>
         </div>
         <div class="legend">
           <span><span class="dot p"></span> Start · outer frontier</span>
