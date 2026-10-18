@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<!-- Built from radar-template.html by public-build.py. Edit the template, not this file. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A downtown-centered radar of Austin bars wound into one inward crawl, plus ready-made district crawls with the timing worked out.">
+<meta property="og:title" content="The Austin Spiral — Inward Bar Crawl">
+<meta property="og:description" content="A downtown-centered radar of Austin bars wound into one inward crawl, plus ready-made district crawls with the timing worked out.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nowucca.com/austin-spiral">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0e15">
+<link rel="canonical" href="https://nowucca.com/austin-spiral">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍸</text></svg>">
+<title>The Austin Spiral — Inward Bar Crawl</title>
+<style>
+  :root{
+    --ink:#0a0e15; --panel:#121824; --panel-2:#0e131d;
+    --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.05);
+    --text:#ede6d8; --muted:#8b93a4;
+    --amber:#ffb454; --amber-bright:#ffd48a; --amber-dim:#7a5a2c;
+    --teal:#3a7d8c; --pink:#ff6b9d; --green:#79e0a6;
+    --font-display:"Helvetica Neue",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --font-body:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Menlo","Cascadia Code",monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(1200px 760px at 72% -6%, rgba(255,180,84,.06), transparent 60%),
+      radial-gradient(900px 620px at 6% 106%, rgba(58,125,140,.08), transparent 60%),
+      var(--ink);
+    color:var(--text);font-family:var(--font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1160px;margin:0 auto;padding:clamp(20px,4vw,52px) clamp(16px,4vw,40px) 76px}
+
+  header{margin-bottom:clamp(18px,3vw,28px)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--amber);opacity:.9;margin:0 0 14px;display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--amber-dim),transparent)}
+  h1{font-family:var(--font-display);font-weight:800;font-size:clamp(38px,7.5vw,74px);line-height:.94;
+    letter-spacing:-.02em;text-wrap:balance;margin:0;text-shadow:0 0 22px rgba(255,180,84,.28),0 0 3px rgba(255,180,84,.4)}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{max-width:64ch;color:var(--muted);font-size:clamp(15px,1.7vw,18px);margin:18px 0 0}
+  .lede b{color:var(--text);font-weight:600}
+
+  /* ---- tabs ---- */
+  .tabs{display:inline-flex;gap:4px;margin-top:24px;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:4px}
+  .tab{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);background:none;border:0;padding:9px 18px;border-radius:9px;cursor:pointer;transition:.2s}
+  .tab:hover{color:var(--text)}
+  .tab[aria-selected="true"]{background:var(--amber);color:var(--ink);font-weight:600;box-shadow:0 0 16px rgba(255,180,84,.35)}
+  .tab:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .view[hidden]{display:none}
+  .tabs{flex-wrap:wrap;max-width:100%}
+  @media(max-width:480px){.tab{padding:9px 11px;letter-spacing:.06em}}
+
+  /* ---- by category ---- */
+  .cat-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:clamp(20px,3vw,32px) 0 16px}
+  .cat-bar label{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .cat-select{appearance:none;-webkit-appearance:none;color-scheme:dark;max-width:100%;cursor:pointer;
+    background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ffb454' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 14px center;
+    border:1px solid var(--line);border-radius:10px;color:var(--text);font-family:var(--font-mono);font-size:13px;
+    padding:10px 40px 10px 14px;transition:border-color .2s}
+  .cat-select:hover{border-color:rgba(255,180,84,.35)}
+  .cat-select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .cat-summary{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.04em}
+  .cat-grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+  .stop .cats{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.8;margin:6px 0 0}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,34px);margin-top:clamp(20px,3vw,32px)}
+  @media(min-width:960px){.grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:start}}
+
+  .mapcard{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:18px;padding:8px;position:relative;overflow:hidden;
+    box-shadow:0 24px 60px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.03)}
+  .mapcard svg{display:block;width:100%;height:auto}
+  .maplabel{position:absolute;left:18px;top:14px;font-family:var(--font-mono);font-size:11px;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--muted);z-index:2}
+  .count{position:absolute;right:18px;top:14px;font-family:var(--font-mono);font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--amber);opacity:.85;z-index:2}
+  .zoomctl{position:absolute;right:14px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:3}
+  .zoomctl button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
+    background:rgba(18,24,36,.82);color:var(--text);font-size:18px;font-family:var(--font-mono);
+    cursor:pointer;display:grid;place-items:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:.15s;line-height:1;padding:0}
+  .zoomctl button:hover{border-color:var(--amber);color:var(--amber)}
+  .zoomctl button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .maphint{position:absolute;left:18px;bottom:12px;font-family:var(--font-mono);font-size:10px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.55;z-index:2;pointer-events:none}
+
+  .list{display:flex;flex-direction:column;gap:9px}
+  .list-head{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);display:flex;justify-content:space-between;padding:0 4px 4px}
+  .stop{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:start;
+    background:linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,0));
+    border:1px solid var(--line);border-radius:12px;padding:11px 13px;transition:border-color .2s,transform .2s}
+  .stop:hover{border-color:rgba(255,180,84,.35);transform:translateX(2px)}
+  .num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+    font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--ink);
+    background:var(--amber);box-shadow:0 0 13px rgba(255,180,84,.4)}
+  .stop[data-kind="start"] .num{background:var(--pink);box-shadow:0 0 13px rgba(255,107,157,.5)}
+  .stop[data-kind="been"] .num{background:var(--green);box-shadow:0 0 13px rgba(121,224,166,.4)}
+  .stop[data-kind="home"] .num{background:var(--amber-bright);box-shadow:0 0 16px rgba(255,212,138,.6)}
+  .stop-body{min-width:0}
+  .stop-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .stop h3{font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:-.01em;margin:0}
+  .hood{font-family:var(--font-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--amber);opacity:.85}
+  .addr{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);margin:3px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .note{font-size:12.5px;color:var(--muted);margin:5px 0 0}
+  .meta{font-family:var(--font-mono);font-size:11px;color:var(--text);text-align:right;white-space:nowrap;
+    font-variant-numeric:tabular-nums;line-height:1.35}
+  .meta .dir{color:var(--amber);font-size:12px}
+  .meta .mi{color:var(--muted)}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9.5px;
+    letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-top:7px}
+  .tag.been{color:var(--green);border:1px solid rgba(121,224,166,.4);background:rgba(121,224,166,.07)}
+  .tag.check{color:var(--amber);border:1px solid rgba(255,180,84,.35);background:rgba(255,180,84,.07)}
+  .tag.ref{color:var(--muted);border:1px solid var(--line)}
+
+  /* links on venue names */
+  .stop h3 a,.tl-body h5 a{color:inherit;text-decoration:none}
+  .stop h3 a:hover,.tl-body h5 a:hover{color:var(--amber)}
+  .lnk{font-size:.78em;color:var(--amber);opacity:.7;vertical-align:1px}
+  a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:3px}
+
+  .foot{margin-top:30px;border-top:1px solid var(--line);padding-top:22px;display:grid;gap:16px}
+  @media(min-width:720px){.foot{grid-template-columns:1fr 1fr}}
+  .foot h4{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin:0 0 8px}
+  .foot p{margin:0;color:var(--muted);font-size:13px;max-width:54ch}
+  .foot code{font-family:var(--font-mono);color:var(--text);font-size:12px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px 18px;margin:12px 6px 0;font-family:var(--font-mono);
+    font-size:11px;color:var(--muted);letter-spacing:.03em}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.a{background:var(--amber)} .dot.p{background:var(--pink)} .dot.g{background:var(--green)}
+
+  /* ---- playbooks ---- */
+  .pb-grid{display:grid;gap:20px;margin-top:6px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+  .pb-card{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;
+    box-shadow:0 20px 50px -34px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.03)}
+  .pb-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .pb-title{font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+  .pb-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .pb-window{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--amber);
+    border:1px solid rgba(255,180,84,.35);background:rgba(255,180,84,.07);border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .pb-blurb{font-size:12.5px;color:var(--muted);margin:0}
+  .tl{position:relative;display:flex;flex-direction:column}
+  .tl::before{content:"";position:absolute;left:54px;top:16px;bottom:16px;width:1px;background:var(--line-2)}
+  .tl-item{position:relative;display:grid;grid-template-columns:48px 1fr;gap:14px;padding:9px 0}
+  .tl-item::before{content:"";position:absolute;left:50px;top:14px;width:9px;height:9px;border-radius:50%;
+    background:var(--amber);border:2px solid var(--panel);box-shadow:0 0 8px rgba(255,180,84,.6);z-index:1}
+  .tl-item:first-child::before{background:var(--pink);box-shadow:0 0 8px rgba(255,107,157,.6)}
+  .tl-time{font-family:var(--font-mono);font-size:11.5px;color:var(--amber);font-variant-numeric:tabular-nums;text-align:right;padding-top:2px}
+  .tl-body h5{font-family:var(--font-display);font-weight:700;font-size:13.5px;margin:0;color:var(--text)}
+  .tl-body p{margin:2px 0 0;font-size:12px;color:var(--muted);line-height:1.4}
+  .tl-move{position:relative;padding:5px 0 5px 62px;font-family:var(--font-mono);font-size:10.5px;
+    font-style:italic;color:var(--muted);letter-spacing:.02em}
+  .pb-foot{border-top:1px solid var(--line);padding-top:10px;font-family:var(--font-mono);font-size:10.5px;color:var(--muted)}
+  .pb-id{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;color:var(--muted);opacity:.65;margin-top:-6px}
+  .pb-note{margin:24px 4px 0;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.02em}
+
+  @media(prefers-reduced-motion:no-preference){
+    .spiral-line{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.8s .2s ease forwards}
+    .pin{opacity:0;animation:pop .4s ease forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    @keyframes pop{to{opacity:1}}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow" id="eyebrow">Bar &amp; Nightlife</p>
+    <h1>The Austin <em>Spiral</em></h1>
+    <p class="lede">Two ways to run a night. The <b>Spiral</b> is a downtown radar of every saved bar, wound into one inward coil. <b>Playbooks</b> are ready-made district crawls — venue by venue, in walking order, with the timing worked out. Tap any venue name to open its site.</p>
+    <div class="tabs" role="tablist" aria-label="Views">
+      <button class="tab" role="tab" data-view="spiral" aria-selected="true">The Spiral</button>
+      <button class="tab" role="tab" data-view="playbooks" aria-selected="false">Playbooks</button>
+      <button class="tab" role="tab" data-view="category" aria-selected="false">By category</button>
+    </div>
+  </header>
+
+  <!-- ============ SPIRAL VIEW ============ -->
+  <section class="view" id="view-spiral" role="tabpanel">
+    <div class="grid">
+      <div>
+        <div class="mapcard">
+          <span class="maplabel">Downtown radar · bearing true, distance warped</span>
+          <span class="count" id="count"></span>
+          <svg id="map" viewBox="0 0 1125 1025" role="img" aria-label="A downtown-centered radar of Austin bars with an inward spiral crawl route">
+            <defs>
+              <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffb454" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#ffb454" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="route" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ff6b9d"/>
+                <stop offset="45%" stop-color="#ffb454"/>
+                <stop offset="100%" stop-color="#ffd48a"/>
+              </linearGradient>
+              <filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+            </defs>
+            <g id="scene"></g>
+          </svg>
+          <div class="zoomctl">
+            <button id="zin" aria-label="Zoom in" title="Zoom in">+</button>
+            <button id="zout" aria-label="Zoom out" title="Zoom out">&minus;</button>
+            <button id="zreset" aria-label="Reset zoom" title="Reset view">⤢</button>
+          </div>
+          <span class="maphint">scroll / pinch to zoom · drag to pan</span>
+        </div>
+        <div class="legend">
+          <span><span class="dot p"></span> Start · outer frontier</span>
+          <span><span class="dot a"></span> Stop inward</span>
+          <span data-personal><span class="dot g"></span> Been</span>
+          <span>· ends downtown</span>
+        </div>
+      </div>
+
+      <div class="list">
+        <div class="list-head"><span>Crawl order — inward</span><span>Dir · dist</span></div>
+        <div id="list"></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div>
+        <h4>How the order works</h4>
+        <p>Center is downtown (Congress at the lake). Stops are wound by a spiral key — sweeping through the compass while the radius steps <em>down</em> — so you start at the farthest bar and coil inward, ending in the core. Direction and mileage are real; only the ring spacing is compressed.</p>
+      </div>
+      <div>
+        <h4>Notes</h4>
+        <p id="foot-notes">Tap a venue name to open its site. <span data-personal>Unconfirmed venues are tagged on their card. </span>District crawls live under the Playbooks tab, not as pins.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLAYBOOKS VIEW ============ -->
+  <section class="view" id="view-playbooks" role="tabpanel" hidden>
+    <div class="pb-grid" id="playbooks"></div>
+    <p class="pb-note">Each card is a walking-order crawl with worked-out timing; tap a venue to open its site.<span data-personal> Full details, addresses &amp; happy hours live in the matching Linear ticket (Playbook label).</span></p>
+  </section>
+
+  <!-- ============ BY CATEGORY VIEW ============ -->
+  <section class="view" id="view-category" role="tabpanel" hidden>
+    <div class="cat-bar">
+      <label for="cat-select">Category</label>
+      <select class="cat-select" id="cat-select"></select>
+      <span class="cat-summary" id="cat-summary"></span>
+    </div>
+    <div class="cat-grid" id="cat-list"></div>
+    <p class="pb-note">Numbers match the pins on the Spiral. A venue can sit in more than one category.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  /* ============================================================
+     EDIT ZONE — the only part that changes per rebuild.
+     CENTER   : radar origin (downtown Austin). Rarely changes.
+     STOPS    : one object per point venue (Bar & Nightlife) → Spiral.
+                A roundup ticket contributes several STOPS sharing its id.
+                Fields: id,n,hood,addr,lat,lon,note,cats[]; optional link, been:true, tag.
+     CATEGORIES: venue types for the By-category tab; each stop's cats[] uses these ids.
+     PLAYBOOKS: one object per district crawl (Playbook label) → Playbooks tab.
+                Fields: id,name,tag,window,blurb,items[],cash?
+                items = ordered stops {t,n,o,u?}  OR a divider {move:"..."}.
+     link / u : venue website (or IG/FB) — becomes a tappable ↗ on the name.
+     PUBLIC   : false here (personal artifact). public-build.py flips it to true
+                for the nowucca.com copy, hiding personal-only UI.
+     Everything below END EDIT ZONE is layout — leave it alone.
+     ============================================================ */
+  var PUBLIC=true;
+  var CENTER={lat:30.2672,lon:-97.7431}; // downtown, Congress at the lake
+
+  var CATEGORIES=[
+    {id:"cocktail",label:"Cocktail bars"},
+    {id:"speakeasy",label:"Speakeasies & hidden bars"},
+    {id:"music",label:"Live music & dancing"},
+    {id:"rooftop",label:"Rooftops & patios"},
+    {id:"brew",label:"Breweries, cideries & distilleries"},
+    {id:"pub",label:"Pubs & sports bars"},
+    {id:"games",label:"Games, arcades & movies"},
+    {id:"food",label:"Food-first & happy hour"},
+    {id:"wine",label:"Wine & bistro bars"}
+  ];
+
+  var STOPS=[
+    {n:"NAYA",cats:["cocktail"],hood:"Downtown · West Ave",addr:"506 West Ave, 78701",lat:30.2705,lon:-97.7490,link:"https://nayaaustin.com/",note:"Med/Asian cocktail lounge."},
+    {n:"The Roosevelt Room",cats:["cocktail"],hood:"Warehouse District",addr:"307 W 5th St, 78701",lat:30.2678,lon:-97.7462,link:"https://www.therooseveltroomatx.com/",note:"Austin's most-awarded cocktails."},
+    {n:"Bar Grotta",cats:["cocktail","speakeasy"],hood:"Downtown · Congress Ave",addr:"720 Congress Ave, 78701",lat:30.2693,lon:-97.7421,note:"New underground candlelit cocktail lounge, Italian program; sister to Caprice upstairs."},
+    {n:"Caña Rum Bar",cats:["cocktail"],hood:"Downtown · E 7th",addr:"405 E 7th St, 78701",lat:30.2685,lon:-97.7377,link:"https://www.canarumbaratx.com/",note:"Deep international rum list, tiki cocktails."},
+    {n:"NADC Burger",cats:["food"],hood:"Rainey St",addr:"85 Rainey St, 78701",lat:30.2585,lon:-97.7385,link:"https://www.nadcburger.com/",note:"Smash burgers, HH daily 3–5 & 9–close."},
+    {n:"Whisler's",cats:["cocktail"],hood:"East Austin",addr:"1816 E 6th St, 78702",lat:30.2607,lon:-97.7215,link:"https://www.whislersatx.com/",note:"75¢ martini; Golden Tiger burgers out back."},
+    {n:"Casa Bianca",cats:["rooftop","food"],hood:"East · Cesar Chavez",addr:"1510 E Cesar Chavez St, 78702",lat:30.2555,lon:-97.7290,link:"https://www.casabiancaatx.com/",note:"Italian oyster & cocktail rooftop."},
+    {n:"Loro",cats:["food"],hood:"South Lamar",addr:"2115 S Lamar Blvd, 78704",lat:30.2490,lon:-97.7690,link:"https://www.loroeats.com/",note:"Asian smokehouse & bar. HH weekdays 2–6."},
+    {n:"Baretto Bistro",cats:["wine"],hood:"Rosedale",addr:"1206B W 38th St, 78705",lat:30.3035,lon:-97.7430,link:"https://baretto38th.com/",note:"Cozy Italian bistro bar, craft cocktails."},
+    {n:"Blue Sushi Sake Grill",cats:["food"],hood:"The Domain · North",addr:"11410 Century Oaks Ter, 78758",lat:30.4009,lon:-97.7205,link:"https://www.bluesushisakegrill.com/locations/the-domain",note:"Sushi + sake HH. Up at The Domain."},
+    {n:"Flix Brewhouse",cats:["games","brew"],hood:"Round Rock · far N",addr:"2200 S I-35, 78681",lat:30.5010,lon:-97.6800,link:"https://flixbrewhouse.com/",note:"In-house brewery + dine-in movies. The frontier."},
+    {n:"Electric Shuffle",cats:["games"],hood:"Downtown · Red River",addr:"91 Red River St, 78701",lat:30.2605,lon:-97.7389,link:"https://electricshuffle.com/us/austin",note:"Competitive shuffleboard + cocktails."},
+    {n:"77 Degrees Rooftop",cats:["rooftop"],hood:"The Domain · North",addr:"11500 Rock Rose Ave, 78758",lat:30.4014,lon:-97.7229,link:"https://www.77-degrees.com/",note:"Domain rooftop cocktail bar."},
+    {n:"Drinks Backyard",cats:["rooftop"],hood:"SE Austin · Hwy 183",addr:"6328 S Hwy 183, 78744",lat:30.1755,lon:-97.6805,link:"https://www.drinksbackyard.com/",note:"Outdoor cocktails & BBQ bar; open till 2am."},
+    {n:"The White Horse",cats:["music"],hood:"East Austin · Comal",addr:"500 Comal St, 78702",lat:30.2593,lon:-97.7248,link:"https://www.thewhitehorseaustin.com/",note:"Honky-tonk — live country & two-stepping."},
+    {n:"Péché",cats:["cocktail"],hood:"Warehouse District",addr:"208 W 4th St, 78701",lat:30.2668,lon:-97.7458,link:"https://www.pecheaustin.com/",note:"French absinthe & craft cocktail bar; Prohibition-era vibe."},
+    {n:"El Alma",cats:["rooftop","food"],hood:"Barton Springs Rd",addr:"1025 Barton Springs Rd, 78704",lat:30.2588,lon:-97.7585,link:"https://www.elalmacafe.com/",note:"Mexican cantina + rooftop; avocado margaritas."},
+    {n:"School House Pub",cats:["pub"],hood:"East · Manor Rd",addr:"2207 Manor Rd, 78722",lat:30.2870,lon:-97.7175,link:"http://www.schoolhousepub.com/",note:"Historic-house gastropub; dark-malt drafts, trivia Mondays."},
+    {n:"Pinthouse Brewing",cats:["brew"],hood:"S · Ben White",addr:"2201 E Ben White Blvd, 78741",lat:30.2153,lon:-97.7423,link:"https://pinthouse.com/brewing-ben-white",note:"Award-winning brewpub — house craft beer + scratch pizza."},
+    {n:"Vintage Bookstore & Wine Bar",cats:["wine"],hood:"East · E 11th",addr:"1101 E 11th St, 78702",lat:30.2706,lon:-97.7305,link:"https://www.vintagebookstoreandwinebar.com/",note:"Bookstore + wine bar, 'Austin's Living Room'."},
+    {n:"Meanwhile Brewing",cats:["brew"],hood:"SE · St Elmo",addr:"3901 Promontory Point Dr, 78744",lat:30.2080,lon:-97.7390,link:"https://www.meanwhilebeer.com/",note:"Big brewery/beer garden, food trucks, live music."},
+    {n:"Texas Keeper Cider",cats:["brew"],hood:"SW · Manchaca",addr:"12521 Twin Creeks Rd, 78652",lat:30.1290,lon:-97.8470,link:"https://texaskeeper.com/taproom/",note:"Ranch-land cidery & taproom, deep south."},
+    {n:"Austin Sports Club",cats:["pub"],hood:"Downtown · E 3rd",addr:"205 E 3rd St, 78701",lat:30.2662,lon:-97.7402,link:"https://www.instagram.com/austinsportsclub/",note:"KD's upscale sports bar/restaurant. Opened Sept 2026."},
+    {n:"Cidercade",cats:["games","brew"],hood:"Riverside",addr:"600 E Riverside Dr, 78704",lat:30.2448,lon:-97.7378,link:"https://cidercade.com/austin/",note:"Cider bar + 275 arcade games, Town Lake views."},
+    {n:"Walter's Tavern",cats:["pub"],hood:"SoCo · S Congress",addr:"2336 S Congress Ave, 78704",lat:30.2452,lon:-97.7512,link:"https://calendar.austinchronicle.com/location/walters-tavern-13844997",note:"Neighborhood sports bar on South Congress."},
+    {n:"Edge Rooftop",cats:["rooftop"],hood:"Downtown · JW Marriott",addr:"110 E 2nd St, 78701",lat:30.2644,lon:-97.7425,link:"https://www.marriott.com/en-us/hotels/ausjw-jw-marriott-austin/dining/",note:"Rooftop pool bar on top of the JW Marriott; public after 5pm, Capitol & lake views."},
+    {n:"Garage",cats:["speakeasy","cocktail"],hood:"Downtown · Colorado St",addr:"503 Colorado St, 78701",lat:30.2683,lon:-97.7442,link:"http://www.garagetx.com/",note:"Speakeasy in an old parking-garage valet booth; cocktails + Philip Speer pizza. Enter via the lot on Colorado, 5th–6th."},
+    {n:"Lavaca Street Bar",cats:["pub"],hood:"Warehouse District",addr:"405 Lavaca St, 78701",lat:30.2670,lon:-97.7455,link:"https://www.theinfatuation.com/austin/reviews/lavaca-street-bar",note:"Sports bar since 1989; po'boys and fish tacos."},
+    {n:"Nica on 4th",cats:["music","cocktail"],hood:"Downtown · W 4th",addr:"117 W 4th St, 78701",lat:30.2666,lon:-97.7436,link:"https://www.opentable.com/r/nica-on-4th-austin",note:"Prohibition-style jazz bar next to Parker Jazz Club; live jazz Tue–Sat 6pm–1am, $10 music fee."},
+    {n:"Bar Fino",cats:["cocktail","music"],hood:"Rainey St",addr:"88½ Rainey St, 78701",lat:30.2590,lon:-97.7389,link:"https://www.theinfatuation.com/austin/reviews/bar-fino",note:"Spirited Awards top-10 new cocktail bar (Central); DJs and dancing on weekends."},
+    {n:"The Yacht Club",cats:["food"],hood:"Downtown · Hotel Trinity",addr:"311 E 5th St, 78701",lat:30.2667,lon:-97.7404,link:"https://www.marriott.com/en-us/hotels/ausdk-hotel-trinity-autograph-collection/overview/",note:"Seafood, raw bar, caviar & champagne in the new Hotel Trinity."},
+    {n:"Still Austin Quarter",cats:["brew","music"],hood:"S · St Elmo",addr:"4211 Willow Springs Rd, 78745",lat:30.2155,lon:-97.7580,link:"https://www.stillaustin.com/still-austin-quarter",note:"Still Austin's new whiskey, music & cocktail venue; vinyl lounge + live music Thu–Sat. Opening Nov 5 (TBC)."},
+    {n:"Sign Bar",cats:["games"],hood:"Far East · FM 969",addr:"9909 FM 969, Bldg 3, 78724",lat:30.2700,lon:-97.6200,link:"https://signbartexas.com/",note:"Bar full of rescued historic Austin signs; Hide & Glow scavenger hunt."},
+    {n:"Continental Club",cats:["music"],hood:"SoCo · S Congress",addr:"1315 S Congress Ave, 78704",lat:30.2502,lon:-97.7491,link:"https://continentalclub.com/",note:"1955 roadhouse — honky-tonk, rockabilly & blues nightly; cash cover."},
+    {n:"Daisy Lounge",cats:["speakeasy","cocktail"],hood:"SW · Circle C",addr:"5701 W Slaughter Ln, Bldg D, 78749",lat:30.1975,lon:-97.8575,link:"https://daisylounge.com/",note:"Library-style speakeasy behind a painted daisy, between Keepers & Oasthouse. Thu–Sat."},
+    {n:"Moviehouse & Eatery",cats:["games"],hood:"SW · Lantana Place",addr:"7415 Southwest Pkwy, Bldg 7, 78735",lat:30.2355,lon:-97.8555,link:"https://www.themoviehouse.com/",note:"Dine-in cinema with a full bar and signature cocktails, at William Cannon & Southwest Pkwy."},
+    {n:"Fast Friends Beer Co.",cats:["brew","games"],hood:"S · I-35 frontage",addr:"7313 S I-35 Frontage Rd NB, 78744",lat:30.1860,lon:-97.7755,link:"https://www.fastfriendsbeer.com/",note:"Brewery & taproom on 3.5 acres; darts; VIA 313 pizza on site. Open till 10pm Fri–Sat."}
+  ];
+
+  var PLAYBOOKS=[
+    {name:"South Congress",tag:"sunset · date-friendly",window:"5 PM – 2 AM",
+     blurb:"Walkable strip south of the river — rooftops & patios into legendary live-music rooms.",
+     cash:"Continental Club & C-Boy's covers",
+     items:[
+       {t:"5:00",n:"Equipment Room",u:"https://equipmentroom.com/",o:"hi-fi vinyl listening bar — spritzes, low light"},
+       {move:"walk 3 min"},
+       {t:"6:30",n:"Austin Motel · Rocky's",u:"https://www.bunkhousehotels.com/austin-motel",o:"walk-up cocktails by the neon pool"},
+       {move:"walk 4 min"},
+       {t:"7:15",n:"Güero's Oak Garden",u:"https://gueros.com/",o:"margaritas + Tex-Mex, free live music Wed–Sun"},
+       {move:"walk 2 min"},
+       {t:"8:30",n:"Hotel San José",u:"https://www.bunkhousehotels.com/hotel-san-jose",o:"hidden garden courtyard, quiet cocktails"},
+       {move:"walk 1 min (across the street)"},
+       {t:"9:15",n:"Continental Club",u:"https://continentalclub.com/",o:"1955 roadhouse — rockabilly & blues"},
+       {move:"walk 6 min"},
+       {t:"10:30",n:"South Congress Hotel",u:"https://southcongresshotel.com/",o:"polished lobby-bar nightcap"},
+       {move:"walk 8 min"},
+       {t:"11:30",n:"C-Boy's · Jade Room",u:"https://www.cboys.com/",o:"soul/R&B till 2 AM + upstairs date lounge"}
+     ]},
+    {name:"Rainey → Red River",tag:"dinner → live music",window:"6 PM – late",
+     blurb:"No-reservations two-district night — dinner & cocktails on Rainey, then walk to Red River for live music.",
+     cash:"door covers at Elysium / Valhalla",
+     items:[
+       {t:"6:00",n:"Banger's",u:"https://www.bangersaustin.com/",o:"200+ taps, house sausages, huge patio — dinner anchor"},
+       {move:"walk 1 min"},
+       {t:"6:45",n:"Craft Pride",u:"https://www.craftpridetexas.com/",o:"50+ all-Texas drafts + Via 313 pizza"},
+       {move:"walk 1 min"},
+       {t:"7:30",n:"Half Step",u:"https://www.halfstepbar.com/",o:"serious cocktails, oak-shaded patio — the highlight"},
+       {move:"walk 2 min"},
+       {t:"8:30",n:"Bungalow",u:"https://www.bungalowaustin.com/",o:"retro bungalow + yard games — last Rainey round"},
+       {move:"walk 15–20 min north to Red River (or 3–5 min rideshare)"},
+       {t:"9:00",n:"Mohawk",u:"https://mohawkaustin.com/",o:"the district's rock venue, indoor+outdoor stages (ticketed)"},
+       {move:"walk 1 min (next door)"},
+       {t:"10:30",n:"Cheer Up Charlies",u:"https://cheerupcharlies.com/",o:"queer-owned, pink-parachute patio (walk-in)"},
+       {move:"walk 5 min"},
+       {t:"late",n:"Stubb's / Valhalla",u:"https://stubbsaustin.com/",o:"BBQ + amphitheater · metal dive w/ rooftop"}
+     ]},
+    {name:"East 6th St",tag:"happy hour · honky-tonk",window:"4 PM – 2 AM",
+     blurb:"The grown-up stretch east of I-35 — dives & craft cocktails into a honky-tonk finish. (Not Dirty Sixth.)",
+     cash:"The White Horse cover",
+     items:[
+       {t:"4:00",n:"Shangri-La",u:"https://shangrilaaustin.com/",o:"dive/beer-garden, all-day HH ~$2 cocktails"},
+       {move:"walk 2 min"},
+       {t:"5:00",n:"Violet Crown",u:"http://violetcrownsocialclub.com/",o:"red-booth lounge + VIA 313 pizza, frozen Iron Whip"},
+       {move:"walk 9 min"},
+       {t:"6:30",n:"Domo Alley-Gato",u:"https://www.domo-tatsuya.com/",o:"Japanese standing bar — highballs + ramen next door"},
+       {move:"walk 1 min"},
+       {t:"7:30",n:"The Liberty",u:"https://www.facebook.com/thelibertyaustin/",o:"beer-garden backyard + East Side King truck"},
+       {move:"walk 2 min"},
+       {t:"8:30",n:"Daydreamer",u:"https://www.daydreameraustin.com/",o:"caviar, champagne & martinis — the dressy shift"},
+       {move:"walk 3 min"},
+       {t:"9:30",n:"Whisler's + Golden Tiger",u:"https://www.whislersatx.com/",o:"marquee cocktails, mezcal mezzanine, 75¢ martinis Wed"},
+       {move:"walk 5 min south to Comal"},
+       {t:"late",n:"The White Horse",u:"https://www.thewhitehorseaustin.com/",o:"honky-tonk — two-stepping till 2 AM"}
+     ]},
+    {name:"Downtown → East",tag:"cocktails · BBQ · live music",window:"6 PM – late",
+     blurb:"Warehouse-District cocktails, downtown BBQ, then Uber east for live music and two-stepping — a proven route.",
+     cash:"The White Horse cover",
+     items:[
+       {t:"6:00",n:"The Roosevelt Room",u:"https://www.therooseveltroomatx.com/",o:"top-tier craft cocktails — the opener"},
+       {move:"walk 4 min"},
+       {t:"6:50",n:"NAYA",u:"https://nayaaustin.com/",o:"Med/Asian cocktail lounge"},
+       {move:"walk 10 min"},
+       {t:"7:45",n:"Cooper's BBQ",u:"https://coopersbbqaustin.com/",o:"walk-up pit, brisket & the Big Chop — dinner (217 Congress)"},
+       {move:"Uber east ~10 min to East 6th"},
+       {t:"9:00",n:"Whisler's + Golden Tiger",u:"https://www.whislersatx.com/",o:"East 6th cocktails + mezcal mezzanine"},
+       {move:"walk 5 min south to Comal"},
+       {t:"10:15",n:"The White Horse",u:"https://www.thewhitehorseaustin.com/",o:"honky-tonk, two-stepping till 2 AM"}
+     ]},
+    {name:"South Lamar (SoLa)",tag:"casual · walkabout",window:"6 PM – late",
+     blurb:"The hip strip around the Alamo Drafthouse — craft beer, cocktails & karaoke into a late-burger close. Mostly walkable, one longer leg.",
+     items:[
+       {t:"6:00",n:"Gibson Street Bar",u:"https://gibsonstreetbar.com/",o:"16 craft drafts + Luke's Inside Out food truck, patio — opener"},
+       {move:"walk 1 min"},
+       {t:"6:45",n:"The Highball",u:"https://drafthouse.com/austin/theater-bar/south-lamar",o:"retro cocktails, private karaoke + bowling at Alamo Drafthouse"},
+       {move:"walk 2 min"},
+       {t:"7:30",n:"Odd Duck",u:"https://www.oddduckaustin.com/",o:"Michelin creative shareable plates + cocktails — dinner"},
+       {move:"walk 13 min south (or 4-min rideshare)"},
+       {t:"9:15",n:"Loro",u:"https://www.loroeats.com/",o:"Asian smokehouse & bar — whisky highballs"},
+       {move:"walk 1 min (across S Lamar)"},
+       {t:"10:30",n:"Black Sheep Lodge",u:"https://blacksheeplodge.com/",o:"late burgers, sports screens, big patio — close"}
+     ]}
+  ];
+  /* ===================== END EDIT ZONE ===================== */
+
+  function extLink(name,url){
+    return url ? '<a href="'+url+'" target="_blank" rel="noopener">'+name+' <span class="lnk">↗</span></a>' : name;
+  }
+
+  // ---------- SPIRAL ----------
+  var MI_LAT=69.0, MI_LON=69.0*Math.cos(CENTER.lat*Math.PI/180);
+  var DIRS=["N","NE","E","SE","S","SW","W","NW"];
+  STOPS.forEach(function(s){
+    var dx=(s.lon-CENTER.lon)*MI_LON, dy=(s.lat-CENTER.lat)*MI_LAT;
+    s.dist=Math.sqrt(dx*dx+dy*dy);
+    s.bearing=(Math.atan2(dx,dy)*180/Math.PI+360)%360;
+    s.dir=DIRS[Math.round(s.bearing/45)%8];
+  });
+  var n=STOPS.length;
+  var maxmi=Math.max.apply(null,STOPS.map(function(s){return s.dist;}))||1;
+  var TURNS=Math.max(1.3, n/9);
+  STOPS.forEach(function(s){var a=s.bearing*Math.PI/180;s.key=a+(TURNS*2*Math.PI/maxmi)*(maxmi-s.dist);});
+  STOPS.sort(function(a,b){return a.key-b.key;});
+  var cx=565, cy=525, R_MAX=415;
+  function warp(mi){return R_MAX*Math.sqrt(mi/maxmi);}
+  STOPS.forEach(function(s){var a=s.bearing*Math.PI/180;s.x0=cx+warp(s.dist)*Math.sin(a);s.y0=cy-warp(s.dist)*Math.cos(a);s.x=s.x0;s.y=s.y0;});
+  var THRESH=34, used=[];
+  for(var i=0;i<n;i++){
+    if(used[i])continue;
+    var cl=[i];used[i]=true;
+    for(var j=i+1;j<n;j++){
+      if(used[j])continue;
+      var d=Math.hypot(STOPS[i].x0-STOPS[j].x0, STOPS[i].y0-STOPS[j].y0);
+      if(d<THRESH){cl.push(j);used[j]=true;}
+    }
+    if(cl.length>1){
+      var mx=0,my=0;cl.forEach(function(k){mx+=STOPS[k].x0;my+=STOPS[k].y0;});
+      mx/=cl.length;my/=cl.length;
+      var fanR=Math.min(30+cl.length*9, 120);
+      cl.sort(function(a,b){return STOPS[a].bearing-STOPS[b].bearing;});
+      cl.forEach(function(k,idx){var ang=(idx/cl.length)*2*Math.PI-Math.PI/2;
+        STOPS[k].x=mx+fanR*Math.cos(ang);STOPS[k].y=my+fanR*Math.sin(ang);STOPS[k].anchor={x:mx,y:my};});
+    }
+  }
+  var NS="http://www.w3.org/2000/svg", scene=document.getElementById('scene');
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  var ringSet=[0.5,1,2,4,8,16,32].filter(function(m){return m<=maxmi*1.02;});
+  if(ringSet.length<2)ringSet=[maxmi/2,maxmi];
+  ringSet.forEach(function(m){
+    scene.appendChild(el('circle',{cx:cx,cy:cy,r:warp(m).toFixed(1),fill:"none",stroke:"var(--line-2)","stroke-width":"1"}));
+    var t=el('text',{x:cx+4,y:(cy-warp(m)+13).toFixed(1),fill:"var(--muted)","font-family":"var(--font-mono)","font-size":"9.5",opacity:".6"});
+    t.textContent=m+(m===ringSet[ringSet.length-1]?" mi":"");scene.appendChild(t);
+  });
+  [["N",0],["NE",45],["E",90],["SE",135],["S",180],["SW",225],["W",270],["NW",315]].forEach(function(c){
+    var a=c[1]*Math.PI/180, rr=R_MAX+20, major=(c[1]%90===0);
+    var t=el('text',{x:(cx+rr*Math.sin(a)).toFixed(1),y:(cy-rr*Math.cos(a)+4).toFixed(1),"text-anchor":"middle",
+      fill:"var(--muted)","font-family":"var(--font-mono)","font-size":major?"12":"10","opacity":major?".6":".38"});
+    t.textContent=c[0];scene.appendChild(t);
+  });
+  function catmull(P){
+    if(P.length<2)return "";
+    var d="M"+P[0].x.toFixed(1)+" "+P[0].y.toFixed(1);
+    for(var i=0;i<P.length-1;i++){
+      var p0=P[i-1]||P[i],p1=P[i],p2=P[i+1],p3=P[i+2]||p2;
+      d+=" C"+(p1.x+(p2.x-p0.x)/6).toFixed(1)+" "+(p1.y+(p2.y-p0.y)/6).toFixed(1)+","
+           +(p2.x-(p3.x-p1.x)/6).toFixed(1)+" "+(p2.y-(p3.y-p1.y)/6).toFixed(1)+","
+           +p2.x.toFixed(1)+" "+p2.y.toFixed(1);
+    }
+    return d;
+  }
+  var dpath=catmull(STOPS);
+  scene.appendChild(el('path',{d:dpath,fill:"none",stroke:"var(--amber)","stroke-width":"8",opacity:".22",filter:"url(#soft)","stroke-linecap":"round","stroke-linejoin":"round"}));
+  var line=el('path',{d:dpath,fill:"none",stroke:"url(#route)","stroke-width":"3","stroke-linecap":"round","stroke-linejoin":"round","class":"spiral-line"});
+  scene.appendChild(line);
+  line.style.setProperty('--len',line.getTotalLength());
+  scene.appendChild(el('circle',{cx:cx,cy:cy,r:"3.5",fill:"var(--muted)"}));
+  STOPS.forEach(function(s){if(s.anchor){scene.appendChild(el('line',{x1:s.anchor.x,y1:s.anchor.y,x2:s.x,y2:s.y,stroke:"var(--line)","stroke-width":"1"}));}});
+  var showNames=n<=18;
+  STOPS.forEach(function(s,i){
+    var kind=(i===0?"start":(i===n-1?"home":(s.been?"been":"mid")));
+    var grp=el('g',{"class":"pin",style:"animation-delay:"+(0.4+i*0.13)+"s"});
+    grp.appendChild(el('circle',{cx:s.x,cy:s.y,r:"19",fill:"url(#glow)",opacity:".42"}));
+    var fill=kind==="start"?"var(--pink)":(kind==="been"?"var(--green)":(kind==="home"?"var(--amber-bright)":"var(--amber)"));
+    grp.appendChild(el('circle',{cx:s.x,cy:s.y,r:"13.5",fill:fill,stroke:"var(--ink)","stroke-width":"2"}));
+    var num=el('text',{x:s.x,y:s.y+5,"text-anchor":"middle","font-family":"var(--font-mono)","font-weight":"700","font-size":"13.5",fill:"var(--ink)"});
+    num.textContent=(i+1);grp.appendChild(num);
+    if(showNames){
+      var out=s.x>=cx; var lx=s.x+(out?19:-19);
+      var lbl=el('text',{x:lx.toFixed(1),y:(s.y+4).toFixed(1),"text-anchor":out?"start":"end","font-family":"var(--font-display)",
+        "font-weight":"700","font-size":"13",fill:"var(--text)",
+        style:"paint-order:stroke;stroke:var(--ink);stroke-width:3.5px;stroke-linejoin:round"});
+      lbl.textContent=s.n;grp.appendChild(lbl);
+    }
+    scene.appendChild(grp);
+  });
+  var ot=el('text',{x:cx,y:cy+20,"text-anchor":"middle",fill:"var(--muted)","font-family":"var(--font-mono)","font-size":"10","letter-spacing":"2",style:"paint-order:stroke;stroke:var(--ink);stroke-width:3px"});
+  ot.textContent="DOWNTOWN";scene.appendChild(ot);
+  document.getElementById('count').textContent=n+" stops";
+  document.getElementById('eyebrow').textContent=(PUBLIC?"Austin":"Personal Ops")+" · Bar & Nightlife · "+n+" stops · "+PLAYBOOKS.length+" playbooks";
+  if(PUBLIC)Array.prototype.forEach.call(document.querySelectorAll('[data-personal]'),function(e){e.parentNode.removeChild(e);});
+  var CATLABEL={};CATEGORIES.forEach(function(c){CATLABEL[c.id]=c.label;});
+  function stopCard(s,num,kind,showCats){
+    var stop=document.createElement('div');stop.className="stop";stop.setAttribute('data-kind',kind);
+    var tag=s.tag?'<span class="tag '+s.tag.c+'">'+s.tag.t+'</span>':'';
+    var cats=showCats&&s.cats?'<p class="cats">'+s.cats.map(function(c){return CATLABEL[c]||c;}).join(' · ')+'</p>':'';
+    stop.innerHTML='<div class="num" title="Spiral stop '+num+'">'+num+'</div>'+
+      '<div class="stop-body"><div class="stop-top"><h3>'+extLink(s.n,s.link)+'</h3><span class="hood">'+s.hood+'</span></div>'+
+      '<p class="addr">'+s.addr+(s.id?' · '+s.id:'')+'</p><p class="note">'+s.note+'</p>'+cats+tag+'</div>'+
+      '<div class="meta"><span class="dir">'+s.dir+'</span><br><span class="mi">'+s.dist.toFixed(1)+' mi</span></div>';
+    return stop;
+  }
+  var list=document.getElementById('list');
+  STOPS.forEach(function(s,i){
+    s.no=i+1;
+    var kind=(i===0?"start":(i===n-1?"home":(s.been?"been":"mid")));
+    list.appendChild(stopCard(s,i+1,kind,false));
+  });
+
+  // ---------- BY CATEGORY ----------
+  var catSel=document.getElementById('cat-select'), catList=document.getElementById('cat-list'), catSum=document.getElementById('cat-summary');
+  function inCat(s,c){return c==="all"||(s.cats||[]).indexOf(c)>-1;}
+  catSel.innerHTML='<option value="all">All venues ('+n+')</option>'+CATEGORIES.map(function(c){
+    var k=STOPS.filter(function(s){return inCat(s,c.id);}).length;
+    return k?'<option value="'+c.id+'">'+c.label+' ('+k+')</option>':'';
+  }).join('');
+  function renderCat(){
+    var c=catSel.value;
+    var rows=STOPS.filter(function(s){return inCat(s,c);}).sort(function(a,b){return a.dist-b.dist;});
+    var been=rows.filter(function(s){return s.been;}).length;
+    catSum.textContent=rows.length+(rows.length===1?" venue":" venues")+(PUBLIC?"":" · "+been+" visited")+" · nearest downtown first";
+    catList.innerHTML='';
+    rows.forEach(function(s){catList.appendChild(stopCard(s,s.no,s.been?"been":"mid",true));});
+  }
+  catSel.addEventListener('change',renderCat);
+  renderCat();
+
+  // ---------- PLAYBOOKS ----------
+  var pbWrap=document.getElementById('playbooks');
+  PLAYBOOKS.forEach(function(p){
+    var tl=p.items.map(function(it){
+      if(it.move)return '<div class="tl-move">↓ '+it.move+'</div>';
+      return '<div class="tl-item"><div class="tl-time">'+it.t+'</div>'+
+             '<div class="tl-body"><h5>'+extLink(it.n,it.u)+'</h5><p>'+it.o+'</p></div></div>';
+    }).join('');
+    var card=document.createElement('div');card.className='pb-card';
+    card.innerHTML='<div class="pb-head"><div><div class="pb-title">'+p.name+'</div><div class="pb-tag">'+p.tag+'</div></div>'+
+      '<span class="pb-window">'+p.window+'</span></div>'+
+      '<p class="pb-blurb">'+p.blurb+'</p>'+
+      '<div class="tl">'+tl+'</div>'+
+      (p.cash?'<div class="pb-foot">💵 cash for '+p.cash+'</div>':'')+
+      (p.id?'<div class="pb-id">'+p.id+'</div>':'');
+    pbWrap.appendChild(card);
+  });
+
+  // ---------- MAP ZOOM / PAN ----------
+  (function(){
+    var svg=document.getElementById('map'); if(!svg) return;
+    var vb=(svg.getAttribute('viewBox')||'0 0 1125 1025').split(/\s+/).map(Number);
+    var base={x:vb[0],y:vb[1],w:vb[2],h:vb[3]};
+    var cur={x:base.x,y:base.y,w:base.w,h:base.h};
+    var MAXZOOM=6;
+    function apply(){ svg.setAttribute('viewBox', cur.x.toFixed(1)+' '+cur.y.toFixed(1)+' '+cur.w.toFixed(1)+' '+cur.h.toFixed(1)); }
+    function clamp(){
+      var z=base.w/cur.w;
+      if(z<1){ cur.w=base.w; cur.h=base.h; }
+      else if(z>MAXZOOM){ cur.w=base.w/MAXZOOM; cur.h=base.h/MAXZOOM; }
+      var padX=cur.w*0.4, padY=cur.h*0.4;
+      if(cur.x<base.x-padX) cur.x=base.x-padX;
+      if(cur.y<base.y-padY) cur.y=base.y-padY;
+      if(cur.x+cur.w>base.x+base.w+padX) cur.x=base.x+base.w+padX-cur.w;
+      if(cur.y+cur.h>base.y+base.h+padY) cur.y=base.y+base.h+padY-cur.h;
+    }
+    function toSvg(cx,cy){ var r=svg.getBoundingClientRect(); return {x:cur.x+(cx-r.left)/r.width*cur.w, y:cur.y+(cy-r.top)/r.height*cur.h}; }
+    function zoomAt(f,cx,cy){
+      var p=(cx===undefined)?{x:cur.x+cur.w/2,y:cur.y+cur.h/2}:toSvg(cx,cy);
+      var nw=cur.w/f, nh=cur.h/f;
+      cur.x=p.x-(p.x-cur.x)*(nw/cur.w); cur.y=p.y-(p.y-cur.y)*(nh/cur.h);
+      cur.w=nw; cur.h=nh; clamp(); apply();
+    }
+    svg.addEventListener('wheel',function(e){ e.preventDefault(); zoomAt(e.deltaY<0?1.18:1/1.18, e.clientX, e.clientY); },{passive:false});
+    var pts={}, pinchPrev=0;
+    svg.style.cursor='grab'; svg.style.touchAction='none';
+    svg.addEventListener('pointerdown',function(e){ pts[e.pointerId]={x:e.clientX,y:e.clientY}; try{svg.setPointerCapture(e.pointerId);}catch(_){}; svg.style.cursor='grabbing'; });
+    svg.addEventListener('pointermove',function(e){
+      var prev=pts[e.pointerId]; if(!prev) return;
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      var ids=Object.keys(pts);
+      if(ids.length===1){
+        var r=svg.getBoundingClientRect();
+        cur.x-=(e.clientX-prev.x)/r.width*cur.w;
+        cur.y-=(e.clientY-prev.y)/r.height*cur.h;
+        clamp(); apply();
+      } else if(ids.length>=2){
+        var a=pts[ids[0]], b=pts[ids[1]];
+        var d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(pinchPrev) zoomAt(d/pinchPrev,(a.x+b.x)/2,(a.y+b.y)/2);
+        pinchPrev=d;
+      }
+    });
+    function up(e){ delete pts[e.pointerId]; if(Object.keys(pts).length<2) pinchPrev=0; if(!Object.keys(pts).length) svg.style.cursor='grab'; }
+    svg.addEventListener('pointerup',up);
+    svg.addEventListener('pointercancel',up);
+    var zi=document.getElementById('zin'), zo=document.getElementById('zout'), zr=document.getElementById('zreset');
+    zi&&zi.addEventListener('click',function(){ zoomAt(1.4); });
+    zo&&zo.addEventListener('click',function(){ zoomAt(1/1.4); });
+    zr&&zr.addEventListener('click',function(){ cur={x:base.x,y:base.y,w:base.w,h:base.h}; apply(); });
+  })();
+
+  // ---------- TABS ----------
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){
+      tabs.forEach(function(x){x.setAttribute('aria-selected', x===tab?'true':'false');});
+      ['spiral','playbooks','category'].forEach(function(v){
+        document.getElementById('view-'+v).hidden=(tab.dataset.view!==v);
+      });
+    });
+  });
+})();
+</script>
