@@ -77,10 +77,11 @@
     border-radius:18px;padding:8px;position:relative;overflow:hidden;
     box-shadow:0 24px 60px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.03)}
   .mapcard svg{display:block;width:100%;height:auto}
-  .maplabel{position:absolute;left:18px;top:14px;font-family:var(--font-mono);font-size:11px;
-    letter-spacing:.24em;text-transform:uppercase;color:var(--muted);z-index:2}
-  .count{position:absolute;right:18px;top:14px;font-family:var(--font-mono);font-size:11px;
-    letter-spacing:.18em;text-transform:uppercase;color:var(--amber);opacity:.85;z-index:2}
+  .maphead{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 10px 0}
+  .maplabel{font-family:var(--font-mono);font-size:11px;line-height:1.5;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .count{font-family:var(--font-mono);font-size:11px;white-space:nowrap;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--amber);opacity:.85}
   .zoomctl{position:absolute;right:14px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:3}
   .zoomctl button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
     background:rgba(18,24,36,.82);color:var(--text);font-size:18px;font-family:var(--font-mono);
@@ -188,8 +189,10 @@
     <div class="grid">
       <div>
         <div class="mapcard">
-          <span class="maplabel">Downtown radar · bearing true, distance warped</span>
-          <span class="count" id="count"></span>
+          <div class="maphead">
+            <span class="maplabel">Downtown radar · bearing true, distance warped</span>
+            <span class="count" id="count"></span>
+          </div>
           <svg id="map" viewBox="0 0 1125 1025" role="img" aria-label="A downtown-centered radar of Austin bars with an inward spiral crawl route">
             <defs>
               <radialGradient id="glow" cx="50%" cy="50%" r="50%">
