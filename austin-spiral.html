@@ -585,18 +585,19 @@
   document.getElementById('pick-x').addEventListener('click',closePick);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closePick();});
   // The map captures the pointer for panning, so pins never get a click: a tap is a
-  // single pointer going down and up on a pin without dragging.
-  var mapSvg=document.getElementById('map'), tap=null, downs=0;
+  // pointer going down and up on a pin without dragging. Only a primary pointer starts
+  // one and a second finger cancels it; nothing is counted, because iOS Safari can drop
+  // the pointerup of a pinch finger and a stuck count would swallow every later tap.
+  var mapSvg=document.getElementById('map'), tap=null;
   mapSvg.addEventListener('pointerdown',function(e){
-    downs++;
-    var p=e.target.closest&&e.target.closest('.pin');
-    tap=(downs===1&&p)?{i:+p.getAttribute('data-i'),id:e.pointerId,x:e.clientX,y:e.clientY}:null;
+    var p=e.isPrimary&&e.target.closest&&e.target.closest('.pin');
+    tap=p?{i:+p.getAttribute('data-i'),id:e.pointerId,x:e.clientX,y:e.clientY}:null;
   });
   mapSvg.addEventListener('pointerup',function(e){
     if(tap&&e.pointerId===tap.id&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<8)showPick(tap.i);
-    tap=null;downs=Math.max(0,downs-1);
+    tap=null;
   });
-  mapSvg.addEventListener('pointercancel',function(){tap=null;downs=Math.max(0,downs-1);});
+  mapSvg.addEventListener('pointercancel',function(){tap=null;});
   scene.addEventListener('keydown',function(e){
     var p=e.target.closest&&e.target.closest('.pin');
     if(p&&(e.key==='Enter'||e.key===' ')){e.preventDefault();showPick(+p.getAttribute('data-i'));}
@@ -666,7 +667,8 @@
     svg.addEventListener('wheel',function(e){ e.preventDefault(); zoomAt(e.deltaY<0?1.18:1/1.18, e.clientX, e.clientY); },{passive:false});
     var pts={}, pinchPrev=0;
     svg.style.cursor='grab'; svg.style.touchAction='none';
-    svg.addEventListener('pointerdown',function(e){ pts[e.pointerId]={x:e.clientX,y:e.clientY}; try{svg.setPointerCapture(e.pointerId);}catch(_){}; svg.style.cursor='grabbing'; });
+    // A primary pointer starts a fresh gesture: forget any finger whose pointerup iOS never sent.
+    svg.addEventListener('pointerdown',function(e){ if(e.isPrimary){ pts={}; pinchPrev=0; } pts[e.pointerId]={x:e.clientX,y:e.clientY}; try{svg.setPointerCapture(e.pointerId);}catch(_){}; svg.style.cursor='grabbing'; });
     svg.addEventListener('pointermove',function(e){
       var prev=pts[e.pointerId]; if(!prev) return;
       pts[e.pointerId]={x:e.clientX,y:e.clientY};
