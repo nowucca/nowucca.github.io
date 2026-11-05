@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Label the pattern before drawing boxes · Interview Tips</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="../index.html">&larr; All ideas</a>
+<article class="article">
+<header>
+  <span class="label">Idea 01 · added 2026-11-05</span>
+  <h1>Label the pattern before drawing boxes</h1>
+  <p class="one">Spend the first thirty seconds of a system design question naming which of ten known patterns it is. The building blocks and trade-offs follow from the label.</p>
+  <div class="tags"><span class="tag">system design</span><span class="tag">framework</span></div>
+</header>
+<section class="section"><h2>The idea</h2><div class="prose"><p>Most system design questions are one of a small set of recurring shapes. If you name the shape out loud before you sketch anything, the architecture gets simpler, the trade-offs you raise are the right ones, and the answer stops sounding like a list of buzzwords.</p>
+<p>Four quick questions do the classifying: <mark>are reads or writes dominant</mark>, <mark>do users need updates now or is near real time fine</mark>, <mark>is the value in serving live traffic or crunching data later</mark>, and <mark>is it one user at a time or fanout to millions</mark>.</p>
+<p>Most real systems combine two or three patterns. Saying which one is primary and which are secondary is itself a strong signal.</p></div></section>
+<section class="section"><h2>The ten patterns</h2><div class="table-wrap"><table class="grid"><thead><tr><th>Pattern</th><th>Tell-tale signal</th><th>Trade-off to raise</th></tr></thead><tbody><tr><td>Read heavy</td><td>Read:write ratio is huge; latency matters more than freshness</td><td>What to cache at which layer, invalidation, hot keys, replica lag</td></tr><tr><td>Write heavy / event driven</td><td>Lots of writes, work happens async, reads are aggregates</td><td>At-least-once vs exactly-once, partition keys and ordering, back pressure, DLQs, replay</td></tr><tr><td>Real time fanout</td><td>One event must reach many clients within seconds</td><td>Gateway sharding, per-connection cost vs batching, reconnect history, fallback to polling</td></tr><tr><td>Batch and analytics</td><td>Minutes-to-hours freshness is fine; queries scan a lot</td><td>Batch size vs frequency, Lambda vs Kappa, late data, cost per query</td></tr><tr><td>Search and filtering</td><td>Text, tags and filters; relevance matters as much as speed</td><td>Index freshness, typo tolerance, shard/replica scaling, ranking signals</td></tr><tr><td>File and media</td><td>Large blobs, CDN, thumbnails or transcoding</td><td>Metadata vs blob split, cold tiers, resumable uploads, signed URLs</td></tr><tr><td>Workflow orchestration</td><td>Multi-step flows that need retries or compensation</td><td>Orchestration vs choreography, where state lives, debugging stuck runs</td></tr><tr><td>Transactional / financial</td><td>Money moves; never lose or duplicate</td><td>ACID boundaries, idempotency keys, double-entry ledger, outbox, reconciliation</td></tr><tr><td>Recommendation</td><td>Output is a ranked list with a feedback loop</td><td>Candidate generation then ranking, offline vs online, cold start, explore vs exploit</td></tr><tr><td>Events and notifications</td><td>One event becomes messages on many channels</td><td>Preferences and suppression, dedup keys, immediate vs digest, provider fallback</td></tr></tbody></table></div></section>
+<section class="section"><h2>Habits that show up in every pattern</h2><ul class="asks"><li>State where the source of truth lives before talking about caches or replicas.</li><li>Make every retried operation idempotent, and say what the idempotency key protects.</li><li>Keep the online serving path separate from the offline or analytics path.</li><li>Decouple producers from consumers with a log or queue, then talk about lag, back pressure and replay.</li><li>Describe the degraded mode: what the user sees when the fast path fails.</li></ul></section>
+<section class="section"><h2>Say it like this</h2><ul class="say"><li>Before I draw anything, let me label this. Feeds are a <mark>read-heavy</mark> problem with a <mark>fanout</mark> component, so I'll lead with caching and how writes reach followers.</li>
+<li>This is really a <mark>workflow</mark> problem, so I'll sketch it as a state machine first and then decide whether one orchestrator owns it or services choreograph through events.</li>
+<li>Money is moving, so the ledger is the source of truth. Everything else is eventually consistent and we reconcile against it.</li></ul></section>
+<section class="section"><h2>Bring it up when they ask</h2><ul class="asks"><li>Design a news feed / URL shortener / notification system / payment flow.</li>
+<li>How would you scale this to 10x?</li>
+<li>Walk me through the trade-offs in your design.</li>
+<li>Tell me about a system you designed. (Name its pattern to frame the story.)</li></ul></section>
+<section class="section"><h2>Where it fits</h2><dl class="fits"><dt>LaunchDarkly</dt><dd>Flag evaluation (50T evals/day) is read heavy plus real time fanout: flag changes stream out to every SDK. Experimentation results are the batch and analytics pattern.</dd>
+<dt>iii</dt><dd>A workflow and agent engine is the orchestration pattern almost by definition, with an event driven core. Expect questions about durable state, retries and stuck runs.</dd></dl></section>
+<footer class="source">
+  <span class="label">Source</span>
+  <a href="https://puneetpatwari.substack.com/p/the-only-system-design-cheatsheet">The Only System Design Cheatsheet</a>
+  <span class="label">Puneet Patwari</span>
+</footer>
+</article>
+</main>
+</body>
+</html>
