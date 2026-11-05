@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Parasail · company profile</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* company-research report: one reading column, sections in template order, self-contained (works as a Claude artifact and on nowucca.com). */
+:root {
+  --bg: #f4f6f8; --surface: #ffffff; --fg: #17202a; --muted: #5a6774; --line: #d9e0e6;
+  --accent: #1d5c88; --accent-soft: #e2edf5; --good: #1f6b45; --bad: #9a3324; --mark: #f6e3a1;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad; --line: #2a343f;
+    --accent: #7fb6de; --accent-soft: #1c2c3a; --good: #7fcf9f; --bad: #f09a8a; --mark: #5b4a17; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad; --line: #2a343f;
+  --accent: #7fb6de; --accent-soft: #1c2c3a; --good: #7fcf9f; --bad: #f09a8a; --mark: #5b4a17; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-block: 3rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 2.25rem; }
+a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  border-top: 1px solid var(--line); padding-top: 1.25rem; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+p, ul, ol { margin: 0; }
+ul, ol { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.label { font: 500 0.75rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.masthead { display: flex; flex-direction: column; gap: 0.75rem; border-bottom: 2px solid var(--fg); padding-bottom: 1.25rem; }
+.masthead .meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; }
+section { display: flex; flex-direction: column; gap: 0.9rem; }
+blockquote { margin: 0; padding: 0.8rem 1rem; background: var(--accent-soft); border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; line-height: 1.45; }
+th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--line); }
+th { font: 500 0.72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+tbody tr:last-child td { border-bottom: 0; }
+td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+code { font: 0.88em var(--mono); }
+#signals > div { display: flex; flex-direction: column; gap: 0.5rem; }
+.green h3 { color: var(--good); } .red h3 { color: var(--bad); }
+.sources { font-size: 0.9rem; }
+footer.foot { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+@media (max-width: 480px) { body { font-size: 16px; } table { min-width: 34rem; } }
+</style>
+</head>
+<body>
+<nav class="nwc-nav" aria-label="Site"><a href="/companies/">&larr; Company research</a><a href="/library/">All pages</a></nav>
+<style>.nwc-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;padding:.6rem max(16px,env(safe-area-inset-left,0px));font:500 13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;border-bottom:1px solid rgba(127,127,127,.3);background:inherit}.nwc-nav a{color:inherit;opacity:.75;text-decoration:none}.nwc-nav a:hover{opacity:1;text-decoration:underline}</style>
+
+<main class="wrap">
+<header class="masthead">
+  <span class="label">Company profile</span>
+  <h1>Parasail</h1>
+  <p class="lede">Pay-per-token inference cloud for AI-native startups, brokering GPU capacity across ~40 data centers plus its own fleet.</p>
+  <div class="meta label"><span>Researched 2026-11-05</span><a href="https://www.parasail.io/">Website</a><a href="https://www.linkedin.com/company/102974768/">LinkedIn</a><a href="https://x.com/parasail_io">X</a><a href="https://docs.parasail.io/parasail-docs">Docs</a></div>
+</header>
+
+<blockquote><p>Scope: this is Parasail Inc. of San Mateo, CA (parasail.io), not the older parasail.com or unrelated "Parasail" brands. LinkedIn headcount pages, Glassdoor and SEC EDGAR could not be read from this session (the LinkedIn script needs the logged-in Mac browser; EDGAR and Glassdoor were blocked), so headcount rests on Built In and job ads. No Glassdoor reviews turned up in search.</p></blockquote>
+
+<section id="snapshot"><h2>Snapshot</h2><p>Parasail sells open-model inference (Kimi, GLM, DeepSeek, MiniMax, gpt-oss and 40+ others in its library) through serverless per-token endpoints, "elastic" priority endpoints, dedicated reserved GPUs and a discounted batch tier. Its pitch is "commit to spend, not GPUs": it aggregates capacity from about 40 third-party data centers in 15 countries and spot "liquidity markets" alongside its own Hopper and Blackwell fleet, then routes and tunes workloads automatically. Customers are mostly seed-to-Series-B AI startups (Elicit, mem0, Venice, Gravity, Kotoba, Reflow). It is a ~2½-year-old private company that has raised about $42M, with roughly two dozen employees as of the last public count, and it competes with Together AI, Fireworks AI and Baseten.</p></section>
+
+<section id="mission"><h2>Mission, purpose, vision, values</h2>
+<p>No formal mission or values list is published. The closest statements, verbatim:</p>
+<ul>
+<li>Tagline: "The Inference Cloud for AI-native startups" (<a href="https://www.parasail.io/">homepage</a>)</li>
+<li>Vision, "Building for the Token Economy": "In the next few years, inference will become the largest computing workload on earth." and "AI-native companies need a token economy, not a hardware economy: commit to output, not silicon, on a fluid fleet that flexes with you." (<a href="https://www.parasail.io/about-us">About</a>)</li>
+<li>How they operate: "Transparency is the foundation." with "no silent quantization, no capacity that vanishes the moment you need it." (<a href="https://www.parasail.io/about-us">About</a>)</li>
+<li>CEO Mike Henry: "We're relentless about delivering the best inference performance per dollar." (<a href="https://www.prnewswire.com/news-releases/parasail-to-combine-nvidia-ai-infrastructure-with-d-matrix-accelerators-to-achieve-10x-faster-token-generation-302820178.html">d-Matrix release, 2026-07-08</a>)</li>
+</ul></section>
+
+<section id="history"><h2>History</h2><ul>
+<li><strong>2023:</strong> Founded, per <a href="https://www.builtinsf.com/company/parasail">Built In</a>, by Mike Henry (founder of analog AI chip maker Mythic in 2012, later interim Chief Product Officer at Groq, where he set up its cloud service) and Tim Harris (founder and CEO of Swift Navigation). Operated in stealth.</li>
+<li><strong>2025-04-02:</strong> Launched publicly as "the First AI Deployment Network" with a $10M seed and named customers Elicit, Rasa, Everpilot, Weights &amp; Biases and Oumi. Pitch then: 15–30x cheaper than OpenAI/Anthropic, H100/H200/A100/4090 capacity (<a href="https://www.businesswire.com/news/home/20250402852180/en">Business Wire</a>).</li>
+<li><strong>2026-04-15:</strong> $32M Series A; branding shifted to "AI Supercloud" for agents, claiming 500B tokens/day and 30% month-over-month revenue growth (<a href="https://www.prnewswire.com/news-releases/parasail-raises-32m-series-a-to-build-the-supercloud-that-puts-developers-in-control-of-their-ai-302742856.html">PR Newswire</a>).</li>
+<li><strong>2026-07-08:</strong> Partnership to run d-Matrix Corsair accelerators for decode beside NVIDIA GPUs for prefill ("heterogeneous disaggregated inference"); repositioned as "the inference cloud for AI-native startups", inference only.</li>
+<li><strong>Late 2026:</strong> Homepage now claims "Trillions of Tokens served daily" (unverified; up from 500B/day in April). Hiring for data center deployment and a European SRE site lead suggests the owned fleet is growing.</li>
+</ul></section>
+
+<section id="ownership"><h2>Ownership and status</h2><p>Private, venture-backed. Legal name reported as "Parasail Inc." (<a href="https://siliconangle.com/2026/04/15/parasail-raises-32m-pay-per-token-inference-cloud/">SiliconANGLE</a>); jurisdiction not confirmed (EDGAR not reachable from this session, so no Form D check). HQ 4 W 4th Ave, San Mateo, CA 94402 per <a href="https://www.builtinsf.com/company/parasail">Built In</a>; press releases are datelined San Francisco. No parent company. A job posting says it is a federal contractor (VEVRAA/Section 503 forms).</p></section>
+
+<section id="funding"><h2>Funding</h2>
+  <div class="table-wrap"><table><thead><tr><th>Date</th><th>Round</th><th>Amount</th><th>Lead / investors</th><th>Valuation</th><th>Source</th></tr></thead>
+  <tbody>
+  <tr><td>2025-04-02 (announced)</td><td>Seed</td><td>$10M</td><td>Basis Set Ventures, Threshold Ventures, Buckley Ventures, Black Opal Ventures</td><td>Not disclosed</td><td><a href="https://www.businesswire.com/news/home/20250402852180/en">Business Wire</a></td></tr>
+  <tr><td>2026-04-15</td><td>Series A</td><td>$32M</td><td>Co-led by Touring Capital (Samir Kumar) and Kindred Ventures (Steve Jang); Samsung NEXT, Flume Ventures, Banyan Ventures, existing investors</td><td>Not disclosed</td><td><a href="https://www.prnewswire.com/news-releases/parasail-raises-32m-series-a-to-build-the-supercloud-that-puts-developers-in-control-of-their-ai-302742856.html">PR Newswire</a>, <a href="https://techcrunch.com/2026/04/15/parasail-raises-32m-to-feed-tokenmaxxing-ai-developers/">TechCrunch</a></td></tr>
+  </tbody></table></div>
+  <ul>
+  <li>Total raised: about $42M (Series A release). The About page also lists Bullpen Ventures.</li>
+  <li>Last round ~7 months ago (April 2026). For a company running its own GPU fleet, $42M is not much capital; expect another raise or debt financing within roughly a year if the fleet keeps growing (estimate).</li>
+  <li>Form D filings: not checked (EDGAR blocked from this session).</li>
+  </ul>
+</section>
+
+<section id="financials"><h2>Financials</h2><ul>
+<li>Revenue not disclosed. Claimed revenue growth of 30% month-over-month as of April 2026 (company claim, <a href="https://www.prnewswire.com/news-releases/parasail-raises-32m-series-a-to-build-the-supercloud-that-puts-developers-in-control-of-their-ai-302742856.html">PR Newswire</a>).</li>
+<li>Volume: "over 500 billion tokens per day" (April 2026); homepage now says "Trillions of Tokens served daily" (Nov 2026). Company claims, unaudited.</li>
+<li>"Thousands of developers and hundreds of enterprise customers" (<a href="https://www.prnewswire.com/news-releases/parasail-to-combine-nvidia-ai-infrastructure-with-d-matrix-accelerators-to-achieve-10x-faster-token-generation-302820178.html">July 2026</a>).</li>
+<li>Pricing is thin-margin by nature: e.g. gpt-oss-120b at $0.10/$0.75 per million tokens in/out, DeepSeek V4 Flash $0.14/$0.28 (<a href="https://www.parasail.io/pricing">pricing</a>). Profitability unknown.</li>
+</ul></section>
+
+<section id="people"><h2>People and headcount</h2>
+  <div class="table-wrap"><table><thead><tr><th>Source</th><th>Employees</th><th>Date</th></tr></thead><tbody>
+  <tr><td>Built In company profile</td><td>23</td><td>Undated; read 2026-11-05 (likely stale)</td></tr>
+  <tr><td>Head of DevRel job ad ("our first dedicated developer-facing hire")</td><td>23 (Built In box)</td><td>Removed 2026-06-24</td></tr>
+  <tr><td>LinkedIn</td><td>Not read</td><td>—</td></tr>
+  </tbody></table></div>
+<ul>
+<li>Estimate: roughly 25–45 people now, given ~8 open roles in Sept–Oct 2026 on top of the 23 count. Mostly engineering.</li>
+<li>Locations: San Mateo HQ, plus San Francisco; new SRE roles in Europe (remote) including a "Site Lead", implying a European team forming. Office policy: "highly engaged and dynamic hybrid working culture" (Greenhouse ad); Built In lists on-site.</li>
+<li>Leadership: Mike Henry, co-founder and CEO (since founding, 2023). Tim Harris, co-founder (also CEO of Swift Navigation, so likely not full-time). No CTO or VP Engineering is named publicly.</li>
+</ul></section>
+
+<section id="engineering"><h2>Engineering</h2><ul>
+<li>Shape: small, senior team spanning GPU kernel performance, distributed scheduling/orchestration, reliability/SRE, data center operations, and product/fullstack.</li>
+<li>Stack (from job ads): Python, C++, CUDA, ROCm, Triton, CUTLASS, PyTorch, JAX, XLA, vLLM, SGLang, FlashAttention/FlashInfer, speculative decoding, quantization, Kubernetes; TypeScript/JavaScript for product; vector DBs and real-time audio pipelines for applied AI work (<a href="https://builtin.com/job/senior-software-engineer-llm-performance/8592496">LLM Performance ad</a>, <a href="https://job-boards.greenhouse.io/parasail/jobs/5107916008">Senior AI Engineer ad</a>).</li>
+<li>Hardware: NVIDIA B300, B200, H200, H100, RTX PRO 6000, RTX 5090; d-Matrix Corsair for decode for select customers (<a href="https://www.parasail.io/pricing">pricing</a>).</li>
+<li>Open source: no GitHub org linked from the site. Blog is frequent and practical: day-0 model launches, speculative decoding, agent latency tracing, cutting Claude Code/Codex costs with open models (<a href="https://www.parasail.io/blog">blog</a>).</li>
+<li>Open roles (Ashby, read 2026-11-05; may be incomplete): Senior Software Engineer, Distributed Systems (San Mateo, posted 2026-06-22); Senior Inference Reliability Engineer (San Mateo, 2026-09-25); Senior Site Reliability Engineer (San Mateo or remote); Senior SRE and Senior SRE Site Lead (Europe/remote, 2026-09-29); TPM, Data Center Deployment &amp; Operations (hybrid SF/San Mateo); Lead Technical Product Marketing Manager; Strategic Partnerships Manager ($200K–$220K + equity) (<a href="https://jobs.ashbyhq.com/parasail">jobs.ashbyhq.com/parasail</a>). The older Greenhouse board shows no openings.</li>
+</ul></section>
+
+<section id="culture"><h2>Culture and reviews</h2><ul>
+<li>No Glassdoor, Indeed or Blind reviews found (too small). No Levels.fyi data.</li>
+<li>Self-description in ads: "hungry, creative engineer who thrives in a high-trust, high-velocity environment"; "Direct mentorship and visibility with our CEO"; "Competitive compensation with meaningful equity".</li>
+<li>Pay data: Head of DevRel $160K–$240K base; Strategic Partnerships Manager $200K–$220K. Engineering bands not posted.</li>
+<li>Interview process: not published.</li>
+</ul></section>
+
+<section id="news"><h2>Recent news (last 12 months)</h2><ul>
+<li><strong>2026-11-05:</strong> Blog "Where does time go in an AI agent?"; steady weekly technical posts since October.</li>
+<li><strong>2026-10-26:</strong> Day-0 production support for MiniMax M3.1 Flash.</li>
+<li><strong>2026-09:</strong> Hiring burst: data center operations TPM, inference reliability, SRE in Europe, partnerships.</li>
+<li><strong>2026-07-08:</strong> d-Matrix Corsair + NVIDIA heterogeneous inference partnership, claiming up to 10x faster token generation (<a href="https://www.prnewswire.com/news-releases/parasail-to-combine-nvidia-ai-infrastructure-with-d-matrix-accelerators-to-achieve-10x-faster-token-generation-302820178.html">PR Newswire</a>).</li>
+<li><strong>2026-04-15:</strong> $32M Series A led by Touring Capital and Kindred Ventures (<a href="https://techcrunch.com/2026/04/15/parasail-raises-32m-to-feed-tokenmaxxing-ai-developers/">TechCrunch</a>, <a href="https://siliconangle.com/2026/04/15/parasail-raises-32m-pay-per-token-inference-cloud/">SiliconANGLE</a>).</li>
+<li><strong>Undated 2026:</strong> Partnerships with Neuralwatt (energy efficiency) and Wafer AI; Reflow case study claiming 70% inference cost reduction.</li>
+</ul></section>
+
+<section id="signals"><h2>Signals for a candidate</h2>
+  <div class="green"><h3>Green flags</h3><ul>
+  <li>Riding the biggest demand curve in AI infra: inference volume claimed to grow from billions to trillions of tokens/day in 18 months.</li>
+  <li>Experienced founder: Henry has built an AI chip company (Mythic) and ran product and cloud at Groq.</li>
+  <li>Capital-light model (brokered capacity, no long-term GPU commitments) limits the stranded-hardware risk that sank some GPU clouds.</li>
+  <li>Early enough (~25–45 people) for broad ownership and real equity upside; direct access to the CEO.</li>
+  <li>Serious systems work: kernels, scheduling, heterogeneous hardware, multi-region reliability.</li>
+  </ul></div>
+  <div class="red"><h3>Red flags and risks</h3><ul>
+  <li>Crowded, price-driven market (Together AI, Fireworks, Baseten, DeepInfra, plus hyperscalers and model labs selling their own APIs); token prices keep falling.</li>
+  <li>Small war chest ($42M) for a business that is now also running its own Hopper/Blackwell fleet and hiring data center ops.</li>
+  <li>Positioning has shifted three times in 18 months ("AI Deployment Network" → "AI Supercloud" for agents and training → "Inference Cloud for AI-native startups").</li>
+  <li>Customer concentration risk with startup customers who churn or get acquired; several homepage logos (Z, MiniMax, Kimi) look like model partners rather than paying customers.</li>
+  <li>No public CTO/VP Eng; co-founder Tim Harris also runs Swift Navigation. Metrics (tokens/day, 30% MoM) are unaudited company claims.</li>
+  </ul></div>
+  <div><h3>Questions to ask</h3><ol>
+  <li>What share of tokens runs on owned GPUs vs. brokered capacity, and what are gross margins on each?</li>
+  <li>Revenue run-rate and growth since April; runway at current burn; plans for the next raise or debt for hardware?</li>
+  <li>Who leads engineering, how is the team organized, and how big is it today?</li>
+  <li>Top-10 customer concentration, and how much revenue comes from model labs vs. app companies?</li>
+  <li>How does on-call and reliability work across third-party data centers you don't control?</li>
+  <li>What's the hybrid expectation in San Mateo, and how is the Europe team set up?</li>
+  </ol></div>
+</section>
+
+<section id="sources" class="sources"><h2>Sources</h2><ul>
+<li><a href="https://www.parasail.io/">parasail.io</a>, <a href="https://www.parasail.io/about-us">/about-us</a>, <a href="https://www.parasail.io/pricing">/pricing</a>, <a href="https://www.parasail.io/blog">/blog</a> (read 2026-11-05)</li>
+<li><a href="https://www.businesswire.com/news/home/20250402852180/en">Business Wire, launch and seed, 2025-04-02</a> (read 2026-11-05)</li>
+<li><a href="https://www.prnewswire.com/news-releases/parasail-raises-32m-series-a-to-build-the-supercloud-that-puts-developers-in-control-of-their-ai-302742856.html">PR Newswire, Series A, 2026-04-15</a> (read 2026-11-05)</li>
+<li><a href="https://siliconangle.com/2026/04/15/parasail-raises-32m-pay-per-token-inference-cloud/">SiliconANGLE, 2026-04-15</a> (read 2026-11-05)</li>
+<li><a href="https://techcrunch.com/2026/04/15/parasail-raises-32m-to-feed-tokenmaxxing-ai-developers/">TechCrunch, 2026-04-15</a> (via <a href="https://aichief.com/news/startup-bets-on-tokenmaxxing-to-become-a-compute-giant/">AIChief summary</a>, read 2026-11-05)</li>
+<li><a href="https://theaiinsider.tech/2026/04/16/parasail-closes-32m-funding-round-to-scale-low-cost-ai-inference-infrastructure-amid-surging-token-demand/">The AI Insider, 2026-04-16</a> (read 2026-11-05)</li>
+<li><a href="https://inforcapital.com/news/why-we-invested-in-parasail-orchestrating-the-ai-supercloud/">Infor Capital investor note, 2026-04-15</a> (read 2026-11-05)</li>
+<li><a href="https://www.prnewswire.com/news-releases/parasail-to-combine-nvidia-ai-infrastructure-with-d-matrix-accelerators-to-achieve-10x-faster-token-generation-302820178.html">PR Newswire, d-Matrix partnership, 2026-07-08</a> (read 2026-11-05)</li>
+<li><a href="https://www.builtinsf.com/company/parasail">Built In SF company profile</a> (read 2026-11-05)</li>
+<li><a href="https://jobs.ashbyhq.com/parasail">Ashby job board</a> and <a href="https://job-boards.greenhouse.io/parasail/jobs/5107916008">Greenhouse Senior AI Engineer ad</a> (read 2026-11-05)</li>
+<li><a href="https://builtin.com/job/senior-software-engineer-llm-performance/8592496">Built In: Senior SWE, LLM Performance</a>, <a href="https://builtin.com/job/head-developer-relations/9257976">Head of Developer Relations</a> (both removed June 2026; read 2026-11-05)</li>
+</ul></section>
+<footer class="foot">Every number has a source and a date; estimates are marked. Treat as a snapshot as of the research date.</footer>
+</main>
+</body>
+</html>

@@ -46,6 +46,17 @@
             "go",
             "feature flags"
           ]
+        },
+        {
+          "slug": "parasail",
+          "title": "Parasail",
+          "summary": "Pay-per-token inference cloud for AI startups; Series A ($42M raised), ~25-45 staff, San Mateo; risk: crowded price war, thin capital for an owned GPU fleet",
+          "date": "2026-11-05",
+          "tags": [
+            "series a",
+            "inference",
+            "gpu cloud"
+          ]
         }
       ],
       "noindex": true
