@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Choose the database from three workload signals · Interview Tips</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="../index.html">&larr; All ideas</a>
+<article class="article">
+<header>
+  <span class="label">Idea 02 · added 2026-11-05</span>
+  <h1>Choose the database from three workload signals</h1>
+  <p class="one">Label the workload, pick a data model, then name a product. Never start from the product.</p>
+  <div class="tags"><span class="tag">system design</span><span class="tag">databases</span><span class="tag">framework</span></div>
+</header>
+<section class="section"><h2>The idea</h2><div class="prose"><p>When a design needs storage, answer three questions before naming any database: <mark>what kind of workload is it</mark> (transactional, analytics, or search and logs), <mark>what is the traffic shape</mark> (read heavy, write heavy, balanced, spiky, hot keys), and <mark>how correct must it be</mark> (strong consistency or eventual is fine).</p>
+<p>Those answers pick a data model first, and only then a technology. Going model-first keeps the answer about access patterns instead of brand names, and makes it easy to swap the product when the interviewer pushes.</p></div></section>
+<section class="section"><h2>Need → model → example tech</h2><div class="table-wrap"><table class="grid"><thead><tr><th>If the need is…</th><th>Model</th><th>Examples</th></tr></thead><tbody><tr><td>Money, joins, transactions</td><td>Relational</td><td>Postgres, MySQL; YugabyteDB or TiDB for multi-region</td></tr><tr><td>Flexible JSON, changing schema</td><td>Document</td><td>MongoDB, Couchbase</td></tr><tr><td>Fast ID lookups, hot keys</td><td>Key-value</td><td>Redis, Memcached</td></tr><tr><td>Very high write volume at scale</td><td>Wide column</td><td>Cassandra, HBase</td></tr><tr><td>Dashboards over history</td><td>Columnar</td><td>ClickHouse</td></tr><tr><td>Metrics over time</td><td>Time series</td><td>Timescale, InfluxDB, Prometheus</td></tr><tr><td>Text search, ranking, logs</td><td>Search</td><td>Elasticsearch, OpenSearch</td></tr></tbody></table></div><p class="note">Need ultra-low latency on top of any of these? Add a cache in front rather than changing the primary store.</p></section>
+<section class="section"><h2>Four trade-off prompts</h2><ul class="asks"><li>What are the top queries?</li><li>What correctness is actually required?</li><li>Where are the hotspots?</li><li>What breaks first at 10x?</li></ul></section>
+<section class="section"><h2>Say it like this</h2><ul class="say"><li>Before picking a store: this is OLTP, read heavy with a few hot keys, and balances need strong consistency. That points to a relational primary with a key-value cache in front.</li>
+<li>The events table is write heavy and append only, and we only read it in aggregate, so I'd keep it out of Postgres and use a columnar or time-series store for it.</li></ul></section>
+<section class="section"><h2>Bring it up when they ask</h2><ul class="asks"><li>Which database would you use here, and why?</li>
+<li>Why not just use Postgres for everything?</li>
+<li>SQL or NoSQL?</li>
+<li>What happens to this data layer at 10x traffic?</li></ul></section>
+<section class="section"><h2>Where it fits</h2><dl class="fits"><dt>LaunchDarkly</dt><dd>Flag configs are small, read heavy and need fast propagation (key-value plus streaming). Evaluation events and experiment metrics are write heavy and analytical (columnar or time series).</dd>
+<dt>iii</dt><dd>Workflow state needs strong consistency per run (relational), while run logs and traces are append heavy and search shaped.</dd></dl></section>
+<footer class="source">
+  <span class="label">Source</span>
+  <a href="https://lnkd.in/p/gWudhFfb">Database Choices for System Design cheatsheet (LinkedIn)</a>
+  <span class="label">Puneet Patwari</span>
+</footer>
+</article>
+</main>
+</body>
+</html>
