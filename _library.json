@@ -1,0 +1,54 @@
+{
+  "title": "Library",
+  "lede": "Pages I've published here, grouped by topic.",
+  "sections": {
+    "interview-tips": {
+      "title": "Interview Tips",
+      "lede": "Ideas, frameworks and talking points worth bringing into interviews.",
+      "items": [],
+      "external": true,
+      "href": "/interview-tips/",
+      "updated": "2026-11-05"
+    },
+    "companies": {
+      "title": "Company research",
+      "lede": "Sourced profiles of companies in my 2026–27 job search: mission, funding, headcount, engineering, news and the questions I'd ask.",
+      "items": [
+        {
+          "slug": "netbox-labs",
+          "title": "NetBox Labs",
+          "summary": "Commercial steward of open-source NetBox; Series B ($55M raised), ~130 people, fully remote, repositioning around AI data centers and agents.",
+          "date": "2026-11-05",
+          "tags": [
+            "series b",
+            "remote",
+            "network infra"
+          ]
+        },
+        {
+          "slug": "iii",
+          "title": "iii (formerly Motia)",
+          "summary": "Tiny open-core Rust agent/workflow engine (~18.9k stars); no public funding found, legal entity unclear.",
+          "date": "2026-10-29",
+          "tags": [
+            "early stage",
+            "rust",
+            "agents"
+          ]
+        },
+        {
+          "slug": "launchdarkly",
+          "title": "LaunchDarkly",
+          "summary": "Feature management leader, $200M+ ARR, private since a 2021 $3B Series D; betting on AgentControl for AI agents. Background notes only.",
+          "date": "2026-10-29",
+          "tags": [
+            "late stage",
+            "go",
+            "feature flags"
+          ]
+        }
+      ],
+      "noindex": true
+    }
+  }
+}
