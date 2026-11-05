@@ -16,6 +16,7 @@
       <div class="nw-wrap nw-header-inner">
         <a class="nw-brand" href="{{ "/" | relative_url }}">nowucca<span>.com</span></a>
         <nav class="nw-nav" aria-label="Site">
+          {% if page.projects %}<a href="#portfolio">Portfolio</a>{% endif %}
           {% for card in page.cards %}{% if card.nav %}<a href="{{ card.href | relative_url }}">{{ card.nav }}</a>{% endif %}{% endfor %}
         </nav>
       </div>
@@ -42,6 +43,38 @@
           {% endfor %}
         </ul>
       </section>
+
+      {% if page.projects %}
+      <section class="nw-wrap nw-portfolio" id="portfolio" aria-labelledby="nw-portfolio">
+        <div class="nw-portfolio-head">
+          <h2 id="nw-portfolio" class="nw-section-label">Selected GitHub work</h2>
+          <a class="nw-portfolio-all" href="https://github.com/nowucca" rel="noopener">All repositories on GitHub <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <ul class="nw-projects">
+          {% for p in page.projects %}
+          <li class="nw-project">
+            <div class="nw-project-top">
+              <h3 class="nw-project-name"><a href="https://github.com/{{ p.repo }}" rel="noopener">{{ p.name }}<span class="nw-sr"> on GitHub</span></a></h3>
+              <span class="nw-project-year">{{ p.year }}</span>
+            </div>
+            <ul class="nw-chips" aria-label="Built with">
+              {% for t in p.tags %}<li>{{ t }}</li>{% endfor %}
+              {% if p.stars %}<li class="nw-chip-stat">&#9733; {{ p.stars }}</li>{% endif %}
+              {% if p.forks %}<li class="nw-chip-stat">{{ p.forks }} forks</li>{% endif %}
+            </ul>
+            <dl class="nw-project-body">
+              <dt>Why</dt><dd>{{ p.why }}</dd>
+              <dt>What</dt><dd>{{ p.what }}</dd>
+            </dl>
+            <p class="nw-project-repo">
+              <span class="nw-project-path">{{ p.repo }}</span>
+              {% if p.also %}<a class="nw-project-also" href="https://github.com/{{ p.also }}" rel="noopener">+ {{ p.also | split: "/" | last }}</a>{% endif %}
+            </p>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
 
       <div class="container-lg px-3 my-5 markdown-body nw-legacy">
         {{ content }}
