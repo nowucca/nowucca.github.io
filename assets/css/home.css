@@ -1,0 +1,143 @@
+/* nowucca.com home page: header + section cards. Older content below keeps the Primer theme. */
+:root {
+  --nw-bg: #f4f6f8;
+  --nw-surface: #ffffff;
+  --nw-fg: #17202a;
+  --nw-muted: #5a6774;
+  --nw-line: #d9e0e6;
+  --nw-accent: #1d5c88;
+  --nw-accent-soft: #e2edf5;
+  --nw-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --nw-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+body.nw { margin: 0; background: #fff; }
+
+.nw-wrap {
+  max-width: 1012px; /* matches Primer's container-lg */
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.nw-header {
+  background: var(--nw-bg);
+  border-bottom: 1px solid var(--nw-line);
+  color: var(--nw-fg);
+}
+.nw-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.nw-brand {
+  font: 700 1.4rem/1 var(--nw-display);
+  letter-spacing: -0.02em;
+  color: var(--nw-fg);
+  text-decoration: none;
+  padding: 8px 0;
+}
+.nw-brand span { color: var(--nw-accent); }
+.nw-brand:hover { text-decoration: none; }
+.nw-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-left: -12px; }
+.nw-nav a {
+  font: 500 0.95rem/1 var(--nw-display);
+  color: var(--nw-muted);
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 8px;
+}
+.nw-nav a:hover { color: var(--nw-accent); background: var(--nw-accent-soft); text-decoration: none; }
+
+.nw-hero { padding-top: 24px; padding-bottom: 48px; }
+.nw-kicker {
+  font: 500 0.8rem/1.4 var(--nw-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--nw-accent);
+  margin: 0 0 12px;
+}
+.nw-hero h1 {
+  font: 700 clamp(2rem, 5.5vw, 3.2rem)/1.08 var(--nw-display);
+  letter-spacing: -0.025em;
+  color: var(--nw-fg);
+  margin: 0 0 16px;
+  max-width: 20ch;
+  text-wrap: balance;
+  border: 0;
+}
+.nw-lede { font-size: 1.15rem; line-height: 1.55; color: var(--nw-muted); max-width: 42rem; margin: 0; }
+
+/* Cards */
+.nw-cards-section { padding-top: 40px; }
+.nw-section-label {
+  font: 600 0.85rem/1 var(--nw-display);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--nw-muted);
+  margin: 0 0 16px;
+}
+.nw-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+  gap: 16px;
+}
+.nw-cards li { margin: 0; }
+.nw-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  min-height: 190px;
+  padding: 24px;
+  background: var(--nw-surface);
+  border: 1px solid var(--nw-line);
+  border-radius: 14px;
+  color: var(--nw-fg);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.nw-card:hover {
+  text-decoration: none;
+  border-color: var(--nw-accent);
+  box-shadow: 0 10px 28px rgba(23, 32, 42, 0.10);
+  transform: translateY(-2px);
+}
+.nw-card:active { transform: translateY(0); }
+.nw-card:focus-visible, .nw-nav a:focus-visible, .nw-brand:focus-visible {
+  outline: 3px solid var(--nw-accent);
+  outline-offset: 3px;
+}
+.nw-card-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--nw-accent-soft);
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.nw-card-title { font: 700 1.3rem/1.2 var(--nw-display); letter-spacing: -0.01em; }
+.nw-card-text { color: var(--nw-muted); line-height: 1.5; flex: 1; }
+.nw-card-go { font: 600 0.95rem/1 var(--nw-display); color: var(--nw-accent); padding-top: 8px; }
+.nw-card:hover .nw-card-go span { margin-left: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nw-card { transition: none; }
+  .nw-card:hover { transform: none; }
+}
+
+/* Older home content */
+.nw-legacy { padding-top: 8px; }
+.nw-legacy iframe { max-width: 100%; height: auto; aspect-ratio: 600 / 397; }
