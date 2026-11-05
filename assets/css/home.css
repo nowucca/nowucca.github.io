@@ -248,3 +248,17 @@ body.nw { margin: 0; background: #fff; }
   .nw-project, .nw-project::before { transition: none; }
   .nw-project:hover, .nw-project:focus-within { transform: none; }
 }
+.nw-project-meta { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nw-private {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 500 0.72rem/1 var(--nw-mono);
+  color: #7a4b00;
+  background: #fdf1dc;
+  border: 1px solid #f0d9ae;
+  padding: 4px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.nw-portfolio-note { flex-basis: 100%; margin: 0; color: var(--nw-muted); font-size: 0.95rem; }
