@@ -2,6 +2,14 @@
   "title": "Library",
   "lede": "Pages I've published here, grouped by topic.",
   "sections": {
+    "research": {
+      "title": "Research",
+      "lede": "Staff-level notes on AI innovation, filed by theme, with a knowledge map of how the ideas connect.",
+      "items": [],
+      "external": true,
+      "href": "/research/",
+      "updated": "2026-11-06"
+    },
     "interview-tips": {
       "title": "Interview Tips",
       "lede": "Ideas, frameworks and talking points worth bringing into interviews.",
