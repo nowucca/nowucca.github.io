@@ -1,5 +1,4 @@
 {% comment %}Site nav, built from the home page's cards. Pass home=<the home page>.{% endcomment %}
         <nav class="nw-nav" aria-label="Site">
-          {% if include.home.projects %}<a href="{{ "/#portfolio" | relative_url }}">Portfolio</a>{% endif %}
           {% for card in include.home.cards %}{% if card.nav %}<a href="{{ card.href | relative_url }}">{{ card.nav }}</a>{% endif %}{% endfor %}
         </nav>

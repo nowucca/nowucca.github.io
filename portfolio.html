@@ -1,0 +1,78 @@
+---
+layout: nw-page
+title: Portfolio
+permalink: /portfolio/
+description: Selected GitHub projects by Steven Atkinson, with why each one was built and what it does.
+lede: Selected GitHub work, newest first. Some of my best work lives in private repositories. Those are marked Private; ask me for a walkthrough.
+projects:
+  - name: Orbitals
+    repo: nowucca/socialmatch
+    private: true
+    year: 2026
+    tags: [Python, FastAPI, React, TypeScript, LLMs]
+    why: Your YouTube and Spotify history says a lot about who you'd click with, so I wanted a fun, shareable way to read it.
+    what: A product I'm building with a psychology-trained partner. It turns media signals into an AI-written personality type on a generated tarot card, then gives friend, date, collab or roast compatibility readings through invite links, with Google sign-in, Stripe and Fly.io deploys.
+  - name: ctx
+    repo: nowucca/ctx
+    private: true
+    year: 2026
+    tags: [Python, CLI, AI agents]
+    why: Coding agents are only as good as the context they're given, and that context is scattered across repos, docs and tickets.
+    what: A CLI that gathers knowledge from git repos, docs, URLs, Slack and Jira into a searchable library, then applies curated "lenses" into a workspace's .claude/ folder with clean, manifest-tracked removal. It also manages spaces and git worktrees.
+  - name: LLM Proxy
+    repo: nowucca/aitools-llm-proxy
+    private: true
+    year: 2023–26
+    tags: [Python, FastAPI, OpenAI, Anthropic]
+    why: My students needed LLM access without each one holding a provider API key.
+    what: A streaming reverse proxy for OpenAI, Anthropic and open-source models with JWT sign-up, rate limiting, client reset on repeated errors and structured logging. It has run every term since 2023 and now backs other apps too.
+  - name: DigIn
+    repo: nowucca/digin
+    year: 2026
+    tags: [Python, Claude API, Playwright]
+    why: I save hundreds of LinkedIn posts and could never find the good ones again.
+    what: A CLI that syncs my saved posts, clusters them by topic with Claude (with an offline K-means fallback) and draws treemap, scatter and network views. Every command speaks JSON, and the repo doubles as a Claude Code plugin.
+  - name: twofifteen
+    repo: nowucca/twofifteen
+    private: true
+    year: 2026
+    tags: [Shell, Hammerspoon, Claude Code]
+    why: I wanted to do real agentic work by voice from the elliptical, with no keyboard or mouse.
+    what: A Claude Code plugin with a two-tier voice dispatcher. Hammerspoon runs known commands instantly for spaces, windows, apps, music and display, and everything else falls through to Claude Code.
+  - name: ig-mcp
+    repo: nowucca/ig-mcp
+    year: 2026
+    tags: [TypeScript, MCP, Instagram API]
+    why: Let Claude handle publishing for several Instagram accounts without juggling logins.
+    what: A multi-account MCP server that publishes reels, stories and posts, replies to DMs, watches the 24-hour publish limit and refreshes 60-day tokens on its own.
+  - name: Quack
+    repo: nowucca/quack-mcp-server
+    year: 2025
+    tags: [Python, MCP, Docker]
+    why: AI coding agents need a feedback loop they can call, not just a human reading CI logs.
+    what: A CI server exposed as MCP tools. It runs pylint and mypy as asynchronous jobs, tracks results, and serves over stdio or SSE from a container.
+  - name: Discussion Grader
+    repo: nowucca/aitools-discussion-grader
+    year: 2025
+    tags: [Python, Claude, OpenAI-compatible]
+    why: Grading weekly discussion posts for my LLM course was eating hours every week.
+    what: A CLI that stores each question's rubric and grades submissions with Claude or any OpenAI-compatible model in a fast clipboard batch flow. A companion tool posts grades back through the Canvas API.
+    also: nowucca/aitools-canvas-api
+  - name: Mettle
+    repo: nowucca/mettle
+    year: 2019
+    tags: [Python, MySQL, AWS, Ethereum]
+    why: Blockchain data is painful to analyse where it lives.
+    what: A multi-chain extract-transform-load engine that pulls Ethereum blocks, transactions, receipts and token details into partitioned MySQL, incrementally or as a backfill.
+  - name: SimpleAffableBean
+    repo: nowucca/SimpleAffableBean
+    year: 2018
+    tags: [Java, Servlets, MySQL]
+    stars: 5
+    forks: 9
+    why: The classic EJB sample store buried students in ceremony before they learned how the web works.
+    what: A teaching rewrite on plain Servlets, JSP and JDBC with POST-redirect-GET, immutable models, Guava caching and Selenium acceptance tests, used as course material.
+---
+
+<p class="nw-portfolio-all-row"><a class="nw-portfolio-all" href="https://github.com/nowucca" rel="noopener">All repositories on GitHub <span aria-hidden="true">&rarr;</span></a></p>
+{% include nw-projects.html projects=page.projects %}
