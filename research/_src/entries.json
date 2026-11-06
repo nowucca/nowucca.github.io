@@ -1,0 +1,466 @@
+{
+ "title": "Research",
+ "lede": "Notes on AI innovation, written for staff-level engineers: what each source claims, how it works, where it breaks, and how the ideas connect.",
+ "themes": [
+  {
+   "n": "1",
+   "title": "Agent architecture",
+   "lede": "How agents are built around the model: memory, context, planning, and how they learn across sessions.",
+   "subtopics": [
+    {
+     "n": "1.1",
+     "title": "Memory and context",
+     "primary": [
+      "R002"
+     ],
+     "also": [
+      {
+       "id": "R010",
+       "why": "retrieval as navigation: read a document's map, then only the pages it points to; \"similarity is not relevance\""
+      },
+      {
+       "id": "R006",
+       "why": "context management and checkpointing as the harness's per-step context and resumable state"
+      },
+      {
+       "id": "R005",
+       "why": "context as a budget; filesystem as long-term memory, window as working memory"
+      },
+      {
+       "id": "R004",
+       "why": "argues for turning memory off and wiping instructions after model upgrades"
+      }
+     ]
+    },
+    {
+     "n": "1.2",
+     "title": "Self-improvement and learning loops",
+     "primary": [],
+     "also": [
+      {
+       "id": "R002",
+       "why": "reflection pass writing procedural memory; commenters argue it needs eval and human gates"
+      }
+     ]
+    },
+    {
+     "n": "1.3",
+     "title": "Governance of agent state",
+     "primary": [],
+     "also": [
+      {
+       "id": "R005",
+       "why": "records contradictions with dates and sources instead of overwriting; little on authority or audit"
+      },
+      {
+       "id": "R002",
+       "why": "open gap: recall vs. permission, and audit of offline memory rewrites"
+      },
+      {
+       "id": "R004",
+       "why": "periodic manual wipe as governance, with no eval gate"
+      }
+     ]
+    },
+    {
+     "n": "1.4",
+     "title": "Mental models of the agent system",
+     "primary": [
+      "R005"
+     ],
+     "also": [
+      {
+       "id": "R006",
+       "why": "six harness concepts as a production vocabulary; overlaps R005's loop, gate and harness layers"
+      }
+     ]
+    },
+    {
+     "n": "1.5",
+     "title": "Context economics and caching",
+     "primary": [],
+     "also": [
+      {
+       "id": "R010",
+       "why": "tree as cached prefix, fetched pages as the tail; reads a few pages instead of a whole PDF, 2.1× to 16.6× cheaper by vendor figures"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "2",
+   "title": "Infrastructure for agents at scale",
+   "lede": "What breaks in the systems agents run against when agents, not people, generate the load.",
+   "subtopics": [
+    {
+     "n": "2.1",
+     "title": "Developer infrastructure under agent load",
+     "primary": [
+      "R001"
+     ],
+     "also": []
+    },
+    {
+     "n": "2.2",
+     "title": "Consistency and storage tradeoffs",
+     "primary": [],
+     "also": [
+      {
+       "id": "R001",
+       "why": "causal consistency instead of repo-wide snapshots"
+      },
+      {
+       "id": "R002",
+       "why": "contradiction handling in semantic memory"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "3",
+   "title": "AI-built software and its verification",
+   "lede": "Agents writing production systems, and how that code is checked.",
+   "subtopics": [
+    {
+     "n": "3.1",
+     "title": "Agents building production systems",
+     "primary": [],
+     "also": [
+      {
+       "id": "R012",
+       "why": "delegating the work erases the learning; cites Shen and Tamkin 2026, where developers who learned a library with AI scored worse unaided"
+      },
+      {
+       "id": "R001",
+       "why": "see its summary's notes on AI-built software"
+      }
+     ]
+    },
+    {
+     "n": "3.2",
+     "title": "Formal methods for AI-written code",
+     "primary": [],
+     "also": [
+      {
+       "id": "R001",
+       "why": "see its summary's notes on formal verification"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "4",
+   "title": "Knowledge for agents",
+   "lede": "How the knowledge agents act on (contracts, intent, decisions) is produced, kept current and delivered.",
+   "subtopics": [
+    {
+     "n": "4.1",
+     "title": "Docs-as-code and project memory",
+     "primary": [],
+     "also": [
+      {
+       "id": "R005",
+       "why": "LLM-wiki second brain: nothing ingested until linked, index.md + log.md, lint skills"
+      }
+     ]
+    },
+    {
+     "n": "4.3",
+     "title": "Retrieval over long documents",
+     "primary": [
+      "R010"
+     ],
+     "also": []
+    }
+   ]
+  },
+  {
+   "n": "5",
+   "title": "Harness tips",
+   "lede": "Practical advice on configuring and driving the agent harness itself: instructions, skills, memory, permission modes and prompting habits.",
+   "subtopics": [
+    {
+     "n": "5.1",
+     "title": "Harness tips",
+     "primary": [
+      "R004"
+     ],
+     "also": [
+      {
+       "id": "R006",
+       "why": "what the harness does, as opposed to how you configure it; permissions decide when Auto is safe"
+      },
+      {
+       "id": "R005",
+       "why": "four rings built outside-in; approval prompts only for irreversible actions; harness bets expire, re-audit quarterly"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "6",
+   "title": "Agent principles and patterns",
+   "lede": "The core concepts and design patterns that make agents reliable in production, independent of any one framework.",
+   "subtopics": [
+    {
+     "n": "6.1",
+     "title": "Harness building blocks",
+     "primary": [
+      "R006"
+     ],
+     "also": [
+      {
+       "id": "R012",
+       "why": "the model phrases, deterministic code decides; AMIE's live physician gate and what replaces it at scale"
+      },
+      {
+       "id": "R010",
+       "why": "retrieval as three tools: browse, get structure, get pages; grounding prompt forces page citations"
+      },
+      {
+       "id": "R005",
+       "why": "five-layer map; its evals layer is the piece R006's commenters say is missing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "7",
+   "title": "AI's effect on people",
+   "lede": "What happens to the people who use AI: what they learn, decide and get out of it, and where public-good deployments stand.",
+   "subtopics": [
+    {
+     "n": "7.1",
+     "title": "Learning, advice and public-good deployment",
+     "primary": [
+      "R012"
+     ],
+     "also": []
+    }
+   ]
+  }
+ ],
+ "entries": [
+  {
+   "id": "R001",
+   "slug": "scaling-git-at-openai",
+   "title": "Scaling Git at OpenAI (Pando)",
+   "by": "Aaron Friel, Taylor Blau and Ted Nyman, OpenAI",
+   "source": "https://openai.com/index/scaling-git-at-openai/",
+   "published": "2026-11-02",
+   "added": "2026-11-03",
+   "artifact": "https://claude.ai/artifact/XoG8K4tRhbTygertvZ9Br2",
+   "tags": [
+    "dev-infra",
+    "git",
+    "monorepo",
+    "agents-at-scale",
+    "distributed-systems",
+    "formal-verification",
+    "ai-built-software"
+   ],
+   "summary": "Agent fan-out broke stock Git hosting. Dropping repo-wide ref snapshots (moving to causal consistency) and dropping per-client packs (reusing cached packs via packfile-uri) cut median push latency about 80% at about 1 PB/day.",
+   "file": "entries/scaling-git-at-openai.html"
+  },
+  {
+   "id": "R002",
+   "slug": "five-layers-of-agent-memory",
+   "title": "The 5 layers of agent memory",
+   "by": "Shivani Virdi",
+   "source": "https://www.linkedin.com/posts/shivanivirdi_everyone-talks-about-context-engineering-activity-7523000944440008704-tTRP",
+   "published": "2026-11-02",
+   "added": "2026-11-03",
+   "artifact": "https://claude.ai/artifact/AY2ro5TtE5m4X7K2AapQA1",
+   "tags": [
+    "agent-architecture",
+    "agent-memory",
+    "context-engineering",
+    "self-improving-agents",
+    "agent-governance"
+   ],
+   "summary": "Working, episodic, semantic, procedural and meta-memory. Each layer fails the same way: the store exists, but the read, dedupe, reflection or garbage-collection step that keeps it useful is missing.",
+   "file": "entries/five-layers-of-agent-memory.html"
+  },
+  {
+   "id": "R004",
+   "slug": "best-claude-setup-is-no-setup",
+   "title": "The best Claude setup is no setup",
+   "by": "Ruben Hassid",
+   "source": "https://www.linkedin.com/posts/ruben-hassid_this-might-sound-weird-coming-from-a-guy-share-7523665908653789184-aBTJ/",
+   "published": "2026-11-04",
+   "added": "2026-11-04",
+   "artifact": "https://claude.ai/artifact/W8qogEf3QWqr12PovEbJRm",
+   "tags": [
+    "harness-config",
+    "prompting",
+    "context-engineering",
+    "agent-memory"
+   ],
+   "summary": "Config written for older models rots, so wipe instructions, skills and memory, default to Auto, prompt with Goal + Context, and ask for HTML pages instead of .docx. Sound principle (prune and re-baseline after model upgrades), weak procedure: no before/after eval, and it deletes project facts and rationale along with obsolete capability patches.",
+   "file": "entries/best-claude-setup-is-no-setup.html"
+  },
+  {
+   "id": "R005",
+   "slug": "second-brain-os",
+   "title": "Second Brain OS: the five-layer map of AI agents",
+   "by": "Charly Wargnier, on Yarchi's secondbrainos.dev",
+   "source": "https://www.linkedin.com/posts/charlywargnier_if-you-want-to-really-understand-ai-agents-ugcPost-7523683146450632704-073e/",
+   "published": "2026-11-04",
+   "added": "2026-11-04",
+   "artifact": "https://claude.ai/artifact/CFgFac9ovxcTELG5Xmu7JE",
+   "tags": [
+    "mental-models",
+    "agent-architecture",
+    "context-engineering",
+    "harness-config",
+    "evals",
+    "learning-resources"
+   ],
+   "summary": "An agent is the model plus five layers, each answering one question: context (what it sees), loop (who decides), gate (who sorts), harness (what it can reach), evals (how you know). A failure in one layer looks like another, so name the layer before blaming the model.",
+   "file": "entries/second-brain-os.html"
+  },
+  {
+   "id": "R006",
+   "slug": "agent-harness-terms",
+   "title": "6 must-know terms for AI agent harnesses",
+   "by": "Paul Iusztin",
+   "source": "https://www.linkedin.com/posts/pauliusztin_6-terms-you-must-understand-if-youre-building-activity-7523375955524866048-umk5",
+   "published": "2026-11-03",
+   "added": "2026-11-04",
+   "artifact": "https://claude.ai/artifact/CbUrWvsXCpaTVxLzHJVygA",
+   "tags": [
+    "agent-harness",
+    "agent-architecture",
+    "agent-reliability",
+    "evals",
+    "context-engineering"
+   ],
+   "summary": "Agent = model + harness; six concepts: agent loop, tool calling, context management, checkpointing, permissions and sandboxing, guardrails. Good vocabulary, shallow treatment. The comments add what's missing: observability and trajectory evals, and the point that checkpoint-and-resume is only safe when write tools are idempotent.",
+   "file": "entries/agent-harness-terms.html"
+  },
+  {
+   "id": "R010",
+   "slug": "pageindex",
+   "title": "PageIndex: reasoning-based retrieval for long documents",
+   "by": "Vectify AI (open-source SDK)",
+   "source": "https://github.com/VectifyAI/PageIndex",
+   "published": "2026-11-05",
+   "added": "2026-11-06",
+   "artifact": "https://claude.ai/artifact/844CHFxGy9hUiZtYQ3TzBs",
+   "tags": [
+    "retrieval",
+    "long-documents",
+    "context-engineering",
+    "knowledge-management",
+    "agent-harness"
+   ],
+   "summary": "Replaces chunk-and-embed RAG with a per-document section tree. An agent reads the tree, then fetches tight page ranges and cites pages. In the repo's own 10-K notebook it scored 100% at about $110 per 1,000 queries; the best vector run was 92% at $134. Wins on long, structured documents; costs several strong-model turns per query and depends on a correct outline.",
+   "file": "entries/pageindex.html"
+  },
+  {
+   "id": "R012",
+   "slug": "ai-crash-projects-public-good",
+   "title": "AI crash projects for public good: Mollick's post and the evidence behind it",
+   "by": "Ethan Mollick, plus three 2026 papers",
+   "source": "https://www.linkedin.com/feed/update/urn:li:activity:7524317763385884672/",
+   "published": "2026-11-05",
+   "added": "2026-11-06",
+   "artifact": "https://claude.ai/artifact/R38GJbJVtQGYDCdCE7Mupp",
+   "tags": [
+    "ai-impact",
+    "human-learning",
+    "public-good",
+    "human-oversight",
+    "evals",
+    "prompting"
+   ],
+   "summary": "Mollick wants national crash projects in tutoring, health second opinions, financial literacy and government services using current models. The evidence says the bottleneck is the harness (steering toward augmentation, eliciting context, cheap oversight), not the model: students who let AI write kept nothing, and the medical agent was safe only with a physician watching live.",
+   "file": "entries/ai-crash-projects-public-good.html"
+  }
+ ],
+ "edges": [
+  {
+   "a": "R001",
+   "b": "R002",
+   "strength": "weak",
+   "why": "Both argue that agent capability depends on the system around the model rather than the model alone, and both turn on a consistency tradeoff. R001 relaxes Git refs to causal consistency; R002 leaves contradictory facts in semantic memory as an open problem."
+  },
+  {
+   "a": "R002",
+   "b": "R004",
+   "strength": "strong",
+   "why": "R002 says memory fails when maintenance (dedupe, reflection, garbage collection) is missing. R004's 5-month wipe is that garbage collection done by hand, all at once, without the eval gate R002's commenters ask for."
+  },
+  {
+   "a": "R005",
+   "b": "R002",
+   "strength": "strong",
+   "why": "R005's second brain answers one of R002's open problems: contradictory facts are kept side by side with dates and sources, never overwritten."
+  },
+  {
+   "a": "R005",
+   "b": "R004",
+   "strength": "strong",
+   "why": "Both say harness config is a bet that expires with model upgrades. R004 wipes it by hand once; R005 schedules a quarterly re-audit and puts evals in front of it, which is the gate R004 lacks."
+  },
+  {
+   "a": "R005",
+   "b": "R006",
+   "strength": "strong",
+   "why": "Both say an agent is the model plus a system around it, and their parts overlap: R005's loop, gate and harness layers are R006's agent loop, guardrails and permissions, and tool calling. R005 makes evals a layer of its own, which is the seventh term R006's commenters say is missing."
+  },
+  {
+   "a": "R002",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R006's context management and checkpointing are R002's working and episodic memory seen from the harness. R002's author comments on R006 that context management is the key factor."
+  },
+  {
+   "a": "R004",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R004 configures the harness; R006 describes what it does. R004's \"default to Auto\" is only safe when the harness enforces R006's permissions by blast radius (read, reversible write, irreversible write)."
+  },
+  {
+   "a": "R010",
+   "b": "R002",
+   "strength": "strong",
+   "why": "A retrieval design for semantic memory; \"similarity is not relevance\" is R002's failed read step, returning the near but wrong fact."
+  },
+  {
+   "a": "R010",
+   "b": "R006",
+   "strength": "strong",
+   "why": "Retrieval as tool calling and context management."
+  },
+  {
+   "a": "R010",
+   "b": "R005",
+   "strength": "strong",
+   "why": "Retrieval as the context layer: \"what it sees\"."
+  },
+  {
+   "a": "R012",
+   "b": "R005",
+   "strength": "strong",
+   "why": "AMIE's zero safety stops come from a physician watching every chat live, which is R005's gate layer at full cost. Scaling a crash project means replacing that observer with evals and risk-tiered review."
+  },
+  {
+   "a": "R012",
+   "b": "R006",
+   "strength": "strong",
+   "why": "AMIE's live physician is R006's human-in-the-loop guardrail at full cost; the open problem is replacing it with evals and risk-tiered review."
+  },
+  {
+   "a": "R012",
+   "b": "R004",
+   "strength": "strong",
+   "why": "R004's Goal + Context prompting assumes the user can supply context. The financial-advice paper measures the cost when they can't, so the product should ask for the missing context itself."
+  }
+ ]
+}
