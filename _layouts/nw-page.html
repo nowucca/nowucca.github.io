@@ -1,0 +1,25 @@
+---
+---
+{% assign home = site.pages | where: "url", "/" | first %}<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+{% include nw-head.html %}
+  </head>
+  <body class="nw">
+    <header class="nw-header">
+      <div class="nw-wrap nw-header-inner">
+        <a class="nw-brand" href="{{ "/" | relative_url }}">nowucca<span>.com</span></a>
+        {% include nw-nav.html home=home %}
+      </div>
+      <div class="nw-wrap nw-hero nw-hero-page">
+        <p class="nw-kicker"><a href="{{ "/" | relative_url }}">Home</a> / {{ page.title }}</p>
+        <h1>{{ page.title }}</h1>
+        {% if page.lede %}<p class="nw-lede">{{ page.lede }}</p>{% endif %}
+      </div>
+    </header>
+
+    <main class="nw-wrap nw-page">
+      {{ content }}
+    </main>
+  </body>
+</html>

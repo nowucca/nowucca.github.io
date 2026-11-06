@@ -138,9 +138,22 @@ body.nw { margin: 0; background: #fff; }
   .nw-card:hover { transform: none; }
 }
 
-/* Older home content */
-.nw-legacy { padding-top: 8px; }
-.nw-legacy iframe { max-width: 100%; height: auto; aspect-ratio: 600 / 397; }
+/* Inner pages (layout nw-page) */
+.nw-hero-page { padding-bottom: 36px; }
+.nw-hero-page .nw-kicker a { color: inherit; }
+.nw-page { padding-top: 16px; padding-bottom: 64px; color: var(--nw-fg); line-height: 1.6; font-size: 1.05rem; }
+.nw-block { max-width: 42rem; padding-top: 32px; }
+.nw-block + .nw-block { border-top: 1px solid var(--nw-line); margin-top: 32px; }
+.nw-page h2 { font: 700 1.6rem/1.2 var(--nw-display); letter-spacing: -0.015em; margin: 0 0 12px; border: 0; padding: 0; }
+.nw-page h3 { font: 600 1.1rem/1.3 var(--nw-display); margin: 24px 0 8px; }
+.nw-page p { margin: 0 0 12px; }
+.nw-page ul { margin: 0 0 12px; padding-left: 1.25rem; }
+.nw-page li { margin: 0 0 6px; }
+.nw-page a { color: var(--nw-accent); }
+.nw-page ul.nw-post-list { list-style: none; padding: 0; }
+.nw-post-list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 16px; padding: 8px 0; margin: 0; border-bottom: 1px solid var(--nw-line); }
+.nw-post-date { font: 500 0.8rem/1.8 var(--nw-mono); color: var(--nw-muted); white-space: nowrap; }
+.nw-embed iframe { display: block; width: 100%; max-width: 600px; height: auto; aspect-ratio: 600 / 397; border: 1px solid var(--nw-line); border-radius: 10px; }
 
 /* Portfolio: selected GitHub projects */
 .nw-portfolio { padding-top: 56px; }
