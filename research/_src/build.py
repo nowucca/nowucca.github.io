@@ -31,7 +31,7 @@ def load():
     entries = {x["id"]: x for x in cfg["entries"]}
     theme_of, sub_of = {}, {}
     for i, t in enumerate(cfg["themes"]):
-        t["color"] = f"var(--t{i % 7 + 1})"
+        t["color"] = f"var(--t{i % 8 + 1})"
         for s in t["subtopics"]:
             for rid in s["primary"]:
                 theme_of[rid], sub_of[rid] = t, s
