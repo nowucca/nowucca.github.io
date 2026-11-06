@@ -182,8 +182,14 @@
   .tag.paused{color:var(--muted);border:1px dashed rgba(255,255,255,.2)}
   .week{margin-top:22px}
   .week-head{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin:0 0 10px;display:flex;justify-content:space-between;gap:10px}
-  .week-head span:last-child{color:var(--muted);letter-spacing:.08em;text-transform:none}
-  .week-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+  .week-head #week-range{color:var(--muted);letter-spacing:.08em;text-transform:none;margin-left:auto}
+  .week-nav{display:flex;gap:6px;flex:none}
+  .week-nav button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:17px;line-height:1;cursor:pointer;padding:0}
+  .week-nav button:hover:not(:disabled){border-color:var(--amber);color:var(--amber)}
+  .week-nav button:disabled{opacity:.3;cursor:default}
+  .week-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:var(--amber) transparent;cursor:grab}
+  .week-row::-webkit-scrollbar{height:6px}.week-row::-webkit-scrollbar-thumb{background:var(--amber);border-radius:3px}
+  .week-row.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
   .wk{flex:0 0 min(240px,78vw);scroll-snap-align:start;background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:12px;padding:11px 13px}
   .wk-when{font-family:var(--font-mono);font-size:10.5px;color:var(--amber);letter-spacing:.06em}
   .wk h4{font-family:var(--font-display);font-size:14.5px;margin:4px 0 2px}
@@ -229,7 +235,7 @@
     <h1>The Austin <em>Spiral</em></h1>
     <p class="lede">Three ways to run a night. The <b>Spiral</b> is a downtown radar of every saved bar, wound into one inward coil. <b>Playbooks</b> are ready-made district crawls — venue by venue, in walking order, with the timing worked out. <b>By category</b> starts from the mood instead — cocktails, speakeasies, live music, rooftops and more — and lists the matches nearest downtown first. <b>This Week</b> and <b>Events</b> refresh daily with openings, comedy, live music, trivia and bar nights. Tap any venue name to open its site.</p>
     <section class="week" aria-label="This week">
-      <p class="week-head"><span>This week</span><span id="week-range"></span></p>
+      <div class="week-head"><span>This week</span><span id="week-range"></span><span class="week-nav"><button type="button" id="wk-prev" aria-label="Previous">&#8249;</button><button type="button" id="wk-next" aria-label="Next">&#8250;</button></span></div>
       <div class="week-row" id="week"></div>
     </section>
     <div class="tabs" role="tablist" aria-label="Views">
@@ -609,6 +615,22 @@
     });
   } else { wk.innerHTML='<div class="empty">Nothing time-bound this week yet.</div>'; }
   document.getElementById('week-range').textContent=DATA.weekRange||'';
+  (function(){
+    var prev=document.getElementById('wk-prev'), next=document.getElementById('wk-next');
+    function sync(){prev.disabled=wk.scrollLeft<=2;next.disabled=wk.scrollLeft>=wk.scrollWidth-wk.clientWidth-2;}
+    function step(d){wk.scrollBy({left:d*(wk.clientWidth*0.8),behavior:'smooth'});}
+    prev.addEventListener('click',function(){step(-1);});
+    next.addEventListener('click',function(){step(1);});
+    wk.addEventListener('scroll',sync,{passive:true});window.addEventListener('resize',sync);sync();
+    // Mouse drag and shift-free horizontal wheel: touch already pans natively.
+    var d=null,moved=false;
+    wk.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;d={x:e.clientX,l:wk.scrollLeft};moved=false;});
+    wk.addEventListener('pointermove',function(e){if(!d)return;var dx=e.clientX-d.x;if(!moved&&Math.abs(dx)>5){moved=true;wk.classList.add('dragging');}if(moved)wk.scrollLeft=d.l-dx;});
+    function end(){if(d){d=null;wk.classList.remove('dragging');}}
+    window.addEventListener('pointerup',end);wk.addEventListener('pointerleave',end);
+    wk.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
+    wk.addEventListener('wheel',function(e){if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&e.shiftKey){e.preventDefault();wk.scrollLeft+=e.deltaY;}},{passive:false});
+  })();
 
   // ---------- EVENTS ----------
   var EVTYPES=DATA.eventTypes||[];
