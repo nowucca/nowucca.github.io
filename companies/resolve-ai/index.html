@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Resolve AI · company profile</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* company-research report: one reading column, sections in template order, self-contained (works as a Claude artifact and on nowucca.com). */
+:root {
+  --bg: #f4f6f8; --surface: #ffffff; --fg: #17202a; --muted: #5a6774; --line: #d9e0e6;
+  --accent: #1d5c88; --accent-soft: #e2edf5; --good: #1f6b45; --bad: #9a3324; --mark: #f6e3a1;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad; --line: #2a343f;
+    --accent: #7fb6de; --accent-soft: #1c2c3a; --good: #7fcf9f; --bad: #f09a8a; --mark: #5b4a17; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad; --line: #2a343f;
+  --accent: #7fb6de; --accent-soft: #1c2c3a; --good: #7fcf9f; --bad: #f09a8a; --mark: #5b4a17; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-block: 3rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 2.25rem; }
+a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  border-top: 1px solid var(--line); padding-top: 1.25rem; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+p, ul, ol { margin: 0; }
+ul, ol { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.label { font: 500 0.75rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.masthead { display: flex; flex-direction: column; gap: 0.75rem; border-bottom: 2px solid var(--fg); padding-bottom: 1.25rem; }
+.masthead .meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; }
+section { display: flex; flex-direction: column; gap: 0.9rem; }
+blockquote { margin: 0; padding: 0.8rem 1rem; background: var(--accent-soft); border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; line-height: 1.45; }
+th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--line); }
+th { font: 500 0.72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+tbody tr:last-child td { border-bottom: 0; }
+td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+code { font: 0.88em var(--mono); }
+#signals > div { display: flex; flex-direction: column; gap: 0.5rem; }
+.green h3 { color: var(--good); } .red h3 { color: var(--bad); }
+.sources { font-size: 0.9rem; }
+footer.foot { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+@media (max-width: 480px) { body { font-size: 16px; } table { min-width: 34rem; } }
+</style>
+</head>
+<body>
+<nav class="nwc-nav" aria-label="Site"><a href="/companies/">&larr; Company research</a><a href="/library/">All pages</a></nav>
+<style>.nwc-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;padding:.6rem max(16px,env(safe-area-inset-left,0px));font:500 13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;border-bottom:1px solid rgba(127,127,127,.3);background:inherit}.nwc-nav a{color:inherit;opacity:.75;text-decoration:none}.nwc-nav a:hover{opacity:1;text-decoration:underline}</style>
+
+<main class="wrap">
+<header class="masthead">
+  <span class="label">Company profile</span>
+  <h1>Resolve AI</h1>
+  <p class="lede">"AI for prod": an AI SRE that goes on call, triages alerts and investigates incidents, built by the ex-Splunk Observability founders.</p>
+  <div class="meta label"><span>Researched 2026-11-06</span><a href="https://resolve.ai/">Website</a><a href="https://www.linkedin.com/company/resolve-ai/">LinkedIn</a><a href="https://resolve.ai/careers">Careers</a></div>
+</header>
+
+<blockquote><p><strong>Name check:</strong> this is Resolve AI at <code>resolve.ai</code> (San Francisco, CEO Spiros Xanthos). It is not Resolve Systems (<code>resolve.io</code>, IT automation), Rezolve AI (<code>rezolve.ai</code>, Nasdaq: RZLV, commerce AI) or ResoluteAI. Glassdoor and news searches mix these up.</p>
+<p><strong>Not covered this pass:</strong> LinkedIn company pages and SEC EDGAR (the scripts weren't run; a direct EDGAR query from the cloud returned nothing), Glassdoor and Levels.fyi (both refused automated reads).</p></blockquote>
+
+<section id="snapshot"><h2>Snapshot</h2><p>Resolve AI sells an agentic "AI SRE" platform to large engineering organizations: it takes on-call shifts, triages alerts, investigates and helps fix production incidents, and runs routine operational tasks, working in Slack, Teams and the terminal. Customers named publicly include Coinbase, DoorDash, MongoDB, MSCI, Salesforce and Zscaler (<a href="https://resolve.ai/blog/series-a-funding">Series A post</a>), with Cisco, SAP, Snowflake, Adobe, Robinhood, Expedia and Toast also on the <a href="https://resolve.ai/">homepage</a>. It is sold as an enterprise contract with no published price (<a href="https://wetheflywheel.com/en/comparisons/resolve-ai-alternatives/">We The Flywheel</a>, 2026-05). Stage: Series A (extended), $1.5B valuation, more than $190M raised, about two years old, "125+" people as of February 2026.</p></section>
+
+<section id="mission"><h2>Mission, purpose, vision, values</h2><ul>
+<li>Mission: "We're an applied AI lab on a mission to help every engineer run production effortlessly." (<a href="https://resolve.ai/careers">careers page</a>)</li>
+<li>Goal: "Our goal is to help every engineer operate production fluently without being bottlenecked by context, expertise, or tools." (<a href="https://resolve.ai/blog/introducing-AI-for-prod">Introducing AI for prod</a>, 2026-02-04)</li>
+<li>Tagline: "Machines on-call for humans." (<a href="https://resolve.ai/">homepage</a>)</li>
+<li>Values (<a href="https://resolve.ai/careers">careers page</a>):
+  <ul>
+  <li><strong>Deep Curiosity:</strong> "We immerse ourselves in how customers actually work, not just what they ask for."</li>
+  <li><strong>Relentless Velocity:</strong> "Speed with direction. We ship quickly, iterate constantly, and never confuse motion with progress."</li>
+  <li><strong>Extreme Ownership:</strong> "Your job description is a starting point, not a boundary. Own the outcome, see it through until it's done."</li>
+  <li><strong>High Trust, Low Ego:</strong> "We welcome constructive dissent, assume good intentions, and leave our titles at the door."</li>
+  </ul></li>
+</ul></section>
+
+<section id="history"><h2>History</h2><ul>
+<li><strong>~2006:</strong> Spiros Xanthos and Mayank Agarwal meet in grad school at UIUC (<a href="https://resolve.ai/about-us">About</a>).</li>
+<li><strong>2019:</strong> Their previous company, Omnition, is acquired by Splunk; they go on to lead Splunk Observability (Agarwal as its chief architect). The company also credits them with a prior exit to VMware and with co-creating OpenTelemetry (<a href="https://techcrunch.com/2025/12/19/ex-splunk-execs-startup-resolve-ai-hits-1-billion-valuation-with-series-a">TechCrunch</a>, <a href="https://resolve.ai/about-us">About</a>; the VMware and OpenTelemetry claims are the company's own).</li>
+<li><strong>Early 2024:</strong> co-founded, per <a href="https://techcrunch.com/2026/02/04/ai-sre-resolve-ai-confirms-125m-raise-unicorn-valuation/">TechCrunch</a>. The company's own About page says "Founded October, 2024", which matches its emergence from stealth.</li>
+<li><strong>2024-10:</strong> out of stealth with a $35M seed led by Greylock.</li>
+<li><strong>2026-02-04:</strong> $125M Series A at $1B; repositions as "AI for prod".</li>
+<li><strong>2026-04-16:</strong> $40M Series A extension at $1.5B; launches Resolve AI Labs.</li>
+<li><strong>2026-08-18:</strong> hires Jason Forget (ex-Cockroach Labs) as President and founding CRO.</li>
+</ul></section>
+
+<section id="ownership"><h2>Ownership and status</h2><p>Private, venture-backed, headquartered in San Francisco with a New York presence for sales and forward-deployed roles. Legal entity and state of incorporation weren't confirmed (EDGAR not checked this pass; a Form D search for "Resolve AI" would pin both down). Major holders by round: Greylock, Lightspeed, DST Global, Salesforce Ventures, Unusual Ventures, plus angels including Jeff Dean, Fei-Fei Li, Reid Hoffman and Amjad Masad (<a href="https://resolve.ai/about-us">About</a>).</p></section>
+
+<section id="funding"><h2>Funding</h2>
+  <div class="table-wrap"><table><thead><tr><th>Date</th><th>Round</th><th>Amount</th><th>Lead / investors</th><th>Valuation</th><th>Source</th></tr></thead>
+  <tbody>
+  <tr><td>2024-10</td><td>Seed</td><td>$35M</td><td>Greylock; Fei-Fei Li, Jeff Dean</td><td>n/d</td><td><a href="https://techcrunch.com/2025/12/19/ex-splunk-execs-startup-resolve-ai-hits-1-billion-valuation-with-series-a">TechCrunch</a></td></tr>
+  <tr><td>2026-02-04</td><td>Series A</td><td>$125M</td><td>Lightspeed; Greylock, Unusual, Artisanal, A*</td><td>$1B, "non-blended"</td><td><a href="https://techcrunch.com/2026/02/04/ai-sre-resolve-ai-confirms-125m-raise-unicorn-valuation/">TechCrunch</a>, <a href="https://www.prnewswire.com/news-releases/resolve-ai-announces-125m-series-a-at-1b-valuation-to-fix-production-operations-with-ai-302678486.html">PR Newswire</a></td></tr>
+  <tr><td>2026-04-16</td><td>Series A ext.</td><td>$40M</td><td>DST Global, Salesforce Ventures</td><td>$1.5B</td><td><a href="https://www.prnewswire.com/news-releases/resolve-ai-announces-series-a-extension-at-a-1-5b-valuation-and-launches-resolve-ai-labs-to-advance-ai-systems-for-complex-production-environments-302743888.html">PR Newswire</a></td></tr>
+  </tbody></table></div>
+  <ul>
+  <li>Total raised: more than $190M (company, April 2026).</li>
+  <li>Last money in: April 2026, about 7 months ago. With $165M raised in 2026 alone, runway is not a near-term concern.</li>
+  <li>December 2025 reporting said the A might be multi-tranche with a lower blended price; the company denied this and said 100% of the equity was sold at $1B (<a href="https://techcrunch.com/2026/02/04/ai-sre-resolve-ai-confirms-125m-raise-unicorn-valuation/">TechCrunch</a>).</li>
+  <li>Form D filings: not checked.</li>
+  </ul>
+</section>
+
+<section id="financials"><h2>Financials</h2><ul>
+<li>ARR about $4M in December 2025, per two anonymous sources (<a href="https://techcrunch.com/2025/12/19/ex-splunk-execs-startup-resolve-ai-hits-1-billion-valuation-with-series-a">TechCrunch</a>). Not confirmed by the company. That is roughly a 250× revenue multiple at the $1B price.</li>
+<li>New bookings up 128% quarter over quarter (company claim, <a href="https://techintelpro.com/news/ai/enterprise-ai/resolve-ai-appoints-jason-forget-as-president-and-founding-chief-revenue-officer">CRO announcement</a>, 2026-08-18). No base or period given.</li>
+<li>Customer outcome claims: Coinbase 72% less time to investigate critical incidents; Zscaler 30% fewer engineers per incident (<a href="https://resolve.ai/blog/series-a-funding">company</a>).</li>
+<li>Profitability: not disclosed; almost certainly loss-making given stage and hiring (estimate).</li>
+</ul></section>
+
+<section id="people"><h2>People and headcount</h2>
+  <div class="table-wrap"><table><thead><tr><th>Source</th><th>Count</th><th>Date</th><th>Note</th></tr></thead><tbody>
+  <tr><td>Company</td><td>125+</td><td>2026-02</td><td><a href="https://resolve.ai/blog/series-a-funding">Series A post</a>; most credible figure</td></tr>
+  <tr><td>Unify</td><td>111</td><td>undated</td><td><a href="https://www.unifygtm.com/insights-headcount/resolve-ai">Unify</a>; internally inconsistent breakdown, low confidence</td></tr>
+  <tr><td>Built In</td><td>22</td><td>undated</td><td><a href="https://builtin.com/company/resolve-ai">Built In</a>; clearly stale</td></tr>
+  </tbody></table></div>
+  <ul>
+  <li>Engineering share: unknown without LinkedIn's people breakdown. The open roles are weighted toward go-to-market (about 9 of 20).</li>
+  <li>Locations: San Francisco HQ (in-office); New York for sales, solutions and forward-deployed engineers; a few remote AE territories (<a href="https://resolve.ai/careers">careers</a>). Built In describes it as "office-first in San Francisco" with "little remote flexibility" (AI-generated FAQ, 2026-09-09).</li>
+  <li>Leadership: Spiros Xanthos, Founder and CEO; Mayank Agarwal, Founder and CTO; Dhruv Mahajan, Chief AI Scientist leading Resolve AI Labs (ex-Meta, led Llama post-training); Jason Forget, President and founding CRO since 2026-08 (ex-President/CRO of Cockroach Labs).</li>
+  </ul>
+</section>
+
+<section id="engineering"><h2>Engineering</h2><ul>
+<li>Product surface: On-call, Incidents, Operational tasks, AI SRE and Custom agents; integrates via MCP, APIs and "Skills"; extends production context to coding agents (blog, 2026-09-01) and runs background agents for proactive prod tasks (2026-07-17).</li>
+<li>Resolve AI Labs (2026-04): domain-specific models and post-training, reasoning over telemetry, evals, synthetic data and simulated environments, guardrails.</li>
+<li>Stack: little is published. The Staff+ Backend posting calls for AWS and Kubernetes plus "databases and messaging systems" and describes building simulation environments to train SRE agents; no languages named (<a href="https://builtin.com/job/software-engineer-backend/9145418">Built In posting</a>). Visa sponsorship offered.</li>
+<li>Blog themes (55 posts, mostly product marketing): agent harness design, accuracy gains ("The Failures That Led to 2x Agent Accuracy Improvement"), token efficiency, human-in-the-loop fatigue, why DIY agents fail at incident investigation (<a href="https://resolve.ai/blog">blog</a>).</li>
+<li>Open engineering roles (SF unless noted): Software Engineer Backend, Frontend, Infrastructure Security; Research Engineer; Growth Engineer; Forward Deployed Engineer (SF and NY) (<a href="https://resolve.ai/careers">careers</a>, read 2026-11-06).</li>
+<li>Open source: no notable public repos found; the founders' open-source pedigree is OpenTelemetry.</li>
+</ul></section>
+
+<section id="culture"><h2>Culture and reviews</h2><ul>
+<li>Glassdoor, Levels.fyi, Blind: no reliable entry found for this company. Results under similar names belong to Rezolve AI, Resolve Systems or ResoluteAI.</li>
+<li>Stated culture: "psychological safety, encouraging risk-taking and fast execution", with everyone working closely with customers "regardless of our role and function" (<a href="https://resolve.ai/careers">careers</a>).</li>
+<li>Benefits: medical/dental/vision, One Medical, Spring Health, traditional and Roth 401(k), flexible PTO, parental leave, in-office meals, $300 tech allowance, $1,000 housing stipend for living near the office.</li>
+<li>Pay: none published on the postings read.</li>
+<li>Expect an in-office, high-intensity early-stage pace; Built In's summary also flags on-call expectations (AI-generated, treat as weak signal).</li>
+</ul></section>
+
+<section id="news"><h2>Recent news (last 12 months)</h2><ul>
+<li><strong>2026-11-02:</strong> GitHub Universe 2026 recap on the blog.</li>
+<li><strong>2026-10-14:</strong> named to TechCrunch Disruptors 60 2026 (<a href="https://resolve.ai/about-us">About</a>).</li>
+<li><strong>2026-09-01:</strong> extends production context to coding agents.</li>
+<li><strong>2026-08-18:</strong> Jason Forget joins as President and founding CRO; company cites 128% QoQ bookings growth.</li>
+<li><strong>2026-06-25:</strong> McKinsey interview with Spiros Xanthos.</li>
+<li><strong>2026-05-21:</strong> "Agents that run your software" launch (VentureBeat coverage).</li>
+<li><strong>2026-04-16:</strong> $40M extension at $1.5B; Resolve AI Labs launched under Dhruv Mahajan.</li>
+<li><strong>2026-02-04:</strong> $125M Series A at $1B confirmed; "AI for prod" positioning.</li>
+<li><strong>2025-12-19:</strong> TechCrunch first reports the Lightspeed-led round and ~$4M ARR.</li>
+<li><strong>2025-11-13:</strong> expanded AWS coverage.</li>
+</ul></section>
+
+<section id="signals"><h2>Signals for a candidate</h2>
+  <div class="green"><h3>Green flags</h3><ul>
+  <li>Proven founders who have built and sold in exactly this domain (Omnition to Splunk, ran Splunk Observability).</li>
+  <li>Well funded: $165M raised in 2026, top-tier investors, no runway pressure.</li>
+  <li>Real enterprise logos (Coinbase, DoorDash, Salesforce, Zscaler) and a serious research bet (Labs, ex-Meta Llama lead).</li>
+  <li>Hard, interesting engineering: agent harnesses, evals, simulation environments, telemetry reasoning at enterprise scale.</li>
+  </ul></div>
+  <div class="red"><h3>Red flags and risks</h3><ul>
+  <li>Valuation far ahead of revenue (~$4M ARR reported at $1B); the next round has to show big ARR growth.</li>
+  <li>Crowded category: Datadog Bits AI SRE, PagerDuty, incident.io, Rootly, plus well-funded startups Traversal and Cleric. Incumbents own the telemetry.</li>
+  <li>New President/CRO from outside signals a push to scale sales fast; expect pressure and possible reorgs.</li>
+  <li>Office-first in SF with little remote flexibility; NY is mostly field roles.</li>
+  <li>No independent employee reviews or pay data to check culture claims.</li>
+  </ul></div>
+  <div><h3>Questions to ask</h3><ol>
+  <li>What is ARR now, and what does the plan to the next round look like?</li>
+  <li>How is engineering organized between product, Labs and forward-deployed work? What's the engineering headcount?</li>
+  <li>How do you win against Datadog and PagerDuty, who already have the customer's telemetry and alerts?</li>
+  <li>How do you measure agent accuracy in production, and who owns evals?</li>
+  <li>What is the in-office expectation for engineers, and is there any remote or NY-based engineering?</li>
+  <li>What is the stack (languages, data stores), and how much do engineers rotate through customer deployments?</li>
+  <li>Equity: strike price at a $1.5B preferred price, and what's the refresh policy?</li>
+  </ol></div>
+</section>
+
+<section id="sources" class="sources"><h2>Sources</h2><ul>
+<li><a href="https://resolve.ai/">https://resolve.ai/</a> (read 2026-11-06)</li>
+<li><a href="https://resolve.ai/about-us">https://resolve.ai/about-us</a> (read 2026-11-06)</li>
+<li><a href="https://resolve.ai/careers">https://resolve.ai/careers</a> (read 2026-11-06)</li>
+<li><a href="https://resolve.ai/blog">https://resolve.ai/blog</a> (read 2026-11-06)</li>
+<li><a href="https://resolve.ai/blog/series-a-funding">https://resolve.ai/blog/series-a-funding</a> (read 2026-11-06)</li>
+<li><a href="https://resolve.ai/blog/introducing-AI-for-prod">https://resolve.ai/blog/introducing-AI-for-prod</a> (read 2026-11-06)</li>
+<li><a href="https://techcrunch.com/2025/12/19/ex-splunk-execs-startup-resolve-ai-hits-1-billion-valuation-with-series-a">TechCrunch, 2025-12-19</a> (read 2026-11-06)</li>
+<li><a href="https://techcrunch.com/2026/02/04/ai-sre-resolve-ai-confirms-125m-raise-unicorn-valuation/">TechCrunch, 2026-02-04</a> (read 2026-11-06)</li>
+<li><a href="https://www.prnewswire.com/news-releases/resolve-ai-announces-125m-series-a-at-1b-valuation-to-fix-production-operations-with-ai-302678486.html">PR Newswire, Series A, 2026-02-04</a> (read 2026-11-06)</li>
+<li><a href="https://www.prnewswire.com/news-releases/resolve-ai-announces-series-a-extension-at-a-1-5b-valuation-and-launches-resolve-ai-labs-to-advance-ai-systems-for-complex-production-environments-302743888.html">PR Newswire, extension and Labs, 2026-04-16</a> (read 2026-11-06)</li>
+<li><a href="https://techintelpro.com/news/ai/enterprise-ai/resolve-ai-appoints-jason-forget-as-president-and-founding-chief-revenue-officer">TechIntelPro, CRO appointment, 2026-08-18</a> (read 2026-11-06)</li>
+<li><a href="https://builtin.com/company/resolve-ai">Built In profile</a> and <a href="https://builtin.com/company/resolve-ai/faq/workplace-perception">workplace FAQ</a> (read 2026-11-06)</li>
+<li><a href="https://builtin.com/job/software-engineer-backend/9145418">Built In: Staff+ Software Engineer, Backend</a> (read 2026-11-06)</li>
+<li><a href="https://www.unifygtm.com/insights-headcount/resolve-ai">Unify headcount</a> (read 2026-11-06)</li>
+<li><a href="https://wetheflywheel.com/en/comparisons/resolve-ai-alternatives/">We The Flywheel, alternatives, 2026-05-22</a> (read 2026-11-06)</li>
+</ul></section>
+<footer class="foot">Every number has a source and a date; estimates are marked. Treat as a snapshot as of the research date.</footer>
+</main>
+</body>
+</html>
