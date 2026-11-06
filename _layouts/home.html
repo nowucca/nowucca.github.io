@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-{% seo %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&display=swap">
-    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
-    <link rel="stylesheet" href="{{ "/assets/css/home.css" | relative_url }}">
+{% include nw-head.html %}
   </head>
   <body class="nw">
     <header class="nw-header">
       <div class="nw-wrap nw-header-inner">
         <a class="nw-brand" href="{{ "/" | relative_url }}">nowucca<span>.com</span></a>
-        <nav class="nw-nav" aria-label="Site">
-          {% if page.projects %}<a href="#portfolio">Portfolio</a>{% endif %}
-          {% for card in page.cards %}{% if card.nav %}<a href="{{ card.href | relative_url }}">{{ card.nav }}</a>{% endif %}{% endfor %}
-        </nav>
+        {% include nw-nav.html home=page %}
       </div>
       <div class="nw-wrap nw-hero">
         <p class="nw-kicker">Steven Atkinson · software engineer &amp; technical leader</p>
@@ -76,10 +65,6 @@
         </ul>
       </section>
       {% endif %}
-
-      <div class="container-lg px-3 my-5 markdown-body nw-legacy">
-        {{ content }}
-      </div>
     </main>
   </body>
 </html>

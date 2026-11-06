@@ -1,0 +1,51 @@
+---
+layout: nw-page
+title: About this site
+permalink: /about-site/
+description: What nowucca means, what I look for in a role, and the latest posts from the blog.
+lede: nowucca is Australian slang for "no worries". It stands for the self-reliant, get-stuff-done attitude I try to bring to my work.
+---
+
+<section class="nw-block" aria-labelledby="what">
+  <h2 id="what">What this site is</h2>
+  <p>This site is a memory of my working life as a software developer and technologist. It holds professional notes, interview prep, side projects, and the occasional thought from a technology or personal angle.</p>
+</section>
+
+<section class="nw-block" id="recruiters" aria-labelledby="recruiters-h">
+  <h2 id="recruiters-h">For recruiters</h2>
+  <p>Thanks for stopping by. My resume is here: <a href="{{ "/assets/StevenAtkinsonResume.pdf" | relative_url }}">StevenAtkinsonResume.pdf</a>. To say hello, message me on <a href="https://www.linkedin.com/in/satkinson" rel="noopener">LinkedIn</a>.</p>
+
+  <h3>The role I'm looking for</h3>
+  <ul>
+    <li>An early to growth-stage company (Series B to E) that needs an experienced engineer with strong, loosely held opinions and a pragmatic streak.</li>
+    <li>Education or healthcare is a plus.</li>
+    <li>Someone who can code, lead and mentor, and who thrives on a broad set of responsibilities.</li>
+    <li>A team that trusts I can pick up its stack. Java, Kotlin, Python, JavaScript and C are in my past, but they don't dictate my future.</li>
+  </ul>
+
+  <h3>Please tell me up front</h3>
+  <ul>
+    <li>The company's name, funding history and stage. It saves me some Crunchbase time.</li>
+    <li>The founders' backgrounds.</li>
+    <li>Where the team is based, and how it works: remote, hybrid or in an office.</li>
+    <li>Why a technical leader would want to join for this role.</li>
+  </ul>
+</section>
+
+<section class="nw-block" aria-labelledby="posts">
+  <h2 id="posts">From the blog</h2>
+  <ul class="nw-post-list">
+    {% for post in site.posts limit:10 %}
+    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="nw-post-date">{{ post.date | date: "%b %-d, %Y" }}</span></li>
+    {% endfor %}
+  </ul>
+  <p><a href="{{ "/archive.html" | relative_url }}">All posts</a> · <a href="{{ "/feed.xml" | relative_url }}">RSS feed</a></p>
+</section>
+
+<section class="nw-block" aria-labelledby="chess">
+  <h2 id="chess">A game of chess</h2>
+  <p>A game I played against my friend James. I'm white.</p>
+  <div class="nw-embed">
+    <iframe src="https://lichess.org/embed/3LLr6oge?theme=auto&amp;bg=auto" title="Chess game on Lichess: Steven (white) vs James" width="600" height="397" frameborder="0" loading="lazy"></iframe>
+  </div>
+</section>
