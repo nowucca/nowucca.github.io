@@ -79,6 +79,23 @@
         }
       ],
       "noindex": true
+    },
+    "marketing": {
+      "title": "Marketing",
+      "lede": "Notes and playbooks on marketing across platforms.",
+      "items": [
+        {
+          "slug": "ideas-index",
+          "title": "Marketing Ideas Index",
+          "summary": "Content ideas, hook formulas, platform playbook, repurposing, growth and measurement, with every hook built on curiosity, tension and emotion.",
+          "date": "2026-11-07",
+          "tags": [
+            "marketing",
+            "storytelling",
+            "hooks"
+          ]
+        }
+      ]
     }
   }
 }
