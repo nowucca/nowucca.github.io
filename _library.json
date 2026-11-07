@@ -96,6 +96,38 @@
           ]
         }
       ]
+    },
+    "career": {
+      "title": "Career",
+      "lede": "My resume, academic CV and teaching statement.",
+      "items": [
+        {
+          "slug": "resume",
+          "title": "Resume",
+          "summary": "Industry resume for software engineering roles, as a PDF.",
+          "date": "2026-11-06",
+          "tags": []
+        },
+        {
+          "slug": "teaching-statement",
+          "title": "Teaching statement",
+          "summary": "How I teach software engineering with AI as an everyday collaborator.",
+          "date": "2026-11-07",
+          "tags": [
+            "teaching"
+          ]
+        },
+        {
+          "slug": "cv",
+          "title": "Academic CV",
+          "summary": "Teaching, course development, industry experience, publications and patents.",
+          "date": "2026-11-07",
+          "tags": [
+            "teaching",
+            "publications"
+          ]
+        }
+      ]
     }
   }
 }

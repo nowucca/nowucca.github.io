@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steven Atkinson · Teaching Statement</title><meta name="description" content="Steven Atkinson's teaching philosophy: AI as an engineering discipline, projects first, and continuous improvement."><style>
+:root{--bg:#fbfaf7;--fg:#1d1f23;--muted:#5d6470;--rule:#e2ded6;--accent:#8a3b12;--card:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171a;--fg:#e8e6e1;--muted:#a3a8b1;--rule:#2c3036;--accent:#f0a36b;--card:#1c1f23}}
+:root[data-theme="dark"]{--bg:#15171a;--fg:#e8e6e1;--muted:#a3a8b1;--rule:#2c3036;--accent:#f0a36b;--card:#1c1f23}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 Georgia,"Iowan Old Style","Palatino Linotype",serif}
+main{max-width:46rem;margin:0 auto;padding:2.5rem 16px 4rem}
+h1{font-size:2.1rem;line-height:1.2;margin:0 0 .3rem}
+h1+p{color:var(--muted);margin-top:0}
+h2{font:600 .85rem/1.3 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule);padding-bottom:.35rem;margin:2.4rem 0 1rem}
+h3{font:600 1rem/1.3 system-ui,sans-serif;margin:1.6rem 0 .5rem}
+a{color:var(--accent)}
+ul,ol{padding-left:1.3rem} li{margin:.3rem 0}
+ol li{overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse;font-size:.92rem;margin:1rem 0;display:block;overflow-x:auto}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:system-ui,sans-serif;font-weight:600;color:var(--muted)}
+.dl{font-family:system-ui,sans-serif;font-size:.9rem;color:var(--muted)}
+@media print{body{background:#fff;color:#000;font-size:11pt}main{padding:0}}
+</style></head><body>
+<nav class="nwc-nav" aria-label="Site"><a href="/career/">&larr; Career</a><a href="/library/">All pages</a></nav>
+<style>.nwc-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;padding:.6rem max(16px,env(safe-area-inset-left,0px));font:500 13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;border-bottom:1px solid rgba(127,127,127,.3);background:inherit}.nwc-nav a{color:inherit;opacity:.75;text-decoration:none}.nwc-nav a:hover{opacity:1;text-decoration:underline}</style>
+<main><h1 id="teaching-statement">Teaching Statement</h1>
+<p>Steven Atkinson, Ph.D.</p>
+<p>I teach software engineering the way it is practised: with real
+tools, real constraints, and now, AI as an everyday collaborator. For
+nine years I taught graduate computer science at Virginia Tech as an
+adjunct while working as a senior engineer at Netflix. That combination
+shapes everything I do in the classroom. I bring students the problems
+engineers actually face, and I hold them to the standards a production
+team would.</p>
+<h2 id="teaching-ai-as-an-engineering-discipline">Teaching AI as an
+engineering discipline</h2>
+<p>In 2023 I designed AI Tools for Software Engineering, a graduate
+course that began as a special topics offering (CS 5914) and became a
+permanent course (CS 5740) in 2025. It grew from 52 students in its
+first term to 98 in Fall 2025.</p>
+<p>The course treats large language models as components to be
+engineered, not as magic. Students start by building a reproducible
+Docker development environment and connecting to a class LLM that I
+operate through a proxy I wrote, so that every student has the same
+model and nobody needs a personal API key. From there, a sequence of
+projects builds on one another:</p>
+<ul>
+<li>a coding assistant (“Ducky”) with code review, debugging and editing
+features;</li>
+<li>retrieval-augmented generation over a project’s own documents;</li>
+<li>using LLMs for requirements and for test generation;</li>
+<li>autonomous agents with a command-line interface, and tools exposed
+through the Model Context Protocol (MCP);</li>
+<li>a closing module on the social and ethical impact of AI.</li>
+</ul>
+<p>A question students bring to this course is how to get dependable
+results from a non-deterministic tool. By the end they can answer it: by
+managing context, specifying requirements precisely, testing outputs,
+and knowing when not to trust the model. One student wrote, “Even though
+we used AI tools, which were a big part of the course, I still felt I
+was learning, thinking critically, and seeing how these tools really
+affect software development.” That balance is exactly what I aim
+for.</p>
+<h2 id="projects-first-then-concepts">Projects first, then concepts</h2>
+<p>Students learn software engineering by building software. In Internet
+Software (CS 5244), I directed the curriculum and model projects for
+14-week web and Android courses built on five layered, real-world
+patterns, so each project adds one idea to a working system the students
+already understand. I carry the same structure into my AI course. Short
+recorded demonstrations show each technique in action, and weekly live
+Q&amp;A sessions let me answer questions and connect the material to
+what I see in industry.</p>
+<h2 id="feedback-and-continuous-improvement">Feedback and continuous
+improvement</h2>
+<p>I read my evaluations closely and change the course every term.
+Across ten sections at Virginia Tech, students rated my overall teaching
+effectiveness between 5.46 and 5.80 out of 6, above the department mean
+in every section. I am just as attentive to the criticism. In Fall 2025,
+students told me the Docker images and multi-repository setup cost them
+time that should have gone to learning. For my next offering I would
+ship lighter images, consolidate the starter repositories, and state
+storage requirements in the syllabus. Students also asked for
+spec-driven development workflows and a project in which they build
+their own MCP server, and I plan to add both.</p>
+<p>When things break, I treat it as a teaching moment and fix it
+quickly. Our class LLM failed in the middle of Fall 2025; I diagnosed
+the problem, restored service and adjusted the deliverables and
+deadlines. A student noted that in the evaluation, and I think it showed
+the class more about running real systems than any lecture could.</p>
+<h2 id="inclusive-respectful-classrooms">Inclusive, respectful
+classrooms</h2>
+<p>My students are Master’s students with very different situations: in
+my early years most were working professionals studying online, and in
+the AI course most are full-time students. I design for both: recorded
+content they can watch on their own schedule, clear rubrics, prompt
+responses on the course forum, and flexibility when life intervenes. In
+Fall 2025, students rated me 5.78 out of 6 for fostering an atmosphere
+of mutual respect, and I want every student, whatever their background,
+to leave confident that they can learn new technology on their own.</p>
+<h2 id="what-i-would-bring-to-ut-austin">What I would bring to UT
+Austin</h2>
+<p>I can teach introductory programming and data structures, software
+engineering, web and mobile application development, and AI courses at
+both undergraduate and graduate level. I would especially like to
+develop and teach courses on AI-assisted software development, a subject
+where UT Austin students will benefit from instruction that is current
+and grounded in industry practice. I also want to mentor students on
+capstone projects and help colleagues integrate AI tools responsibly
+into their own courses.</p>
+</main></body></html>
