@@ -240,6 +240,26 @@
      "primary": [
       "R012"
      ],
+     "also": [
+      {
+       "id": "R014",
+       "why": "a general-audience AI literacy course; its verify, iterate and know-when-AI-is-the-wrong-tool habits are what R012's harness lesson asks users to bring"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "8",
+   "title": "AI education",
+   "lede": "What people should be taught about AI, and how.",
+   "subtopics": [
+    {
+     "n": "8.1",
+     "title": "AI literacy curricula",
+     "primary": [
+      "R014"
+     ],
      "also": []
     }
    ]
@@ -381,6 +401,26 @@
    ],
    "summary": "Mollick wants national crash projects in tutoring, health second opinions, financial literacy and government services using current models. The evidence says the bottleneck is the harness (steering toward augmentation, eliciting context, cheap oversight), not the model: students who let AI write kept nothing, and the medical agent was safe only with a physician watching live.",
    "file": "entries/ai-crash-projects-public-good.html"
+  },
+  {
+   "id": "R014",
+   "slug": "mit-tech-review-intro-to-ai",
+   "title": "MIT Technology Review's Intro to AI mini-course",
+   "by": "Abby Ivory-Ganja, MIT Technology Review",
+   "source": "https://www.technologyreview.com/2024/10/15/1105441/intro-ai-beginners-guide-artificial-intelligence-course/",
+   "published": "2024-10-15",
+   "added": "2026-11-07",
+   "artifact": "https://claude.ai/artifact/WRS952LKtHjtLHMkk4Uxku",
+   "tags": [
+    "ai-literacy",
+    "education",
+    "learning-resources",
+    "ai-impact",
+    "ai-policy",
+    "human-oversight"
+   ],
+   "summary": "A six-part beginner course: definitions, a hands-on chatbot exercise, how to talk about AI (including with kids), traps (bias, hallucination, unreliable detection, deepfakes), work and regulation. Durable on judgment (iterate and correct, a fit-for-purpose rule, verify, don't anthropomorphize); dated on tools (no agents or reasoning models) and US policy. The summary adds a checklist for an updated curriculum.",
+   "file": "entries/mit-tech-review-intro-to-ai.html"
   }
  ],
  "edges": [
@@ -461,6 +501,30 @@
    "b": "R004",
    "strength": "strong",
    "why": "R004's Goal + Context prompting assumes the user can supply context. The financial-advice paper measures the cost when they can't, so the product should ask for the missing context itself."
+  },
+  {
+   "a": "R012",
+   "b": "R014",
+   "strength": "strong",
+   "why": "R014 tells beginners to iterate on output and to verify; R012's RCT shows why that matters, since tutor-style use left lasting gains while AI-written work left nothing. R014 teaches the habit, R012 supplies the evidence."
+  },
+  {
+   "a": "R005",
+   "b": "R014",
+   "strength": "strong",
+   "why": "Both are free courses structured as a learning path. R014 targets AI users; R005 targets agent builders. Together they bracket a curriculum."
+  },
+  {
+   "a": "R006",
+   "b": "R014",
+   "strength": "strong",
+   "why": "R006's harness vocabulary is what R014's dictionary stops short of, and the natural next lesson after 'what is an LLM'."
+  },
+  {
+   "a": "R004",
+   "b": "R014",
+   "strength": "weak",
+   "why": "R004's goal-plus-context prompting is the adult version of R014's iterate-on-the-menu exercise."
   }
  ]
 }

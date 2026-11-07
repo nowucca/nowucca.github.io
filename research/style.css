@@ -1,6 +1,6 @@
 /* nowucca.com research section. Loads after /library/style.css and reuses its tokens. */
 :root {
-  --t1: #1d5c88; --t2: #a8552a; --t3: #2f7d5b; --t4: #7a4fa0; --t5: #9a7a12; --t6: #b03a5b; --t7: #2b7c8c;
+  --t1: #1d5c88; --t2: #a8552a; --t3: #2f7d5b; --t4: #7a4fa0; --t5: #9a7a12; --t6: #b03a5b; --t7: #2b7c8c; --t8: #5a6b2f;
   --cds-text-primary: var(--fg);
   --cds-text-secondary: var(--muted);
   --cds-chart-axis: #7d8a96;
@@ -11,12 +11,12 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --t1: #7fb6de; --t2: #e39a6f; --t3: #74c49d; --t4: #b99ae0; --t5: #d9bd5c; --t6: #e88aa5; --t7: #74c3d1;
+    --t1: #7fb6de; --t2: #e39a6f; --t3: #74c49d; --t4: #b99ae0; --t5: #d9bd5c; --t6: #e88aa5; --t7: #74c3d1; --t8: #b3c46e;
     --cds-chart-axis: #8794a0;
   }
 }
 :root[data-theme="dark"] {
-  --t1: #7fb6de; --t2: #e39a6f; --t3: #74c49d; --t4: #b99ae0; --t5: #d9bd5c; --t6: #e88aa5; --t7: #74c3d1;
+  --t1: #7fb6de; --t2: #e39a6f; --t3: #74c49d; --t4: #b99ae0; --t5: #d9bd5c; --t6: #e88aa5; --t7: #74c3d1; --t8: #b3c46e;
   --cds-chart-axis: #8794a0;
 }
 
