@@ -59,6 +59,10 @@
       {
        "id": "R004",
        "why": "periodic manual wipe as governance, with no eval gate"
+      },
+      {
+       "id": "R016",
+       "why": "Audit-then-Score: ground truth as a versioned consensus, revised only when a challenger's evidence beats the incumbent rationale; expert re-audit after 5% drift"
       }
      ]
     },
@@ -72,6 +76,10 @@
       {
        "id": "R006",
        "why": "six harness concepts as a production vocabulary; overlaps R005's loop, gate and harness layers"
+      },
+      {
+       "id": "R015",
+       "why": "\"agent\" is a naming convention; frame the job as a workflow and most orchestration code disappears"
       }
      ]
     },
@@ -148,6 +156,17 @@
        "why": "see its summary's notes on formal verification"
       }
      ]
+    },
+    {
+     "n": "3.3",
+     "title": "Agent delivery workflows",
+     "primary": [],
+     "also": [
+      {
+       "id": "R015",
+       "why": "the one-minute case for workflows over agents, with the model as the runtime for each step"
+      }
+     ]
     }
    ]
   },
@@ -164,6 +183,10 @@
       {
        "id": "R005",
        "why": "LLM-wiki second brain: nothing ingested until linked, index.md + log.md, lint skills"
+      },
+      {
+       "id": "R015",
+       "why": "steps as Markdown files routed by CLAUDE.md / AGENTS.md; the model as runtime for them"
       }
      ]
     },
@@ -224,8 +247,20 @@
       {
        "id": "R005",
        "why": "five-layer map; its evals layer is the piece R006's commenters say is missing"
+      },
+      {
+       "id": "R016",
+       "why": "an independent verifier routes disagreements to a human auditor; planted canaries measure reviewer accuracy"
       }
      ]
+    },
+    {
+     "n": "6.2",
+     "title": "Workflows over agents",
+     "primary": [
+      "R015"
+     ],
+     "also": []
     }
    ]
   },
@@ -246,6 +281,14 @@
        "why": "a general-audience AI literacy course; its verify, iterate and know-when-AI-is-the-wrong-tool habits are what R012's harness lesson asks users to bring"
       }
      ]
+    },
+    {
+     "n": "7.2",
+     "title": "Human verification of AI output",
+     "primary": [
+      "R016"
+     ],
+     "also": []
     }
    ]
   },
@@ -421,6 +464,46 @@
    ],
    "summary": "A six-part beginner course: definitions, a hands-on chatbot exercise, how to talk about AI (including with kids), traps (bias, hallucination, unreliable detection, deepfakes), work and regulation. Durable on judgment (iterate and correct, a fit-for-purpose rule, verify, don't anthropomorphize); dated on tools (no agents or reasoning models) and US policy. The summary adds a checklist for an updated curriculum.",
    "file": "entries/mit-tech-review-intro-to-ai.html"
+  },
+  {
+   "id": "R015",
+   "slug": "psychology-of-programming-workflows",
+   "title": "Psychology of programming and deterministic workflows",
+   "by": "Jake Van Clief (Facebook reel)",
+   "source": "https://www.facebook.com/reel/1432500965463196",
+   "published": "2026-09-06",
+   "added": "2026-11-08",
+   "artifact": "https://claude.ai/artifact/GNCc8RH5xcSrA4RJLkTwBB",
+   "tags": [
+    "deterministic-workflows",
+    "psychology-of-programming",
+    "agent-workflows",
+    "context-engineering",
+    "mental-models",
+    "agent-harness"
+   ],
+   "summary": "Framing matters more than programming: \"agent\" is a naming convention, and teams write hundreds of lines to steer one. Design the workflow instead, route with CLAUDE.md / AGENTS.md to Markdown step files, and use the model as the runtime. Sound reframe, but a model reading Markdown is not deterministic: that has to come from a fixed route, scripts, failing checks and placed human gates.",
+   "file": "entries/psychology-of-programming-workflows.html"
+  },
+  {
+   "id": "R016",
+   "slug": "do-humans-still-need-to-check-ai-facts",
+   "title": "Do humans still need to check AI's facts? (Mollick on BrowseComp and DeepFact)",
+   "by": "Ethan Mollick, plus BrowseComp and DeepFact",
+   "source": "https://www.linkedin.com/posts/emollick_i-think-there-is-too-much-concern-expressed-ugcPost-7524907880014065664-xbkU/",
+   "published": "2026-11-07",
+   "added": "2026-11-08",
+   "artifact": "https://claude.ai/artifact/GTmPp526wGMw8Muj8Z9uYc",
+   "tags": [
+    "fact-checking",
+    "benchmarks",
+    "human-oversight",
+    "evals",
+    "ai-impact",
+    "agent-reliability"
+   ],
+   "summary": "Mollick says human fact-checking of AI is an outdated default. The numbers hold, but BrowseComp tests finding, not checking, and DeepFact's error-heavy test set lets a constant answer score 83.9%. DeepFact's best result is humans auditing agent evidence (90.9%): redesign the human as an auditor of routed disagreements, measure reviewers with planted canaries, and version eval labels.",
+   "file": "entries/do-humans-still-need-to-check-ai-facts.html"
   }
  ],
  "edges": [
@@ -525,6 +608,54 @@
    "b": "R014",
    "strength": "weak",
    "why": "R004's goal-plus-context prompting is the adult version of R014's iterate-on-the-menu exercise."
+  },
+  {
+   "a": "R012",
+   "b": "R015",
+   "strength": "strong",
+   "why": "\"The model can phrase, it cannot decide\" and \"use the model as runtime, not as the router\" are the same split."
+  },
+  {
+   "a": "R005",
+   "b": "R015",
+   "strength": "strong",
+   "why": "Moving the route out of the model answers R005's \"who decides\" with files instead of the loop."
+  },
+  {
+   "a": "R006",
+   "b": "R015",
+   "strength": "strong",
+   "why": "In the workflow frame, R006's guardrails become each step's failing exit check."
+  },
+  {
+   "a": "R014",
+   "b": "R015",
+   "strength": "weak",
+   "why": "Both say how people frame the tool decides what they get from it; R014 for users, R015 for builders."
+  },
+  {
+   "a": "R012",
+   "b": "R016",
+   "strength": "strong",
+   "why": "Same author, two posts apart. R012's AMIE needed a physician on every chat; R016's evidence says put that human on adjudicating flagged disputes, not watching everything."
+  },
+  {
+   "a": "R005",
+   "b": "R016",
+   "strength": "strong",
+   "why": "Changes R005's evals and gate layers: eval labels become versioned and challengeable, and review becomes routed disagreement plus canaries."
+  },
+  {
+   "a": "R006",
+   "b": "R016",
+   "strength": "strong",
+   "why": "R006's human-in-the-loop guardrail becomes an auditor of routed disagreements, measured with planted canaries."
+  },
+  {
+   "a": "R014",
+   "b": "R016",
+   "strength": "strong",
+   "why": "R014 teaches users to verify AI output; R016 argues unaided verification is weaker than assumed and should be scaffolded by a second verifier."
   }
  ]
 }

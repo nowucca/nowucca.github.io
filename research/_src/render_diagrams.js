@@ -54,22 +54,24 @@ function render(node) {
   return inner ? `${open}>${inner}</${node.tag}>` : `${open}/>`;
 }
 
-// claude.Visualize: hand the rows to the render function; datum() stamps nothing here.
+// claude.Visualize: hand each source's rows to the render function; datum() stamps nothing here.
 const claude = {
   Visualize: ({ sources, children }) => {
-    const rows = sources && sources.rows && sources.rows.data || [];
+    const data = {};
+    for (const [k, v] of Object.entries(sources || {})) data[k] = (v && v.data) || [];
+    if (!data.rows) data.rows = [];
     const fn = Array.isArray(children) ? children[0] : children;
-    return fn({ rows, datum: () => ({}) });
+    return fn({ ...data, datum: () => ({}) });
   },
 };
 
 function renderFile(file) {
   const src = fs.readFileSync(file, 'utf8');
   const js = ts.transpileModule(src, {
-    compilerOptions: { jsx: ts.JsxEmit.React, jsxFactory: 'h', jsxFragmentFactory: 'Fragment', module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+    compilerOptions: { jsx: ts.JsxEmit.React, jsxFactory: '__h', jsxFragmentFactory: '__Fragment', module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
   }).outputText;
   const mod = { exports: {} };
-  new Function('module', 'exports', 'h', 'Fragment', 'claude', js)(mod, mod.exports, h, FRAGMENT, claude);
+  new Function('module', 'exports', '__h', '__Fragment', 'claude', js)(mod, mod.exports, h, FRAGMENT, claude);
   const fn = mod.exports.default;
   if (typeof fn !== 'function') throw new Error(`${file}: no default export`);
   return render(fn());
