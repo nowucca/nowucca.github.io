@@ -63,6 +63,10 @@
       {
        "id": "R016",
        "why": "Audit-then-Score: ground truth as a versioned consensus, revised only when a challenger's evidence beats the incumbent rationale; expert re-audit after 5% drift"
+      },
+      {
+       "id": "R018",
+       "why": "Team/Enterprise: an owner turning org memory off permanently deletes all members' memories; feedback ratings export whole conversations for up to 5 years"
       }
      ]
     },
@@ -91,6 +95,10 @@
       {
        "id": "R010",
        "why": "tree as cached prefix, fetched pages as the tail; reads a few pages instead of a whole PDF, 2.1× to 16.6× cheaper by vendor figures"
+      },
+      {
+       "id": "R018",
+       "why": "switching models mid-chat is a cold cache, since caches are model-scoped; pin model and effort per conversation"
       }
      ]
     }
@@ -160,7 +168,9 @@
     {
      "n": "3.3",
      "title": "Agent delivery workflows",
-     "primary": [],
+     "primary": [
+      "R017"
+     ],
      "also": [
       {
        "id": "R015",
@@ -187,6 +197,10 @@
       {
        "id": "R015",
        "why": "steps as Markdown files routed by CLAUDE.md / AGENTS.md; the model as runtime for them"
+      },
+      {
+       "id": "R017",
+       "why": "design doc as the source of truth; bottom-up README bootstrap; periodic LLM drift report against code"
       }
      ]
     },
@@ -209,7 +223,8 @@
      "n": "5.1",
      "title": "Harness tips",
      "primary": [
-      "R004"
+      "R004",
+      "R018"
      ],
      "also": [
       {
@@ -251,6 +266,10 @@
       {
        "id": "R016",
        "why": "an independent verifier routes disagreements to a human auditor; planted canaries measure reviewer accuracy"
+      },
+      {
+       "id": "R017",
+       "why": "fresh-context subagents as reviewers; fail closed when the host cannot isolate them"
       }
      ]
     },
@@ -288,7 +307,12 @@
      "primary": [
       "R016"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R017",
+       "why": "AI reviewers check the spec, the human triages routed findings and approves; about 30% of findings useful"
+      }
+     ]
     }
    ]
   },
@@ -504,6 +528,46 @@
    ],
    "summary": "Mollick says human fact-checking of AI is an outdated default. The numbers hold, but BrowseComp tests finding, not checking, and DeepFact's error-heavy test set lets a constant answer score 83.9%. DeepFact's best result is humans auditing agent evidence (90.9%): redesign the human as an auditor of routed disagreements, measure reviewers with planted canaries, and version eval labels.",
    "file": "entries/do-humans-still-need-to-check-ai-facts.html"
+  },
+  {
+   "id": "R017",
+   "slug": "elephant-goldfish-model",
+   "title": "Elephant-Goldfish Model: deep-context drafting, zero-context review",
+   "by": "Shubham Saboo, Google's EGM plugin and Dave Rensin's essay",
+   "source": "https://www.linkedin.com/posts/shubhamsaboo_googles-new-open-source-plugin-tells-ai-share-7525253417548533760-eyJj/",
+   "published": "2026-11-08",
+   "added": "2026-11-09",
+   "artifact": "https://claude.ai/artifact/6YkSnytwnr2SQigo4bH356",
+   "tags": [
+    "agent-workflows",
+    "sdlc",
+    "design-review",
+    "context-isolation",
+    "docs-as-code",
+    "human-oversight"
+   ],
+   "summary": "The agent that drafts a spec (Elephant, full conversation) should not review it; reviewers (Goldfish) are fresh subagents that see only the doc and the files it links, so unstated assumptions surface. Sound idea, heavy plugin: fresh context removes conversational bias but not shared model priors, isolation leaks on some hosts, write boundaries are convention only, and Rensin's own hit rate is about 30% of critic findings, with no eval.",
+   "file": "entries/elephant-goldfish-model.html"
+  },
+  {
+   "id": "R018",
+   "slug": "ruben-hassid-six-levels-of-claude",
+   "title": "Ruben Hassid's six levels of Claude, checked",
+   "by": "Ruben Hassid",
+   "source": "https://www.linkedin.com/posts/ruben-hassid_nobody-has-ever-explained-all-of-claude-to-share-7525140743267532800-yTuf/",
+   "published": "2026-11-08",
+   "added": "2026-11-09",
+   "artifact": "https://claude.ai/artifact/4izUhvxuCiGN3DboehU8So",
+   "tags": [
+    "harness-config",
+    "prompting",
+    "prompt-caching",
+    "agent-memory",
+    "agent-governance",
+    "data-privacy"
+   ],
+   "summary": "A consumer setup guide in six levels. Two claims hold against Anthropic's own pages: thumbs feedback stores the whole conversation for up to 5 years and may train models, and an owner turning org memory off permanently deletes every member's memory. Switching models mid-chat costs a cold cache, not a \"re-read\". Takeaways: pin model and effort per conversation, write a feedback-button policy, put the org memory toggle under change control, version config instead of wiping it.",
+   "file": "entries/ruben-hassid-six-levels-of-claude.html"
   }
  ],
  "edges": [
@@ -656,6 +720,60 @@
    "b": "R016",
    "strength": "strong",
    "why": "R014 teaches users to verify AI output; R016 argues unaided verification is weaker than assumed and should be scaffolded by a second verifier."
+  },
+  {
+   "a": "R015",
+   "b": "R017",
+   "strength": "strong",
+   "why": "\"Design is the new code\" is the same reframe as the workflow frame; EGM adds the explicit review protocol the reel lacks."
+  },
+  {
+   "a": "R016",
+   "b": "R017",
+   "strength": "strong",
+   "why": "EGM's critic reviewers are the unaided checker R016 calls weak; its human triage of routed findings is closer to R016's auditor. Neither measures reviewer accuracy with planted errors."
+  },
+  {
+   "a": "R006",
+   "b": "R017",
+   "strength": "strong",
+   "why": "A concrete use of subagents and context management, and of failing closed when a capability is missing."
+  },
+  {
+   "a": "R010",
+   "b": "R017",
+   "strength": "weak",
+   "why": "EGM's bottom-up README tree is PageIndex's section-tree map applied to a codebase: a map the agent reads before the full text."
+  },
+  {
+   "a": "R004",
+   "b": "R018",
+   "strength": "strong",
+   "why": "Same author four days apart. R018 keeps the wipe-everything advice but swaps \"default to Auto\" for a fixed Opus 5.5 on high, and still offers no eval before deleting config."
+  },
+  {
+   "a": "R017",
+   "b": "R018",
+   "strength": "weak",
+   "why": "\"Before you start, restate my goal\" is a one-line form of EGM's doc-alone comprehension test."
+  },
+  {
+   "a": "R005",
+   "b": "R018",
+   "strength": "strong",
+   "why": "R005's quarterly re-audit with evals is the gate R004 and R018 lack before wiping config."
+  },
+  {
+   "a": "R002",
+   "b": "R018",
+   "strength": "weak",
+   "why": "Why a blanket wipe is risky: memory needs maintenance, not deletion. R018 also shows org memory can be bulk-deleted by one setting."
+  },
+  {
+   "a": "R006",
+   "b": "R018",
+   "strength": "weak",
+   "why": "The desktop app's local folder access is where R006's permissions by blast radius start to matter."
   }
  ]
 }
