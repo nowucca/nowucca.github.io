@@ -1,0 +1,15 @@
+{
+  "_how": "Sections of the daily brief, in page order. Add, remove or reorder entries here; the next daily run picks them up. 'scope' says what belongs in the section; 'sources' lists preferred low-bias, well-sourced outlets (first that has fresh stories wins); 'max' caps the stories.",
+  "standards": "Straight news only: no opinion, analysis-as-opinion, sponsored or aggregator content. Prefer wire copy (AP via PBS/regional syndication), public broadcasters and nonprofit newsrooms. Every story links its original source; anything unconfirmed is labelled as reported or alleged. Summaries are written fresh, never copied.",
+  "topics": [
+    {"id": "austin", "title": "Austin", "scope": "City of Austin, Travis and Williamson counties", "sources": ["KUT News (kut.org)", "Texas Tribune", "Austin Monitor"], "max": 5},
+    {"id": "texas", "title": "Texas", "scope": "Statewide politics, policy, courts, economy", "sources": ["Texas Tribune", "Texas Standard", "AP via PBS"], "max": 6},
+    {"id": "us", "title": "United States", "scope": "National US news", "sources": ["AP via PBS NewsHour (pbs.org/newshour/latest)", "NPR", "The Hill (news, not opinion)"], "max": 6},
+    {"id": "australia", "title": "Australia", "scope": "National and state news", "sources": ["ABC News Australia (abc.net.au/news/justin)", "SBS News"], "max": 6},
+    {"id": "ai", "title": "AI technology", "scope": "AI models, companies, policy, infrastructure", "sources": ["AP via PBS", "NPR", "company primary sources for announcements", "CNBC (news)"], "max": 5},
+    {"id": "tech", "title": "Other technology", "scope": "Non-AI tech: chips, platforms, autos, security, space", "sources": ["AP via PBS", "The Hill technology", "Ars Technica (news)"], "max": 5},
+    {"id": "world", "title": "World", "scope": "International news outside the US and Australia", "sources": ["AP via PBS", "Euronews", "NPR"], "max": 6},
+    {"id": "aus-cricket", "title": "Australian cricket", "scope": "Australian men's and women's teams, Sheffield Shield, BBL/WBBL", "sources": ["ABC Sport cricket (abc.net.au/news/sport/cricket)", "cricket.com.au"], "max": 5},
+    {"id": "warriors", "title": "Golden State Warriors", "scope": "Results, schedule, roster and injury news", "sources": ["live scores and schedule data", "NBA.com", "AP via PBS"], "max": 4}
+  ]
+}

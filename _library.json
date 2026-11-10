@@ -128,6 +128,14 @@
           ]
         }
       ]
+    },
+    "news": {
+      "title": "Daily news brief",
+      "lede": "A neutral daily roundup — Austin, Texas, the US, Australia, AI, tech, world and a little sport — from well-sourced, low-bias outlets, with every story linked to its source.",
+      "items": [],
+      "external": true,
+      "href": "/news/",
+      "updated": "2026-11-09"
     }
   }
 }
