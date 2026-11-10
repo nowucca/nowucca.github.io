@@ -101,6 +101,14 @@
        "why": "switching models mid-chat is a cold cache, since caches are model-scoped; pin model and effort per conversation"
       }
      ]
+    },
+    {
+     "n": "1.6",
+     "title": "Multi-agent coordination",
+     "primary": [
+      "R019"
+     ],
+     "also": []
     }
    ]
   },
@@ -270,6 +278,10 @@
       {
        "id": "R017",
        "why": "fresh-context subagents as reviewers; fail closed when the host cannot isolate them"
+      },
+      {
+       "id": "R019",
+       "why": "a minimal swarm harness: message/read tools, async tool execution, 1,024-token preemptible generation, token budget as the only guardrail"
       }
      ]
     },
@@ -279,7 +291,12 @@
      "primary": [
       "R015"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R019",
+       "why": "the counter-case: coordination learned instead of designed; its matched-budget best-of-N baseline is the test any multi-agent design must pass"
+      }
+     ]
     }
    ]
   },
@@ -311,6 +328,10 @@
       {
        "id": "R017",
        "why": "AI reviewers check the spec, the human triages routed findings and approves; about 30% of findings useful"
+      },
+      {
+       "id": "R019",
+       "why": "swarm agents still act on unverified teammate reports; checking peers' claims is the paper's stated next step"
       }
      ]
     }
@@ -568,6 +589,26 @@
    ],
    "summary": "A consumer setup guide in six levels. Two claims hold against Anthropic's own pages: thumbs feedback stores the whole conversation for up to 5 years and may train models, and an owner turning org memory off permanently deletes every member's memory. Switching models mid-chat costs a cold cache, not a \"re-read\". Takeaways: pin model and effort per conversation, write a feedback-button policy, put the org memory toggle under change control, version config instead of wiping it.",
    "file": "entries/ruben-hassid-six-levels-of-claude.html"
+  },
+  {
+   "id": "R019",
+   "slug": "s3-agent-swarms",
+   "title": "s3: agent swarms that learn their own coordination",
+   "by": "Elvis Saravia (DAIR.AI) on Jha et al.",
+   "source": "https://www.linkedin.com/posts/omarsar_must-read-paper-on-scaling-multi-agent-swarms-share-7525558147793461249-1Fnn/",
+   "published": "2026-11-09",
+   "added": "2026-11-10",
+   "artifact": "https://claude.ai/artifact/LpCc1YVdYPNEk1LWQQHTqG",
+   "tags": [
+    "multi-agent",
+    "reinforcement-learning",
+    "agent-architecture",
+    "agent-harness",
+    "agents-at-scale",
+    "evals"
+   ],
+   "summary": "N copies of one small model, no roles or orchestrator, just message/read tools in an async harness, trained with GRPO on one max-over-team reward. Learns broadcast-once for pooling private facts (93% vs 35% for online SFT at N=4) and branch-claiming for search. Per-agent reward breeds a public-goods dilemma where agents go silent. Caveats: toy tasks, 0.6B/1.7B models, no win over best-of-4 at training size after correction.",
+   "file": "entries/s3-agent-swarms.html"
   }
  ],
  "edges": [
@@ -774,6 +815,30 @@
    "b": "R018",
    "strength": "weak",
    "why": "The desktop app's local folder access is where R006's permissions by blast radius start to matter."
+  },
+  {
+   "a": "R015",
+   "b": "R019",
+   "strength": "strong",
+   "why": "R015 says extra agents earn their keep only for parallel work. s3's exploration task agrees, and its matched-budget best-of-N baseline is the test that stance implies; aggregation is the case where agents really must talk."
+  },
+  {
+   "a": "R006",
+   "b": "R019",
+   "strength": "strong",
+   "why": "s3's harness is R006's vocabulary at its smallest: agent loop, two messaging tools, async tool calls, and a token budget as the only guardrail."
+  },
+  {
+   "a": "R017",
+   "b": "R019",
+   "strength": "weak",
+   "why": "s3's leftover failure, trusting an unverified teammate report, is what EGM's zero-context reviewers are designed to catch."
+  },
+  {
+   "a": "R016",
+   "b": "R019",
+   "strength": "weak",
+   "why": "s3's leftover failure, trusting an unverified teammate report, is what R016's verifier routing is designed to catch."
   }
  ]
 }
