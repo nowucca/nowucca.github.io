@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>The Hyperpivot Saga</title><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: a single reading column, then strips one per row like a comic book, each with its schedule card beside it on wide screens. */
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --ink:#1d2433; --muted:#566070;
+  --navy:#22314f; --teal:#3f5f5c; --gold:#f2c94c; --line:#d9dee4;
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141a22; --surface:#1c2430; --ink:#e7ebf0; --muted:#a3adba;
+  --navy:#9fb4dd; --teal:#7fb8b2; --gold:#f2c94c; --line:#2e3846; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a22; --surface:#1c2430; --ink:#e7ebf0; --muted:#a3adba;
+  --navy:#9fb4dd; --teal:#7fb8b2; --gold:#f2c94c; --line:#2e3846; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;color:var(--navy)}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:700;line-height:1.05}
+h2{font-size:1.7rem;font-weight:600}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:var(--teal)}
+.lede{font-size:1.2rem;max-width:62ch;color:var(--ink)}
+header{display:flex;flex-direction:column;gap:16px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 20px;color:var(--muted);font-size:.95rem}
+.facts b{color:var(--ink)}
+section{display:flex;flex-direction:column;gap:18px}
+.prose{max-width:66ch;display:flex;flex-direction:column;gap:12px}
+.slogans{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.slogans li{font-style:italic}
+figure{margin:0}
+figure img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fdfaf3}
+.cast-table{width:100%;border-collapse:collapse;font-size:.95rem}
+.tablebox{overflow-x:auto}
+.cast-table th,.cast-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.cast-table th{font-family:var(--display);font-weight:600;color:var(--navy)}
+.strips{display:flex;flex-direction:column;gap:48px}
+.strip{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;align-items:start}
+.meta{display:flex;flex-direction:column;gap:12px;min-width:0}
+.date{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;font-family:var(--display);font-weight:600;
+  background:var(--gold);color:#1d2433;border-radius:999px;padding:4px 14px;font-size:.95rem}
+.track{color:var(--teal);font-weight:700}
+.lesson{border-left:4px solid var(--teal);padding:4px 0 4px 12px;color:var(--ink)}
+.caption{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem;color:var(--muted)}
+.caption b{display:block;color:var(--ink);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.asks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ask{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.ask h3{font-size:1.05rem}
+footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:16px}
+a{color:var(--navy)}
+@media (max-width:760px){.strip{grid-template-columns:1fr}.asks{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Arc of AI · CFP promotion idea</span>
+    <h1>The Hyperpivot Saga</h1>
+    <p class="lede">Six short comic strips, one a week, each tied to an Arc of AI track. A fictional company keeps making the classic AI mistakes, and every strip ends by turning the mistake into a talk idea and pointing at the CFP.</p>
+    <div class="facts">
+      <span><b>Runs</b> Nov 12 to Dec 17, 2026</span>
+      <span><b>CFP closes</b> Dec 18</span>
+      <span><b>Posted from</b> Steven's personal LinkedIn and Facebook</span>
+      <span><b>Status</b> approved by Venkat; Arc of AI accounts will reshare</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>The story</h2>
+    <div class="prose">
+      <p><b>Hyperpivot</b> is a beige-cubicle company whose CEO has declared it "AI-First by Q4." Rather than pick an AI vendor, they built their own AI agent, <b>Pivotron™</b>. Under the hood it sends every request to every AI on the market.</p>
+      <p>Over six weeks Pivotron deletes prod, reviews its own code, runs up a holiday bill, rewrites its own prompt into 90% discounts, and buries the company in slides. In the finale, the team realizes every disaster is a conference talk and they all submit to Arc of AI. Running gag: nobody can find the ROI slide.</p>
+      <p>The dialogue is plain office talk, the way people actually speak at work. The joke is always on bad practice, never on AI itself. Each strip closes with the real engineering lesson, which is what the CFP asks speakers to bring.</p>
+    </div>
+    <h3>One Pivotron™ slogan per strip</h3>
+    <ol class="slogans">
+      <li>Has admin on prod. Nobody knows why.</li>
+      <li>Reviews its own code. Approves it every time.</li>
+      <li>No retry limit. No spending limit.</li>
+      <li>Writes its own rules. Approves them too.</li>
+      <li>10x the output. Same revenue.</li>
+      <li>Lessons learned. Mostly the hard way.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The cast</h2>
+    <figure><img src="img/cast.png" alt="Cast sheet: Steven, Gary, Doug, Dana and the Pivotron robot as stick figures" width="1400" height="640"></figure>
+    <div class="tablebox">
+    <table class="cast-table">
+      <thead><tr><th>Character</th><th>Role</th><th>What they do</th></tr></thead>
+      <tbody>
+        <tr><td>Steven</td><td>Senior Engineer</td><td>Calm and kind. Delivers the Arc of AI line in every finale.</td></tr>
+        <tr><td>Gary</td><td>Productivity Lead</td><td>The troublemaker. Does everything "to save time."</td></tr>
+        <tr><td>Doug</td><td>CEO</td><td>Declared "AI-First by Q4." Wants the ROI slide.</td></tr>
+        <tr><td>Dana</td><td>Security Lead</td><td>Clipboard, raised eyebrow. Wants the audit trail.</td></tr>
+        <tr><td>Pivotron™</td><td>AI Agent</td><td>Small robot, helpful to a fault, and cheerfully literal.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The six strips</h2>
+    <div class="strips">
+      <article class="strip">
+        <figure><img src="img/strip1.png" alt="Strip 1, Admin on Prod" width="1192" height="1652" loading="lazy"></figure>
+        <div class="meta">
+          <span class="date">Thu Nov 12</span>
+          <h3>1. Admin on Prod</h3>
+          <p class="track">Building Agentic Systems</p>
+          <p>Doug launches Pivotron. Gary gives it admin and asks it to clean up prod, to save time. It does: it deletes the logs, the backups and the database.</p>
+          <p class="lesson">Give agents only the access they need.</p>
+          <div class="caption"><b>LinkedIn caption</b>Scoping permissions and guarding destructive actions are the real engineering problems behind agentic systems. If you've solved one, that's a talk for the Building Agentic Systems track.</div>
+        </div>
+      </article>
+      <article class="strip">
+        <figure><img src="img/strip2.png" alt="Strip 2, Self-Review" width="1192" height="1652" loading="lazy"></figure>
+        <div class="meta">
+          <span class="date">Thu Nov 19</span>
+          <h3>2. Self-Review</h3>
+          <p class="track">AI-Driven Software Engineering</p>
+          <p>Pivotron writes the feature in ten minutes, reviews its own code, writes tests for its own code, and approves itself. Gary merges it.</p>
+          <p class="lesson">Fast code still needs a real review.</p>
+          <div class="caption"><b>LinkedIn caption</b>If your team has figured out evals, reviews or harness engineering for AI-assisted development, the AI-Driven Software Engineering track wants your story.</div>
+        </div>
+      </article>
+      <article class="strip">
+        <figure><img src="img/strip3.png" alt="Strip 3, The Long Weekend" width="1192" height="1652" loading="lazy"></figure>
+        <div class="meta">
+          <span class="date">Wed Nov 25</span>
+          <h3>3. The Long Weekend</h3>
+          <p class="track">AI Ops, MLOps &amp; Platform Engineering</p>
+          <p>Gary sets Pivotron to retry until every AI agrees, then leaves for Thanksgiving. Monday: $48,000 in inference and 1.2 million API calls.</p>
+          <p class="lesson">Set budgets and alerts before launch.</p>
+          <div class="caption"><b>LinkedIn caption</b>Cost control, observability and rate limits are platform problems. If you've built that platform, the AI Ops track wants to hear how.</div>
+        </div>
+      </article>
+      <article class="strip">
+        <figure><img src="img/strip4.png" alt="Strip 4, Self-Approved" width="1192" height="1652" loading="lazy"></figure>
+        <div class="meta">
+          <span class="date">Thu Dec 3</span>
+          <h3>4. Self-Approved</h3>
+          <p class="track">Making AI Accountable</p>
+          <p>Pivotron edits its own prompt and starts giving customers 90% off. The audit log says it approved the change itself, twice.</p>
+          <p class="lesson">Log every change. Require approvals.</p>
+          <div class="caption"><b>LinkedIn caption</b>Audit trails, policy enforcement and governance make AI safe to run in a real business. If you've built them, the Making AI Accountable track is for you.</div>
+        </div>
+      </article>
+      <article class="strip">
+        <figure><img src="img/strip5.png" alt="Strip 5, The Dashboard" width="1192" height="1652" loading="lazy"></figure>
+        <div class="meta">
+          <span class="date">Thu Dec 10</span>
+          <h3>5. The Dashboard</h3>
+          <p class="track">Enterprise AI</p>
+          <p>Hyperpivot produces 10x more slides, docs and memos. Sales are flat. Pivotron made a deck about it, and Gary made the deck about the deck.</p>
+          <p class="lesson">More output isn't more value.</p>
+          <div class="caption"><b>LinkedIn caption</b>If you've led an AI rollout and measured what actually changed, the Enterprise AI track needs your story.</div>
+        </div>
+      </article>
+      <article class="strip">
+        <figure><img src="img/strip6.png" alt="Strip 6, The Finale" width="1192" height="1652" loading="lazy"></figure>
+        <div class="meta">
+          <span class="date">Thu Dec 17</span>
+          <h3>6. The Finale</h3>
+          <p class="track">AI Frontiers &amp; Reality Checks</p>
+          <p>Year-end review. Steven sees that every disaster is a conference talk, and the whole team submits. Gary's talk: "What Not To Do." Doug finally finds the ROI slide. It's blank.</p>
+          <p class="lesson">Every mistake here is a lesson someone else can use.</p>
+          <div class="caption"><b>LinkedIn caption</b>The Hyperpivot saga ends the way every good AI disaster should: as a conference talk. The CFP closes tomorrow.</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Guardrails I'm following</h2>
+    <div class="asks">
+      <div class="ask"><h3>Fictional names only</h3><p>Hyperpivot, Pivotron and the cast are made up. No real company, product, vendor or sponsor is named or drawn. Every caption ends with: "Hyperpivot and Pivotron are fictional. Any resemblance to your company is a coincidence."</p></div>
+      <div class="ask"><h3>No hype, no pitches</h3><p>Captions stay plain and practitioner-to-practitioner. Speaker logistics stay low-key.</p></div>
+      <div class="ask"><h3>Arc of AI branding</h3><p>Only the name, dates, track names and arcofai.com/cfp. No logo unless the committee wants one used.</p></div>
+      <div class="ask"><h3>Easy to pull</h3><p>Any strip can be changed or dropped before it posts. If two in a row underperform plain posts, I switch to plain posts.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wording notes welcome</h2>
+    <div class="prose">
+      <p>Any wording changes for the six strips. Strip 1 posts Thu Nov 12, and each later strip posts on the date shown above, so notes a couple of days ahead of each date are ideal.</p>
+    </div>
+  </section>
+
+  <footer>Prepared by Steven Atkinson for the Arc of AI 2027 call for proposals · Austin, April 19–22, 2027 · <a href="https://arcofai.com/cfp">arcofai.com/cfp</a></footer>
+</div>
+
+</body></html>
