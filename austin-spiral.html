@@ -772,7 +772,9 @@
 
   // ---------- EVENTS ----------
   function isDo512(e){return e.src==='do512'||/(^|\/\/|\.)do512\.com/i.test(String(e.link||''));}
-  function via(e){return isDo512(e)?' · <span class="via">via <a href="https://do512.com/" target="_blank" rel="noopener">Do512</a></span>':'';}
+  function isTM(e){return e.src==='tm'||(!e.src&&/(^|\/\/|\.)ticketmaster\.com/i.test(String(e.link||'')));}
+  function via(e){if(isDo512(e))return ' · <span class="via">via <a href="https://do512.com/" target="_blank" rel="noopener">Do512</a></span>';
+    if(isTM(e))return ' · <span class="via">via <a href="'+esc(/ticketmaster\.com/i.test(String(e.link||''))?e.link:'https://www.ticketmaster.com/')+'" target="_blank" rel="noopener">Ticketmaster</a></span>';return '';}
   var EVTYPES=DATA.eventTypes||[];
   var days=[];EVENTS.forEach(function(e){if(days.indexOf(e.date)<0)days.push(e.date);});days.sort();
   var dayBar=document.getElementById('day-bar'), evWrap=document.getElementById('ev-groups'), curDay=days[0];
