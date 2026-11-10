@@ -272,6 +272,11 @@
   @media(max-width:620px){.tw-chips{flex-wrap:nowrap;overflow-x:auto;margin-left:-4px;margin-right:-4px;padding-left:4px;padding-right:4px;scrollbar-width:none}.tw-chip{white-space:nowrap;flex:0 0 auto}}
   .g-opening{--acc:#ffd48a}.g-music{--acc:#ffb454}.g-comedy{--acc:#ff6b9d}.g-dance{--acc:#b794ff}.g-bar{--acc:#5fd0e0}
   .g-karaoke{--acc:#ff8fd0}.g-trivia{--acc:#79e0a6}.g-games{--acc:#9be37a}.g-food{--acc:#ff9b6b}.g-festival{--acc:#ffe066}.g-other{--acc:#8b93a4}
+  .credit{margin-top:clamp(36px,5vw,60px);padding:22px 0 8px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+  .credit h4{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin:0 0 6px;font-weight:500}
+  .credit p{margin:0;font-size:13px;color:var(--muted);max-width:62ch;line-height:1.55}
+  .credit a{color:var(--text);font-weight:700;text-decoration:none;border-bottom:1px solid var(--pink)}
+  .credit a:hover{color:var(--pink)}
 </style>
 
 <div class="wrap">
@@ -402,6 +407,12 @@
     <div class="cat-grid" id="cat-list"></div>
     <p class="pb-note">Numbers match the pins on the Spiral. A venue can sit in more than one category.</p>
   </section>
+  <footer class="credit">
+    <div>
+      <h4>Created by</h4>
+      <p><a href="https://www.instagram.com/steven.abroad/" target="_blank" rel="noopener">@steven.abroad</a> on Instagram. Bars, crawls and events are gathered and checked daily; hours and lineups change, so confirm with the venue before you go. Drink responsibly, 21+.</p>
+    </div>
+  </footer>
 </div>
 
 <script>
