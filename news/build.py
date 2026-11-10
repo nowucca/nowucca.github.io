@@ -191,6 +191,21 @@ def rebuild_library(latest):
     (ROOT / "library" / "index.html").write_text(page)
 
 
+def update_home_card(ed):
+    """Refresh the 'Daily news brief' card text in the home page front matter with today's headline."""
+    home = ROOT / "index.html"
+    lines = home.read_text().split("\n")
+    in_card = False
+    for i, line in enumerate(lines):
+        if line.startswith("  - title:"):
+            in_card = line.strip() == "- title: Daily news brief"
+        elif in_card and line.startswith("    text:"):
+            text = f"Today: {ed['headline']}" if ed.get("headline") else f"Latest brief: {long_date(ed['date'])}"
+            lines[i] = "    text: " + json.dumps(text, ensure_ascii=False)
+            home.write_text("\n".join(lines))
+            return
+
+
 def main():
     topics, eds = load()
     for i, ed in enumerate(eds):
@@ -204,6 +219,7 @@ def main():
         (HERE / "latest").mkdir(exist_ok=True)
         (HERE / "latest" / "index.html").write_text(redirect_page(eds[-1]["date"]))
         rebuild_library(eds[-1]["date"])
+        update_home_card(eds[-1])
     print(f"built {len(eds)} edition(s); latest {eds[-1]['date'] if eds else '-'}")
 
 
