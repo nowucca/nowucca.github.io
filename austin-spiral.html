@@ -837,7 +837,7 @@ html.ag-lock,html.ag-lock body{overflow:hidden}
 </div>
 <script>
 (function(){var K='austinSpiral21',g=document.getElementById('agegate'),ok=false;
-try{var t=+localStorage.getItem(K);ok=t&&Date.now()-t<30*864e5;}catch(e){}
+try{if(/[?&]age=reset/.test(location.search))localStorage.removeItem(K);var t=+localStorage.getItem(K);ok=t&&Date.now()-t<30*864e5;}catch(e){}
 if(ok){g.hidden=true;return;}
 document.documentElement.classList.add('ag-lock');document.getElementById('ag-yes').focus();
 document.getElementById('ag-yes').onclick=function(){try{localStorage.setItem(K,String(Date.now()));}catch(e){}g.hidden=true;document.documentElement.classList.remove('ag-lock');};
