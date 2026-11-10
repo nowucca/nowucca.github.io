@@ -277,16 +277,12 @@
   .credit p{margin:0;font-size:13px;color:var(--muted);max-width:62ch;line-height:1.55}
   .credit a{color:var(--text);font-weight:700;text-decoration:none;border-bottom:1px solid var(--pink)}
   .credit a:hover{color:var(--pink)}
-  .byline{margin:-4px 0 14px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--muted)}
-  .byline a{color:var(--text);font-weight:700;text-decoration:none;border-bottom:1px solid var(--pink)}
-  .byline a:hover{color:var(--pink)}
 </style>
 
 <div class="wrap">
   <header>
     <p class="eyebrow" id="eyebrow">Nights out</p>
     <h1>The Austin <em>Spiral</em></h1>
-    <p class="byline">Created by <a href="https://www.instagram.com/steven.abroad/" target="_blank" rel="noopener">@steven.abroad</a></p>
     <p class="lede">Three ways to run a night. The <b>Spiral</b> winds every saved spot (bars, music rooms, arcades, duckpins, rooftops) into one inward night crawl, from the far edges of town to the core (flip to <b>Map</b> for real directions). <b>Playbooks</b> are ready-made district crawls — venue by venue, in walking order, with the timing worked out. <b>By category</b> starts from the mood instead — cocktails, speakeasies, live music, rooftops and more — and lists the matches nearest downtown first. <b>This Week</b> collects the best one-off nights, grouped by type, and <b>Events</b> lists everything day by day; both refresh daily. Tap any venue name to open its site.</p>
     <button type="button" class="tw-teaser" id="tw-teaser" aria-label="Open This Week">
       <span><span class="k">This week</span><span class="big"></span><span class="mix"></span></span>
@@ -818,4 +814,34 @@
 })();
 </script>
 
+<!-- 21+ age gate (public build only) -->
+<style>
+#agegate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(6,9,14,.94);backdrop-filter:blur(6px)}
+#agegate[hidden]{display:none}
+#agegate .box{max-width:400px;width:100%;background:#111722;border:1px solid #2a3344;border-radius:14px;padding:28px 24px;text-align:center;color:#e8edf5;font-family:system-ui,-apple-system,sans-serif}
+#agegate h2{margin:0 0 8px;font-size:22px}
+#agegate p{margin:0 0 20px;color:#9aa6b8;font-size:14px;line-height:1.5}
+#agegate .row{display:flex;gap:10px;justify-content:center}
+#agegate button{flex:1;padding:12px 14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:1px solid #2a3344;background:transparent;color:#e8edf5}
+#agegate button.yes{background:#ff4fa3;border-color:#ff4fa3;color:#0a0e15}
+#agegate .no-msg{display:none;margin-top:16px;color:#9aa6b8;font-size:14px}
+html.ag-lock,html.ag-lock body{overflow:hidden}
+</style>
+<div id="agegate" role="dialog" aria-modal="true" aria-labelledby="ag-h">
+  <div class="box">
+    <h2 id="ag-h">Are you 21 or older?</h2>
+    <p>The Austin Spiral is a guide to bars and nights out. You must be of legal drinking age to enter.</p>
+    <div class="row"><button type="button" class="yes" id="ag-yes">Yes, I'm 21+</button><button type="button" id="ag-no">No</button></div>
+    <div class="no-msg" id="ag-msg">Sorry, this site is for adults 21 and over. Come back when you're of age.</div>
+  </div>
+</div>
+<script>
+(function(){var K='austinSpiral21',g=document.getElementById('agegate'),ok=false;
+try{var t=+localStorage.getItem(K);ok=t&&Date.now()-t<30*864e5;}catch(e){}
+if(ok){g.hidden=true;return;}
+document.documentElement.classList.add('ag-lock');document.getElementById('ag-yes').focus();
+document.getElementById('ag-yes').onclick=function(){try{localStorage.setItem(K,String(Date.now()));}catch(e){}g.hidden=true;document.documentElement.classList.remove('ag-lock');};
+document.getElementById('ag-no').onclick=function(){document.getElementById('ag-msg').style.display='block';document.querySelector('#agegate .row').style.display='none';};
+})();
+</script>
 </body></html>
