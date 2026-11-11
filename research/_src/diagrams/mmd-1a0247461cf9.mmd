@@ -1,0 +1,6 @@
+flowchart LR
+    M["Client model<br/>names Terms, reviews joins,<br/>extracts facts, writes SQL"] <-- MCP --> S["Server<br/>scan, profile, infer keys,<br/>validate, store, run read-only"]
+    S <--> O[("ontology.db")]
+    S <-- validated writes --> K[("knowledge.sqlite<br/>records, passages, FTS5")]
+    S -- originals --> V[("Obsidian vault")]
+    S -- read-only --> D[("Your databases")]

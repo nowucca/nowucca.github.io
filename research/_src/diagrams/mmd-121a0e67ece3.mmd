@@ -1,0 +1,5 @@
+flowchart LR
+    A["Agent<br/>(untrusted)"] --> SB["Sandbox<br/>owns processes,<br/>identifies caller"]
+    SB -- "one authenticated<br/>HTTP/2 channel" --> SUP["Supervisor<br/>(trusted)<br/>checks policy,<br/>injects credentials"]
+    SUP --> NET[("Approved<br/>endpoints")]
+    SUP <--> GW["Gateway<br/>control plane,<br/>policy, prover"]

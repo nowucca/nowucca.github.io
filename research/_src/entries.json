@@ -11,9 +11,14 @@
      "n": "1.1",
      "title": "Memory and context",
      "primary": [
-      "R002"
+      "R002",
+      "R028"
      ],
      "also": [
+      {
+       "id": "R026",
+       "why": "the KV cache as cross-turn working memory holding text, latent thoughts and tool results; it cannot be re-tokenized, compacted or handed off as text"
+      },
       {
        "id": "R010",
        "why": "retrieval as navigation: read a document's map, then only the pages it points to; \"similarity is not relevance\""
@@ -35,8 +40,14 @@
     {
      "n": "1.2",
      "title": "Self-improvement and learning loops",
-     "primary": [],
+     "primary": [
+      "R024"
+     ],
      "also": [
+      {
+       "id": "R025",
+       "why": "recursive self-improvement of a frozen harness instead of the model: a strong model rewrites primitives, state and control logic over rounds on a dev set"
+      },
       {
        "id": "R002",
        "why": "reflection pass writing procedural memory; commenters argue it needs eval and human gates"
@@ -49,6 +60,22 @@
      "primary": [],
      "also": [
       {
+       "id": "R030",
+       "why": "policy as a versioned artifact checked by a prover against a boundary policy; widening access needs human review"
+      },
+      {
+       "id": "R028",
+       "why": "certified, draft and deprecated Terms, with an edit sending a certified definition back to draft; a source and quote behind every stored fact"
+      },
+      {
+       "id": "R018",
+       "why": "Team/Enterprise: an owner turning org memory off permanently deletes all members' memories; feedback ratings export whole conversations for up to 5 years"
+      },
+      {
+       "id": "R016",
+       "why": "Audit-then-Score: ground truth as a versioned consensus, revised only when a challenger's evidence beats the incumbent rationale; expert re-audit after 5% drift"
+      },
+      {
        "id": "R005",
        "why": "records contradictions with dates and sources instead of overwriting; little on authority or audit"
       },
@@ -59,14 +86,6 @@
       {
        "id": "R004",
        "why": "periodic manual wipe as governance, with no eval gate"
-      },
-      {
-       "id": "R016",
-       "why": "Audit-then-Score: ground truth as a versioned consensus, revised only when a challenger's evidence beats the incumbent rationale; expert re-audit after 5% drift"
-      },
-      {
-       "id": "R018",
-       "why": "Team/Enterprise: an owner turning org memory off permanently deletes all members' memories; feedback ratings export whole conversations for up to 5 years"
       }
      ]
     },
@@ -78,27 +97,34 @@
      ],
      "also": [
       {
-       "id": "R006",
-       "why": "six harness concepts as a production vocabulary; overlaps R005's loop, gate and harness layers"
-      },
-      {
        "id": "R015",
        "why": "\"agent\" is a naming convention; frame the job as a workflow and most orchestration code disappears"
+      },
+      {
+       "id": "R006",
+       "why": "six harness concepts as a production vocabulary; overlaps R005's loop, gate and harness layers"
       }
      ]
     },
     {
      "n": "1.5",
      "title": "Context economics and caching",
-     "primary": [],
+     "primary": [
+      "R026",
+      "R032"
+     ],
      "also": [
       {
-       "id": "R010",
-       "why": "tree as cached prefix, fetched pages as the tail; reads a few pages instead of a whole PDF, 2.1× to 16.6× cheaper by vendor figures"
+       "id": "R027",
+       "why": "silent retries of invalid tool calls as hidden token and latency cost; provider choice moves it by an order of magnitude"
       },
       {
        "id": "R018",
        "why": "switching models mid-chat is a cold cache, since caches are model-scoped; pin model and effort per conversation"
+      },
+      {
+       "id": "R010",
+       "why": "tree as cached prefix, fetched pages as the tail; reads a few pages instead of a whole PDF, 2.1× to 16.6× cheaper by vendor figures"
       }
      ]
     },
@@ -106,9 +132,15 @@
      "n": "1.6",
      "title": "Multi-agent coordination",
      "primary": [
-      "R019"
+      "R019",
+      "R031"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R021",
+       "why": "hand-written coordination: one router, a worker per ticket, subscriptions route follow-ups to the worker that owns them; the opposite of R019's learned coordination"
+      }
+     ]
     }
    ]
   },
@@ -139,6 +171,36 @@
        "why": "contradiction handling in semantic memory"
       }
      ]
+    },
+    {
+     "n": "2.3",
+     "title": "Agent session hosting and control planes",
+     "primary": [
+      "R021",
+      "R030"
+     ],
+     "also": [
+      {
+       "id": "R033",
+       "why": "size agent permissions and egress for the case where the model itself is hostile"
+      }
+     ]
+    },
+    {
+     "n": "2.4",
+     "title": "Inference providers and serving reliability",
+     "primary": [
+      "R027"
+     ],
+     "also": []
+    },
+    {
+     "n": "2.5",
+     "title": "Model supply chain and weight integrity",
+     "primary": [
+      "R033"
+     ],
+     "also": []
     }
    ]
   },
@@ -185,6 +247,19 @@
        "why": "the one-minute case for workflows over agents, with the model as the runtime for each step"
       }
      ]
+    },
+    {
+     "n": "3.4",
+     "title": "Test oracles for agent-written code",
+     "primary": [
+      "R020"
+     ],
+     "also": [
+      {
+       "id": "R024",
+       "why": "contract locked and frozen files hashed before any agent edit; five invariant layers and noise-calibrated re-runs catch fake speedups; the model's own predictions are anti-correlated with results"
+      }
+     ]
     }
    ]
   },
@@ -199,16 +274,20 @@
      "primary": [],
      "also": [
       {
-       "id": "R005",
-       "why": "LLM-wiki second brain: nothing ingested until linked, index.md + log.md, lint skills"
+       "id": "R022",
+       "why": "OpenAI's short AGENTS.md as a map over a linted docs/ tree, with a doc-gardening agent"
+      },
+      {
+       "id": "R017",
+       "why": "design doc as the source of truth; bottom-up README bootstrap; periodic LLM drift report against code"
       },
       {
        "id": "R015",
        "why": "steps as Markdown files routed by CLAUDE.md / AGENTS.md; the model as runtime for them"
       },
       {
-       "id": "R017",
-       "why": "design doc as the source of truth; bottom-up README bootstrap; periodic LLM drift report against code"
+       "id": "R005",
+       "why": "LLM-wiki second brain: nothing ingested until linked, index.md + log.md, lint skills"
       }
      ]
     },
@@ -216,9 +295,15 @@
      "n": "4.3",
      "title": "Retrieval over long documents",
      "primary": [
-      "R010"
+      "R010",
+      "R025"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R028",
+       "why": "lexical FTS5 over passages with links back to the original heading; concept relations and records joined in one validated SQL query"
+      }
+     ]
     }
    ]
   },
@@ -260,6 +345,58 @@
      ],
      "also": [
       {
+       "id": "R032",
+       "why": "a calibrated decision model as a cheap gate before tool calls: are the arguments grounded, is it premature; returns Proceed, Deny, Confirm or Guide"
+      },
+      {
+       "id": "R030",
+       "why": "sandbox and trusted supervisor split, one mediated egress path, credentials injected by placeholder, fail closed"
+      },
+      {
+       "id": "R028",
+       "why": "model proposes, server validates: language steps in the client, deterministic checks and read-only execution in the MCP server"
+      },
+      {
+       "id": "R027",
+       "why": "tool-call validation and retry as a harness duty; log invalid calls per provider before repairing them, or the failure only shows as cost"
+      },
+      {
+       "id": "R025",
+       "why": "decompose a capability into primitives, push rule-like steps into code, keep intermediate state outside the context window"
+      },
+      {
+       "id": "R024",
+       "why": "deterministic CLI stages init/doctor/run/report/apply around the agent; every trial's receipt and GPU cost kept"
+      },
+      {
+       "id": "R023",
+       "why": "a buildable reference harness: headless core, TUI and remote front ends, permission gate, sandbox, compaction, subagents, evals and replay"
+      },
+      {
+       "id": "R022",
+       "why": "generator-evaluator separation with hard thresholds; every harness component encodes an assumption about the model, so re-test it on each release"
+      },
+      {
+       "id": "R021",
+       "why": "gate in code, Mandate per task, accept modes off/observe/auto, policy versioning that requeues in-flight decisions"
+      },
+      {
+       "id": "R020",
+       "why": "the harness is what you would still trust if the model were trying to fool you; runner yes, self-written assertions no"
+      },
+      {
+       "id": "R019",
+       "why": "a minimal swarm harness: message/read tools, async tool execution, 1,024-token preemptible generation, token budget as the only guardrail"
+      },
+      {
+       "id": "R017",
+       "why": "fresh-context subagents as reviewers; fail closed when the host cannot isolate them"
+      },
+      {
+       "id": "R016",
+       "why": "an independent verifier routes disagreements to a human auditor; planted canaries measure reviewer accuracy"
+      },
+      {
        "id": "R012",
        "why": "the model phrases, deterministic code decides; AMIE's live physician gate and what replaces it at scale"
       },
@@ -270,18 +407,6 @@
       {
        "id": "R005",
        "why": "five-layer map; its evals layer is the piece R006's commenters say is missing"
-      },
-      {
-       "id": "R016",
-       "why": "an independent verifier routes disagreements to a human auditor; planted canaries measure reviewer accuracy"
-      },
-      {
-       "id": "R017",
-       "why": "fresh-context subagents as reviewers; fail closed when the host cannot isolate them"
-      },
-      {
-       "id": "R019",
-       "why": "a minimal swarm harness: message/read tools, async tool execution, 1,024-token preemptible generation, token budget as the only guardrail"
       }
      ]
     },
@@ -293,10 +418,26 @@
      ],
      "also": [
       {
+       "id": "R032",
+       "why": "closed-choice steps moved from a generative LLM to a decision model; rollout behind a three-way switch that compares both on live traffic"
+      },
+      {
+       "id": "R031",
+       "why": "the vendor case for many agents: specialists justified only by parallel hypothesis testing during incidents, asserted without a single-agent baseline"
+      },
+      {
        "id": "R019",
        "why": "the counter-case: coordination learned instead of designed; its matched-budget best-of-N baseline is the test any multi-agent design must pass"
       }
      ]
+    },
+    {
+     "n": "6.3",
+     "title": "Evaluation data for agents",
+     "primary": [
+      "R029"
+     ],
+     "also": []
     }
    ]
   },
@@ -326,12 +467,32 @@
      ],
      "also": [
       {
-       "id": "R017",
-       "why": "AI reviewers check the spec, the human triages routed findings and approves; about 30% of findings useful"
+       "id": "R031",
+       "why": "a multi-agent incident system that hands engineers conclusions with no stated way to verify them"
+      },
+      {
+       "id": "R029",
+       "why": "generated tenants and queries as reproducible ground truth for an enterprise assistant; realism is scored, but not yet checked against real outcomes"
+      },
+      {
+       "id": "R020",
+       "why": "which parts of a test a human must sign off when agents write the code"
       },
       {
        "id": "R019",
        "why": "swarm agents still act on unverified teammate reports; checking peers' claims is the paper's stated next step"
+      },
+      {
+       "id": "R017",
+       "why": "AI reviewers check the spec, the human triages routed findings and approves; about 30% of findings useful"
+      },
+      {
+       "id": "R012",
+       "why": "AMIE only worked with a physician watching every chat live; R016 suggests that watcher is best used on flagged disputes"
+      },
+      {
+       "id": "R014",
+       "why": "\"verify AI output\" taught as a user habit, the default R016's post argues against"
       }
      ]
     }
@@ -347,6 +508,24 @@
      "title": "AI literacy curricula",
      "primary": [
       "R014"
+     ],
+     "also": [
+      {
+       "id": "R012",
+       "why": "evidence that tutor-style use builds lasting skill and ghost-writing erases it; the result a literacy course should teach"
+      },
+      {
+       "id": "R005",
+       "why": "a free course for builders, one level up from user literacy"
+      }
+     ]
+    },
+    {
+     "n": "8.2",
+     "title": "Learning paths for AI engineers",
+     "primary": [
+      "R022",
+      "R023"
      ],
      "also": []
     }
@@ -609,6 +788,281 @@
    ],
    "summary": "N copies of one small model, no roles or orchestrator, just message/read tools in an async harness, trained with GRPO on one max-over-team reward. Learns broadcast-once for pooling private facts (93% vs 35% for online SFT at N=4) and branch-claiming for search. Per-agent reward breeds a public-goods dilemma where agents go silent. Caveats: toy tasks, 0.6B/1.7B models, no win over best-of-4 at training size after correction.",
    "file": "entries/s3-agent-swarms.html"
+  },
+  {
+   "id": "R020",
+   "slug": "model-proposes-harness-enforces",
+   "title": "The model proposes, the harness enforces",
+   "by": "Geert Theys (post and Substack essay)",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7525761876325146625/",
+   "published": "2026-11-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/WagVCM4WypULnKDvff6Z1e",
+   "tags": [
+    "test-oracles",
+    "agent-harness",
+    "agent-reliability",
+    "ai-built-software",
+    "evals",
+    "human-oversight"
+   ],
+   "summary": "LLM conclusions are non-monotonic: reordering, reframing or a long context can overturn an answer nothing contradicted, and the model keeps no ledger of which conclusion rests on which fact, unlike designed belief-revision systems. So guarantees must come from the deterministic harness, defined as whatever you would still trust if the model were trying to fool you. Applied to tests: the runner and property- or reference-checked generated inputs are harness; assertions written by the implementing agent are not (\"a mirror with a green light on it\"); spec-derived tests need human sign-off; mutation testing checks a test can fail. Cites a reported Codex CLI incident (#59060) where a reboot request wrecked a server. Essay, not study: the ordering experiment is anecdotal, \"non-monotonic\" is used loosely, and a second agent on the same model and spec adds less independence than it seems.",
+   "file": "entries/model-proposes-harness-enforces.html"
+  },
+  {
+   "id": "R021",
+   "slug": "deepseek-super-agent",
+   "title": "DeepSeek's Super-agent: one router, a ticket per task",
+   "by": "Naji Najari on DeepSeek's dsh-superagent-prototype",
+   "source": "https://www.linkedin.com/posts/naji-najari_aiagents-agentdesignpatterns-superagent-share-7525474331855060992-DfSu/",
+   "published": "2026-11-09",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/72sZhibENN4ALEocTKWHnw",
+   "tags": [
+    "agent-platforms",
+    "multi-agent",
+    "agent-governance",
+    "agent-harness",
+    "agent-workflows",
+    "human-oversight"
+   ],
+   "summary": "One long-lived main Session listens to GitHub (and Feishu), a deterministic gate decides who may start work, the model assesses the rest against team-written rules, and each accepted Ticket gets an immutable Mandate (scope, strength, policy version) and its own Executor Session and directory. Later messages reach the Ticket by subscription as context only, with no new authority. Proactive work starts in `observe` mode (record \"would accept\", do nothing). The post's Watchdog for loops and drift is not in the code, only an hourly liveness check; its numbers (3 to 5 sessions per person, 16 vs 29 min on one task) are press reports of the article. The value is the authority model, not the router topology.",
+   "file": "entries/deepseek-super-agent.html"
+  },
+  {
+   "id": "R022",
+   "slug": "ai-engineering-reading-list",
+   "title": "Shivani Virdi's six-stage AI engineering reading list",
+   "by": "Shivani Virdi",
+   "source": "https://www.linkedin.com/posts/shivanivirdi_i-taught-myself-ai-from-scratch-got-promoted-share-7522631610694012928-Y5KT/",
+   "published": "2026-11-03",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/YP6io1KohxW9ukgCAfYABb",
+   "tags": [
+    "learning-resources",
+    "prompting",
+    "context-engineering",
+    "agent-harness",
+    "evals",
+    "observability"
+   ],
+   "summary": "19 sources in six stages: LLM fundamentals, prompting in production (a prompt is code), context engineering, harness, evals, observability. Current (half from 2026) but Anthropic-heavy (12 of 19). Its strongest sources: Anthropic's planner/generator/evaluator harness (a skeptical evaluator driving the app via Playwright with hard thresholds and per-sprint contracts; $200 and 6 h vs $9 solo, and only the harness build worked; re-test and remove components on each model release), OpenAI's harness engineering (about 1M lines, no hand-written code; a 100-line AGENTS.md as a map over checked docs, mechanically enforced layers, per-worktree observability, garbage-collection agents) and the prompt-versioning cookbook (immutable server-side versions, pin in production, the pin is what gets reviewed). Missing: the loop from traces to failure analysis to evals to the next change, harness subtraction as a practice, prompt change control, and security.",
+   "file": "entries/ai-engineering-reading-list.html"
+  },
+  {
+   "id": "R023",
+   "slug": "coding-agent-from-scratch-course",
+   "title": "Building a coding agent from scratch: an open harness-engineering course",
+   "by": "Paul Iusztin on Decoding AI's course repo",
+   "source": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524774965154529280/",
+   "published": "2026-11-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/Ug4QHH9RVYAR6E37LqQwWF",
+   "tags": [
+    "agent-harness",
+    "education",
+    "learning-resources",
+    "evals",
+    "context-engineering",
+    "agent-architecture"
+   ],
+   "summary": "Builds \"decode\", a Claude Code-style agent in Python on Pydantic AI: a ~20-line ReAct loop over nine tools, then the harness around it in eight lessons (sandbox in Docker or Modal, memory, skills, LSP, compaction at ~80%, Explore subagents and personas, headless remote runs by CLI/webhook/cron, a 19-task benchmark plus regression suite in Opik, Kitaru record-and-replay). Repo keeps ADRs, a glossary and milestone capstone tests. Caveats: sponsor tools (Modal, Opik, Kitaru) are baked in, the design drew on Claude Code's leaked source, the \"harness beats model\" headline is LangChain's Terminal-Bench result, and 19 tasks is too few to rank harness changes.",
+   "file": "entries/coding-agent-from-scratch-course.html"
+  },
+  {
+   "id": "R024",
+   "slug": "infrarsi",
+   "title": "InfraRSI: contract-locked agents for training-throughput tuning",
+   "by": "DAIR.AI on arXiv 2611.11558",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7525927261620027392/",
+   "published": "2026-11-08",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/Y7bp8QEnsazHmcu3efnxnc",
+   "tags": [
+    "self-improving-agents",
+    "test-oracles",
+    "agent-harness",
+    "evals",
+    "benchmarks",
+    "ml-infrastructure"
+   ],
+   "summary": "A self-improving agent harness that speeds up distributed LLM training by searching launch settings and source patches together. The contribution is the verifier: before any edit, `init` locks a task contract (tokens per update, loss tolerance, allowed precisions) and hashes frozen files (data, loss, timers); `doctor` calibrates per-cluster timing noise; five invariant layers (execution, workload, schedule, numerical, timing) and back-to-back re-runs gate promotion, else the delivered speedup is 1.00×. Search keeps global time and censored peak-memory models over all trials (OOMs included) and a cross-hardware experience bank. Four dense and MoE workloads on 8 to 16 H100/H200: 1.83× geomean, mean MFU 17.4% to 30.0%, up to 2.75×; beats RE-Bench's scaffold (1.37×). Offline re-verification rejected 33% of 1,212 runs, and the LLM's own speedup predictions correlated negatively with measurements. Caveats: throughput only, some hacks caught only by human source review, four workloads, no replication.",
+   "file": "entries/infrarsi.html"
+  },
+  {
+   "id": "R025",
+   "slug": "longcapharness",
+   "title": "LongCapHarness: a written harness instead of long-context training",
+   "by": "Elvis Saravia (DAIR.AI) on Zhang and He, Microsoft Research Asia",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7525926002997260288/",
+   "published": "2026-11-07",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/2kTnNKdMGUpu7ohXxDScE8",
+   "tags": [
+    "long-documents",
+    "retrieval",
+    "agent-harness",
+    "self-improving-agents",
+    "context-engineering",
+    "small-models"
+   ],
+   "summary": "A strong model (GPT-5.6-Sol) splits each long-context task type into capability primitives (code for rules like lookup, counting and ordering; bounded LLM calls for judgements), writes control logic and state that live outside the model's context, and refines them by recursive self-improvement on a dev set; the frozen harness library then runs a small model with an 8K or 32K window. HELMET plus RULER: Llama3-8B 15.14 to 79.32 (+64.18) with no training, above NExtLong-128K (70.15); transfers to Qwen2.5-3B (78.73 vs PolicyLong 64.10); about $541 in API tokens vs $1.9K to $3.7K of GPU time. Caveats: the dev split covers every evaluated task type, perfect Recall comes from code, ICL/RAG/LongQA barely move, small models cannot build their own harness, and inference input tokens roughly double.",
+   "file": "entries/longcapharness.html"
+  },
+  {
+   "id": "R026",
+   "slug": "hybridagent",
+   "title": "HybridAgent: agents that think in latent space and act in text",
+   "by": "Aishwarya Naresh Reganti on Zou et al.",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7525950674476589056/",
+   "published": "2026-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/FcwzmWH4tKbkp1WGDUw2z1",
+   "tags": [
+    "agent-architecture",
+    "reinforcement-learning",
+    "inference-cost",
+    "agent-memory",
+    "observability",
+    "small-models"
+   ],
+   "summary": "Inside one generation the agent switches between text and latent steps, where a small residual adapter (HybridLink, about 10M parameters at 4B) feeds the hidden state back as the next input with no decoding; tool calls and answers stay in text, and the KV cache carries text, latents and tool results across turns. Trained from Qwen3-Base (4B to 14B) by hybrid SFT with self-conditioning, then RL whose policy factorizes over text positions with exact latent replay. Versus matched text agents: 35.5% to 54.7% fewer tokens, 1.8× to 2.6× faster, about 10% more accurate after RL; 14B scores 52.4 on GAIA vs 43.7 for same-backbone ARPO. Latents read back as approximate pseudo-text and visible-trace monitoring holds up. Caveats: needs open weights and a custom serving stack, the KV cache becomes the only copy of session state, and pseudo-text approximates the computation.",
+   "file": "entries/hybridagent.html"
+  },
+  {
+   "id": "R027",
+   "slug": "tool-call-index",
+   "title": "The Tool-call index: the same model breaks tool calls at very different rates by provider",
+   "by": ".txt, with Rémi Louf",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7525963033412530176/",
+   "published": "2026-11-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/Vgcyoz3HyCv6GiDnew3pAG",
+   "tags": [
+    "agent-reliability",
+    "benchmarks",
+    "inference-cost",
+    "agent-harness",
+    "observability",
+    "dev-infra"
+   ],
+   "summary": "A weekly table, built from OpenRouter's published per-endpoint error rates, of how often each provider returns an invalid tool call (bad JSON, unknown function, schema-failing arguments) for about 49 open-weight models across 53 to 57 providers; each quantization or tier counts as its own provider. Median worst-to-best ratio about 13×; extremes of 58% (gpt-oss-120b) and 51% (Llama 3.1 8B) on single providers while the best sit under 0.1%. Ships OpenRouter routing objects (`order` the three most reliable, `ignore` at 3% or worse), an `llms.txt` and an agent skill. Harness retries hide these failures as cost and latency. Caveats: vendor that sells constrained decoding, OpenRouter traffic only, not normalized for workload, unparseable outputs not counted, syntax-valid is not correct.",
+   "file": "entries/tool-call-index.html"
+  },
+  {
+   "id": "R028",
+   "slug": "auto-ontology-mcp",
+   "title": "auto-ontology-mcp: a checked semantic layer and typed memory for any MCP client",
+   "by": "André Lindenberg on gogoymh/auto-ontology-mcp",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7525972248910848000/",
+   "published": "2026-11-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/WD9TD9zEUAJazbwq6cGUQi",
+   "tags": [
+    "agent-memory",
+    "knowledge-management",
+    "retrieval",
+    "agent-harness",
+    "agent-governance",
+    "semantic-layer"
+   ],
+   "summary": "The client's model does every language step (naming Terms, reviewing joins, extracting facts, writing SQL); the server keeps only deterministic work: scanning, profiling, value-checked key inference, validation, local SQLite storage and read-only execution. Two jobs: text-to-SQL that fails loudly (`check_answerable` says when nothing covers a concept; `validate_sql` catches unknown joins, near-miss literals, percent-vs-fraction and fan-out), and agent memory as typed records (entities with typed columns, concepts with typed relations, FTS5 passages, a source and quote per fact, originals in Obsidian, updates in place). Draft/certified/deprecated Terms; three-layer read-only guard. Caveats: quality is the client model's, a misread fact becomes an authoritative row, lexical search only, credentials stored in plain text, single user, early single-maintainer repo.",
+   "file": "entries/auto-ontology-mcp.html"
+  },
+  {
+   "id": "R029",
+   "slug": "synthetic-enterprise-tenants",
+   "title": "Synthetic enterprise tenants for evaluating Copilot",
+   "by": "Microsoft Research",
+   "source": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525996485524496384/",
+   "published": "2026-10-30",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/EbDUiSVc6mhEVw4fgJRm5d",
+   "tags": [
+    "evals",
+    "benchmarks",
+    "data-privacy",
+    "agent-reliability",
+    "human-oversight"
+   ],
+   "summary": "To evaluate an assistant over a company's mail, meetings and documents without customer data, the platform generates whole synthetic organizations (pharma, capital markets, IT/software; hundreds of users each) grounded in O*NET, job postings and SEC filings, with histories that evolve over weeks so time-relative queries are testable. A six-stage pipeline turns generic workplace tasks into industry-specific queries grounded in the tenant and validated for accuracy and uniqueness; a quality framework scores structural fidelity, contextual relevance, behavioral realism and content safety; the same config regenerates an identical dataset. Reported: +39% on an internal composite realism metric, some tenants above 0.9, days to automated runs, about $100K saved per dataset, adopted as Copilot's first standardized evaluation baseline. Caveats: no evidence that synthetic scores predict real-customer quality, self-graded realism, AI-generated tests of AI, clean-by-construction data, three industries, single-turn so far, nothing released.",
+   "file": "entries/synthetic-enterprise-tenants.html"
+  },
+  {
+   "id": "R030",
+   "slug": "openshell",
+   "title": "OpenShell: kernel-enforced sandboxes and verified policy for AI agents",
+   "by": "CNCF and NVIDIA AI on OpenShell",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526024499750719488/",
+   "published": "2026-11-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/NFuKzRsY9Qx9r9KkSwyqaP",
+   "tags": [
+    "agent-platforms",
+    "agent-governance",
+    "agent-harness",
+    "context-isolation",
+    "formal-verification",
+    "human-oversight"
+   ],
+   "summary": "A runtime for agent fleets: a gateway control plane, and per sandbox a split across a trust boundary, with the sandbox side owning the agent's processes and intercepting TCP and DNS (Landlock, seccomp user notification, no capabilities) and a trusted supervisor deciding every request, resolving DNS and injecting credentials only for approved endpoints (agents see placeholders). The supervisor channel is the only egress; the agent cannot start until the boundary is confirmed and freezes if it drops. An SMT-based prover runs a boundary check (does a policy exceed an environment's maximum, with counterexamples; usable by a parent agent on a subagent's policy) and a proposal risk check on agent-requested network rules (new credentialed hosts, new methods, metadata endpoints), blocking auto-approval. Caveats: guarantees only cover what the prover models (not MCP or GraphQL rules), allowed access can still be misused, approval fatigue, 0.1.x and mid-move to CNCF, telemetry on by default.",
+   "file": "entries/openshell.html"
+  },
+  {
+   "id": "R031",
+   "slug": "resolve-ai-multi-agent",
+   "title": "Resolve AI: multi-agent systems for AI-native production engineering",
+   "by": "Spiros Xanthos, Gabor Angeli and Bharat Khandelwal, Resolve AI",
+   "source": "https://resolve.ai/blog/role-of-multi-agent-systems-AI-native-engineering",
+   "published": "2025-09-26",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/PduTj1eTWhkFUCH9rQS2pt",
+   "tags": [
+    "multi-agent",
+    "agent-architecture",
+    "incident-response",
+    "observability",
+    "agent-reliability",
+    "human-oversight"
+   ],
+   "summary": "A vendor position piece: AI coding is largely solved but production debugging is not, because an incident needs several kinds of expert knowledge at once (\"irreducible interdependence\"). It walks a ladder (LLM, LLM plus tools, single agent, multi-agent) and argues only an orchestrator over domain specialists run in parallel can do parallel hypothesis testing; for a 10x latency spike its specialists cover traces across 50+ services, database, deploys and infrastructure, auth logs, auto-scaling and customer impact, with outputs flowing through a DAG. Names the hard parts (coordination protocols, conflict resolution, circular investigations, continuous learning) but describes no mechanism, no verification of conclusions, no matched-budget single-agent baseline and no numbers; customers named without results.",
+   "file": "entries/resolve-ai-multi-agent.html"
+  },
+  {
+   "id": "R032",
+   "slug": "strands-decider",
+   "title": "Strands Decider: a decision model replaces an LLM for ticket labeling",
+   "by": "André Lindenberg on Strands Agents' Decider",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526035885109358593/",
+   "published": "2026-11-09",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/J9TgreQwA4gR2t7xugNE2w",
+   "tags": [
+    "inference-cost",
+    "agent-architecture",
+    "agent-harness",
+    "deterministic-workflows"
+   ],
+   "summary": "A decision model is an LLM torso with the LM head replaced by a small pointer head: it cannot write, it returns a probability per offered option plus a calibrated confidence, in one pass (about 115 ms on an RTX 3090, 4,096-token window). Amazon engineers swapped Claude Sonnet 4.6 for the E4B Gemma 4 build on 20-label ticket classification: 4,215 to 897 ms per call, 6,724 to 2,010 tokens per ticket, about $22,200 to $500 per million tickets at list price. Labels rewritten as one-line criteria plus \"none\"; confidence thresholds tuned; a three-way BEDROCK/DUAL/DECIDER switch judged every disagreement on live traffic; JSON key order moved probabilities by up to 0.19. Caveats: vendor source, no published accuracy numbers, no cheap-generative baseline, fits only closed choices from a stable catalog.",
+   "file": "entries/strands-decider.html"
+  },
+  {
+   "id": "R033",
+   "slug": "lazarus-dormant-neuron-backdoors",
+   "title": "Lazarus: backdooring AI agents by editing a few dormant neurons",
+   "by": "Microsoft Research on Zeng et al.",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526064031552438272/",
+   "published": "2026-11-10",
+   "added": "2026-11-11",
+   "artifact": "https://claude.ai/artifact/JZuGhsVN5g9hRRWgJ8oGNP",
+   "tags": [
+    "model-supply-chain",
+    "agent-governance",
+    "context-isolation",
+    "agent-platforms"
+   ],
+   "summary": "Rewiring fewer than ten rarely-firing neurons in the final feed-forward block, in closed form and with inference-only compute, makes an open-weight model emit a shell payload (one neuron per token) when a trigger string appears anywhere in context, while passing standard evals. Nemotron-Terminal-8B: 7 of 12,000+ neurons, fitted on 23 trajectories, fire on at least 98.8% of held-out trigger runs and never on benign ones; Qwen 3.6-27B and Gemma-4-31B-IT equally vulnerable. Detectable: agent-built auditors with no reference model flag 91.4% of edited checkpoints at 9.7% FP. Defenses: diff every checkpoint against its declared base, frontier agents as weight auditors, publisher-only sourcing with hashes and a private registry, trigger red-teaming, and containment (least privilege, sandboxed execution, egress controls). Caveats: no audit proves safety, internal models equally exposed via write access, vendor product framing, no observed exploitation.",
+   "file": "entries/lazarus-dormant-neuron-backdoors.html"
   }
  ],
  "edges": [
@@ -839,6 +1293,258 @@
    "b": "R019",
    "strength": "weak",
    "why": "s3's leftover failure, trusting an unverified teammate report, is what R016's verifier routing is designed to catch."
+  },
+  {
+   "a": "R020",
+   "b": "R017",
+   "strength": "strong",
+   "why": "The same separation at two stages. EGM keeps the spec's drafter out of review; Theys keeps the code's author out of the assertions. Both get independence from what the second party sees, and both still share model priors."
+  },
+  {
+   "a": "R020",
+   "b": "R016",
+   "strength": "strong",
+   "why": "Mutation testing is to tests what R016's planted canaries are to reviewers: a seeded fault that measures whether the checker can catch anything."
+  },
+  {
+   "a": "R020",
+   "b": "R015",
+   "strength": "strong",
+   "why": "\"determinism comes from the harness\" is R015's missing step (fixed routes, scripts, failing checks) and R012's \"the model phrases, code decides\", applied to testing."
+  },
+  {
+   "a": "R020",
+   "b": "R012",
+   "strength": "strong",
+   "why": "\"determinism comes from the harness\" is R015's missing step (fixed routes, scripts, failing checks) and R012's \"the model phrases, code decides\", applied to testing."
+  },
+  {
+   "a": "R021",
+   "b": "R019",
+   "strength": "strong",
+   "why": "Coordination written by hand versus trained in. The Super-agent's subscriptions and hand-backs are an explicit protocol for who owns a message; s3's agents learn broadcast-once and branch-claiming without one."
+  },
+  {
+   "a": "R021",
+   "b": "R020",
+   "strength": "strong",
+   "why": "The gate and Mandate are harness in Theys's sense (code decides, a message body cannot widen them); the worker's `ready` Report and its own tests are not, so the same author still defines done."
+  },
+  {
+   "a": "R021",
+   "b": "R005",
+   "strength": "strong",
+   "why": "R005's gate layer (\"who sorts\") and R006's permissions term, built out as a full domain model with strength, scope and revalidation."
+  },
+  {
+   "a": "R021",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R005's gate layer (\"who sorts\") and R006's permissions term, built out as a full domain model with strength, scope and revalidation."
+  },
+  {
+   "a": "R021",
+   "b": "R015",
+   "strength": "strong",
+   "why": "Almost everything except assessment and the work itself is deterministic workflow, R015's \"the model as runtime, not router\" applied to intake."
+  },
+  {
+   "a": "R022",
+   "b": "R005",
+   "strength": "strong",
+   "why": "The same stack three ways. R005 draws context, loop, gate, harness and evals as layers to diagnose; R006 names six harness terms and its commenters ask for observability and trajectory evals; R022 orders them as stages to learn and adds the tracing stage."
+  },
+  {
+   "a": "R022",
+   "b": "R006",
+   "strength": "strong",
+   "why": "The same stack three ways. R005 draws context, loop, gate, harness and evals as layers to diagnose; R006 names six harness terms and its commenters ask for observability and trajectory evals; R022 orders them as stages to learn and adds the tracing stage."
+  },
+  {
+   "a": "R022",
+   "b": "R020",
+   "strength": "strong",
+   "why": "Anthropic's generator-evaluator harness is the maker/judge separation of R020 and R017, and its hand-tuning of a lenient evaluator is the calibration R016 measures with planted errors."
+  },
+  {
+   "a": "R022",
+   "b": "R017",
+   "strength": "strong",
+   "why": "Anthropic's generator-evaluator harness is the maker/judge separation of R020 and R017, and its hand-tuning of a lenient evaluator is the calibration R016 measures with planted errors."
+  },
+  {
+   "a": "R022",
+   "b": "R016",
+   "strength": "strong",
+   "why": "Anthropic's generator-evaluator harness is the maker/judge separation of R020 and R017, and its hand-tuning of a lenient evaluator is the calibration R016 measures with planted errors."
+  },
+  {
+   "a": "R022",
+   "b": "R004",
+   "strength": "strong",
+   "why": "Both say harness config goes stale as models improve. R004 wipes it; R022's harness-design source removes one component at a time and re-evaluates."
+  },
+  {
+   "a": "R022",
+   "b": "R002",
+   "strength": "strong",
+   "why": "Same author; R022's context-engineering and memory-tool sources are the reading behind R002's memory layers."
+  },
+  {
+   "a": "R022",
+   "b": "R021",
+   "strength": "strong",
+   "why": "R021 is the permission and gate layer that R022's curriculum leaves out."
+  },
+  {
+   "a": "R023",
+   "b": "R006",
+   "strength": "strong",
+   "why": "Same author. R006 names six harness concepts; R023 builds each one (loop, tools, context, checkpoint-like replay, permissions and sandbox, evals) as running code."
+  },
+  {
+   "a": "R023",
+   "b": "R022",
+   "strength": "strong",
+   "why": "R022 is the reading path through context, harness, evals and observability; R023 is the build path through the same stages."
+  },
+  {
+   "a": "R023",
+   "b": "R020",
+   "strength": "strong",
+   "why": "The course's regression suite and replay of recorded failures are harness-side oracles in R020's sense, as long as the expected outcomes are not written by the agent under test."
+  },
+  {
+   "a": "R024",
+   "b": "R020",
+   "strength": "strong",
+   "why": "InfraRSI is R020's rule in production form: the contract, timers and loss live outside the agent's reach, and the agent's own speedup estimates are treated as untrustworthy."
+  },
+  {
+   "a": "R024",
+   "b": "R025",
+   "strength": "strong",
+   "why": "Two recursive-self-improvement harness papers from the same week; both move the gain from model weights into a verified harness, InfraRSI for training throughput, LongCapHarness for long-context reasoning."
+  },
+  {
+   "a": "R025",
+   "b": "R010",
+   "strength": "strong",
+   "why": "PageIndex reads a document's map and bounded page ranges; LongCapHarness generalizes that into per-task primitives with state kept outside the context."
+  },
+  {
+   "a": "R026",
+   "b": "R025",
+   "strength": "strong",
+   "why": "Opposite routes to cheaper long work: HybridAgent moves reasoning deeper into the model's hidden state; LongCapHarness moves it out into code and explicit state."
+  },
+  {
+   "a": "R027",
+   "b": "R020",
+   "strength": "strong",
+   "why": "Schema validation of tool calls is harness-side enforcement in R020's sense; the index measures how often each provider forces the harness to step in."
+  },
+  {
+   "a": "R027",
+   "b": "R024",
+   "strength": "strong",
+   "why": "Both show deployment choices outside the model (quantization, parsers, timing) silently changing results, caught only by measurement against a fixed contract."
+  },
+  {
+   "a": "R028",
+   "b": "R005",
+   "strength": "strong",
+   "why": "R005's LLM-wiki keeps what the agent learned as linked prose pages; R028 runs the same ingest, query and lint loop on typed tables so totals can be recomputed and checked."
+  },
+  {
+   "a": "R028",
+   "b": "R002",
+   "strength": "strong",
+   "why": "R002 says memory layers fail when the reconciliation step is missing; R028 builds it in (typed schemas, provenance per fact, in-place updates on source change)."
+  },
+  {
+   "a": "R028",
+   "b": "R020",
+   "strength": "strong",
+   "why": "`validate_sql` is a harness-side check in R020's sense: the model writes the query, deterministic code decides whether it may run."
+  },
+  {
+   "a": "R029",
+   "b": "R016",
+   "strength": "strong",
+   "why": "R016 treats ground truth as a versioned, audited consensus; R029 generates ground truth at scale, which needs exactly that governance plus a check against real outcomes."
+  },
+  {
+   "a": "R030",
+   "b": "R021",
+   "strength": "strong",
+   "why": "R021's Mandate decides who may give an agent work and with what authority; R030 is the runtime layer that bounds what the work can touch, with a prover in front of any widening."
+  },
+  {
+   "a": "R030",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020 puts guarantees in the deterministic harness; R030 pushes that harness down to kernel and network enforcement plus formal checks on policy changes."
+  },
+  {
+   "a": "R031",
+   "b": "R019",
+   "strength": "strong",
+   "why": "Designed versus learned coordination again, and R019 supplies the test R031 skips: does the multi-agent setup beat best-of-N single agents at the same token budget?"
+  },
+  {
+   "a": "R031",
+   "b": "R021",
+   "strength": "strong",
+   "why": "R031 names coordination protocols and conflict resolution as requirements; R021 is a concrete hand-written one (a router, a ticket per task, subscriptions for follow-ups)."
+  },
+  {
+   "a": "R031",
+   "b": "R015",
+   "strength": "strong",
+   "why": "R015 says extra agents pay only for parallel work; R031's one functional argument for many agents is exactly that, parallel hypothesis testing."
+  },
+  {
+   "a": "R031",
+   "b": "R016",
+   "strength": "strong",
+   "why": "R031 hands an engineer a merged root-cause story with no stated check; R016's verifier routing and R020's harness-side enforcement are where that check would live."
+  },
+  {
+   "a": "R031",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R031 hands an engineer a merged root-cause story with no stated check; R016's verifier routing and R020's harness-side enforcement are where that check would live."
+  },
+  {
+   "a": "R032",
+   "b": "R026",
+   "strength": "strong",
+   "why": "Two ways to stop paying for text nobody reads: R026 reasons in latent space and emits text only to act; R032 drops text output entirely for closed choices."
+  },
+  {
+   "a": "R032",
+   "b": "R027",
+   "strength": "strong",
+   "why": "R027 measures what broken tool calls cost; R032's pre-tool-call gate (grounded arguments, premature call) is a cheap judge the harness of R020 can run on every proposal."
+  },
+  {
+   "a": "R032",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R027 measures what broken tool calls cost; R032's pre-tool-call gate (grounded arguments, premature call) is a cheap judge the harness of R020 can run on every proposal."
+  },
+  {
+   "a": "R033",
+   "b": "R030",
+   "strength": "strong",
+   "why": "R033 is the threat where the model itself is the adversary; R030's enforcement below the agent and single mediated egress path is the containment that limits what a triggered model can do."
+  },
+  {
+   "a": "R033",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020 argues the harness, not the model, should hold guarantees; R033 is the sharpest reason, since a backdoored model passes every eval and still emits the attacker's command."
   }
  ]
 }

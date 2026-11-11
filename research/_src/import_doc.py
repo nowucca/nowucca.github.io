@@ -8,7 +8,8 @@ Writes entries/<slug>.html (slug from entries.json). Generic clean-up:
   - points claude.ai artifact links at the entry's page here when that entry is
     public, and unlinks them (keeping the words) when it is not
   - drops list items that are about an entry that is not public
-  - turns <figure data-embed="node/<id>"> into a placeholder the build fills
+  - turns <figure data-embed="node/<id>"> (and mermaid code blocks, saved as
+    diagrams/mmd-<hash>.mmd) into a placeholder the build fills
     with diagrams/<id>.svg
 
 --rules names a JSON file of exact replacements per entry id, kept OUTSIDE this
@@ -16,7 +17,7 @@ repo because the text it removes is what shouldn't be published:
   {"R005": [["old text", "new text"], ...]}
 Each old text must occur exactly once in the cleaned HTML.
 """
-import json, re, sys, argparse
+import hashlib, json, re, sys, argparse
 from pathlib import Path
 from bs4 import BeautifulSoup
 
@@ -76,6 +77,14 @@ def main():
             c.string = cap.get_text()
             new.append(c)
         fig.replace_with(new)
+
+    # Mermaid code blocks become diagrams too: the source goes to
+    # diagrams/mmd-<hash>.mmd and render_mermaid.js draws the SVG.
+    for code in soup.select("pre > code.language-mermaid"):
+        src = code.get_text().strip() + "\n"
+        node = "mmd-" + hashlib.sha1(src.encode()).hexdigest()[:12]
+        (HERE / "diagrams" / f"{node}.mmd").write_text(src)
+        code.parent.replace_with(soup.new_tag("figure", attrs={"class": "diagram", "data-diagram": node}))
 
     html = str(soup).strip()
 
