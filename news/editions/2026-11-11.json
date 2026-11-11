@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-11",
+  "generated": "2026-11-11T07:05:00-06:00",
+  "headline": "House shelves Hegseth impeachment; Jordan to lead House GOP; Russia-Ukraine talks enter day two",
+  "sections": {
+    "austin": [
+      {"headline": "Austin leaders hopeful for a reset with the state", "summary": "City officials say they are optimistic after decades of tension with state Republicans that limited Austin's power.", "source": "KUT", "url": "https://www.kut.org/austin/2026-11-10/austin-city-power-limited-state-texas-republicans", "date": "2026-11-10"}
+    ],
+    "texas": [
+      {"headline": "Incoming Democratic statewide leaders bring Republicans onto transition teams", "summary": "Governor-elect Gina Hinojosa and Lt. Gov.-elect Vikki Goodwin are drawing on GOP figures to help steer their transitions.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/11/texas-democrats-gina-hinojosa-vikki-goodwin-republicans-transition/", "date": "2026-11-11", "also": [{"name": "Goodwin team", "url": "https://www.texastribune.org/2026/11/10/texas-lieutenant-governor-vikki-goodwin-transition-team/"}]},
+      {"headline": "Texas Supreme Court Justice James Sullivan nominated to federal bench", "summary": "President Trump picked the state justice for a federal judgeship.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/10/james-sullivan-texas-supreme-court-judge-nominated-trump/", "date": "2026-11-10"},
+      {"headline": "Railroad Commission will bring back public comments at meetings", "summary": "The oil and gas regulator is reinstating the chance for the public to speak.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/10/texas-railroad-commission-reinstates-public-comments/", "date": "2026-11-10"},
+      {"headline": "Democrats outline plan for $1,500 payments to Texas households", "summary": "A bill backed by Hinojosa would send a payment to every household in the state.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/10/texas-1500-check-gina-hinojosa-bill/", "date": "2026-11-10"},
+      {"headline": "Texas Tech may drop some race and gender courses from its core curriculum", "summary": "The university is weighing which classes count toward core requirements.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/11/texas-tech-class-offerings-student-survey/", "date": "2026-11-11"}
+    ],
+    "us": [
+      {"headline": "House votes to effectively end Hegseth impeachment effort", "summary": "Lawmakers set aside the articles filed against the defense secretary instead of advancing them.", "source": "NPR", "url": "https://www.npr.org/2026/11/10/nx-s1-6036813/house-votes-to-effectively-end-the-impeachment-effort-against-pete-hegseth", "date": "2026-11-10", "also": [{"name": "PBS", "url": "https://www.pbs.org/newshour/show/house-rejects-hegseth-impeachment-as-gop-selects-jordan-and-thune-as-leaders"}]},
+      {"headline": "Jim Jordan elected to lead House Republicans in the minority", "summary": "The Ohio congressman beat Steve Scalise to become the conference's leader in the next Congress.", "source": "AP via PBS", "url": "https://www.pbs.org/newshour/politics/house-republicans-pick-ohio-rep-jim-jordan-to-lead-them-in-the-minority", "date": "2026-11-10", "also": [{"name": "NPR", "url": "https://www.npr.org/2026/11/10/nx-s1-6035791/house-republicans-elect-jim-jordan-as-their-next-leader"}]},
+      {"headline": "Three men charged in alleged plot including attack on a UK air base", "summary": "US prosecutors accuse the men, described as Iran-backed, of planning terror attacks.", "source": "AP via PBS", "url": "https://pbs.org/newshour/nation/u-s-charges-3-men-with-plotting-terror-attacks-including-planned-assault-on-uk-airbase", "date": "2026-11-10"},
+      {"headline": "Jeffries lays out priorities as Democrats prepare to take the House", "summary": "The Democratic leader described his agenda for the incoming majority.", "source": "PBS NewsHour", "url": "https://pbs.org/newshour/show/they-want-us-to-fight-jeffries-outlines-priorities-as-democrats-prepare-to-take-power", "date": "2026-11-10"},
+      {"headline": "AI-generated hoax calls are fooling 911 dispatchers", "summary": "Emergency centers say synthetic voices and fake reports are getting harder to spot.", "source": "NPR", "url": "https://www.npr.org/2026/11/11/nx-s1-6034449/ai-911-calls-swatting", "date": "2026-11-11"}
+    ],
+    "australia": [
+      {"headline": "Qantas to cut 850 corporate jobs and move roles offshore", "summary": "The airline is shifting the work overseas under a deal with Accenture; the transport minister called it extremely disappointing.", "source": "ABC News", "url": "https://www.abc.net.au/news/2026-11-10/850-jobs-to-go-from-qantas-as-airline-moves-roles-overseas/107368120", "date": "2026-11-10", "also": [{"name": "ABC: politics blog", "url": "https://www.abc.net.au/news/2026-11-11/federal-politics-live-blog-nov-11/107371364"}]},
+      {"headline": "David Jones receivers to close 19 stores", "summary": "About half the department store chain's locations will shut.", "source": "ABC News", "url": "https://www.abc.net.au/listen/programs/pm/david-jones-receivers-to-axe-19-stores/107374956", "date": "2026-11-11"},
+      {"headline": "New home loans post a record slump led by investors", "summary": "Lending for new homes fell sharply, while CBA reported a rise in profit.", "source": "ABC News", "url": "https://www.abc.net.au/news/2026-11-11/asx-markets-business-live-news-nov-11/107370848", "date": "2026-11-11"},
+      {"headline": "Remembrance Day marked across Australia", "summary": "Services were held nationwide 108 years after the end of World War I.", "source": "ABC News", "url": "https://www.abc.net.au/news/2026-11-11/remembrance-day-services-held-across-australia/107137596", "date": "2026-11-11"}
+    ],
+    "ai": [
+      {"headline": "Bessent says US and China should 'harbor no illusions' on AI", "summary": "The Treasury secretary said the two countries will both cooperate and compete on AI.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/trump-xi-summit-ai-nvidia-.html", "date": "2026-11-11"},
+      {"headline": "CoreWeave beats earnings expectations, lifting tech stocks", "summary": "The AI cloud provider's third-quarter results helped spark a rebound in tech shares.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/10/coreweave-crwv-q3-earnings-report-2026.html", "date": "2026-11-10"},
+      {"headline": "Huang scandal adds momentum to AI chip export bills", "summary": "Lawmakers pushing stricter export limits on AI chips are citing scrutiny of Nvidia's CEO.", "source": "The Hill", "url": "https://thehill.com/policy/technology/6211351-chip-export-restrictions-momentum-nvidia-huang/", "date": "2026-11-10"}
+    ],
+    "tech": [
+      {"headline": "Alibaba plans to list its chip unit T-Head", "summary": "The company intends to take public its in-house chipmaker, which competes with Nvidia.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/alibaba-pr.html", "date": "2026-11-11"},
+      {"headline": "Baird downgrades Nvidia over CEO concerns", "summary": "The firm cited worries about Jensen Huang and uncertainty over AI spending.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/nvidia-baird-downgrade-ceo-ai-capex.html", "date": "2026-11-11"},
+      {"headline": "EU lawmakers push to cut reliance on foreign cloud providers", "summary": "Members of the European Parliament want to reduce Europe's dependence on non-European cloud services.", "source": "Euronews", "url": "https://www.euronews.com/2026/11/11/eu-lawmakers-push-to-reduce-europes-dependence-on-foreign-cloud-providers", "date": "2026-11-11"}
+    ],
+    "world": [
+      {"headline": "Russia-Ukraine talks in Abu Dhabi go into a second day", "summary": "After nearly four hours of US-mediated talks, negotiators are focusing on territory and security guarantees.", "source": "Euronews", "url": "https://www.euronews.com/2026/11/11/ukraine-russia-peace-talks-enter-second-day-with-territory-and-security-guarantees-in-focu", "date": "2026-11-11", "also": [{"name": "AP via PBS", "url": "https://pbs.org/newshour/world/russia-and-ukraine-hold-nearly-4-hours-of-u-s-mediated-talks-in-abu-dhabi"}]},
+      {"headline": "Spain holds first general strike in 14 years over housing", "summary": "Workers walked out to demand action on the country's housing crisis.", "source": "NPR", "url": "https://www.npr.org/2026/11/11/nx-s1-6037314/spain-general-strike", "date": "2026-11-11"},
+      {"headline": "Bomb threats force evacuation of at least 300 Italian schools", "summary": "The threats arrived by email.", "source": "Euronews", "url": "https://www.euronews.com/2026/11/11/at-least-300-schools-in-italy-evacuated-after-emailed-bomb-threats", "date": "2026-11-11"},
+      {"headline": "Protesters outside Israel's Knesset call for new elections", "summary": "Demonstrators also voiced opposition to Arab lawmakers.", "source": "Euronews", "url": "https://www.euronews.com/video/2026/11/11/protesters-outside-israels-knesset-oppose-arab-lawmakers-call-for-new-elections", "date": "2026-11-11"}
+    ],
+    "aus-cricket": [
+      {"headline": "Labuschagne's Shield comeback ends after 36 balls", "summary": "Days after being dropped from the Test squad, he was out cheaply for Queensland against Tasmania.", "source": "ABC Sport", "url": "https://abc.net.au/news/2026-11-11/marnus-labuschagne-sheffield-shield-queensland-vs-tasmania/107374394", "date": "2026-11-11"},
+      {"headline": "Shield round could settle Australia's Test batting order", "summary": "Batters are competing for spots ahead of the home Tests against New Zealand.", "source": "ABC Sport", "url": "https://www.abc.net.au/news/2026-11-10/sheffield-shield-matches-crucial-as-batters-hunt-test-spots/107351178", "date": "2026-11-10"},
+      {"headline": "Hussey weighs in on Travis Head's batting position", "summary": "Australia's new consultant gave his view on where Head should bat in the New Zealand series.", "source": "cricket.com.au", "url": "https://www.cricket.com.au/news/4607696/new-australia-consultant-mike-hussey-makes-call-on-travis-head-position-cricket-test-new-zealand-home-series", "date": "2026-11-11"}
+    ],
+    "warriors": [
+      {"headline": "Warriors at Rockets tonight, chasing a ninth straight win", "summary": "Golden State (8-3) plays in Houston at 8:30pm CT, then visits San Antonio on Friday.", "source": "NBA.com", "url": "https://www.nba.com/warriors/news/gameday-preview-20261111", "date": "2026-11-11", "also": [{"name": "ESPN", "url": "https://www.espn.com/nba/game/_/gameId/401909974/warriors-rockets"}]},
+      {"headline": "Brandon Williams out with mild hamstring strain", "summary": "The team issued an update on the guard's injury.", "source": "NBA.com", "url": "https://nba.com/warriors/news/brandon-williams-injury-update-20261110", "date": "2026-11-10", "also": [{"name": "ESPN", "url": "https://espn.com/nba/story/_/id/50446131/sources-warriors-lose-brandon-williams-hamstring-strain"}]}
+    ]
+  }
+}
