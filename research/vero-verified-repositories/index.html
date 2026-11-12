@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vero: what verified repository work costs agents today · Research</title>
+<meta name="description" content="43 Lean 4 multi-module repositories, 743 APIs, 2,705 specs, solved only if every spec is proved; agents can submit machine-checked evidence a spec or reference is wrong. GPT-5.5 xhigh fully solves 27 of 43 (code and proof) for about $2,900 total; Opus 4.8 8, Sonnet 5 2; deep specs pass at about 51%. Prices full verification at roughly $67 per repo with no human proof review. Caveats: Lean only, no concurrency, no maintenance tasks, satisfiable is not correct.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R045 · AI-built software and its verification › Formal methods for AI-written code</span>
+  <h1>Vero: what verified repository work costs agents today</h1>
+  <div class="entry-meta"><span>Ye, Lou, Sun, Song et al.</span><span>Published 2026-08-13</span><span>Summarized 2026-11-12</span></div>
+  <p><a href="https://arxiv.org/abs/2608.13522" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">formal-verification</span><span class="tag">ai-built-software</span><span class="tag">benchmarks</span><span class="tag">evals</span><span class="tag">inference-cost</span></div>
+</header>
+<article class="article"><p><a href="https://arxiv.org/abs/2608.13522">Ye, Lou, Sun, Song, Yan, Kasriel, Zhang, He, Song, Yang and Kong (Caltech, Stanford, UC Berkeley, Apodex), arXiv 2608.13522</a>; code at <a href="https://github.com/sunblaze-ucb/vero">sunblaze-ucb/vero</a>. Found via <a href="https://codex.danielvaughan.com/2026/08/14/vero-benchmark-formally-verified-software-repositories-coding-agents-codex-cli-proof-synthesis-posttooluse-verification/">Daniel Vaughan's blog</a>.</p>
+<p>Vero sets the cost baseline for the strong end of formal methods: agents writing code plus Lean proofs for whole multi-module repositories. 43 Lean 4 repositories (translated from Python, Dafny, Verus and Coq sources) carry 743 scored APIs and 2,705 specs. An instance counts only if every spec is proved.</p>
+<p><strong>Mechanism.</strong> Two modes: code-and-proof (agent writes implementations and proofs) and proof-only (reference code given). Agents can submit machine-checked evidence that a spec is unsatisfiable or a reference is wrong, which audits the benchmark itself. Edits are limited to marked regions, axioms are allowlisted, and trivializing declarations are screened out. Harnesses were Codex and Claude Code with a 90-minute budget per run.</p>
+<p><strong>Results.</strong> Fully solved, code-and-proof / proof-only: GPT-5.5 xhigh 27 and 25 of 43; Claude Opus 4.8 8 and 10; GPT-5.5 medium 2 and 6; Claude Sonnet 5 2 and 2. Ten instances beat every configuration. GPT-5.5 xhigh proves 87% of individual specs, but only 51% of deep ones (helper depth 4 or more). Total cost across 43 instances: about $2,900 for GPT-5.5 xhigh, $2,000 to $2,300 for Opus 4.8, $630 to $790 for Sonnet 5.</p>
+<p><strong>Why it matters for efficiency.</strong> It prices the trade: roughly $67 per repository at the top setting, with no human proof review afterward. Solve rate rose much faster than spend: GPT-5.5 xhigh cost about three times medium and solved over ten times as many instances, so cheap settings are not a bargain.</p>
+<p><strong>Caveats.</strong> Lean only, and the corpus favors code that translates cleanly, so no concurrency or temporal protocols. No maintenance tasks (re-proving after a change). A satisfiable spec is not a correct spec, so specs were reviewed by hand. The blog's language-by-language success table and its "3 to 10 times tokens" figure are not in the paper.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t3)"><a class="to" href="/research/alphaproof-code-signal/">AlphaProof Code: agents formally verify Signal&#x27;s protocol implementation</a><span class="label">R038 · AI-built software and its verification</span><span class="why">AlphaProof Code is one verified system at scale; Vero measures how often frontier agents finish verified repositories at all (27 of 43 at best) and what it costs.</span></li></ul><p><a href="/research/map/#R045">See R045 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

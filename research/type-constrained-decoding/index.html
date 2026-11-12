@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Type-constrained decoding for code generation · Research</title>
+<meta name="description" content="94% of LLM TypeScript compile failures are type errors, which grammars cannot catch; a prefix automaton with type-reachability search masks any token after which no well-typed completion exists, with no extra LLM calls. Compile errors down 56 to 75%; pass@1 up 3.5% (synthesis), 5% (translation), 37% relative (repair); runtime up 39 to 52%. Caveats: needs logits (no closed APIs), core TypeScript subset, function-level benchmarks.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R043 · AI-built software and its verification › Formal methods for AI-written code</span>
+  <h1>Type-constrained decoding for code generation</h1>
+  <div class="entry-meta"><span>Mündler et al., ETH Zurich and UC Berkeley</span><span>Published 2025-04</span><span>Summarized 2026-11-12</span></div>
+  <p><a href="https://arxiv.org/abs/2504.09246" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">constrained-decoding</span><span class="tag">formal-verification</span><span class="tag">ai-built-software</span><span class="tag">inference-cost</span></div>
+</header>
+<article class="article"><p><a href="https://arxiv.org/abs/2504.09246">Mündler, He, Wang, Sen, Song and Vechev (ETH Zurich, UC Berkeley), arXiv 2504.09246, PLDI 2025</a>; code at <a href="https://github.com/eth-sri/type-constrained-code-generation">eth-sri/type-constrained-code-generation</a>.</p>
+<p>The type checker moves into the sampler, so most compile errors never get generated. The authors found syntax errors are only about 6% of compile failures in LLM TypeScript; 94% are type errors, which grammar-constrained decoding cannot catch because type systems are not context-free.</p>
+<p><strong>Mechanism.</strong> A prefix automaton answers one question per token: can this partial program still become a well-typed program? It tracks declared identifiers and expression types, and runs a reachability search over a type graph (operators, member access, calls) to see whether the needed type is still reachable. A token that fails is masked and resampled; 99.4% of steps need one sample. No extra LLM calls.</p>
+<p><strong>Results.</strong> Across Gemma 2 (2B to 27B), DeepSeek Coder 33B, CodeLlama 34B and Qwen2.5 32B on TypeScript HumanEval and MBPP: compile errors down 74.8% and 56.0% (syntax-only constraints: 9.0% and 4.8%). Functional correctness up 3.5% relative for synthesis, 5.0% for translation and 37% for repair of non-compiling code (Gemma 2 2B repair: 11.6 to 20.9). Median runtime up 39 to 52%.</p>
+<p><strong>Why it matters for efficiency.</strong> Every compile error an agent emits costs a tool call, a context append and a retry turn. Removing over half of them at decode time is a direct cut in agent loop length, and it is the same move Agent-C makes for tool policies.</p>
+<p><strong>Caveats.</strong> Needs full token distributions, so it does not work through closed APIs. Covers a core TypeScript subset; each language is substantial engineering. The search is sound but incomplete, so it can reject valid programs. Benchmarks are translated function-level tasks, not repositories.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/agent-c-temporal-constraints/">Agent-C: temporal constraints enforced at decode time</a><span class="label">R041 · Agent principles and patterns</span><span class="why">The same move twice: a checker masks tokens that cannot lead to a valid result (a policy-conforming trace, a well-typed program), so a violation costs a resample instead of a turn.</span></li></ul><p><a href="/research/map/#R043">See R043 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

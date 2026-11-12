@@ -1,0 +1,5 @@
+flowchart LR
+    U["App or client<br/>(web, terminal,<br/>mobile, Slack)"] -- "run input:<br/>messages, state, tools" --> A["Agent backend<br/>(any framework)"]
+    A -- "typed event stream<br/>(SSE, WebSocket,<br/>webhook)" --> U
+    A -.-> T["Tools and data<br/>(MCP)"]
+    A -.-> O["Other agents<br/>(A2A)"]

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agent-C: temporal constraints enforced at decode time · Research</title>
+<meta name="description" content="Ordering and state policies over tool calls (Before, After, Forall, Exists, Seq, plus developer projection functions) compile to first-order logic and are checked by Z3 on the trace plus proposed call; with open weights the decoder backtracks to the last compliant argument instead of retrying the turn, closed APIs reprompt. On tau-bench retail and airline: conformance to 100% (Sonnet 4.5 from 77.4%, GPT-5 from 83.7%) with utility up 3.4 and 4.5 points; adversarial harm 0%; backtracking beats reprompting on utility (42.1 vs 36.5) with 24% fewer input and 40% fewer output tokens; latency up about 44%. Caveats: Z3 and projection functions trusted, no future-state specs, 3 trials, authored attacks.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R041 · Agent principles and patterns › Formal constraints on agent actions</span>
+  <h1>Agent-C: temporal constraints enforced at decode time</h1>
+  <div class="entry-meta"><span>Kamath et al., UIUC with Meta</span><span>Published 2025-12</span><span>Summarized 2026-11-12</span></div>
+  <p><a href="https://arxiv.org/abs/2512.23738" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">constrained-decoding</span><span class="tag">formal-verification</span><span class="tag">agent-governance</span><span class="tag">agent-reliability</span><span class="tag">inference-cost</span><span class="tag">benchmarks</span></div>
+</header>
+<article class="article"><p><a href="https://arxiv.org/abs/2512.23738">Kamath, Zhang, Xu, Ugare, Singh and Misailovic (UIUC, with Meta), arXiv 2512.23738</a>; code at <a href="https://github.com/structuredllm/agent-c">structuredllm/agent-c</a>.</p>
+<p>Agent-C makes ordering and state policies hard constraints on tool calls, and does it cheaper than retrying. Policies like "authenticate before reading data" are written in a small DSL (<code>Before</code>, <code>After</code>, <code>Forall</code>, <code>Exists</code>, <code>Seq</code>, plus developer-written projection functions that read tool state). The DSL compiles to first-order logic; the trace so far plus the proposed call is checked with Z3.</p>
+<p><strong>Mechanism.</strong> With open weights, the tool call is generated under a tool-call grammar. On a violation the decoder backtracks to the last compliant argument boundary and resamples, so it never pays for a whole new turn. Closed APIs get a reprompting variant that resamples whole calls. If the iteration budget runs out, the agent emits an explicit error tool instead of acting.</p>
+<p><strong>Results.</strong> On tau-bench retail and airline, plus 17 adversarial variants of each written by the authors:</p>
+<ul><li><p>Claude Sonnet 4.5: conformance 77.4% to 100%, utility 71.8% to 75.2%. GPT-5: conformance 83.7% to 100%, utility 66.1% to 70.6%.</p></li><li><p>Adversarial harm 0%, against up to 29.4% unconstrained.</p></li><li><p>Qwen3-32B retail utility 53.3% versus 37.4% for AgentSpec and 9.6% for DynaGuard.</p></li><li><p>Backtracking ablation (Qwen3-8B retail): 42.1% utility versus 36.5% for reprompting, with 4,156 versus 5,437 input tokens and 359 versus 600 output tokens per call.</p></li><li><p>Latency cost: 480 s versus 333 s unconstrained on Qwen3-32B, so wall-clock rises about 44%.</p></li></ul>
+<p><strong>Why it matters for efficiency.</strong> Enforcing inside decoding turns a rejected action from a full round trip into a partial resample. The utility gain says hard constraints also stop the agent from wandering into states it then has to recover from.</p>
+<p><strong>Caveats.</strong> Z3 and the projection functions are trusted, and someone must write them. Specs cannot refer to future states. Three trials only; the adversarial set is the authors' own. One utility figure in the body (80.5% for Sonnet) differs from the abstract's 75.2%, probably a different setting.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t3)"><a class="to" href="/research/model-proposes-harness-enforces/">The model proposes, the harness enforces</a><span class="label">R020 · AI-built software and its verification</span><span class="why">R020 says guarantees must come from the deterministic harness; Agent-C puts that harness inside decoding, with Z3 deciding which tool calls may be emitted.</span></li><li style="--c:var(--t3)"><a class="to" href="/research/type-constrained-decoding/">Type-constrained decoding for code generation</a><span class="label">R043 · AI-built software and its verification</span><span class="why">The same move twice: a checker masks tokens that cannot lead to a valid result (a policy-conforming trace, a well-typed program), so a violation costs a resample instead of a turn.</span></li><li style="--c:var(--t6)"><a class="to" href="/research/formal-skill/">Formal Skill: skills as state machines and guards</a><span class="label">R044 · Agent principles and patterns</span><span class="why">Both shrink what the agent may do by state; Agent-C proves it per call with a solver, Formal Skill enforces phases with hand-written hooks.</span></li></ul><p><a href="/research/map/#R041">See R041 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

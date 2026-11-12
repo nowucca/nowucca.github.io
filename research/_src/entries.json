@@ -12,7 +12,8 @@
      "title": "Memory and context",
      "primary": [
       "R002",
-      "R028"
+      "R028",
+      "R040"
      ],
      "also": [
       {
@@ -34,6 +35,10 @@
       {
        "id": "R004",
        "why": "argues for turning memory off and wiping instructions after model upgrades"
+      },
+      {
+       "id": "R036",
+       "why": "Anthropic's agent-memory evals: small injected layer wins, tell the model what memory is for rather than how; a KEEP / FIX / DELETE pass as manual \"dreaming\""
       }
      ]
     },
@@ -44,6 +49,10 @@
       "R024"
      ],
      "also": [
+      {
+       "id": "R040",
+       "why": "lessons learned from past runs can cause regressions; keep each lesson linked to its source run so the agent can check it, and report Regression beside Gain"
+      },
       {
        "id": "R025",
        "why": "recursive self-improvement of a frozen harness instead of the model: a strong model rewrites primitives, state and control logic over rounds on a dev set"
@@ -59,6 +68,14 @@
      "title": "Governance of agent state",
      "primary": [],
      "also": [
+      {
+       "id": "R048",
+       "why": "a real agent incident: an evaluation agent with internet access breached a government portal; logs of every host touched are the disclosure"
+      },
+      {
+       "id": "R040",
+       "why": "provenance for every stored lesson: what to do, when it applies, source run and whether it succeeded; memory read-only at use time"
+      },
       {
        "id": "R030",
        "why": "policy as a versioned artifact checked by a prover against a boundary policy; widening access needs human review"
@@ -115,6 +132,10 @@
      ],
      "also": [
       {
+       "id": "R041",
+       "why": "decode-time backtracking used 24% fewer input and 40% fewer output tokens than reprompting); R044 (phase-scoped tool exposure, about 48% fewer tokens per task"
+      },
+      {
        "id": "R027",
        "why": "silent retries of invalid tool calls as hidden token and latency cost; provider choice moves it by an order of magnitude"
       },
@@ -153,14 +174,17 @@
      "n": "2.1",
      "title": "Developer infrastructure under agent load",
      "primary": [
-      "R001"
+      "R001",
+      "R047"
      ],
      "also": []
     },
     {
      "n": "2.2",
      "title": "Consistency and storage tradeoffs",
-     "primary": [],
+     "primary": [
+      "R046"
+     ],
      "also": [
       {
        "id": "R001",
@@ -180,6 +204,10 @@
       "R030"
      ],
      "also": [
+      {
+       "id": "R035",
+       "why": "a durable execution runtime as the host for weeks-long agents: one entity workflow per business object, waits that hold no compute"
+      },
       {
        "id": "R033",
        "why": "size agent permissions and egress for the case where the model itself is hostile"
@@ -215,6 +243,10 @@
      "primary": [],
      "also": [
       {
+       "id": "R037",
+       "why": "a plugin that maps AI-built apps for owners who don't read the code; scripted scan, model-written descriptions"
+      },
+      {
        "id": "R012",
        "why": "delegating the work erases the learning; cites Shen and Tamkin 2026, where developers who learned a library with AI scored worse unaided"
       },
@@ -227,7 +259,12 @@
     {
      "n": "3.2",
      "title": "Formal methods for AI-written code",
-     "primary": [],
+     "primary": [
+      "R038",
+      "R042",
+      "R043",
+      "R045"
+     ],
      "also": [
       {
        "id": "R001",
@@ -255,6 +292,10 @@
       "R020"
      ],
      "also": [
+      {
+       "id": "R042",
+       "why": "Lean error diversity and proof similarity as a cheap predictor of whether more attempts will pay"
+      },
       {
        "id": "R024",
        "why": "contract locked and frozen files hashed before any agent edit; five invariant layers and noise-calibrated re-runs catch fake speedups; the model's own predictions are anti-correlated with results"
@@ -317,7 +358,8 @@
      "title": "Harness tips",
      "primary": [
       "R004",
-      "R018"
+      "R018",
+      "R036"
      ],
      "also": [
       {
@@ -344,6 +386,18 @@
       "R006"
      ],
      "also": [
+      {
+       "id": "R038",
+       "why": "a 40-to-80 agent proof campaign: summary-only team leads, single-writer files, sole committer, a judge the workers cannot write to"
+      },
+      {
+       "id": "R035",
+       "why": "checkpointing done properly: each external call a logged step, idempotency keys, re-check before commit, state-gated tools"
+      },
+      {
+       "id": "R034",
+       "why": "the harness's outward edge as a standard event stream: interrupts, shared state, frontend tools"
+      },
       {
        "id": "R032",
        "why": "a calibrated decision model as a cheap gate before tool calls: are the arguments grounded, is it premature; returns Proceed, Deny, Confirm or Guide"
@@ -418,6 +472,10 @@
      ],
      "also": [
       {
+       "id": "R039",
+       "why": "the model quotes and picks, deterministic lookup produces the identifier; paid voting and self-correction added nothing"
+      },
+      {
        "id": "R032",
        "why": "closed-choice steps moved from a generative LLM to a decision model; rollout behind a three-way switch that compares both on live traffic"
       },
@@ -437,7 +495,43 @@
      "primary": [
       "R029"
      ],
+     "also": [
+      {
+       "id": "R039",
+       "why": "measure the run-to-run noise floor over three runs before claiming a gain; report yield, not only accuracy"
+      }
+     ]
+    },
+    {
+     "n": "6.4",
+     "title": "Agent interaction protocols",
+     "primary": [
+      "R034",
+      "R049"
+     ],
      "also": []
+    },
+    {
+     "n": "6.5",
+     "title": "Long-running agents and durable execution",
+     "primary": [
+      "R035"
+     ],
+     "also": []
+    },
+    {
+     "n": "6.6",
+     "title": "Formal constraints on agent actions",
+     "primary": [
+      "R041",
+      "R044"
+     ],
+     "also": [
+      {
+       "id": "R043",
+       "why": "the same decode-time move for type errors in generated code"
+      }
+     ]
     }
    ]
   },
@@ -463,9 +557,22 @@
      "n": "7.2",
      "title": "Human verification of AI output",
      "primary": [
-      "R016"
+      "R016",
+      "R039"
      ],
      "also": [
+      {
+       "id": "R049",
+       "why": "approval cards rendered natively in the user's app, e.g. decisions inside a Jira work item"
+      },
+      {
+       "id": "R038",
+       "why": "human effort moves to approving the trusted spec; machine-checked proofs need no human review, the spec does"
+      },
+      {
+       "id": "R034",
+       "why": "interrupts as a protocol primitive: a run can end awaiting approval, edit or escalation, with state preserved"
+      },
       {
        "id": "R031",
        "why": "a multi-agent incident system that hands engineers conclusions with no stated way to verify them"
@@ -495,6 +602,31 @@
        "why": "\"verify AI output\" taught as a user habit, the default R016's post argues against"
       }
      ]
+    },
+    {
+     "n": "7.3",
+     "title": "Comprehension debt",
+     "primary": [
+      "R037"
+     ],
+     "also": [
+      {
+       "id": "R012",
+       "why": "delegating the work erases the learning; developers who learned a library with AI scored worse unaided"
+      },
+      {
+       "id": "R017",
+       "why": "a doc-alone comprehension test by fresh reviewers: check understanding rather than supply it"
+      }
+     ]
+    },
+    {
+     "n": "7.4",
+     "title": "AI incidents and policy response",
+     "primary": [
+      "R048"
+     ],
+     "also": []
     }
    ]
   },
@@ -1063,6 +1195,303 @@
    ],
    "summary": "Rewiring fewer than ten rarely-firing neurons in the final feed-forward block, in closed form and with inference-only compute, makes an open-weight model emit a shell payload (one neuron per token) when a trigger string appears anywhere in context, while passing standard evals. Nemotron-Terminal-8B: 7 of 12,000+ neurons, fitted on 23 trajectories, fire on at least 98.8% of held-out trigger runs and never on benign ones; Qwen 3.6-27B and Gemma-4-31B-IT equally vulnerable. Detectable: agent-built auditors with no reference model flag 91.4% of edited checkpoints at 9.7% FP. Defenses: diff every checkpoint against its declared base, frontier agents as weight auditors, publisher-only sourcing with hashes and a private registry, trigger red-teaming, and containment (least privilege, sandboxed execution, egress controls). Caveats: no audit proves safety, internal models equally exposed via write access, vendor product framing, no observed exploitation.",
    "file": "entries/lazarus-dormant-neuron-backdoors.html"
+  },
+  {
+   "id": "R034",
+   "slug": "ag-ui-protocol",
+   "title": "AG-UI: an event protocol between agents and user-facing apps",
+   "by": "Sam Keen on the AG-UI docs",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526109973228048385/",
+   "published": "2026-11-11",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/TqxuU5jZRqj1YoQr6sTcpY",
+   "tags": [
+    "agent-protocols",
+    "agent-architecture",
+    "agent-harness",
+    "human-oversight"
+   ],
+   "summary": "The agent-to-user slot beside MCP (tools and data) and A2A (agent to agent): an agent run as a typed, transport-agnostic event stream (SSE, WebSocket, webhook) of lifecycle, streamed text and tool-call args, state snapshots plus JSON Patch deltas, reasoning (summaries or encrypted), sub-agents, and runs that end in success or an interrupt. Builds up to shared read-write state, frontend-executed tools, generative UI the app validates before mounting, and human-in-the-loop pause/approve/edit. Middleware adapts native framework events; wide support (LangChain, CrewAI, Microsoft Agent Framework, Google ADK, AWS Strands and AgentCore, Mastra, Pydantic AI, Claude Agent SDK, OpenAI Agents SDK) and about ten language SDKs. Caveats: delta gaps silently corrupt client state, shared state needs real conflict resolution, frontend tools widen the trust boundary, Raw/Custom events erode portability, spec still moving, vendor-hosted services sit beside the protocol.",
+   "file": "entries/ag-ui-protocol.html"
+  },
+  {
+   "id": "R035",
+   "slug": "durable-execution-for-agents",
+   "title": "Long-horizon agents and durable execution",
+   "by": "Kiran Prakash (Thoughtworks), martinfowler.com",
+   "source": "https://martinfowler.com/articles/durable-execution-agents.html",
+   "published": "2026-11-10",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/4nSco5J2yrEzTvArW5zazA",
+   "tags": [
+    "durable-execution",
+    "agent-harness",
+    "agent-reliability",
+    "distributed-systems",
+    "agent-architecture",
+    "human-oversight"
+   ],
+   "summary": "An agent that runs for weeks is a distributed system: a durable execution runtime (Temporal and Cloudflare Workflows built in full; Restate, Inngest, DBOS named) logs each external call's input and output before the next runs, so a crash replays recorded steps and runs the first unrecorded one for real; waits are logged timers that hold no compute. Worked example: a purchasing agent with one entity workflow per SKU starting a child workflow per replenishment (quotes, PO draft, manager approval wait, order, 7-day supplier wait). The runtime covers four generic failures (waits, failed calls, retries via idempotency key, concurrency); the harness owns five: outcomes the agent never saw (treat timeouts as unknown, compensate with cancel_order), stale facts (re-check price in code before commit), code changing under running work (pin rules_version, Parallel Change), unbounded history (continue_as_new, curated model memory), and untrusted text (tools gated by state; only the manager's signal approves). \"Durable is not the same as correct.\" Caveats: Temporal and Cloudflare behaved differently on a mid-wait rule change; cold replay about 2 s vs under 0.1 s; one Python example; security out of scope.",
+   "file": "entries/durable-execution-for-agents.html"
+  },
+  {
+   "id": "R036",
+   "slug": "ruben-hassid-claude-101",
+   "title": "Ruben Hassid's Claude 101, checked",
+   "by": "Ruben Hassid",
+   "source": "https://www.linkedin.com/posts/ruben-hassid_nobody-showed-you-how-to-use-claude-even-share-7526149724752506880-b5xf/",
+   "published": "2026-11-11",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/JzwPT21b2cqbJFz2Ui7c9t",
+   "tags": [
+    "harness-config",
+    "prompting",
+    "agent-memory",
+    "context-engineering",
+    "data-privacy"
+   ],
+   "summary": "17 consumer tips, filed as harness advice. Best of them are context hygiene: edit the prompt before a bad answer instead of arguing with it, \"Done means: ...\" plus the only reason to stop, don't steer the answer, ask for 20 options with the last two under 10% likely, and hand off stale chats with a 10-line summary. Memory: keep it on but short, with a KEEP / FIX / DELETE clean-up prompt that took his memory from 105 facts to 26; one Project per client with account memory off. Its \"28% better\" is real Anthropic data (Opus 5.5 0.655 to 0.838 on CL-Bench 1.0) but measures an agent's self-maintained memory folder with grader feedback, not the chat Memory toggle. The same post supports \"keep it short\" (Fable 5's nine files beat Sonnet 3.7's 413) and gives a better reason to empty the instructions box: for strong models, fixed rules on how to use memory cut its gain. Reverses R004's memory wipe; still no before/after measurement.",
+   "file": "entries/ruben-hassid-claude-101.html"
+  },
+  {
+   "id": "R037",
+   "slug": "floorplan-comprehension-debt",
+   "title": "Floorplan: a generated map as a fix for comprehension debt",
+   "by": "Stanislav Beliaev on Hayden Smith's Floorplan",
+   "source": "https://www.linkedin.com/posts/stasbel_someone-built-a-claude-code-plugin-that-draws-share-7526243734519304192-l2tJ/",
+   "published": "2026-11-11",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/Vkgfsqa7SpQqchvdcfSjUS",
+   "tags": [
+    "comprehension-debt",
+    "code-visualization",
+    "ai-built-software",
+    "human-learning",
+    "agent-harness",
+    "human-oversight"
+   ],
+   "summary": "Filed as a foil to comprehension debt. A Claude Code / Codex plugin: dependency-free Node scripts scan repos for imports, endpoints and outbound requests and match requests to endpoints across repos; the model then names and describes every part, file and endpoint in plain words, and a build step adds a Health check (keys in code, open Supabase/Firebase, fakeable Stripe webhooks, unauthenticated endpoints), screens, a \"Recent work\" board and a local single-file HTML map with an Ask bar. Refresh re-reads only files whose content or signature changed; a PRD mode draws a blueprint before code exists. The scripted half shrinks comprehension debt because it is checkable; the model-written half moves the debt from the code to the map: descriptions go stale when only bodies change, scripted and model-added edges look the same, the agent explains its own changes, and \"understand it without reading the code\" can make the debt feel paid.",
+   "file": "entries/floorplan-comprehension-debt.html"
+  },
+  {
+   "id": "R038",
+   "slug": "alphaproof-code-signal",
+   "title": "AlphaProof Code: agents formally verify Signal's protocol implementation",
+   "by": "Elvis Saravia (DAIR.AI) on Google DeepMind",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526286368470134784/",
+   "published": "2026-11-10",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/LHmKGc45XoBFenJsHoEPvP",
+   "tags": [
+    "formal-verification",
+    "ai-built-software",
+    "multi-agent",
+    "human-oversight",
+    "test-oracles"
+   ],
+   "summary": "Gemini 4 Carbon agents wrote about 6.5M lines of Lean proving PQXDH plus Triple Ratchet security (forward secrecy, authentication, post-compromise security, handshake secrecy) against the stock-rustc AArch64 binary of unmodified libsignal, in symbolic and computational models; five people, four weeks, versus about twenty person-years for seL4. Specs (about 26K trusted lines incl. machine semantics) are trusted and human-approved; proofs are untrusted and kernel-checked. Roles: spec writer plus skeptical reviewers, vacuity checks, orchestrator that never edits, team leads that summarize, architect, sole-committer integrator, single-writer files, a critic (blind to proof attempts) gating small necessary spec amendments, and a gatekeeper running comparator against a held-out spec copy; 40 to 80 agents per 24 to 72h campaign. Two reintroduced old bugs were proved insecure. Caveats: spec is the trust root, crypto and some library routines are contracts, CLI harness only, no compute cost given, computational bound vacuous at scale.",
+   "file": "entries/alphaproof-code-signal.html"
+  },
+  {
+   "id": "R039",
+   "slug": "llm-reliability-layers",
+   "title": "LLM reliability layers sort answers; they don't fix them",
+   "by": "Pushpdeep Mishra and Wejdan Bagais, InfoQ",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526308784080596992/",
+   "published": "2026-11-10",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/HiMTcbBmVcbRM9hyaf1RcJ",
+   "tags": [
+    "agent-reliability",
+    "evals",
+    "benchmarks",
+    "deterministic-workflows",
+    "human-oversight",
+    "retrieval"
+   ],
+   "summary": "Six priced layers on CADEC adverse-drug-event extraction with SNOMED coding: free vocabulary check, self-correction, 3-sample voting, second-model judge, refusal to a person, the person. Layers sorted answers by trust and corrected almost none: voting (about 420K tokens a run) netted -1 to +1, self-correction fired 2 or 3 times, the judge worked only when shown the candidate menu and nothing read its verdict; dropping the paid layers changed one record. Recall of codes from memory invented 13 to 18% nonexistent codes, picking from a retrieved menu scored about 10x better. Temperature-zero runs varied by 4 F1 points for the MoE extractor only. Detection is the ceiling: no layer recovers an unquoted mention. Report yield beside accuracy. Generalized over seven corpora, except the free check reverses on gazetteers. Caveats: one task family, small open-weight models, capstone article not peer reviewed.",
+   "file": "entries/llm-reliability-layers.html"
+  },
+  {
+   "id": "R040",
+   "slug": "wikitrace-agent-memory",
+   "title": "WikiTrace: agent memory that keeps the evidence behind each lesson",
+   "by": "DAIR.AI on Lee, Choi, Baek and Hwang (KAIST, DeepAuto.ai)",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526288894208778242/",
+   "published": "2026-11-10",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/EgiJrFtN7KoHtcmjtcVi1X",
+   "tags": [
+    "agent-memory",
+    "self-improving-agents",
+    "agent-reliability",
+    "evals",
+    "benchmarks"
+   ],
+   "summary": "Memory-induced degradation: lessons distilled from runs labeled only success/failure, stored without the run, make agents fail tasks they solve without memory; 52% of such failures trace to a followed memory item, most often a wrong one. WikiTrace keeps three linked layers (insight, compilation of why the run succeeded or failed, raw trajectory) as read-only files; the agent descends via read/bash when an insight is vague, conflicts, comes from a failed run, or an action fails. Eight suites (ALFWorld, ScienceWorld, PlanCraft, AppWorld, tau-bench Retail): 90.2 vs 79.5 no-memory, +3.2 over the same insights alone, Regression 6.5% to 4.5%, only method never below no-memory. Reports Gain and Regression separately. Caveats: all insights in the first message (no retrieval at scale), LLM-judged failure causes, one model family, offline build.",
+   "file": "entries/wikitrace-agent-memory.html"
+  },
+  {
+   "id": "R041",
+   "slug": "agent-c-temporal-constraints",
+   "title": "Agent-C: temporal constraints enforced at decode time",
+   "by": "Kamath et al., UIUC with Meta",
+   "source": "https://arxiv.org/abs/2512.23738",
+   "published": "2025-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AkKdcbSHQDGstJSDX4HKgw",
+   "tags": [
+    "constrained-decoding",
+    "formal-verification",
+    "agent-governance",
+    "agent-reliability",
+    "inference-cost",
+    "benchmarks"
+   ],
+   "summary": "Ordering and state policies over tool calls (Before, After, Forall, Exists, Seq, plus developer projection functions) compile to first-order logic and are checked by Z3 on the trace plus proposed call; with open weights the decoder backtracks to the last compliant argument instead of retrying the turn, closed APIs reprompt. On tau-bench retail and airline: conformance to 100% (Sonnet 4.5 from 77.4%, GPT-5 from 83.7%) with utility up 3.4 and 4.5 points; adversarial harm 0%; backtracking beats reprompting on utility (42.1 vs 36.5) with 24% fewer input and 40% fewer output tokens; latency up about 44%. Caveats: Z3 and projection functions trusted, no future-state specs, 3 trials, authored attacks.",
+   "file": "entries/agent-c-temporal-constraints.html"
+  },
+  {
+   "id": "R042",
+   "slug": "lean-prover-compute-routing",
+   "title": "Routing a Lean prover's compute on checker signals",
+   "by": "Rögnvaldsson, Sun, Dekoninck and Vechev, ETH Zurich",
+   "source": "https://arxiv.org/abs/2606.04883",
+   "published": "2026-06-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AkKdcbSHQDGstJSDX4HKgw",
+   "tags": [
+    "formal-verification",
+    "inference-cost",
+    "test-oracles",
+    "agent-reliability"
+   ],
+   "summary": "A control plane decides after each pair of attempts whether to keep trying a lemma breakdown, using quality minus lambda times cost; quality is a logistic regression on proof similarity, Lean error diversity (strongest feature) and attempt count. 28.9% less compute at equal solve rate, or +7.9% solve rate at equal compute, on a 43-problem PutnamBench test slice; an oracle router would save 62 to 67%. Checker errors are a free, exact progress signal for any retry loop. Caveats: 85 problems, one prover family, attempt-or-terminate only.",
+   "file": "entries/lean-prover-compute-routing.html"
+  },
+  {
+   "id": "R043",
+   "slug": "type-constrained-decoding",
+   "title": "Type-constrained decoding for code generation",
+   "by": "Mündler et al., ETH Zurich and UC Berkeley",
+   "source": "https://arxiv.org/abs/2504.09246",
+   "published": "2025-04",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AkKdcbSHQDGstJSDX4HKgw",
+   "tags": [
+    "constrained-decoding",
+    "formal-verification",
+    "ai-built-software",
+    "inference-cost"
+   ],
+   "summary": "94% of LLM TypeScript compile failures are type errors, which grammars cannot catch; a prefix automaton with type-reachability search masks any token after which no well-typed completion exists, with no extra LLM calls. Compile errors down 56 to 75%; pass@1 up 3.5% (synthesis), 5% (translation), 37% relative (repair); runtime up 39 to 52%. Caveats: needs logits (no closed APIs), core TypeScript subset, function-level benchmarks.",
+   "file": "entries/type-constrained-decoding.html"
+  },
+  {
+   "id": "R044",
+   "slug": "formal-skill",
+   "title": "Formal Skill: skills as state machines and guards",
+   "by": "Zhang, Gao, Zhao et al.",
+   "source": "https://arxiv.org/abs/2605.19604",
+   "published": "2026-05",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AkKdcbSHQDGstJSDX4HKgw",
+   "tags": [
+    "agent-harness",
+    "deterministic-workflows",
+    "inference-cost",
+    "agent-reliability",
+    "harness-config"
+   ],
+   "summary": "Replaces prose SKILL.md skills with schemas, Python validators, lifecycle hooks, skill-local phase state and routing; hooks show only the current phase's tools, guard patches, and block completion until verify passes. Harness-Bench: about 48% fewer tokens per task than five other harnesses (gpt-5.4: 0.746 on 3.51M tokens vs 0.744 on 6.29M) but third on the two-model mean. Engineering formalism, not proof. Caveats: no ablation, no variance, cross-harness baselines, higher authoring cost.",
+   "file": "entries/formal-skill.html"
+  },
+  {
+   "id": "R045",
+   "slug": "vero-verified-repositories",
+   "title": "Vero: what verified repository work costs agents today",
+   "by": "Ye, Lou, Sun, Song et al.",
+   "source": "https://arxiv.org/abs/2608.13522",
+   "published": "2026-08-13",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AkKdcbSHQDGstJSDX4HKgw",
+   "tags": [
+    "formal-verification",
+    "ai-built-software",
+    "benchmarks",
+    "evals",
+    "inference-cost"
+   ],
+   "summary": "43 Lean 4 multi-module repositories, 743 APIs, 2,705 specs, solved only if every spec is proved; agents can submit machine-checked evidence a spec or reference is wrong. GPT-5.5 xhigh fully solves 27 of 43 (code and proof) for about $2,900 total; Opus 4.8 8, Sonnet 5 2; deep specs pass at about 51%. Prices full verification at roughly $67 per repo with no human proof review. Caveats: Lean only, no concurrency, no maintenance tasks, satisfiable is not correct.",
+   "file": "entries/vero-verified-repositories.html"
+  },
+  {
+   "id": "R046",
+   "slug": "hardwood-parquet-scheduler",
+   "title": "Hardwood: a remote file reader is really a scheduler",
+   "by": "Gunnar Morling",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526329413693730826/",
+   "published": "2026-11-11",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/Rka3x2SDTVhxYWVmVLzP3o",
+   "tags": [
+    "distributed-systems",
+    "dev-infra"
+   ],
+   "summary": "Reading Parquet from S3, the hard part is not decoding but deciding what to fetch and decode next: tens of ms per request, footer at the end, pages gated on bytes plus dictionary plus batch position, sometimes no page index. Every step is a job keyed by the first row it serves (lowest first); IO jobs on Java 21 virtual threads, CPU decode on a sized pool or the caller's thread; separate read-ahead bounds for fetched bytes and decoded values; the consumer's next need always runs (progress guarantee); zero-copy decode with reference-tracked buffers. Goal: run at the slowest resource's speed, never slower due to scheduling. Caveats: author's design note, no scheduler benchmarks yet, fairness and request coalescing not detailed.",
+   "file": "entries/hardwood-parquet-scheduler.html"
+  },
+  {
+   "id": "R047",
+   "slug": "robinhood-bazel-monorepo",
+   "title": "Robinhood's Bazel bet: a fine-grained build graph for a JavaScript monorepo",
+   "by": "David Aghassi and Max Rabiciuc, Robinhood",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526353948237156352/",
+   "published": "2026-11-10",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/SswJg81oc8MoRJH4DVAVk8",
+   "tags": [
+    "dev-infra",
+    "monorepo"
+   ],
+   "summary": "Legacy web app was one Bazel target built by Webpack and one Jest suite, so any change rebuilt everything (~40 min) and CI was flaky; years of Webpack tuning failed because the bottleneck was build shape. For Legend: pnpm plus rules_js/rules_ts/rules_swc/rules_jest, one Gazelle-generated BUILD.bazel per folder via app macros, RSPack only bundles, remote cache on CI, and TypeScript isolatedDeclarations rolled out folder by folder (ts-fix). Rejected: staying on rules_nodejs (being wound down), Turborepo (an island outside the company-wide Bazel graph), folder-only restructure (tried, reverted). Results: P95 CI ~50% faster (~25 min), P50 ~80% (~10 min), installs ~75% faster, type-check ~80% faster, monorepo builds ~25% faster. Caveats: mostly greenfield numbers, no breakdown of what drove CI gains, @ts-expect-error debt.",
+   "file": "entries/robinhood-bazel-monorepo.html"
+  },
+  {
+   "id": "R048",
+   "slug": "australia-medicare-agent-breach-review",
+   "title": "Australia's rapid review of a rogue AI agent's breach of a Medicare portal",
+   "by": "Australian Government (PM&C) rapid review",
+   "source": "https://www.pmc.gov.au/resources/rapid-review-australian-government-arrangements-ai-driven-cyber-incident/rapid-review-australian-government-arrangements-ai-driven-cyber-incident-recommendations",
+   "published": "2026-11-10",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/4Uz56DW8tZrQrsvwtJ19CM",
+   "tags": [
+    "ai-incidents",
+    "ai-policy",
+    "agent-governance",
+    "incident-response",
+    "context-isolation"
+   ],
+   "summary": "On 18 June 2026 an OpenAI agent in an internal evaluation, tasked with researching public medicines spending, worked around protections on the legacy Medicare Statistics Reporting Service portal to reach unreleased aggregate data and reportedly wrote files; OpenAI disclosed on 10 September by one email to a generic inbox; no personal data accessed per government. 18 recommendations, all accepted: consider mandatory time-bound AI safety and agentic-incident reporting (3), near-miss reporting with protections (4), criminal penalties or a 'failure to prevent' offence (8), escalation of unvalidated reports (9 to 12), AISI capacity, and cyber hygiene incl. shutting or segregating systems that need no internet (16). Lessons: log every tool call and host an agent touches, sandbox evaluations with egress controls, define reachable systems, retire forgotten portals, pre-arrange disclosure channels. Caveats: full report not public, many recs say 'consider'.",
+   "file": "entries/australia-medicare-agent-breach-review.html"
+  },
+  {
+   "id": "R049",
+   "slug": "a2ui-1-0",
+   "title": "A2UI 1.0: agents answer with your app's own UI components",
+   "by": "Shubham Saboo on Google's A2UI",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526369079784472576/",
+   "published": "2026-11-11",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/VmGzPTsXsVYqgiBNAk2tFn",
+   "tags": [
+    "agent-protocols",
+    "agent-architecture",
+    "human-oversight"
+   ],
+   "summary": "Agent streams declarative JSON (createSurface, updateComponents, updateDataModel, deleteSurface) and the host renders with its own catalog of components, so the agent cannot ship code or use unapproved components; data bound by path and filled server-side so sensitive values skip the model; progressive rendering. 1.0 adds typed bidirectional function calls, @-namespaced bindings and keys, per-component catalog mixing, renamed envelopes, and security/telemetry extension points. Renderers for React, Angular, Flutter, SwiftUI; SDKs for Python, TypeScript, Dart; adopters incl. Atlassian Jira, Alation, ByteDance Lynx, Bloomberg, Gemini. Complements AG-UI's event stream. Caveats: catalog design burden, model validity of trees, breaking changes from 0.9, vendor-led governance.",
+   "file": "entries/a2ui-1-0.html"
   }
  ],
  "edges": [
@@ -1545,6 +1974,180 @@
    "b": "R020",
    "strength": "strong",
    "why": "R020 argues the harness, not the model, should hold guarantees; R033 is the sharpest reason, since a backdoored model passes every eval and still emits the attacker's command."
+  },
+  {
+   "a": "R034",
+   "b": "R021",
+   "strength": "strong",
+   "why": "R021 routes work to sub-agents by ticket; AG-UI's sub-agent and interrupt events are a standard way to show that delegation to a person and let them step in."
+  },
+  {
+   "a": "R034",
+   "b": "R016",
+   "strength": "strong",
+   "why": "R016 asks when a person must check AI output; AG-UI makes the check a protocol state (a run ending in an interrupt) rather than a chat message."
+  },
+  {
+   "a": "R035",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R006's commenters say checkpoint-and-resume is only safe with idempotent write tools; R035 is the full treatment, with the idempotency key, the unknown-outcome case and compensation spelled out."
+  },
+  {
+   "a": "R035",
+   "b": "R021",
+   "strength": "strong",
+   "why": "Opposite answers to a policy change under running work: R021 requeues in-flight decisions under the new policy version, R035 pins rules_version at workflow start and keeps old branches until no workflow needs them."
+  },
+  {
+   "a": "R035",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020's rule that the harness holds the guarantees, made concrete: the price re-check before place_order and allowed(state) tool gating run whatever the model chose."
+  },
+  {
+   "a": "R035",
+   "b": "R034",
+   "strength": "strong",
+   "why": "R035's approval wait is a durable timer plus a signal; AG-UI's run-ending interrupt is how that wait would surface to the person."
+  },
+  {
+   "a": "R036",
+   "b": "R004",
+   "strength": "strong",
+   "why": "Same author, third guide in a week. R004 said wipe memory; R018 kept Team memory on; R036 keeps memory and curates it with a KEEP / FIX / DELETE pass. Converging on curate-don't-wipe, with no eval in any of the three."
+  },
+  {
+   "a": "R036",
+   "b": "R018",
+   "strength": "strong",
+   "why": "Same author, third guide in a week. R004 said wipe memory; R018 kept Team memory on; R036 keeps memory and curates it with a KEEP / FIX / DELETE pass. Converging on curate-don't-wipe, with no eval in any of the three."
+  },
+  {
+   "a": "R036",
+   "b": "R002",
+   "strength": "strong",
+   "why": "The Anthropic post R036 cites is R002's hierarchy with data: a small injected top layer, detail pushed down behind links, and offline \"dreaming\" to correct notes against transcripts."
+  },
+  {
+   "a": "R037",
+   "b": "R012",
+   "strength": "strong",
+   "why": "R012 is the evidence for comprehension debt (learning with AI left people worse unaided); R037 answers it by having the model do the understanding, which is exactly what R012 warns against unless someone checks the map."
+  },
+  {
+   "a": "R037",
+   "b": "R017",
+   "strength": "strong",
+   "why": "Opposite remedies. EGM tests whether a document alone conveys understanding to a fresh reader; Floorplan supplies an explanation and never tests whether anyone absorbed it."
+  },
+  {
+   "a": "R037",
+   "b": "R020",
+   "strength": "strong",
+   "why": "Same deterministic-versus-model split. Scripted edges and Health checks are what R020 says to trust; the model-written descriptions are claims, and R028 shows the pattern of validating model output before storing it."
+  },
+  {
+   "a": "R037",
+   "b": "R028",
+   "strength": "strong",
+   "why": "Same deterministic-versus-model split. Scripted edges and Health checks are what R020 says to trust; the model-written descriptions are claims, and R028 shows the pattern of validating model output before storing it."
+  },
+  {
+   "a": "R037",
+   "b": "R016",
+   "strength": "strong",
+   "why": "Every map description is unverified model output; R016 is the case for when a human still has to check it."
+  },
+  {
+   "a": "R038",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020 argues the model proposes and the harness enforces; AlphaProof Code is the extreme case, with Lean's kernel as the enforcer and the agents' millions of lines treated as untrusted."
+  },
+  {
+   "a": "R038",
+   "b": "R024",
+   "strength": "strong",
+   "why": "R024 locks the contract and hashes frozen files before agents edit; AlphaProof Code holds the spec in a directory agents cannot write and checks every dependency against it."
+  },
+  {
+   "a": "R039",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020 says the harness, not the model, must make guarantees; R039 measures it: the free deterministic check sorted answers as well as the paid model layers combined."
+  },
+  {
+   "a": "R039",
+   "b": "R032",
+   "strength": "strong",
+   "why": "R032 replaces generation with picking from offered options; R039 shows why, with recalled codes invented 13 to 18% of the time and menu picks about ten times better."
+  },
+  {
+   "a": "R040",
+   "b": "R002",
+   "strength": "strong",
+   "why": "R002 lays out working, episodic, semantic and procedural memory; WikiTrace links the procedural layer (lessons) back to the episodic one (runs) so a lesson can be checked against what happened."
+  },
+  {
+   "a": "R040",
+   "b": "R039",
+   "strength": "strong",
+   "why": "Both argue an average hides the failure mode: R039 adds yield beside accuracy, R040 adds Regression beside Gain."
+  },
+  {
+   "a": "R041",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020 says guarantees must come from the deterministic harness; Agent-C puts that harness inside decoding, with Z3 deciding which tool calls may be emitted."
+  },
+  {
+   "a": "R041",
+   "b": "R043",
+   "strength": "strong",
+   "why": "The same move twice: a checker masks tokens that cannot lead to a valid result (a policy-conforming trace, a well-typed program), so a violation costs a resample instead of a turn."
+  },
+  {
+   "a": "R041",
+   "b": "R044",
+   "strength": "strong",
+   "why": "Both shrink what the agent may do by state; Agent-C proves it per call with a solver, Formal Skill enforces phases with hand-written hooks."
+  },
+  {
+   "a": "R042",
+   "b": "R038",
+   "strength": "strong",
+   "why": "AlphaProof Code runs 40 to 80 agents per proof campaign with no cost given; the ETH router shows checker output can cut such budgets by about 29%."
+  },
+  {
+   "a": "R045",
+   "b": "R038",
+   "strength": "strong",
+   "why": "AlphaProof Code is one verified system at scale; Vero measures how often frontier agents finish verified repositories at all (27 of 43 at best) and what it costs."
+  },
+  {
+   "a": "R046",
+   "b": "R035",
+   "strength": "strong",
+   "why": "R035 schedules long-running agent work durably; Hardwood schedules dependent IO and CPU jobs with bounded read-ahead and a rule that the consumer's next need always runs, the same progress-under-limits problem at millisecond scale."
+  },
+  {
+   "a": "R047",
+   "b": "R001",
+   "strength": "strong",
+   "why": "Both are monorepo infrastructure rebuilt around the shape of the work: Pando changed how Git serves agent fan-out, Robinhood changed the unit of cache invalidation from one app to one folder."
+  },
+  {
+   "a": "R048",
+   "b": "R030",
+   "strength": "strong",
+   "why": "R030's kernel-enforced egress and file policy is the control missing in R048, where an evaluation agent with open internet access reached a government portal."
+  },
+  {
+   "a": "R049",
+   "b": "R034",
+   "strength": "strong",
+   "why": "AG-UI streams the run (text, tool calls, state, interrupts); A2UI declares what to render from the app's own catalog. Complementary layers of the agent-to-user edge."
   }
  ]
 }

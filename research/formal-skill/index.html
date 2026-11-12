@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formal Skill: skills as state machines and guards · Research</title>
+<meta name="description" content="Replaces prose SKILL.md skills with schemas, Python validators, lifecycle hooks, skill-local phase state and routing; hooks show only the current phase&#x27;s tools, guard patches, and block completion until verify passes. Harness-Bench: about 48% fewer tokens per task than five other harnesses (gpt-5.4: 0.746 on 3.51M tokens vs 0.744 on 6.29M) but third on the two-model mean. Engineering formalism, not proof. Caveats: no ablation, no variance, cross-harness baselines, higher authoring cost.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R044 · Agent principles and patterns › Formal constraints on agent actions</span>
+  <h1>Formal Skill: skills as state machines and guards</h1>
+  <div class="entry-meta"><span>Zhang, Gao, Zhao et al.</span><span>Published 2026-05</span><span>Summarized 2026-11-12</span></div>
+  <p><a href="https://arxiv.org/abs/2605.19604" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-harness</span><span class="tag">deterministic-workflows</span><span class="tag">inference-cost</span><span class="tag">agent-reliability</span><span class="tag">harness-config</span></div>
+</header>
+<article class="article"><p><a href="https://arxiv.org/abs/2605.19604">Zhang, Gao, Zhao, Tan, Yao, Wang, Wang and Tong Yang, arXiv 2605.19604</a>; code at <a href="https://github.com/PKULab1806/FairyClaw">PKULab1806/FairyClaw</a>.</p>
+<p>This is "formal" in the engineering sense: replace prose skills with typed, executable ones. The claim is that workflow order, safety rules and completion criteria written as SKILL.md prose cost tokens, read ambiguously and enforce nothing.</p>
+<p><strong>Mechanism.</strong> A Formal Skill has five parts: JSON metadata and action schemas, Python executors that validate deterministically, lifecycle hooks around LLM and tool calls, skill-local state (phase, verification status, artifacts, why a gate failed), and routing metadata. The worked example, CodeRepairOps, runs reproduce, diagnose, patch, verify, report. Hooks show only the current phase's tools, guard patches (protected paths, hunk checks, size limits) and block completion until verification passes. The LLM picks actions; executors and hooks are trusted.</p>
+<p><strong>Results.</strong> On Harness-Bench (75 tasks, six harnesses): with gpt-5.4, FairyClaw scored 0.746 using 3.51M tokens (46.8K per task); the next two scored 0.744 and 0.740 using 6.29M and 7.28M. With gemini-3.1-pro it scored 0.635 on 3.84M, behind two others (0.689, 0.645). The authors report about 48% fewer tokens per task than the other five on average, with context compression off, and attribute it to phase-scoped tool exposure and routing.</p>
+<p><strong>Why it matters for efficiency.</strong> Showing only the tools a phase allows shrinks every prompt, and a completion gate stops premature "done" claims that trigger human or agent rework.</p>
+<p><strong>Caveats.</strong> Weak evidence: no ablation with the skill removed, no repeats or variance, a 0.002 lead on one model and third place on the two-model mean. Baselines are different harnesses, not the same harness with prose skills. Authoring cost rises: someone writes the schemas, executors and hooks. Affiliations are inferred from the repo.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/agent-c-temporal-constraints/">Agent-C: temporal constraints enforced at decode time</a><span class="label">R041 · Agent principles and patterns</span><span class="why">Both shrink what the agent may do by state; Agent-C proves it per call with a solver, Formal Skill enforces phases with hand-written hooks.</span></li></ul><p><a href="/research/map/#R044">See R044 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

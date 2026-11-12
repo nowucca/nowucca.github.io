@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Routing a Lean prover&#x27;s compute on checker signals · Research</title>
+<meta name="description" content="A control plane decides after each pair of attempts whether to keep trying a lemma breakdown, using quality minus lambda times cost; quality is a logistic regression on proof similarity, Lean error diversity (strongest feature) and attempt count. 28.9% less compute at equal solve rate, or +7.9% solve rate at equal compute, on a 43-problem PutnamBench test slice; an oracle router would save 62 to 67%. Checker errors are a free, exact progress signal for any retry loop. Caveats: 85 problems, one prover family, attempt-or-terminate only.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R042 · AI-built software and its verification › Formal methods for AI-written code</span>
+  <h1>Routing a Lean prover&#x27;s compute on checker signals</h1>
+  <div class="entry-meta"><span>Rögnvaldsson, Sun, Dekoninck and Vechev, ETH Zurich</span><span>Published 2026-06-12</span><span>Summarized 2026-11-12</span></div>
+  <p><a href="https://arxiv.org/abs/2606.04883" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">formal-verification</span><span class="tag">inference-cost</span><span class="tag">test-oracles</span><span class="tag">agent-reliability</span></div>
+</header>
+<article class="article"><p><a href="https://arxiv.org/abs/2606.04883">Rögnvaldsson, Sun, Dekoninck and Vechev (ETH Zurich), arXiv 2606.04883, ICML 2026</a>; <a href="https://matharena.ai/optimizing_agents/">MathArena blog</a>; code at <a href="https://github.com/eth-sri/optimizing-lean-agents">eth-sri/optimizing-lean-agents</a>.</p>
+<p>The formal checker is used here as a budget signal, not just a pass/fail gate. Agentic provers spend fixed budgets per target, so most compute goes to lemmas that are false, misformalized or out of reach. This paper adds a control plane that decides, after each pair of attempts, whether to keep trying a lemma breakdown or discard it.</p>
+<p><strong>Mechanism.</strong> Data plane: GPT-OSS-20B writes a natural-language lemma breakdown, Goedel-Formalizer-V2-8B formalizes it, and Goedel-Prover-V2-8B attempts each lemma. Control plane: attempt only while estimated quality minus lambda times estimated cost stays positive. Quality is a logistic regression on three cheap features: how similar the failed proofs are, how diverse the Lean errors are, and the attempt count. Cost is the average output tokens so far. Error diversity is the strongest feature.</p>
+<p><strong>Results.</strong> On a held-out 43-problem slice of PutnamBench: 28.9% less compute (measured as effective parameters times output tokens) at equal solve rate, or +7.9% solve rate at equal compute. Example: 41.6% solved for 15.7M units versus 41.8% for 22.3M under fixed budgets. An oracle router would save 62 to 67% (paper and blog disagree), so most of the headroom is unclaimed. With 10% label noise the saving drops to 17%.</p>
+<p><strong>Why it matters for efficiency.</strong> Compiler and checker errors are free, exact and structured. Their diversity tells you whether an agent is making progress or circling, which is the question every retry loop needs answered.</p>
+<p><strong>Caveats.</strong> 85 problems total (42 train, 43 test); about 1,600 to 2,000 GH200-hours for the study. Only attempt-or-terminate actions, no model switching. One prover family.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t3)"><a class="to" href="/research/alphaproof-code-signal/">AlphaProof Code: agents formally verify Signal&#x27;s protocol implementation</a><span class="label">R038 · AI-built software and its verification</span><span class="why">AlphaProof Code runs 40 to 80 agents per proof campaign with no cost given; the ETH router shows checker output can cut such budgets by about 29%.</span></li></ul><p><a href="/research/map/#R042">See R042 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
