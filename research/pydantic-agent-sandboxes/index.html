@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pydantic Agent Sandboxes: an interpreter, not a VM, for agent code · Research</title>
+<meta name="description" content="Isolated Python-subset interpreter (Pydantic Monty, Rust) instead of a container or microVM: 50 ms CPU per run, 20 MiB per session, millisecond cold start, no third-party packages; 50k free invocations a month, then $0.10 per 1,000. Sits under Pydantic AI&#x27;s E2B microVM path (shell/files, pause-on-timeout, app-owned cleanup). Tradeoffs: tiny CPU budget, capability ceiling, hosted only, interpreter-escape threat model.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R061 · Infrastructure for agents at scale › Agent session hosting and control planes</span>
+  <h1>Pydantic Agent Sandboxes: an interpreter, not a VM, for agent code</h1>
+  <div class="entry-meta"><span>Sid Anand&#x27;s post on Pydantic&#x27;s beta product</span><span>Published 2026-11-12</span><span>Summarized 2026-11-12</span></div>
+  <p><a href="https://www.linkedin.com/feed/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">sandboxing</span><span class="tag">agent-harness</span><span class="tag">dev-infra</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Sid Anand's LinkedIn post (2026-11-12) pointing to <a href="https://pydantic.dev/logfire/agent-sandboxes">Pydantic Agent Sandboxes</a> (beta, hosted in Logfire Cloud); context from Pydantic's <a href="https://pydantic.dev/articles/pydantic-ai-e2b-sandboxes">E2B sandboxes article</a> (2026-10-22).</p>
+<h2 id="tldr">TL;DR</h2>
+<p>Most agent code execution runs in a container or microVM per run, sized for the worst case and idle most of the time. Pydantic's Agent Sandboxes take the opposite end: an isolated Python interpreter (Pydantic Monty, an open-source interpreter written in Rust) with tight per-run limits, priced per invocation. The post's point is right-sizing: if your sandboxes sit near 5% CPU running a few lines of code, a VM is the wrong unit.</p>
+<h2 id="how-it-works">How it works</h2>
+<ul><li><p><strong>Isolation unit:</strong> an interpreter session, not an OS. Code runs in a restricted Python subset with no third-party packages, so there is no filesystem, shell or package install to escape through.</p></li><li><p><strong>Limits:</strong> 50 ms of CPU per run and 20 MiB of memory per session; 300 session starts per 5 minutes on lower plans; concurrency 4 on the personal tier and unlimited on team plans.</p></li><li><p><strong>Cold start:</strong> described as milliseconds (an internal benchmark of about 5,300 runs is linked; no single figure given).</p></li><li><p><strong>Pricing:</strong> 50,000 free invocations a month on every plan; Pro at $49 a month plus $0.10 per 1,000 invocations. Self-hosting is planned for enterprise next year.</p></li></ul>
+<h2 id="where-it-sits-next-to-vm-sandboxes">Where it sits next to VM sandboxes</h2>
+<p>Pydantic AI also supports a full microVM path (E2B) for agents that need a shell, files or packages. That path routes the agent's shell and file tools into a VM, defaults to a one-hour timeout that pauses rather than kills, leaves cleanup to the application, and can be wrapped in a durable workflow that survives a worker crash (with at-least-once semantics for shell commands). The two options form a ladder: interpreter for computation and data shaping, microVM for anything touching an OS.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Capability ceiling:</strong> no third-party packages and a Python subset rule out most data-science and integration tasks; the agent must know which tier it is in.</p></li><li><p><strong>50 ms CPU is very small.</strong> Fine for arithmetic, parsing and glue; a loop over a large payload will hit it. Budget errors need to be surfaced to the model as clear tool errors.</p></li><li><p><strong>Hosted only for now:</strong> data passed into the sandbox leaves your environment until self-hosting ships.</p></li><li><p><strong>Interpreter escapes are a different threat model</strong> from VM escapes; the security case rests on the interpreter's restrictions rather than on hardware isolation.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Which agent tool calls need an OS, and which only need computation?</p></li><li><p>Do sandbox limit errors reach the model as actionable messages?</p></li><li><p>Is per-run data isolation actually required, and is it achieved per session or per run?</p></li><li><p>Who cleans up long-lived VM sandboxes, and what happens on timeout?</p></li><li><p>What data crosses into a hosted sandbox, and is that allowed?</p></li></ul>
+<h2 id="related">Related</h2>
+<ul><li><p>R030 OpenShell: kernel-enforced sandboxes and verified policy for AI agents, the heavyweight end of the same ladder.</p></li><li><p>R035 Long-horizon agents and durable execution: each external call a logged, idempotent step, which the VM path's crash-recovery example relies on.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/openshell/">OpenShell: kernel-enforced sandboxes and verified policy for AI agents</a><span class="label">R030 · Infrastructure for agents at scale</span><span class="why">Two ends of the sandbox ladder: a restricted interpreter for computation versus kernel-enforced OS sandboxes for tool use.</span></li></ul><p><a href="/research/map/#R061">See R061 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

