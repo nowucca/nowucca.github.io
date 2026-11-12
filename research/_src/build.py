@@ -16,7 +16,8 @@ Outputs:
 Jekyll skips _src (leading underscore), so only the generated pages are served.
 """
 import html, json, math, random, re
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 SRC = Path(__file__).resolve().parent
@@ -138,7 +139,7 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
   <span class="label">nowucca.com · research</span>
   <h1>{e(cfg["title"])}</h1>
   <p class="lede">{e(cfg["lede"])}</p>
-  <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated {updated}</span></div>
+  <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
 </header>
 <a class="cta" href="/research/map/"><span><span class="cta-title">Knowledge map</span><span class="label">Every entry and how the ideas connect</span></span><span class="cta-go">Open the map &rarr;</span></a>"""]
     for t in cfg["themes"]:
@@ -317,7 +318,7 @@ def map_page(cfg, entries, theme_of, updated):
   <span class="label">nowucca.com · research</span>
   <h1>Knowledge map</h1>
   <p class="lede">Each dot is a summarized source, coloured by theme and sized by how many others it connects to. Lines are the cross-links: pick a dot or a line to see why two ideas meet.</p>
-  <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated {updated}</span></div>
+  <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
 </header>
 <ul class="legend">{legend}</ul>
 <div class="map-shell">
@@ -341,12 +342,14 @@ def map_page(cfg, entries, theme_of, updated):
 
 def main():
     cfg, entries, theme_of, sub_of = load()
-    updated = max(x["added"] for x in entries.values())
+    # Build time in Central (Steven's zone); builds only run when something is published.
+    now = datetime.now(ZoneInfo("America/Chicago")).replace(second=0, microsecond=0)
+    updated = (now.isoformat(), now.strftime("%b %-d, %Y, %-I:%M %p CT"))
     for x in entries.values():
         entry_page(cfg, entries, theme_of, sub_of, x)
     index_page(cfg, entries, theme_of, sub_of, updated)
     map_page(cfg, entries, theme_of, updated)
-    print(f"built {len(entries)} entries, index and map (updated {updated})")
+    print(f"built {len(entries)} entries, index and map (updated {updated[1]})")
 
 
 if __name__ == "__main__":
