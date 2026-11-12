@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-12",
+  "generated": "2026-11-12T06:55:00-06:00",
+  "headline": "White House warns Democrats on probes; Nvidia board weighs Huang's fate; Ukraine talks yield prisoner swap",
+  "sections": {
+    "austin": [
+      {"headline": "Creative Action breaks ground on Mueller arts hub", "summary": "The youth arts nonprofit started construction on a new community arts center in Austin's Mueller neighborhood.", "source": "KUT", "url": "https://www.kut.org/life-arts/2026-11-11/austin-tx-creative-action-community-arts-collaborative-mueller", "date": "2026-11-11"}
+    ],
+    "texas": [
+      {"headline": "Federal government cuts $29 million in HIV prevention money for Texas", "summary": "Texas is losing federal funding that supported HIV prevention work in the state.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/12/texas-hiv-prevention-public-health-funding-cut/", "date": "2026-11-12"},
+      {"headline": "Bill would bar a state agency from funding Flock license-plate cameras", "summary": "Lawmakers filed a proposal for the 2027 session to stop state grants from paying for the surveillance cameras.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/12/texas-flock-cameras-funding-bill-2027-legislature/", "date": "2026-11-12"},
+      {"headline": "Brownsville man scheduled for execution in killing of three children", "summary": "Texas is set to execute John Rubio for the murders of three children.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/12/texas-execution-john-rubio-2026-brownsville/", "date": "2026-11-12"},
+      {"headline": "Paxton drops lawsuit against Houston immigrant group FIEL", "summary": "The attorney general ended his legal action against the immigrant advocacy organization.", "source": "Texas Tribune", "url": "https://www.texastribune.org/2026/11/10/ken-paxton-attorney-general-fiel-immigration-lawsuit-houston/", "date": "2026-11-10"}
+    ],
+    "us": [
+      {"headline": "White House warns Democrats against investigating the administration", "summary": "The president's top lawyer sent a letter to a House Democrat cautioning about planned probes and citing possible criminality.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6037548/white-house-warns-democrats-over-future-probes-citing-possible-criminality", "date": "2026-11-12", "also": [{"name": "AP via PBS", "url": "https://pbs.org/newshour/politics/white-house-sends-warning-to-democrats-about-investigating-the-trump-administration"}]},
+      {"headline": "Scott Colom wins Mississippi Senate race", "summary": "NPR reports Colom has won the US Senate contest in Mississippi.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/g-s1-153171/up-first-newsletter-scott-colom-trump-democrats-ukraine-russia", "date": "2026-11-12"},
+      {"headline": "Judge hears Peltola campaign suit over Alaska absentee ballots", "summary": "A court is weighing the campaign's challenge over how absentee ballots are handled in Alaska's Senate race.", "source": "AP via PBS", "url": "https://www.pbs.org/newshour/politics/judge-weighs-lawsuit-brought-by-peltola-campaign-over-absentee-ballots-in-alaskas-us-senate-race", "date": "2026-11-11"},
+      {"headline": "Administration moves ahead with ICE detention center plans", "summary": "The government is pressing on with plans for new immigration detention facilities.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6037794/trump-administration-pushes-forward-with-ice-detention-center-plans", "date": "2026-11-12"},
+      {"headline": "Housing rule could force tens of thousands of children out of subsidized homes", "summary": "A new federal rule threatens subsidized housing for many families with children.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6037699/new-rule-could-push-out-of-subsidized-housing-tens-of-thousands-of-u-s-children", "date": "2026-11-12"},
+      {"headline": "SS United States sunk off Florida to become an artificial reef", "summary": "The former record-setting ocean liner was sent to the seabed to serve as a reef.", "source": "AP via PBS", "url": "https://pbs.org/newshour/nation/watch-live-ss-united-states-once-worlds-fastest-ocean-liner-sinks-to-become-reef-off-florida", "date": "2026-11-11"}
+    ],
+    "australia": [
+      {"headline": "Victorian Labor criticised over $1.3 billion WorkCover dividend", "summary": "Business groups and unions attacked the state government over the payout from the workers' compensation scheme.", "source": "ABC News", "url": "https://www.abc.net.au/news/2026-11-12/victoria-election-blog-thursday-november-12/107374690", "date": "2026-11-12"},
+      {"headline": "Ministers point to fall in investor home loans", "summary": "Labor frontbenchers highlighted the drop in investor lending during Thursday's federal politics coverage.", "source": "ABC News", "url": "https://www.abc.net.au/news/2026-11-12/federal-politics-live-blog-albanese-cop31-nov-2/107375902", "date": "2026-11-12"},
+      {"headline": "Albanese's COP31 address draws criticism", "summary": "The prime minister's speech to the climate summit was criticised.", "source": "SBS News", "url": "https://www.sbs.com.au/news/podcast-episode/albanese-slammed-for-cop31-address-morning-news-bulletin-12-november-2026/bzcisac7p", "date": "2026-11-12"},
+      {"headline": "ACT police review tasering of Aboriginal woman at Canberra bus stop", "summary": "Police are reviewing an incident in which a disabled Aboriginal woman was tasered, which has been described as shocking.", "source": "ABC News", "url": "https://www.abc.net.au/news/2026-11-12/act-police-review-shocking-tasering-of-disabled-aboriginal-woman/107376920", "date": "2026-11-12"}
+    ],
+    "ai": [
+      {"headline": "Nvidia board meets to decide Jensen Huang's future", "summary": "The board's meeting on the CEO's fate ran into the evening as it weighs the fallout from his reported affair.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-affair-employee.html", "date": "2026-11-11", "also": [{"name": "The Hill", "url": "https://thehill.com/policy/technology/6212083-nvidia-hired-former-us-attorney/"}]},
+      {"headline": "Huang scandal prompts resignation calls and tighter China chip export push", "summary": "Some in Washington are calling for the Nvidia CEO to step down and moving to restrict AI chip sales to China.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-congress-resign-ai-chips.html", "date": "2026-11-11"},
+      {"headline": "Anthropic opens a retail share offer in Australia ahead of its IPO", "summary": "The AI company is letting Australian retail investors take part in its upcoming listing.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/anthopic-australian-retail-ipo-offering-.html", "date": "2026-11-11"}
+    ],
+    "tech": [
+      {"headline": "Nvidia shares drop 8% as investors await word on Huang", "summary": "The stock fell sharply amid reports of a second affair involving the CEO.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html", "date": "2026-11-12"},
+      {"headline": "Ukraine warns of new disruptions to SpaceX's Starshield service", "summary": "Kyiv flagged fresh problems with the military satellite network as US envoys arrived in Moscow for talks.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/12/starlink-starshield-ukraine-restrictions-spacex.html", "date": "2026-11-12"},
+      {"headline": "Investors shift to defensive stocks in tech selloff", "summary": "Money moved out of technology shares and into safer sectors as markets turned cautious.", "source": "CNBC", "url": "https://www.cnbc.com/2026/11/11/tech-selloff-defensive-pivot.html", "date": "2026-11-11"}
+    ],
+    "world": [
+      {"headline": "Russia-Ukraine talks produce a prisoner exchange", "summary": "The US-brokered negotiations yielded a swap of prisoners as European leaders gathered in Dublin.", "source": "Euronews", "url": "https://www.euronews.com/2026/11/12/europe-today-ukraine-talks-yield-prisoner-swap-as-european-leaders-meet-in-dublin", "date": "2026-11-12", "also": [{"name": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6037558/russia-ukraine-talks"}]},
+      {"headline": "Israeli strike on Gaza hospital kills six, health officials say", "summary": "Local health authorities reported six deaths in the strike on a hospital.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6038339/israeli-strike-gaza-hospital", "date": "2026-11-12"},
+      {"headline": "Aid groups urge Israel to let shelters into Gaza", "summary": "Humanitarian organisations say an emergency in Gaza requires shelter materials to be allowed in.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6035686/aid-groups-call-on-israel-to-allow-shelters-in-gaza-amid-a-humanitarian-emergency", "date": "2026-11-12"},
+      {"headline": "COP31 leaders pressed to toughen climate action", "summary": "Leaders at the UN climate summit in Turkey were urged to take stronger steps against warming.", "source": "NPR", "url": "https://www.npr.org/2026/11/12/nx-s1-6036805/leaders-at-the-u-n-climate-summit-urged-to-get-tougher-on-global-warming", "date": "2026-11-12"}
+    ],
+    "aus-cricket": [
+      {"headline": "Konstas capitalises on South Australian errors to press Test case", "summary": "Sam Konstas made the most of missed chances on day two of NSW's Shield match against South Australia.", "source": "cricket.com.au", "url": "https://www.cricket.com.au/news/4607970/nsw-v-south-australia-sheffield-shield-round-four-day-two-highlights-scores-moments-report-weatherald-abbott-konstas-patterson-davies", "date": "2026-11-12"},
+      {"headline": "Handscomb ends century drought for Victoria at the MCG", "summary": "Peter Handscomb scored a hundred on a flat pitch on day one against Western Australia.", "source": "cricket.com.au", "url": "https://www.cricket.com.au/news/4607695/victoria-v-western-australia-sheffield-shield-round-four-day-one-highlights-scores-moments-report-handscomb", "date": "2026-11-11"}
+    ],
+    "warriors": [
+      {"headline": "Rockets end Warriors' eight-game streak, 115-108", "summary": "Yaxel Lendeborg had a 25-point double-double in Houston; Golden State visits San Antonio on Friday.", "source": "NBA.com", "url": "https://www.nba.com/warriors/news/gameday-recap-20261111", "date": "2026-11-11", "also": [{"name": "ESPN", "url": "https://www.espn.com/nba/recap/_/gameId/401909974"}]},
+      {"headline": "Curry leaves with abdominal injury, set for MRI", "summary": "Stephen Curry exited the Rockets game and the team's concern level is reported to be high.", "source": "ESPN", "url": "https://www.espn.com/nba/story/_/id/50458218/curry-exits-vs-rockets-ruled-abdominal-soreness", "date": "2026-11-11"}
+    ]
+  }
+}
