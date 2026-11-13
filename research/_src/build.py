@@ -142,6 +142,21 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
   <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
 </header>
 <a class="cta" href="/research/map/"><span><span class="cta-title">Knowledge map</span><span class="label">Every entry and how the ideas connect</span></span><span class="cta-go">Open the map &rarr;</span></a>"""]
+    toc = []
+    for t in cfg["themes"]:
+        n_t = sum(len(s["primary"]) for s in t["subtopics"])
+        sub_links = "".join(
+            f'<li><a href="#sub-{e(s["n"])}"><span class="n">{e(s["n"])}</span>{e(s["title"])}</a></li>'
+            for s in t["subtopics"]
+        )
+        toc.append(
+            f'<li style="--c:{t["color"]}"><a class="toc-theme" href="#theme-{e(t["n"])}"><span class="swatch"></span><span>{e(t["n"])}. {e(t["title"])} <span class="count">{n_t}</span></span></a>'
+            f'<ol class="toc-subs">{sub_links}</ol></li>'
+        )
+    parts.append(
+        '<nav class="toc" id="contents" aria-label="Contents"><h2 class="label">Contents</h2>'
+        f'<ol class="toc-themes">{"".join(toc)}<li><a class="toc-theme" href="#all-entries"><span>All entries <span class="count">{len(entries)}</span></span></a></li></ol></nav>'
+    )
     for t in cfg["themes"]:
         subs = []
         for s in t["subtopics"]:
@@ -158,14 +173,14 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
                 for a in s["also"]
             )
             subs.append(
-                f'<div class="subtopic"><h3><span class="n">{e(s["n"])}</span>{e(s["title"])}</h3>'
+                f'<div class="subtopic" id="sub-{e(s["n"])}"><h3><span class="n">{e(s["n"])}</span>{e(s["title"])}</h3>'
                 + (f'<ol class="rows">{"".join(rows)}</ol>' if rows else "")
                 + (f'<ul class="also">{also}</ul>' if also else "")
                 + "</div>"
             )
         parts.append(
             f'<section class="theme" id="theme-{e(t["n"])}" style="--c:{t["color"]}"><header><h2><span class="swatch"></span>{e(t["n"])}. {e(t["title"])}</h2>'
-            f'<p class="lede">{e(t["lede"])}</p></header>{"".join(subs)}</section>'
+            f'<p class="lede">{e(t["lede"])}</p></header>{"".join(subs)}<a class="to-top label" href="#contents">&uarr; Back to contents</a></section>'
         )
     reg = "".join(
         f'<tr><td>{e(x["id"])}</td><td><a href="/research/{x["slug"]}/">{e(x["title"])}</a></td>'
@@ -173,7 +188,7 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
         for x in sorted(entries.values(), key=lambda v: v["id"], reverse=True)
     )
     parts.append(
-        '<section class="theme"><header><h2>All entries</h2></header><div class="table-scroll"><table class="registry">'
+        '<section class="theme" id="all-entries"><header><h2>All entries</h2></header><div class="table-scroll"><table class="registry">'
         '<thead><tr><th>ID</th><th>Title</th><th class="hide-sm">Filed under</th><th class="hide-sm">Added</th></tr></thead>'
         f"<tbody>{reg}</tbody></table></div></section>"
     )
