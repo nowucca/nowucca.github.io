@@ -163,6 +163,10 @@
       {
        "id": "R051",
        "why": "server-side prefix caching is what turns a stable-first prompt into cheaper prefill; hit rate is a workload property"
+      },
+      {
+       "id": "R068",
+       "why": "switching models mid-chat is a full cache miss; hand off through a written brief in a new chat instead"
       }
      ]
     },
@@ -430,7 +434,8 @@
      "primary": [
       "R004",
       "R018",
-      "R036"
+      "R036",
+      "R068"
      ],
      "also": [
       {
@@ -1959,6 +1964,25 @@
    ],
    "summary": "594B/17B-active MoE, text and image in, variable effort, 1M context with compaction past the 256K training length. Pre-trained 8.4T tokens natively in NVFP4 on GB300 NVL72; one RL run of 1,075 steps and 17M+ rollouts; coding RL across multiple harnesses with an agentic grader that scores approach, not just tests. Vendor numbers: AA Intelligence Index 31, DeepSWE 72.1%, SWE-Bench Pro v2 Hard 86.3%, faster gains under fine-tuning than peer open models, misbehavior 14.9 vs 66.8 for Inkling. Stated limits: verbose, weak tool choice in codebases with many skills, chat formatting, no audio. Served by a dozen providers, so test provider variance.",
    "file": "entries/inkling-2-small.html"
+  },
+  {
+   "id": "R068",
+   "slug": "plan-expensive-handoff-cheap",
+   "title": "Plan on the expensive model, hand off to the cheap one: Hassid's Fable-to-Opus brief",
+   "by": "Ruben Hassid's post and newsletter \"Prompt 5.2.\", 2026-11-13",
+   "source": "https://www.linkedin.com/in/ruben-hassid/",
+   "published": "2026-11-13",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/5RR4z6R192rbXBarNBpM31",
+   "tags": [
+    "harness-config",
+    "prompting",
+    "prompt-caching",
+    "inference-cost",
+    "handoff"
+   ],
+   "summary": "Plan the whole job on Fable 5.2, then hand execution to Opus 5.5 in a new chat via a written brief, because caches are model-scoped (switching mid-chat re-reads the history cold) and the second model cannot see the first one's thinking. The handoff template: goal with \"done when\" checks, next step, decisions with reasons and rejected options, facts, done, ask-me-first approvals, open items, checklist, and executor rules (read every relevant file first, keep going instead of offering to continue, don't reopen decisions, end with a recap). Context compaction by hand, with a schema. Caveats: lossy by design, executor improvises on unplanned questions, \"keep going\" raises the cost of wrong turns, newsletter misreads the Remote Labor Index as head-to-head wins over humans.",
+   "file": "entries/plan-expensive-handoff-cheap.html"
   }
  ],
  "edges": [
@@ -2945,6 +2969,30 @@
    "b": "R064",
    "strength": "medium",
    "why": "Inkling's stated weakness is picking the right skill in large catalogs, which SkillEvaluator measures"
+  },
+  {
+   "a": "R068",
+   "b": "R018",
+   "strength": "strong",
+   "why": "Both are from Hassid; R018 says don't switch models mid-chat, and R068 gives the structured handoff that replaces switching"
+  },
+  {
+   "a": "R068",
+   "b": "R004",
+   "strength": "medium",
+   "why": "Both are Hassid's harness advice: keep setup minimal and move work between chats deliberately"
+  },
+  {
+   "a": "R068",
+   "b": "R017",
+   "strength": "medium",
+   "why": "Both separate a deep-context author from a fresh-context reader, passing only a written artifact between them"
+  },
+  {
+   "a": "R068",
+   "b": "R050",
+   "strength": "weak",
+   "why": "Both name approval gates up front so an agent knows when to stop and ask a human"
   }
  ]
 }
