@@ -51,7 +51,8 @@
      "primary": [
       "R024",
       "R063",
-      "R066"
+      "R066",
+      "R069"
      ],
      "also": [
       {
@@ -167,6 +168,14 @@
       {
        "id": "R068",
        "why": "switching models mid-chat is a full cache miss; hand off through a written brief in a new chat instead"
+      },
+      {
+       "id": "R071",
+       "why": "progressive tool discovery through four meta-tools, response projection to named fields, and tool output written to files instead of context"
+      },
+      {
+       "id": "R069",
+       "why": "a small decision model as a cheap per-step critic in place of a frontier LLM judge"
       }
      ]
     },
@@ -249,6 +258,10 @@
       {
        "id": "R053",
        "why": "gate fetch-and-execute commands outside the model: a crawled-web poison fires on ordinary paths from the user's own machine, so input scrubbing can't help"
+      },
+      {
+       "id": "R071",
+       "why": "a gateway as the control point for agent tool access: registry, per-tool policy by caller type, redaction and audit"
       }
      ]
     },
@@ -257,7 +270,8 @@
      "title": "Inference providers and serving reliability",
      "primary": [
       "R027",
-      "R051"
+      "R051",
+      "R072"
      ],
      "also": []
     },
@@ -268,7 +282,12 @@
       "R033",
       "R053"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R073",
+       "why": "SkillSpector extends supply-chain scanning from weights to agent skills"
+      }
+     ]
     },
     {
      "n": "2.6",
@@ -366,8 +385,20 @@
       {
        "id": "R058",
        "why": "PR review as one play in a lifecycle: REVIEW.md passes for bugs, security and compliance against spec.md and plan.md, nits capped, a human code owner still approves"
+      },
+      {
+       "id": "R073",
+       "why": "security-specialized reviewers: Claude Code Security Review on each PR, Codex Security and Cloudflare's audit skill on whole repos"
       }
      ]
+    },
+    {
+     "n": "3.6",
+     "title": "Security scanning for AI-written code",
+     "primary": [
+      "R073"
+     ],
+     "also": []
     }
    ]
   },
@@ -583,7 +614,8 @@
      "title": "Evaluation data for agents",
      "primary": [
       "R029",
-      "R064"
+      "R064",
+      "R070"
      ],
      "also": [
       {
@@ -601,6 +633,10 @@
       {
        "id": "R066",
        "why": "don't accept a config change because the eval went up; control the false-acceptance rate across rounds"
+      },
+      {
+       "id": "R069",
+       "why": "a judge sees the whole trajectory and scores each step; a model too weak to act can still grade"
       }
      ]
     },
@@ -610,7 +646,8 @@
      "primary": [
       "R034",
       "R049",
-      "R062"
+      "R062",
+      "R071"
      ],
      "also": [
       {
@@ -1983,6 +2020,95 @@
    ],
    "summary": "Plan the whole job on Fable 5.2, then hand execution to Opus 5.5 in a new chat via a written brief, because caches are model-scoped (switching mid-chat re-reads the history cold) and the second model cannot see the first one's thinking. The handoff template: goal with \"done when\" checks, next step, decisions with reasons and rejected options, facts, done, ask-me-first approvals, open items, checklist, and executor rules (read every relevant file first, keep going instead of offering to continue, don't reopen decisions, end with a recap). Context compaction by hand, with a schema. Caveats: lossy by design, executor improvises on unplanned questions, \"keep going\" raises the cost of wrong turns, newsletter misreads the Remote Labor Index as head-to-head wins over humans.",
    "file": "entries/plan-expensive-handoff-cheap.html"
+  },
+  {
+   "id": "R069",
+   "slug": "decision-models-actor-judge-teacher",
+   "title": "Actor, judge or teacher: decision models are better critics than agents",
+   "by": "Liu, Zhu, Wang et al., Zhejiang University and Baidu, arXiv 2611.17167, 12 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527019207994019841/",
+   "published": "2026-11-12",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/HTRC621bWzznDfQbBAisZi",
+   "tags": [
+    "self-improving-agents",
+    "decision-models",
+    "evals",
+    "inference-cost"
+   ],
+   "summary": "Decision models (typed outputs, a probability per option) tested as actor, judge and RL teacher on ALFWorld and WebShop. As actors, all six models (three decision models, three general LLMs) chase an easier subgoal before the prerequisite one; as judges with the full trajectory, the same models credit the skipped steps. \"Did this action help?\" separates useful from useless actions; \"will the task succeed?\" does not. As the GRPO teacher, JEV lifts a Qwen2.5-1.5B policy from 72.8% to 82.9% (ALFWorld) and 56.8% to 71.4% (WebShop). Hindsight judging beats acting; a weak actor can be a good critic. Caveats: two text environments, one teacher, small policy.",
+   "file": "entries/decision-models-actor-judge-teacher.html"
+  },
+  {
+   "id": "R070",
+   "slug": "synthcorp-data-agent-benchmarks",
+   "title": "SynthCorp: benchmarks for data agents generated from a simulated company",
+   "by": "Zhang, Garg, Lai et al. incl. Alon Halevy, arXiv 2611.14765, 10 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527019207830450176/",
+   "published": "2026-11-10",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/R2iT6hFiVNF25Xx3QetKi3",
+   "tags": [
+    "evals",
+    "agent-reliability"
+   ],
+   "summary": "Simulates business events (routine and disruptions) on a virtual calendar to materialize a consistent data estate (relational DBs, document store, data catalog), logs every operation, and derives gold programs from the log; candidate queries are audited against causal provenance, so no manual labels. First release: seven estates (up to 1K tables), 256 tasks, five domains; separates data-context settings and model tiers; multi-event composite tasks still break SOTA agents. Benchmarks not yet released.",
+   "file": "entries/synthcorp-data-agent-benchmarks.html"
+  },
+  {
+   "id": "R071",
+   "slug": "uber-mcp-gateway",
+   "title": "Uber's MCP Gateway: turning 10,000 services into agent tools",
+   "by": "Uber Engineering blog, 1 Oct 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526926257901641728/",
+   "published": "2026-10-01",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/BLjdsjXKTxYQD7SmHLaw1x",
+   "tags": [
+    "agents-at-scale",
+    "mcp-gateway",
+    "agent-auth",
+    "context-engineering",
+    "agent-platforms"
+   ],
+   "summary": "Registry (control plane) plus proxy gateway (data plane). AutoCrawler, a Cadence workflow on the IDL registry, generates virtual MCP servers and tools from Protobuf/Thrift with LLM-written descriptions; the gateway translates JSON to HTTP, gRPC or TChannel. Tool-level authorization by caller type (human, service, agent) and built-in PII redaction. Context controls: Omni MCP (discover_server, discover_tools, get_tool_schema, invoke_tool), GraphQL-like response projection, and Code Mode via the aifx CLI writing results to files (now the default for coding agents). 800+ servers, 5,000+ tools. No latency or quality numbers.",
+   "file": "entries/uber-mcp-gateway.html"
+  },
+  {
+   "id": "R072",
+   "slug": "llama-cpp-1-0",
+   "title": "llama.cpp 1.0: a semver promise for local inference",
+   "by": "Hugging Face blog by Bevenius, Gerganov and Noyan, 13 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7527012169515687937/",
+   "published": "2026-11-13",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/GvhwHvLFvoqKexd9Ebgc1a",
+   "tags": [
+    "llm-serving",
+    "local-inference",
+    "open-weights"
+   ],
+   "summary": "llama.cpp and ggml reach v1.0.0 with semantic versioning on the public C headers (API/ABI breaks bump major); packaged for Docker, Debian, Homebrew, conda-forge, MacPorts, Winget and an XCFramework; 150+ architecture variants, runtime-loadable backends; Llama desktop apps for macOS and Windows. Maintainers say they use LLMs in development but keep control of the architecture. A stability release with no performance numbers.",
+   "file": "entries/llama-cpp-1-0.html"
+  },
+  {
+   "id": "R073",
+   "slug": "twelve-repos-securing-ai-code",
+   "title": "Twelve open-source repos for securing AI-written code",
+   "by": "Stanislav Beliaev's post",
+   "source": "https://www.linkedin.com/posts/stasbel_best-12-github-repos-to-secure-your-ai-generated-share-7527015621663035392-npoh/",
+   "published": "2026-11-13",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/EiS4Z4KQP1qHnbet62NJ32",
+   "tags": [
+    "appsec",
+    "ai-built-software",
+    "code-review",
+    "agent-skills",
+    "model-supply-chain"
+   ],
+   "summary": "A layered list: rules and LLM review at PR time (Semgrep, Claude Code Security Review), whole-repo agent audits (Cloudflare's skill, Codex Security), exploit-proving pentest agents against the running app (Strix), known-vuln and infra scanners (Nuclei, Trivy), secrets (TruffleHog), malware (ClamAV), skill scanning (SkillSpector), LLM-app red-teaming (PyRIT) and anti-AI-reverse-engineering (BLA). The agent-native tools converge: a fresh verifier tries to disprove each finding, confirmation needs a source trace or a working exploit, a coverage ledger separates clean from unexamined, and repeat runs are additive (Cloudflare: one run finds about half). Gaps: authorization (BOLA) bugs, runtime detection; Anthropic's action is not hardened against prompt injection.",
+   "file": "entries/twelve-repos-securing-ai-code.html"
   }
  ],
  "edges": [
@@ -2993,6 +3119,72 @@
    "b": "R050",
    "strength": "weak",
    "why": "Both name approval gates up front so an agent knows when to stop and ask a human"
+  },
+  {
+   "a": "R069",
+   "b": "R032",
+   "strength": "strong",
+   "why": "R032 moves closed-choice steps from an LLM to a decision model as the actor; R069 finds decision models act poorly on long horizons but judge and teach well, so the better slot may be the critic."
+  },
+  {
+   "a": "R069",
+   "b": "R066",
+   "strength": "strong",
+   "why": "Both are about trusting a signal used to improve an agent; R066 gates accepted changes statistically, R069 supplies a per-step reward from hindsight judging."
+  },
+  {
+   "a": "R070",
+   "b": "R029",
+   "strength": "strong",
+   "why": "Both build synthetic enterprises to evaluate assistants; R029 fills a tenant for Copilot, R070 simulates the business events that produce the data and gets gold answers from the log."
+  },
+  {
+   "a": "R071",
+   "b": "R062",
+   "strength": "strong",
+   "why": "R062 is OAuth for one remote MCP server; R071 centralizes authorization, redaction and audit for 800+ servers in a gateway."
+  },
+  {
+   "a": "R071",
+   "b": "R054",
+   "strength": "strong",
+   "why": "R054 counts MCP adoption across harnesses; R071 shows a large company making a CLI plus files, not in-context MCP schemas, the default for coding agents."
+  },
+  {
+   "a": "R072",
+   "b": "R067",
+   "strength": "strong",
+   "why": "R067 ships open weights; R072 is the engine most local runtimes use to run them, now with a stable API."
+  },
+  {
+   "a": "R073",
+   "b": "R052",
+   "strength": "strong",
+   "why": "R052 is a general hybrid AI code reviewer; R073's Claude Code Security Review and Codex Security are the security-specialized form, with the same diff-aware scoping."
+  },
+  {
+   "a": "R073",
+   "b": "R064",
+   "strength": "strong",
+   "why": "Both from NVIDIA's Verified Skills pipeline; SkillEvaluator asks whether a skill helps, SkillSpector whether it is safe to install."
+  },
+  {
+   "a": "R073",
+   "b": "R017",
+   "strength": "strong",
+   "why": "Cloudflare's audit gives each finding to a fresh verifier told to disprove it, the Goldfish zero-context reviewer applied to vulnerabilities."
+  },
+  {
+   "a": "R073",
+   "b": "R033",
+   "strength": "strong",
+   "why": "R033 checks model weights for tampering; SkillSpector does the same job for skills."
+  },
+  {
+   "a": "R073",
+   "b": "R058",
+   "strength": "strong",
+   "why": "R058's PR play includes a security pass; R073 lists the tools that implement it."
   }
  ]
 }

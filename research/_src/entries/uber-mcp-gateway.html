@@ -1,0 +1,23 @@
+<p><strong>Sources:</strong> Alok Srivastava, Deepanshu Mehndiratta and Gaurav Gill, <a href="https://www.uber.com/us/en/blog/designing-mcp-gateway/">Designing MCP Gateway: Uber's MCP Management Platform</a>, Uber Engineering blog, 1 Oct 2026. Surfaced by Rohit Jain on LinkedIn, 2026-11-13, who also points to Uber's talk "How Uber runs 60,000 AI agent tasks per week" and the post "Solving the Identity Crisis for AI Agents". The 60,000 weekly executions and 10,000 services figures come from that post and talk; the 800 servers and 5,000 tools figures are in the blog.</p>
+<h2 id="the-problem">The problem</h2>
+<p>Early MCP use at Uber was team by team. Integrations were duplicated, tools were hard to find, and there were no shared security guarantees. Pointing every agent at every service directly would not scale for security or upkeep.</p>
+<h2 id="architecture">Architecture</h2>
+<p>Two parts:</p>
+<ul><li><p><strong>Control plane: the MCP Registry.</strong> A catalog of MCP servers and tools, from no-code wrappers over existing APIs to native MCP servers. It is the single source of truth for what exists and who may use it.</p></li><li><p><strong>Data plane: the Proxy Gateway.</strong> Receives MCP calls from agents and executes them against the back end.</p></li></ul>
+<h3 id="discovery-autocrawler">Discovery: AutoCrawler</h3>
+<p>A scheduled Cadence workflow watches Uber's IDL registry and service signals for new services, APIs and schema changes. For each Protobuf or Thrift service it:</p>
+<ol><li><p>Creates or updates a <strong>virtual MCP server</strong> for the service.</p></li><li><p>Parses the IDL to get methods, request and response schemas, and doc comments.</p></li><li><p><strong>Uses an LLM to write tool descriptions</strong>, then registers the tools.</p></li></ol>
+<p>Native MCP servers and third-party MCP servers are registered alongside, and teams can author and enable tools in a UI.</p>
+<h3 id="execution">Execution</h3>
+<p>For IDL-backed tools the gateway keeps an in-memory map to the downstream endpoint. It converts the JSON payload to Protobuf or Thrift, calls the service over HTTP, gRPC or TChannel, and translates the reply back to MCP.</p>
+<h3 id="security">Security</h3>
+<ul><li><p><strong>Authorization at tool granularity</strong>, through Uber's access-control system. Policies are set per server with optional per-tool overrides, and apply by caller type: human, service or agent.</p></li><li><p><strong>Built-in redaction</strong> of PII and sensitive data from tool responses.</p></li><li><p>Calls are recorded.</p></li></ul>
+<h2 id="fixing-context-load">Fixing context load</h2>
+<p>MCP has no cross-server search, and wiring hundreds of servers into an agent would fill its context. Three mechanisms address this:</p>
+<ul><li><p><strong>Omni MCP:</strong> one proxy server with four tools, <code>discover_server</code>, <code>discover_tools</code>, <code>get_tool_schema</code> and <code>invoke_tool</code>. The agent finds servers and tools incrementally instead of loading every schema up front.</p></li><li><p><strong>Response projection:</strong> a GraphQL-like field added to each tool's request schema. The model names the nested fields it needs, and the gateway trims the response to those fields.</p></li><li><p><strong>Code Mode:</strong> coding agents call tools through <code>aifx</code>, Uber's CLI (<code>aifx mcp list</code>, <code>search</code>, <code>call</code>), without installing any MCP server, and write results to files they grep. <strong>This is now the company default for MCP use in coding agents.</strong></p></li></ul>
+<h2 id="scale">Scale</h2>
+<p>The blog reports <strong>over 800 MCP servers and over 5,000 tools</strong> on the gateway.</p>
+<h2 id="what-to-take-from-it">What to take from it</h2>
+<ul><li><p><strong>Existing APIs are the fastest source of tools.</strong> Generating tools from IDLs, with LLM-written descriptions, beats asking teams to build MCP servers.</p></li><li><p><strong>MCP is the interface, not the platform.</strong> Discovery, authorization, redaction and audit still have to be built, and a gateway is where they go.</p></li><li><p><strong>Progressive discovery and output trimming are context controls.</strong> Four meta-tools plus field projection keep the agent's context small at any catalog size.</p></li><li><p><strong>For coding agents, a CLI plus files beat in-context tool schemas.</strong> Uber made that the default.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>A vendor engineering blog: no numbers on latency, error rates, or how good the LLM-written tool descriptions are.</p></li><li><p>Tool-level policy depends on knowing which caller is which. The identity post Uber links covers that.</p></li></ul>

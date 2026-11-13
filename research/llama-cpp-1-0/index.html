@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>llama.cpp 1.0: a semver promise for local inference · Research</title>
+<meta name="description" content="llama.cpp and ggml reach v1.0.0 with semantic versioning on the public C headers (API/ABI breaks bump major); packaged for Docker, Debian, Homebrew, conda-forge, MacPorts, Winget and an XCFramework; 150+ architecture variants, runtime-loadable backends; Llama desktop apps for macOS and Windows. Maintainers say they use LLMs in development but keep control of the architecture. A stability release with no performance numbers.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R072 · Infrastructure for agents at scale › Inference providers and serving reliability</span>
+  <h1>llama.cpp 1.0: a semver promise for local inference</h1>
+  <div class="entry-meta"><span>Hugging Face blog by Bevenius, Gerganov and Noyan, 13 Nov 2026</span><span>Published 2026-11-13</span><span>Summarized 2026-11-13</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7527012169515687937/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">llm-serving</span><span class="tag">local-inference</span><span class="tag">open-weights</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> Daniel Bevenius, Georgi Gerganov and Merve Noyan, <a href="https://huggingface.co/blog/ggml-org/llama-cpp-v1">llama.cpp v1.0.0: A stronger foundation for the local AI ecosystem</a>, Hugging Face blog, 13 Nov 2026; <a href="https://llama.app/">Llama desktop apps</a>. Surfaced by Merve Noyan and Clem Delangue on LinkedIn, 2026-11-13.</p>
+<h2 id="what-shipped">What shipped</h2>
+<ul><li><p><strong>llama.cpp v1.0.0</strong> (<code>libllama</code>) and <strong>ggml v1.0.0</strong> (<code>libggml</code>), the C/C++ inference library and the tensor library under it, about three and a half years after the project started.</p></li><li><p><strong>Llama desktop apps</strong> for macOS and Windows from the llama.cpp team and Hugging Face, so people can run local models in a few clicks.</p></li></ul>
+<p>This is a stability release more than a feature release.</p>
+<h2 id="the-versioning-promise">The versioning promise</h2>
+<p>From 1.0 on, both libraries follow semantic versioning on their public C headers in <code>include/</code>:</p>
+<div class="table-scroll"><table><thead><tr><th>Change</th><th>Bump</th></tr></thead><tbody><tr><td>Breaking change to the public C API</td><td>Major</td></tr><tr><td>Backward-compatible feature, backend update, model support or API addition</td><td>Minor</td></tr><tr><td>Bug fix with no API change</td><td>Patch</td></tr></tbody></table></div>
+<p>API and ABI breaks now show up as major-version bumps. That matters because many downstream apps embed llama.cpp, and until now they tracked a fast-moving API by commit.</p>
+<h2 id="distribution-and-coverage">Distribution and coverage</h2>
+<ul><li><p>Packages through pre-release artifacts (Linux, macOS, Windows, Android, iOS), Docker, Debian, Homebrew, conda-forge, MacPorts, Winget and an XCFramework for Apple platforms.</p></li><li><p>More than <strong>150 model architecture variants</strong> and the mainstream speculative-decoding methods. Backends are dynamic libraries that can be loaded at runtime.</p></li><li><p>CI runs on Hugging Face Buckets and Jobs, with self-hosted runners donated by NVIDIA, AMD, Qualcomm, Arm, IBM and Intel.</p></li></ul>
+<h2 id="a-note-on-ai-in-the-projects-own-development">A note on AI in the project's own development</h2>
+<p>The maintainers say they use LLMs in development "thoughtfully", but that keeping a high-quality codebase, <strong>staying in control of the architecture</strong> and understanding the implementation stay their top priorities, and they are investing in CI to keep up with the faster pace.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p><strong>Local inference is now a dependency you can pin.</strong> For anyone embedding a local model (offline agents, private data, edge devices), a stable C API with semver makes upgrades a normal dependency bump.</p></li><li><p><strong>The desktop apps compete with Ollama and LM Studio</strong> for the "run a model on my laptop" user, from the team that owns the engine underneath most of them.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>The post has no performance numbers or changelog of what changed in 1.0 itself.</p></li><li><p>Semver covers the public C headers only. Model-file formats, server flags and the HTTP server's behavior are not stated to be covered.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/inkling-2-small/">Inkling 2 Small: an open-weight 594B MoE built for agent loops and fine-tuning</a><span class="label">R067 · Infrastructure for agents at scale</span><span class="why">R067 ships open weights; R072 is the engine most local runtimes use to run them, now with a stable API.</span></li></ul><p><a href="/research/map/#R072">See R072 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

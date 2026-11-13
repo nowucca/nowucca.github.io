@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Actor, judge or teacher: decision models are better critics than agents · Research</title>
+<meta name="description" content="Decision models (typed outputs, a probability per option) tested as actor, judge and RL teacher on ALFWorld and WebShop. As actors, all six models (three decision models, three general LLMs) chase an easier subgoal before the prerequisite one; as judges with the full trajectory, the same models credit the skipped steps. &quot;Did this action help?&quot; separates useful from useless actions; &quot;will the task succeed?&quot; does not. As the GRPO teacher, JEV lifts a Qwen2.5-1.5B policy from 72.8% to 82.9% (ALFWorld) and 56.8% to 71.4% (WebShop). Hindsight judging beats acting; a weak actor can be a good critic. Caveats: two text environments, one teacher, small policy.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R069 · Agent architecture › Self-improvement and learning loops</span>
+  <h1>Actor, judge or teacher: decision models are better critics than agents</h1>
+  <div class="entry-meta"><span>Liu, Zhu, Wang et al., Zhejiang University and Baidu, arXiv 2611.17167, 12 Nov 2026</span><span>Published 2026-11-12</span><span>Summarized 2026-11-13</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:share:7527019207994019841/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">self-improving-agents</span><span class="tag">decision-models</span><span class="tag">evals</span><span class="tag">inference-cost</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> Liu, Zhu, Wang, Li, Chen, Qiu, Qu, Lu, Xiao and Shen (Zhejiang University and Baidu), <a href="https://arxiv.org/abs/2611.17167">Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents</a>, arXiv 2611.17167, 12 Nov 2026; <a href="https://github.com/ZJU-REAL/decision-agents">code</a>. Surfaced by Elvis Saravia (DAIR.AI) on LinkedIn, 2026-11-13. Numbers are the authors' own.</p>
+<h2 id="the-question">The question</h2>
+<p>A <strong>decision model</strong> answers with a typed output, such as a probability for each option, instead of free text. One model can therefore play three roles in an agent system:</p>
+<ul><li><p><strong>Actor:</strong> choose the next action.</p></li><li><p><strong>Judge:</strong> score actions that were already taken.</p></li><li><p><strong>Teacher:</strong> score every action so a policy can be trained with reinforcement learning.</p></li></ul>
+<p>Earlier work mostly tested decision models as actors and rated them by how well they acted. This paper asks whether a model that acts badly can still judge and teach well.</p>
+<h2 id="what-they-did">What they did</h2>
+<ul><li><p>Compared <strong>three decision models and three general LLMs</strong> as actors and as judges on ALFWorld (household tasks).</p></li><li><p>Used one decision model, <strong>JEV</strong>, as the teacher for a Qwen2.5-1.5B policy trained with GRPO on ALFWorld and WebShop.</p></li></ul>
+<h2 id="findings">Findings</h2>
+<ol><li><p><strong>All six fail the same way as actors.</strong> Each went for an easier subgoal before the one that had to come first.</p></li><li><p><strong>The same models judge that mistake correctly.</strong> Shown the whole trajectory, they gave credit to the steps toward the subgoal they had skipped while acting.</p></li><li><p><strong>The question matters.</strong> Asking "did this action help?" separates useful actions from useless ones. Asking "will the task succeed?" does not.</p></li><li><p><strong>A poor actor can be a good teacher.</strong> As the GRPO teacher, JEV raised the policy from 72.8% to 82.9% success on ALFWorld and from 56.8% to 71.4% on WebShop, including on tasks JEV rarely completes when acting.</p></li></ol>
+<p>The authors' explanation: judging after the episode ends sees the consequences that acting would have had to predict.</p>
+<h2 id="why-it-matters-for-agent-builders">Why it matters for agent builders</h2>
+<ul><li><p><strong>Use small typed models as critics, not as the agent.</strong> A cheap model that outputs a distribution over "helped / didn't help" per step is a usable reward or review signal even when it can't do the task.</p></li><li><p><strong>Give the judge the whole trajectory.</strong> Hindsight is what makes the judging work. A step-by-step judge without the outcome loses the advantage.</p></li><li><p><strong>Ask about the step, not the task.</strong> Per-action credit questions beat outcome predictions as a training signal.</p></li><li><p><strong>The same split applies outside RL.</strong> Reviewing a finished agent run step by step (which tool calls helped, which were wasted) is the judge role, and the paper says it can be done by a model weaker than the one that ran.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>Two text environments (ALFWorld, WebShop) and a 1.5B policy. Whether the gap between acting and judging holds for coding agents or larger policies is untested here.</p></li><li><p>Only one decision model was used as the teacher.</p></li><li><p>The paper doesn't tell you how often the judge's credit is wrong on individual steps, which matters if you use it for review rather than averaged training signal.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t1)"><a class="to" href="/research/strands-decider/">Strands Decider: a decision model replaces an LLM for ticket labeling</a><span class="label">R032 · Agent architecture</span><span class="why">R032 moves closed-choice steps from an LLM to a decision model as the actor; R069 finds decision models act poorly on long horizons but judge and teach well, so the better slot may be the critic.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/trust-self-improvement-gate/">TRUST: a statistical acceptance gate for self-improving agent harnesses</a><span class="label">R066 · Agent architecture</span><span class="why">Both are about trusting a signal used to improve an agent; R066 gates accepted changes statistically, R069 supplies a per-step reward from hindsight judging.</span></li></ul><p><a href="/research/map/#R069">See R069 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

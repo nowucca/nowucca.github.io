@@ -1,0 +1,16 @@
+<p><strong>Sources:</strong> Daniel Bevenius, Georgi Gerganov and Merve Noyan, <a href="https://huggingface.co/blog/ggml-org/llama-cpp-v1">llama.cpp v1.0.0: A stronger foundation for the local AI ecosystem</a>, Hugging Face blog, 13 Nov 2026; <a href="https://llama.app/">Llama desktop apps</a>. Surfaced by Merve Noyan and Clem Delangue on LinkedIn, 2026-11-13.</p>
+<h2 id="what-shipped">What shipped</h2>
+<ul><li><p><strong>llama.cpp v1.0.0</strong> (<code>libllama</code>) and <strong>ggml v1.0.0</strong> (<code>libggml</code>), the C/C++ inference library and the tensor library under it, about three and a half years after the project started.</p></li><li><p><strong>Llama desktop apps</strong> for macOS and Windows from the llama.cpp team and Hugging Face, so people can run local models in a few clicks.</p></li></ul>
+<p>This is a stability release more than a feature release.</p>
+<h2 id="the-versioning-promise">The versioning promise</h2>
+<p>From 1.0 on, both libraries follow semantic versioning on their public C headers in <code>include/</code>:</p>
+<table><thead><tr><th>Change</th><th>Bump</th></tr></thead><tbody><tr><td>Breaking change to the public C API</td><td>Major</td></tr><tr><td>Backward-compatible feature, backend update, model support or API addition</td><td>Minor</td></tr><tr><td>Bug fix with no API change</td><td>Patch</td></tr></tbody></table>
+<p>API and ABI breaks now show up as major-version bumps. That matters because many downstream apps embed llama.cpp, and until now they tracked a fast-moving API by commit.</p>
+<h2 id="distribution-and-coverage">Distribution and coverage</h2>
+<ul><li><p>Packages through pre-release artifacts (Linux, macOS, Windows, Android, iOS), Docker, Debian, Homebrew, conda-forge, MacPorts, Winget and an XCFramework for Apple platforms.</p></li><li><p>More than <strong>150 model architecture variants</strong> and the mainstream speculative-decoding methods. Backends are dynamic libraries that can be loaded at runtime.</p></li><li><p>CI runs on Hugging Face Buckets and Jobs, with self-hosted runners donated by NVIDIA, AMD, Qualcomm, Arm, IBM and Intel.</p></li></ul>
+<h2 id="a-note-on-ai-in-the-projects-own-development">A note on AI in the project's own development</h2>
+<p>The maintainers say they use LLMs in development "thoughtfully", but that keeping a high-quality codebase, <strong>staying in control of the architecture</strong> and understanding the implementation stay their top priorities, and they are investing in CI to keep up with the faster pace.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p><strong>Local inference is now a dependency you can pin.</strong> For anyone embedding a local model (offline agents, private data, edge devices), a stable C API with semver makes upgrades a normal dependency bump.</p></li><li><p><strong>The desktop apps compete with Ollama and LM Studio</strong> for the "run a model on my laptop" user, from the team that owns the engine underneath most of them.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>The post has no performance numbers or changelog of what changed in 1.0 itself.</p></li><li><p>Semver covers the public C headers only. Model-file formats, server flags and the HTTP server's behavior are not stated to be covered.</p></li></ul>
