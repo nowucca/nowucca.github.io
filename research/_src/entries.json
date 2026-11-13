@@ -270,7 +270,8 @@
      "n": "2.6",
      "title": "Frontier model releases",
      "primary": [
-      "R060"
+      "R060",
+      "R067"
      ],
      "also": []
     }
@@ -1940,6 +1941,24 @@
    ],
    "summary": "Greedy gates (keep a harness update if validation score rises) are fooled by sample noise and validation reuse: 45.59% of accepted updates were worse. TRUST defines a false evolution rate (share of accepted updates causing unacceptable loss) and controls it under a budget across the whole run, FDR-style, using a noninferiority test, overlap correction for reused eval data, e-values, and per-round error-budget allocation guided by an LLM reading the loop history. Proves the FER bound and a lower bound on final gain. HotpotQA, DROP, APPS with DeepSeek-V4-Flash and Qwen-3.8-Flash: bad acceptances 2.78%, higher final scores than conservative statistical gates. Caveats: more eval samples per decision, margin is a policy choice, short-horizon benchmarks, LLM inside the gate.",
    "file": "entries/trust-self-improvement-gate.html"
+  },
+  {
+   "id": "R067",
+   "slug": "inkling-2-small",
+   "title": "Inkling 2 Small: an open-weight 594B MoE built for agent loops and fine-tuning",
+   "by": "Thinking Machines Lab, 5 Nov 2026",
+   "source": "https://www.linkedin.com/company/ollama/",
+   "published": "2026-11-05",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/RLSRxBwT7WjT2opMdWReNe",
+   "tags": [
+    "model-releases",
+    "open-weights",
+    "agent-harness",
+    "reinforcement-learning"
+   ],
+   "summary": "594B/17B-active MoE, text and image in, variable effort, 1M context with compaction past the 256K training length. Pre-trained 8.4T tokens natively in NVFP4 on GB300 NVL72; one RL run of 1,075 steps and 17M+ rollouts; coding RL across multiple harnesses with an agentic grader that scores approach, not just tests. Vendor numbers: AA Intelligence Index 31, DeepSWE 72.1%, SWE-Bench Pro v2 Hard 86.3%, faster gains under fine-tuning than peer open models, misbehavior 14.9 vs 66.8 for Inkling. Stated limits: verbose, weak tool choice in codebases with many skills, chat formatting, no audio. Served by a dozen providers, so test provider variance.",
+   "file": "entries/inkling-2-small.html"
   }
  ],
  "edges": [
@@ -2902,6 +2921,30 @@
    "b": "R039",
    "strength": "strong",
    "why": "R039 says measure the noise floor before claiming a gain; R066 turns that into an acceptance test with a run-wide error budget."
+  },
+  {
+   "a": "R067",
+   "b": "R060",
+   "strength": "strong",
+   "why": "Both are November 2026 frontier model releases built for agent execution loops"
+  },
+  {
+   "a": "R067",
+   "b": "R027",
+   "strength": "medium",
+   "why": "Inkling 2 Small runs on a dozen providers, and the tool-call index shows tool-call validity varies by provider"
+  },
+  {
+   "a": "R067",
+   "b": "R063",
+   "strength": "medium",
+   "why": "Both report large single training runs and how the run was managed"
+  },
+  {
+   "a": "R067",
+   "b": "R064",
+   "strength": "medium",
+   "why": "Inkling's stated weakness is picking the right skill in large catalogs, which SkillEvaluator measures"
   }
  ]
 }
