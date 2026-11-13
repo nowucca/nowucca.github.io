@@ -50,7 +50,8 @@
      "title": "Self-improvement and learning loops",
      "primary": [
       "R024",
-      "R063"
+      "R063",
+      "R066"
      ],
      "also": [
       {
@@ -180,6 +181,10 @@
       {
        "id": "R054",
        "why": "eleven production coding harnesses: sub-agents mostly in-process; recommendation to stay single-agent until parallelism clearly pays"
+      },
+      {
+       "id": "R065",
+       "why": "narrow agents in a fixed pipeline passing inspectable artifacts, with a human approval gate between design and build"
       }
      ]
     }
@@ -434,6 +439,10 @@
       {
        "id": "R005",
        "why": "four rings built outside-in; approval prompts only for irreversible actions; harness bets expire, re-audit quarterly"
+      },
+      {
+       "id": "R064",
+       "why": "benchmark each skill with and without it after every model upgrade; delete what shows no lift"
       }
      ]
     }
@@ -567,7 +576,8 @@
      "n": "6.3",
      "title": "Evaluation data for agents",
      "primary": [
-      "R029"
+      "R029",
+      "R064"
      ],
      "also": [
       {
@@ -581,6 +591,10 @@
       {
        "id": "R052",
        "why": "AACR-Bench: 200 real PRs, 1,505 engineer-labelled review issues, scored on precision, recall, time and tokens"
+      },
+      {
+       "id": "R066",
+       "why": "don't accept a config change because the eval went up; control the false-acceptance rate across rounds"
       }
      ]
     },
@@ -645,7 +659,8 @@
      "n": "7.1",
      "title": "Learning, advice and public-good deployment",
      "primary": [
-      "R012"
+      "R012",
+      "R065"
      ],
      "also": [
       {
@@ -773,7 +788,12 @@
      "primary": [
       "R056"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R065",
+       "why": "an open tool for educators to author AI-run simulations; teach it as a worked example of an expert-in-the-loop agent pipeline"
+      }
+     ]
     }
    ]
   }
@@ -1866,6 +1886,60 @@
    ],
    "summary": "Claims the first detailed account of RSI over a whole from-scratch pre-training run: the unrepeatable run is decomposed into smaller loops that can close (proxy runs, ablations, checkpoint evals). Result: 801-30B-A3B-Base MoE, 11.8T tokens, three months, new team; beats Qwen3-30B-A3B and Nemotron-3.5-Lightning, trails Qwen3.5-35B-A3B; with 6B-token SFT only, best average on four agentic benchmarks. Base model and SFT data released. Caveats: proxy validity, no no-RSI counterfactual in abstract, benchmark choice.",
    "file": "entries/no-second-run-rsi-pretraining.html"
+  },
+  {
+   "id": "R064",
+   "slug": "nvidia-skillevaluator",
+   "title": "SkillEvaluator: measure whether an agent skill helps, then delete the ones that don't",
+   "by": "André Lindenberg's post on NVIDIA/SkillEvaluator, Apache-2.0, ~800 stars per the post",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7526751121378435074/",
+   "published": "2026-08-20",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/LKQrPsMwLjF9zb9xERgPAU",
+   "tags": [
+    "evals",
+    "agent-skills",
+    "harness-config",
+    "benchmarks"
+   ],
+   "summary": "Treats a skill as an executable artifact in three independent tiers: validation (quality score, SkillSpector and Gitleaks scans, optional LLM rubric), catalog-wide deduplication by embeddings, and live paired runs of Claude Code, Codex and other agents with and without the skill under the same model, sandbox (Harbor) and grader. The paper's Skill Lift: on 145 skills, static and LLM-judge scores barely agree (ρ=0.14); across 947 paired cases from 58 production skills and four harnesses, mean composite lift 0.213 (outcome-only 0.180), positive in 72.8% of cases, with gains mostly in discovery, routing and workflow following. CI templates gate changed skills per PR; missing scanners report INCOMPLETE rather than pass. Caveats: vendor tool and paper, one autopilot case per skill is thin, negatives only if authored, composite mixes process and outcome, no per-skill noise floor, cost of live runs at catalog scale.",
+   "file": "entries/nvidia-skillevaluator.html"
+  },
+  {
+   "id": "R065",
+   "slug": "wharton-primer-simulations",
+   "title": "Primer: teacher-authored AI simulations through a gated multi-agent pipeline",
+   "by": "Ethan Mollick's post on Wharton Generative AI Labs' open-source release, 2026-11-12",
+   "source": "https://www.linkedin.com/in/emollick/",
+   "published": "2026-11-12",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/ByqnXRzNu89MWwuahpWTgU",
+   "tags": [
+    "education",
+    "multi-agent",
+    "human-oversight",
+    "educational-simulations"
+   ],
+   "summary": "An educator describes a lesson in a one-question-at-a-time interview; a Design Agent writes a design document (objectives, scenario flow, characters, stakes, adaptation logic) that the educator reviews and approves before anything is built; then a Casting Director, image agent and Experience Builder produce a playable simulation. At runtime a mentor, a practice counterpart (Roleplay or Teachback) and a feedback coach run in sequence, each with an in-world character and an instructional layer that tracks evidence; educators get per-student and aggregate reports. Backward design enforced by stage order, pedagogy written into agent instructions, a runnable-paper prompt to rebuild it. Caveats: not evaluated in classrooms or reviewed for student-privacy law; \"model-agnostic\" but default deploy needs OpenAI Realtime and Google OAuth; no published failure rates for roleplay drift or answer leaking.",
+   "file": "entries/wharton-primer-simulations.html"
+  },
+  {
+   "id": "R066",
+   "slug": "trust-self-improvement-gate",
+   "title": "TRUST: a statistical acceptance gate for self-improving agent harnesses",
+   "by": "Gao, Qi and Cui, arXiv 2611.10787, stat.ML, 7 Nov 2026",
+   "source": "https://www.linkedin.com/company/dair-ai/",
+   "published": "2026-11-07",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/MPHQmB3C5wQC9fujSpzvfx",
+   "tags": [
+    "self-improving-agents",
+    "evals",
+    "agent-reliability",
+    "test-oracles"
+   ],
+   "summary": "Greedy gates (keep a harness update if validation score rises) are fooled by sample noise and validation reuse: 45.59% of accepted updates were worse. TRUST defines a false evolution rate (share of accepted updates causing unacceptable loss) and controls it under a budget across the whole run, FDR-style, using a noninferiority test, overlap correction for reused eval data, e-values, and per-round error-budget allocation guided by an LLM reading the loop history. Proves the FER bound and a lower bound on final gain. HotpotQA, DROP, APPS with DeepSeek-V4-Flash and Qwen-3.8-Flash: bad acceptances 2.78%, higher final scores than conservative statistical gates. Caveats: more eval samples per decision, margin is a policy choice, short-horizon benchmarks, LLM inside the gate.",
+   "file": "entries/trust-self-improvement-gate.html"
   }
  ],
  "edges": [
@@ -2786,6 +2860,48 @@
    "b": "R024",
    "strength": "strong",
    "why": "Both close loops inside a training run that cannot be repeated whole; R024 tunes throughput, R063 the run's research decisions."
+  },
+  {
+   "a": "R064",
+   "b": "R004",
+   "strength": "strong",
+   "why": "R004 says wipe old skills after a model upgrade; R064 gives the measurement that decides which ones to wipe."
+  },
+  {
+   "a": "R064",
+   "b": "R058",
+   "strength": "strong",
+   "why": "R058 says regression-test skills in CI; R064 is a ready-made tool for exactly that, with paired with/without runs."
+  },
+  {
+   "a": "R064",
+   "b": "R044",
+   "strength": "strong",
+   "why": "Both distrust prose skills; R044 hardens them into state machines, R064 keeps prose but demands measured lift."
+  },
+  {
+   "a": "R065",
+   "b": "R012",
+   "strength": "strong",
+   "why": "R012 says tutor-style AI use builds skill; R065 is a tool that builds that kind of use into the activity, with the educator setting the structure."
+  },
+  {
+   "a": "R065",
+   "b": "R017",
+   "strength": "strong",
+   "why": "Both put a reviewed design document between conversation and build; R017 reviews it with fresh-context agents, R065 with the human expert."
+  },
+  {
+   "a": "R066",
+   "b": "R064",
+   "strength": "strong",
+   "why": "Both decide whether a harness change helps; R064 measures lift with paired runs, R066 adds error control across repeated decisions."
+  },
+  {
+   "a": "R066",
+   "b": "R039",
+   "strength": "strong",
+   "why": "R039 says measure the noise floor before claiming a gain; R066 turns that into an acceptance test with a run-wide error budget."
   }
  ]
 }

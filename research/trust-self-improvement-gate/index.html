@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TRUST: a statistical acceptance gate for self-improving agent harnesses · Research</title>
+<meta name="description" content="Greedy gates (keep a harness update if validation score rises) are fooled by sample noise and validation reuse: 45.59% of accepted updates were worse. TRUST defines a false evolution rate (share of accepted updates causing unacceptable loss) and controls it under a budget across the whole run, FDR-style, using a noninferiority test, overlap correction for reused eval data, e-values, and per-round error-budget allocation guided by an LLM reading the loop history. Proves the FER bound and a lower bound on final gain. HotpotQA, DROP, APPS with DeepSeek-V4-Flash and Qwen-3.8-Flash: bad acceptances 2.78%, higher final scores than conservative statistical gates. Caveats: more eval samples per decision, margin is a policy choice, short-horizon benchmarks, LLM inside the gate.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R066 · Agent architecture › Self-improvement and learning loops</span>
+  <h1>TRUST: a statistical acceptance gate for self-improving agent harnesses</h1>
+  <div class="entry-meta"><span>Gao, Qi and Cui, arXiv 2611.10787, stat.ML, 7 Nov 2026</span><span>Published 2026-11-07</span><span>Summarized 2026-11-13</span></div>
+  <p><a href="https://www.linkedin.com/company/dair-ai/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">self-improving-agents</span><span class="tag">evals</span><span class="tag">agent-reliability</span><span class="tag">test-oracles</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> DAIR.AI's LinkedIn post (2026-11-12); Zihe Gao, Zhengling Qi and Yifan Cui, <em>Trustworthy Recursive Self-Improvement with Statistical Guarantees</em>, <a href="https://arxiv.org/abs/2611.10787">arXiv 2611.10787</a> (stat.ML, 7 Nov 2026, 44 pages).</p>
+<h2 id="the-problem">The problem</h2>
+<p>Self-improving agents rewrite their own harness (prompts, tools, workflows) while the model stays fixed. Each round produces a candidate update, and something has to decide whether to keep it. The usual gate is greedy: keep the candidate if it beats the incumbent on a fixed validation set. That gate is fooled by two things. Finite-sample noise makes a worse update look better, and reusing the same validation set round after round lets the loop overfit to it. Accepted bad updates persist, and early gains get eaten later.</p>
+<p>The headline measurement: under a greedy gate, <strong>45.59% of accepted updates were actually worse</strong> than the incumbent. Strict statistical gates have the opposite problem. They control the chance of <em>any</em> false acceptance across all rounds, so they reject good updates and the loop stalls.</p>
+<h2 id="the-method">The method</h2>
+<p>TRUST borrows the idea of controlling the false discovery rate from multiple testing. It defines a <strong>false evolution rate (FER)</strong>: the share of accepted updates that cause an unacceptable performance loss. It then holds FER under a budget <em>q</em> across the whole run, rather than per round or as a family-wise guarantee.</p>
+<p>Per round, four pieces combine:</p>
+<ol><li><p><strong>Noninferiority test.</strong> The question is "is the candidate not unacceptably worse, with evidence of a gain", not "is the score higher". The tolerance is explicit.</p></li><li><p><strong>Overlap correction.</strong> This accounts for the evaluation data shared between rounds, which is the source of validation overfitting.</p></li><li><p><strong>E-value testing.</strong> Evidence is accumulated as e-values, which compose safely across sequential, adaptive decisions.</p></li><li><p><strong>Error-budget allocation.</strong> Each round gets a testing level drawn from the remaining FER budget, in the spirit of online FDR procedures. An LLM reads the loop's history (recent acceptances, score trends, how risky the change looks) and helps decide how much evidence this round should demand.</p></li></ol>
+<p>Under stated assumptions, the authors prove that FER stays under the budget and derive a lower bound on the final performance gain.</p>
+<h2 id="results">Results</h2>
+<p>The benchmarks are HotpotQA, DROP and APPS, run with DeepSeek-V4-Flash and Qwen-3.8-Flash.</p>
+<ul><li><p>Accepted inferior updates fall from <strong>45.59% (greedy) to 2.78%</strong> on average.</p></li><li><p>Final scores beat state-of-the-art statistical gates for self-improvement, which are more conservative. The comparison set includes a gate that uses a separate validation set and a per-round e-process gate.</p></li></ul>
+<h2 id="why-it-matters-beyond-self-improving-agents">Why it matters beyond self-improving agents</h2>
+<p>The same decision shows up whenever a team or an agent iterates on agent configuration: prompt edits, skill changes, tool descriptions, routing rules. Most pipelines accept a change if the eval number went up. This paper puts a number on how often that is wrong in a closed loop (almost half the time), and gives a principled replacement.</p>
+<h2 id="tradeoffs-and-failure-modes">Tradeoffs and failure modes</h2>
+<ul><li><p><strong>Evaluation cost.</strong> Demanding evidence means more evaluation samples per candidate. With a small validation budget, TRUST will reject more, which is the point but slows the loop.</p></li><li><p><strong>The LLM in the gate.</strong> Using a model to set how much evidence a round needs is pragmatic, but it is a learned component inside a statistical guarantee. The proof covers the budget allocation as long as the procedure's rules hold. A bad LLM judgment costs power (rejecting good updates), not validity, if implemented as described. Check this in the paper before relying on it.</p></li><li><p><strong>The tolerance is a policy choice.</strong> The noninferiority margin decides what counts as "unacceptable loss". Set it too loose and FER control means little.</p></li><li><p><strong>Benchmarks are short-horizon QA and code.</strong> Long-horizon agent tasks, with high run-to-run variance, will need more samples per decision.</p></li><li><p><strong>Assumptions.</strong> Guarantees rest on "interpretable assumptions" about the evaluation data. Distribution shift between validation and deployment is outside them.</p></li></ul>
+<h2 id="review-checklist-for-any-self-improvement-or-config-tuning-loop">Review checklist for any self-improvement or config-tuning loop</h2>
+<ol><li><p>What is the acceptance rule? If it is "score went up", expect a large share of bad acceptances.</p></li><li><p>Is the validation set reused across rounds? If so, how is overfitting to it accounted for?</p></li><li><p>Is there an explicit noninferiority margin, and who set it?</p></li><li><p>Is error controlled across the run (FER/FDR-style) or only per round?</p></li><li><p>Is there a held-out test set the loop never sees, used to report the final number?</p></li><li><p>Are rejected candidates and their evidence logged, so the gate itself can be audited?</p></li></ol>
+<h2 id="bottom-line">Bottom line</h2>
+<p>A clean framing of a problem most self-improvement and eval-driven tuning loops ignore: accepting changes on noisy evals. The false evolution rate is a useful metric to report even if you don't adopt the full procedure. The 45.59% greedy number is the figure to remember.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/nvidia-skillevaluator/">SkillEvaluator: measure whether an agent skill helps, then delete the ones that don&#x27;t</a><span class="label">R064 · Agent principles and patterns</span><span class="why">Both decide whether a harness change helps; R064 measures lift with paired runs, R066 adds error control across repeated decisions.</span></li><li style="--c:var(--t7)"><a class="to" href="/research/llm-reliability-layers/">LLM reliability layers sort answers; they don&#x27;t fix them</a><span class="label">R039 · AI&#x27;s effect on people</span><span class="why">R039 says measure the noise floor before claiming a gain; R066 turns that into an acceptance test with a run-wide error budget.</span></li></ul><p><a href="/research/map/#R066">See R066 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
