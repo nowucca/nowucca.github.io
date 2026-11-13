@@ -42,6 +42,10 @@
       {
        "id": "R036",
        "why": "Anthropic's agent-memory evals: small injected layer wins, tell the model what memory is for rather than how; a KEEP / FIX / DELETE pass as manual \"dreaming\""
+      },
+      {
+       "id": "R074",
+       "why": "a branch per agent as reviewable graph memory, merged on review; diffs priced by what changed"
       }
      ]
     },
@@ -240,7 +244,8 @@
      "primary": [
       "R021",
       "R030",
-      "R061"
+      "R061",
+      "R074"
      ],
      "also": [
       {
@@ -661,6 +666,10 @@
       {
        "id": "R050",
        "why": "a cross-agent inbox as the agent-to-human channel: questions queued with a return address, answers delivered as the next turn"
+      },
+      {
+       "id": "R074",
+       "why": "MCP tools run under the same policy action as their HTTP routes; tool hiding removed as a control"
       }
      ]
     },
@@ -781,6 +790,10 @@
       {
        "id": "R017",
        "why": "a doc-alone comprehension test by fresh reviewers: check understanding rather than supply it"
+      },
+      {
+       "id": "R075",
+       "why": "de-skilling as the person-level version: assistant-mode use feels like learning and being in the loop when it is neither"
       }
      ]
     },
@@ -789,6 +802,14 @@
      "title": "AI incidents and policy response",
      "primary": [
       "R048"
+     ],
+     "also": []
+    },
+    {
+     "n": "7.5",
+     "title": "Work, skills and meaning",
+     "primary": [
+      "R075"
      ],
      "also": []
     }
@@ -2109,6 +2130,43 @@
    ],
    "summary": "A layered list: rules and LLM review at PR time (Semgrep, Claude Code Security Review), whole-repo agent audits (Cloudflare's skill, Codex Security), exploit-proving pentest agents against the running app (Strix), known-vuln and infra scanners (Nuclei, Trivy), secrets (TruffleHog), malware (ClamAV), skill scanning (SkillSpector), LLM-app red-teaming (PyRIT) and anti-AI-reverse-engineering (BLA). The agent-native tools converge: a fresh verifier tries to disprove each finding, confirmation needs a source trace or a working exploit, a coverage ledger separates clean from unexamined, and repeat runs are additive (Cloudflare: one run finds about half). Gaps: authorization (BOLA) bugs, runtime detection; Anthropic's action is not hardened against prompt injection.",
    "file": "entries/twelve-repos-securing-ai-code.html"
+  },
+  {
+   "id": "R074",
+   "slug": "omnigraph-policy-not-tool-hiding",
+   "title": "Omnigraph 0.15: hiding an agent's write tools is not denying them",
+   "by": "André Lindenberg's post on ModernRelay/omnigraph, MIT",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527050320301101056/",
+   "published": "2026-11-09",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/NTB6hU8UXXPh7qjfhCovsf",
+   "tags": [
+    "agent-auth",
+    "graph-database",
+    "agent-memory",
+    "agents-at-scale"
+   ],
+   "summary": "An object-storage graph DB for agents (typed ontology, Git-style branches, Lance format, Cedar policy on every mutation). 0.14 hid MCP write tools behind a server flag while the same credential could write over HTTP; 0.15 drops the flags and runs each MCP tool under its HTTP route's Cedar action, so policy alone decides. Upgrade trap: agents gain every write their policy allows; give agents their own credentials and narrow policy first. Also: reads no longer wait for writes, diffs/merges cost what changed, S3 single-writer lease enforced.",
+   "file": "entries/omnigraph-policy-not-tool-hiding.html"
+  },
+  {
+   "id": "R075",
+   "slug": "mollick-craft-vs-industrialization",
+   "title": "Craft vs industrialization: Mollick on de-skilling and meaning in AI work",
+   "by": "Ethan Mollick's post on his Vox interview with Adam Clark Estes about his book Co-Existence",
+   "source": "https://www.linkedin.com/posts/emollick_i-was-interviewed-in-vox-about-my-new-book-share-7521952945559703552-k-Or/",
+   "published": "2026-11-06",
+   "added": "2026-11-13",
+   "artifact": "https://claude.ai/artifact/XxLzyqwjm18faUhFmiikGe",
+   "tags": [
+    "ai-impact",
+    "future-of-work",
+    "deskilling",
+    "human-learning",
+    "human-oversight"
+   ],
+   "summary": "AI applies industrial logic (more output) to intellectual craft such as mathematics and software: engineers who liked deciding what to build gain, those who loved writing code become \"a hand-weaver in a world of power looms.\" Agents now return hours to weeks of work; personal agents lower friction (an agent cancelled his airline wifi via customer-service chats). The defining career question is which skills to give up: assistant-mode use feels like learning and being in the loop when it is not; he delegates security scans to Codex but fears full de-skilling. Advice: \"anxious optimism\", not betting AI goes away. Caveats: promotional interview, 100x coder productivity is anecdote, no mechanism for choosing skills; a commenter notes models replace steps, not the accountable owner, so craft moves to designing where review sits. Takeaways: name the skills each role keeps unaided, tutor mode for learning, people at judgment gates, cap review load.",
+   "file": "entries/mollick-craft-vs-industrialization.html"
   }
  ],
  "edges": [
@@ -3185,6 +3243,42 @@
    "b": "R058",
    "strength": "strong",
    "why": "R058's PR play includes a security pass; R073 lists the tools that implement it."
+  },
+  {
+   "a": "R074",
+   "b": "R055",
+   "strength": "strong",
+   "why": "Both are graph stores for agents posted by Lindenberg; R055 splits MCP into read and write tools and classifies statements, R074 drops tool-level hiding and lets Cedar policy decide every call."
+  },
+  {
+   "a": "R074",
+   "b": "R071",
+   "strength": "strong",
+   "why": "Both put authorization below the MCP surface; Uber in a gateway with per-tool policy by caller type, Omnigraph in the engine so HTTP, CLI, SDK and MCP share one check."
+  },
+  {
+   "a": "R075",
+   "b": "R012",
+   "strength": "strong",
+   "why": "Mollick's de-skilling worry is R012's RCT result in the workplace: tutor-style use keeps the skill, delegated work erases it."
+  },
+  {
+   "a": "R075",
+   "b": "R037",
+   "strength": "strong",
+   "why": "Comprehension debt is de-skilling at the codebase level; both say the team no longer knows what the code does."
+  },
+  {
+   "a": "R075",
+   "b": "R058",
+   "strength": "strong",
+   "why": "If models replace steps, not owners, craft moves to the gates; R058 says where those gates sit in an AI-native SDLC."
+  },
+  {
+   "a": "R075",
+   "b": "R065",
+   "strength": "strong",
+   "why": "Same author; Primer is a tool that enforces the tutor-mode use R075 says people fail to choose."
   }
  ]
 }
