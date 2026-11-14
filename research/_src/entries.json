@@ -46,6 +46,10 @@
       {
        "id": "R074",
        "why": "a branch per agent as reviewable graph memory, merged on review; diffs priced by what changed"
+      },
+      {
+       "id": "R076",
+       "why": "a persistent code graph as cross-session agent memory: strong recall@10 on LOCOMO, weaker QA than supermemory"
       }
      ]
     },
@@ -454,8 +458,20 @@
       {
        "id": "R054",
        "why": "counter-evidence for code: none of eleven coding harnesses uses embeddings to find code; ripgrep, tree-sitter and context files instead, RAG only if it wins a held-out eval"
+      },
+      {
+       "id": "R076",
+       "why": "graph navigation over grep for code: path and dependency queries instead of reading files; savings grow with repo size"
       }
      ]
+    },
+    {
+     "n": "4.4",
+     "title": "Code knowledge graphs for agents",
+     "primary": [
+      "R076"
+     ],
+     "also": []
     }
    ]
   },
@@ -582,6 +598,10 @@
       {
        "id": "R056",
        "why": "a 20-term agent glossary for teaching; its corrections point learners at harness controls: action guardrails, permissions, idempotent resume"
+      },
+      {
+       "id": "R076",
+       "why": "a PreToolUse hook that redirects Grep/Read to an index, with a strict mode that blocks reads until it is queried"
       }
      ]
     },
@@ -2167,6 +2187,26 @@
    ],
    "summary": "AI applies industrial logic (more output) to intellectual craft such as mathematics and software: engineers who liked deciding what to build gain, those who loved writing code become \"a hand-weaver in a world of power looms.\" Agents now return hours to weeks of work; personal agents lower friction (an agent cancelled his airline wifi via customer-service chats). The defining career question is which skills to give up: assistant-mode use feels like learning and being in the loop when it is not; he delegates security scans to Codex but fears full de-skilling. Advice: \"anxious optimism\", not betting AI goes away. Caveats: promotional interview, 100x coder productivity is anecdote, no mechanism for choosing skills; a commenter notes models replace steps, not the accountable owner, so craft moves to designing where review sits. Takeaways: name the skills each role keeps unaided, tutor mode for learning, people at judgment gates, cap review load.",
    "file": "entries/mollick-craft-vs-industrialization.html"
+  },
+  {
+   "id": "R076",
+   "slug": "graphify-code-graph",
+   "title": "Graphify: a tree-sitter code graph that agents query instead of grep",
+   "by": "Sandhya Ahuja's post on Graphify-Labs/graphify, Apache-2.0",
+   "source": "https://www.linkedin.com/posts/digcreator_a-147k-star-github-repo-can-map-your-entire-activity-7527323198992969728-j0Ki",
+   "published": "2026-11-14",
+   "added": "2026-11-14",
+   "artifact": "https://claude.ai/artifact/ATUpHqazzgn9y2h6g7sGLV",
+   "tags": [
+    "code-graph",
+    "graph-database",
+    "agent-memory",
+    "context-engineering",
+    "agent-harness",
+    "harness-config"
+   ],
+   "summary": "Builds a persistent local graph of a folder: code parsed by tree-sitter (~40 languages, no LLM), audio/video via local faster-whisper, docs/PDFs/images via LLM subagents emitting JSON fragments. Every edge is EXTRACTED (1.0), INFERRED (0.95 to 0.55) or AMBIGUOUS; Leiden clustering finds subsystems without embeddings; NOTE/WHY comments and ADR citations become rationale nodes; SHA256 cache for incremental rebuilds. Queries: query (2,000-token budget, depth 2), path (rated by weakest hop), explain; MCP server, git hooks, `graphify prs` impact and merge-order risk. A Claude Code PreToolUse hook steers Grep/Read to the graph, with a strict mode that blocks reads until the graph was queried. Self-reported: LOCOMO recall@10 0.497 (mem0 0.048) but QA 45.3% vs supermemory 49.7%; LongMemEval-S ties dense RAG at 76%; 71.5x fewer tokens per query on 52 files, ~1x on 6. Caveats: \"no LLM\" holds only for code; static parse misses dynamic dispatch; memory benchmarks, not code tasks; open core (verification, cross-repo in paid cloud).",
+   "file": "entries/graphify-code-graph.html"
   }
  ],
  "edges": [
@@ -3279,6 +3319,48 @@
    "b": "R065",
    "strength": "strong",
    "why": "Same author; Primer is a tool that enforces the tutor-mode use R075 says people fail to choose."
+  },
+  {
+   "a": "R076",
+   "b": "R054",
+   "strength": "strong",
+   "why": "R054 says no code index unless it beats ripgrep plus tree-sitter on a held-out eval; Graphify is tree-sitter plus a graph, and its own ~1x result on small repos shows where it fails that bar."
+  },
+  {
+   "a": "R076",
+   "b": "R037",
+   "strength": "strong",
+   "why": "Both generate a map of a codebase; Floorplan draws it for humans, Graphify serves it to agents."
+  },
+  {
+   "a": "R076",
+   "b": "R055",
+   "strength": "strong",
+   "why": "Graphify's graph exports to graph databases; Relate is an embedded one an agent could hold it in."
+  },
+  {
+   "a": "R076",
+   "b": "R028",
+   "strength": "strong",
+   "why": "Deterministic extraction for structure, LLM only for prose, provenance on every fact or edge."
+  },
+  {
+   "a": "R076",
+   "b": "R059",
+   "strength": "strong",
+   "why": "High recall@10 but lower QA than a rival is the memory-tax pattern: structure helps find evidence, not answer."
+  },
+  {
+   "a": "R076",
+   "b": "R040",
+   "strength": "strong",
+   "why": "Both keep the evidence behind each stored link (edge labels and scores; WikiTrace's source runs)."
+  },
+  {
+   "a": "R076",
+   "b": "R010",
+   "strength": "strong",
+   "why": "Navigation over similarity, applied to code instead of long documents."
   }
  ]
 }
