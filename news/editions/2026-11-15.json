@@ -1,0 +1,264 @@
+{
+  "date": "2026-11-15",
+  "generated": "2026-11-15T07:10:00-06:00",
+  "headline": "FAA blames ground stop on telecom upgrade; Anthropic IPO nears; Nvidia investors urge Huang's return",
+  "sections": {
+    "austin": [
+      {
+        "headline": "Austinites get bluebonnet tattoos after the election",
+        "summary": "Some Austin residents marked the Democratic midterm results with bluebonnet tattoos as a show of Texas pride.",
+        "source": "KUT",
+        "url": "https://www.kut.org/life-arts/2026-11-13/austin-tx-bluebonnet-tattoos-midterm-elections-democrats-blue-wave",
+        "date": "2026-11-13"
+      },
+      {
+        "headline": "Austin weighs updates to stay an age-friendly city",
+        "summary": "City Hall is considering changes to its action plan for older residents.",
+        "source": "KUT",
+        "url": "https://www.kut.org/long-view-aging-austin-tx/2026-11-12/austin-tx-seniors-aging-age-friendly-action-plan-city-hall",
+        "date": "2026-11-12"
+      }
+    ],
+    "texas": [
+      {
+        "headline": "Dow wins approval for four advanced nuclear reactors in Texas",
+        "summary": "Regulators approved the chemical maker's plan, developed with X-energy, for four reactors at its Seadrift site.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/12/nuclear-texas-dow-x-energy-permit-reactors-seadrift/",
+        "date": "2026-11-12"
+      },
+      {
+        "headline": "Texas Democrats outline plans to regulate data centers",
+        "summary": "Incoming Democratic lawmakers described how they want to oversee the growth of AI data centers in the state.",
+        "source": "KUT",
+        "url": "https://www.kut.org/energy-environment/2026-11-12/data-centers-regulation-texas-ai-legislation-democrats",
+        "date": "2026-11-12"
+      },
+      {
+        "headline": "Texas becomes a major 2028 battleground after blue wave",
+        "summary": "The state's electoral votes are now seen as a top prize for both parties in the next presidential race.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/11/texas-2028-presidential-election-blue-wave-electoral-votes/",
+        "date": "2026-11-11"
+      }
+    ],
+    "us": [
+      {
+        "headline": "FAA blames ground stop on equipment fault during telecom upgrade",
+        "summary": "The agency said Friday's nationwide halt was caused by an equipment issue during a network upgrade, and the transportation secretary tied it to contractor work on an L3Harris system.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/14/nx-s1-6040952/faa-ground-stop-airplane-travel",
+        "date": "2026-11-14",
+        "also": [
+          {
+            "name": "CNBC",
+            "url": "https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html"
+          },
+          {
+            "name": "NPR",
+            "url": "https://www.npr.org/2026/11/14/nx-s1-6041115/faa-ground-stop-college-football-delays"
+          }
+        ]
+      },
+      {
+        "headline": "Speaker Johnson sees no need for an investigation into the ground stop",
+        "summary": "The House speaker said he does not believe a probe of the FAA halt is necessary.",
+        "source": "The Hill",
+        "url": "https://thehill.com/policy/transportation/6220851-mike-johnson-faa-ground-stop/",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "Bomb found near Illinois ethanol plant prompts evacuations",
+        "summary": "Residents near a central Illinois ethanol plant were evacuated after an explosive device was discovered.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/14/g-s1-153781/bomb-ethanol-plant-peoria-illinois-evacuations",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "Judge pauses Trump plan to redevelop Washington public golf course",
+        "summary": "A federal judge temporarily blocked the administration from closing East Potomac Park and moving ahead with the project.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/14/nx-s1-6041152/judge-trump-golf-course-blocks",
+        "date": "2026-11-14",
+        "also": [
+          {
+            "name": "The Hill",
+            "url": "https://thehill.com/regulation/court-battles/6221069-judge-blocks-east-potomac-park-closure/"
+          }
+        ]
+      },
+      {
+        "headline": "Democrat Kreiss-Tomkins wins Alaska governor's race",
+        "summary": "Jonathan Kreiss-Tomkins will replace a Republican and become the state's youngest governor.",
+        "source": "NPR",
+        "url": "https://npr.org/2026/11/14/g-s1-151719/midterms-alaska-governor-kreiss-tomkins",
+        "date": "2026-11-14",
+        "also": [
+          {
+            "name": "AP via PBS",
+            "url": "https://pbs.org/newshour/politics/alaska-voters-reject-ballot-measure-seeking-to-repeal-open-primaries-and-ranked-voting-system"
+          }
+        ]
+      },
+      {
+        "headline": "Schumer allies predict he will win over 40 votes in leadership race",
+        "summary": "Supporters expect the Democratic leader to fend off Chris Van Hollen's challenge, while Sen. Fetterman criticised the challenger.",
+        "source": "The Hill",
+        "url": "https://thehill.com/homenews/senate/6220115-senate-democrats-leadership-election-update/",
+        "date": "2026-11-14",
+        "also": [
+          {
+            "name": "The Hill",
+            "url": "https://thehill.com/homenews/campaign/6220813-fetterman-van-hollen-democrats/"
+          }
+        ]
+      }
+    ],
+    "australia": [
+      {
+        "headline": "Australia signs defence deal with the Philippines",
+        "summary": "The two countries have formalised a new defence agreement.",
+        "source": "SBS News",
+        "url": "https://www.sbs.com.au/news/podcast-episode/australia-signs-a-new-defence-deal-with-the-philippines-evening-news-bulletin-15-november-2026/wgms5m22g",
+        "date": "2026-11-15"
+      },
+      {
+        "headline": "Labor and Liberals launch Victorian election campaigns",
+        "summary": "Both major parties held campaign launches with pledges on health and youth crime as polling day nears.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-15/labor-liberal-coalition-campaign-launches-health-youth-crime/107387220",
+        "date": "2026-11-15",
+        "also": [
+          {
+            "name": "ABC News",
+            "url": "https://www.abc.net.au/news/2026-11-15/victorian-election-disillusionment-optimism-young-voters/107319232"
+          }
+        ]
+      },
+      {
+        "headline": "Protesters target proposed Adelaide Hills data centre",
+        "summary": "Residents rallied against a data centre company's plans in South Australia.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-15/ai-data-centre-quantum-dc-adelaide-hills-protest/107387568",
+        "date": "2026-11-15"
+      },
+      {
+        "headline": "Kangaroos and Jillaroos win Rugby League World Cup titles",
+        "summary": "Australia's men beat New Zealand in the final after the women's team claimed a fourth world title.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-15/rugby-league-world-cup-final-australia-new-zealand/107388030",
+        "date": "2026-11-15",
+        "also": [
+          {
+            "name": "ABC News",
+            "url": "https://www.abc.net.au/news/2026-11-15/kangaroos-jillaroos-live-rugby-league-world-cup-finals/107376474"
+          }
+        ]
+      }
+    ],
+    "ai": [
+      {
+        "headline": "Anthropic's IPO arrives as AI stocks seek a lift",
+        "summary": "The AI company's share listing, expected to begin trading Nov. 19 at a reported $70 to $78 range, is seen as a test for a shaken AI trade.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/15/anthropic-ipo-is-make-or-break-for-the-technology-industry.html",
+        "date": "2026-11-15",
+        "also": [
+          {
+            "name": "CNBC",
+            "url": "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html"
+          }
+        ]
+      },
+      {
+        "headline": "Two big Nvidia investors urge board to weigh Huang's return",
+        "summary": "In a letter, the shareholders asked directors to consider bringing back the departed chief executive.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/14/nvidia-investors-jensen-huang-return-board-letter.html",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "Commerce Department pressed over delayed Nvidia chip export controls",
+        "summary": "The department faces criticism for holding off on export restrictions covering Nvidia chips.",
+        "source": "NPR",
+        "url": "https://npr.org/2026/11/14/nx-s1-6040379/commerce-department-under-pressure-for-delaying-export-controls-on-nvidia-chips",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "OpenAI launches ChatGPT Wallet for agent purchases",
+        "summary": "The new feature lets ChatGPT's AI agents buy things on users' behalf.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/13/openai-chatgpt-wallet-dot-purchases.html",
+        "date": "2026-11-13"
+      }
+    ],
+    "tech": [
+      {
+        "headline": "SpaceX catches Starship on return to launch tower",
+        "summary": "The company caught its Starship vehicle with the tower's arms in a historic milestone for the program.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/14/g-s1-153786/spacex-successfully-catches-starship-and-makes-history",
+        "date": "2026-11-14",
+        "also": [
+          {
+            "name": "Euronews",
+            "url": "https://www.euronews.com/video/2026/11/15/watch-spacex-catches-starship-in-midair-on-return-to-launch-tower"
+          }
+        ]
+      },
+      {
+        "headline": "SpaceX plans $24 billion data center project at Starbase",
+        "summary": "The company intends to build a large data center and power plant at its South Texas site.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/10/texas-spacex-data-center-power-plant/",
+        "date": "2026-11-10"
+      }
+    ],
+    "world": [
+      {
+        "headline": "Zelenskyy warns US-floated security framework could help Putin",
+        "summary": "Ukraine's president said a proposed new European security arrangement might benefit Russia.",
+        "source": "AP via PBS",
+        "url": "https://www.pbs.org/newshour/world/zelenskyy-says-a-new-european-security-framework-floated-by-u-s-could-benefit-putin",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "Trump's shifting Iran stance leaves Middle East unsure of US path",
+        "summary": "Changing rhetoric from the president after the US elections has left the region uncertain about Washington's next steps.",
+        "source": "AP via PBS",
+        "url": "https://pbs.org/newshour/world/with-shifting-iran-rhetoric-following-u-s-elections-trump-leaves-middle-east-in-limbo-about-path-ahead",
+        "date": "2026-11-14"
+      }
+    ],
+    "aus-cricket": [
+      {
+        "headline": "England hand Australia a record ODI defeat in Adelaide",
+        "summary": "A top-order collapse led to Australia's heaviest one-day loss to England in the second match of the series.",
+        "source": "ABC Sport",
+        "url": "https://www.abc.net.au/news/2026-11-15/australia-crashes-to-record-odi-loss-to-england/107387540",
+        "date": "2026-11-15"
+      },
+      {
+        "headline": "NSW hand South Australia third straight Shield loss",
+        "summary": "New South Wales dominated to win their round-four Sheffield Shield match.",
+        "source": "cricket.com.au",
+        "url": "https://www.cricket.com.au/news/4608896/new-south-wales-south-australia-round-four-sheffield-shield-match-report-victory",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "Queensland beat Tasmania for first Shield win of the season",
+        "summary": "The Bulls completed victory on day four, and a Tasmanian fast bowler was called into the ODI squad.",
+        "source": "cricket.com.au",
+        "url": "https://www.cricket.com.au/news/4608895/queensland-secures-first-sheffield-shield-victory-over-tasmania-on-day-four-match-report",
+        "date": "2026-11-14"
+      },
+      {
+        "headline": "Brisbane Heat crush Hobart Hurricanes by 10 wickets",
+        "summary": "The Heat cruised to an emphatic WBBL win in Hobart.",
+        "source": "ABC Sport",
+        "url": "https://www.abc.net.au/news/2026-11-14/hobart-hurricanes-hammered-by-brisbane-heat-in-wbbl/107386442",
+        "date": "2026-11-14"
+      }
+    ]
+  }
+}
