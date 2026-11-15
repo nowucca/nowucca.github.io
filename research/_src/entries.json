@@ -192,7 +192,8 @@
      "title": "Multi-agent coordination",
      "primary": [
       "R019",
-      "R031"
+      "R031",
+      "R077"
      ],
      "also": [
       {
@@ -631,6 +632,10 @@
       {
        "id": "R052",
        "why": "code owns coverage, comment placement and rule choice in AI code review; the model only reasons about defects"
+      },
+      {
+       "id": "R077",
+       "why": "citation verification and the accept-or-revert refinement rule live in code; models only discover, draft and critique"
       }
      ]
     },
@@ -793,6 +798,10 @@
       {
        "id": "R058",
        "why": "human attention moves to gates: product owner on intent and spec, engineer on plan, code owner on PR, release manager at production"
+      },
+      {
+       "id": "R077",
+       "why": "a reader audit of auto-written papers: numbers traced to the source, but comparative claims overstated and varying run to run"
       }
      ]
     },
@@ -2207,6 +2216,26 @@
    ],
    "summary": "Builds a persistent local graph of a folder: code parsed by tree-sitter (~40 languages, no LLM), audio/video via local faster-whisper, docs/PDFs/images via LLM subagents emitting JSON fragments. Every edge is EXTRACTED (1.0), INFERRED (0.95 to 0.55) or AMBIGUOUS; Leiden clustering finds subsystems without embeddings; NOTE/WHY comments and ADR citations become rationale nodes; SHA256 cache for incremental rebuilds. Queries: query (2,000-token budget, depth 2), path (rated by weakest hop), explain; MCP server, git hooks, `graphify prs` impact and merge-order risk. A Claude Code PreToolUse hook steers Grep/Read to the graph, with a strict mode that blocks reads until the graph was queried. Self-reported: LOCOMO recall@10 0.497 (mem0 0.048) but QA 45.3% vs supermemory 49.7%; LongMemEval-S ties dense RAG at 76%; 71.5x fewer tokens per query on 52 files, ~1x on 6. Caveats: \"no LLM\" holds only for code; static parse misses dynamic dispatch; memory benchmarks, not code tasks; open core (verification, cross-repo in paid cloud).",
    "file": "entries/graphify-code-graph.html"
+  },
+  {
+   "id": "R077",
+   "slug": "paperorchestra-paper-writing-agents",
+   "title": "PaperOrchestra: a five-agent pipeline that writes research papers from logs",
+   "by": "Charly Wargnier's post on google-research/paper-orchestra",
+   "source": "https://www.linkedin.com/posts/charlywargnier_google-just-automated-research-papers-share-7527402522781614080-vEwJ/",
+   "published": "2026-11-14",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/SPSTTTyP5Bea2y9RzFtc3C",
+   "tags": [
+    "multi-agent",
+    "research-automation",
+    "agent-workflows",
+    "evals",
+    "fact-checking",
+    "human-oversight"
+   ],
+   "summary": "Idea summary + experiment log + LaTeX template in, manuscript out. Outline agent emits one JSON plan; plotting (PaperBanana, VLM-critic redraws) and literature review (Gemini-3-Flash search discovery, Semantic Scholar verification in code, date cutoff, dedup by paper id) run in parallel; section writing cites only verified papers (prompt demands 90% of the pool); refinement keeps a revision only if the judge score rises, else reverts and stops. ~60-70 calls, 39.6 min per paper. PaperWritingBench (200 CVPR/ICLR 2025 papers reverse-engineered into logs): beats AI Scientist-v2 and single-call baselines (human margins 14-38% overall, 50-68% lit review), simulated acceptance 81-84% vs 86-94% for the real papers; LLM-judge vs human agreement only 0.65 overall and 0.09-0.28 on lit review. A reader audit in the comments found numbers faithful but prose overstated, the source paper cited as prior art in its own rewrite (date-only filter), and an irrelevant quota-driven citation.",
+   "file": "entries/paperorchestra-paper-writing-agents.html"
   }
  ],
  "edges": [
@@ -3361,6 +3390,48 @@
    "b": "R010",
    "strength": "strong",
    "why": "Navigation over similarity, applied to code instead of long documents."
+  },
+  {
+   "a": "R077",
+   "b": "R065",
+   "strength": "strong",
+   "why": "Both are fixed pipelines of narrow agents passing inspectable artifacts; Primer has a human approval gate, PaperOrchestra has none and lists that as a limitation."
+  },
+  {
+   "a": "R077",
+   "b": "R019",
+   "strength": "strong",
+   "why": "Designed roles and an orchestrator vs learned coordination with no roles."
+  },
+  {
+   "a": "R077",
+   "b": "R031",
+   "strength": "strong",
+   "why": "Specialist agents per kind of expertise, each evaluated mostly by its builders."
+  },
+  {
+   "a": "R077",
+   "b": "R016",
+   "strength": "strong",
+   "why": "The faithfulness audit shows where human checking still pays: claim strength, not numbers."
+  },
+  {
+   "a": "R077",
+   "b": "R039",
+   "strength": "strong",
+   "why": "A score-gated refinement loop sorts drafts by its judge; with weak judge-human agreement, it cannot make the judge right."
+  },
+  {
+   "a": "R077",
+   "b": "R029",
+   "strength": "strong",
+   "why": "Both build evaluation inputs synthetically (logs reverse-engineered from published papers; generated tenants)."
+  },
+  {
+   "a": "R077",
+   "b": "R052",
+   "strength": "strong",
+   "why": "Code for selection and verification, models for judgment, in citation checking as in code review."
   }
  ]
 }

@@ -1,0 +1,9 @@
+flowchart LR
+  IN[Idea + experiment log + template] --> O[1 Outline agent]
+  O --> P[2 Plotting agent]
+  O --> L[3 Literature review agent]
+  P --> W[4 Section writing agent]
+  L --> W
+  W --> R[5 Content refinement]
+  R -->|score rose: keep, iterate| R
+  R -->|score fell or limit: revert, stop| OUT[LaTeX + PDF]
