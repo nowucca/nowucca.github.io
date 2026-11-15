@@ -51,6 +51,10 @@
       {
        "id": "R076",
        "why": "a persistent code graph as cross-session agent memory: strong recall@10 on LOCOMO, weaker QA than supermemory"
+      },
+      {
+       "id": "R084",
+       "why": "memory for an always-on agent: user instructions, user notes, past messages and per-task progress files on durable storage; pointers for anything owned elsewhere"
       }
      ]
     },
@@ -277,6 +281,10 @@
       {
        "id": "R071",
        "why": "a gateway as the control point for agent tool access: registry, per-tool policy by caller type, redaction and audit"
+      },
+      {
+       "id": "R084",
+       "why": "a per-user event inbox, single-worker lease, timer store and outbox around the agent loop; runs resume sessions on reply events"
       }
      ]
     },
@@ -735,7 +743,8 @@
      "n": "6.5",
      "title": "Long-running agents and durable execution",
      "primary": [
-      "R035"
+      "R035",
+      "R084"
      ],
      "also": [
       {
@@ -2401,6 +2410,26 @@
    ],
    "summary": "Types (working, episodic, semantic, procedural, long-term), mechanisms (summarization, retrieval, consolidation, compression, graph memory) and control (decay, forgetting, conflict resolution, provenance, isolation). Repo fit graded per pattern: 6 good, 3 partial, 5 weak, 1 wrong (DSPy for conflict resolution); AutoGen is in maintenance mode, Letta's source moved to letta-code, and Graphiti is the better link for conflict resolution and provenance. Corrections: the groups mix content type, lifetime (working = context window), data model (graph) and write-path loss (summarize, consolidate, compress are one evidence-discarding decision; R059); decay and forgetting are one policy, separate from verifiable deletion; conflict resolution needs source and validity time. Trend: mem0 v3 went ADD-only with time-aware retrieval, matching R040/R057's append-only evidence. Missing: admission policy (store only verifiable facts), scope and expiry at write time (the one-off address test), memory poisoning, gain/regression vs no-memory and raw-history baselines, cost, multi-writer merge, user correction. Adds a five-stage pipeline (admit, record, derive, retrieve, govern) with a test per stage, failure modes and a review checklist. Caveat: a course funnel; 400+ agents claim unverified.",
    "file": "entries/fifteen-agent-memory-building-blocks.html"
+  },
+  {
+   "id": "R084",
+   "slug": "building-always-on-agents",
+   "title": "Building always-on agents: five primitives for agents that sleep, wake and act",
+   "by": "Anthropic guide by William Hu, claude.com, 2026-11-13; surfaced by Elvis Saravia",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527793692238155776/",
+   "published": "2026-11-13",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/P4nkLNYMQg5Ntrmww5XVpt",
+   "tags": [
+    "agent-architecture",
+    "durable-execution",
+    "agent-memory",
+    "human-oversight",
+    "agent-auth",
+    "async-review"
+   ],
+   "summary": "\"Always-on\" is a UX: the agent sleeps and wakes for short runs (event in, act, persist, sleep) inside new or resumed sessions. Five primitives, each its own durable store or service: an event inbox (every trigger appends a row; fast-ack handler; inbox as source of truth so crashed runs retry; one worker per inbox; batch pending events; dedupe by source ID), timers (follow-ups vs schedules in a separate store; a polling scheduler enqueues events, never starts runs), memory (files on durable storage; only what can't be looked up again, pointers otherwise; user instructions, user notes, past messages, per-task progress; optional dreaming), permissions (credential-injecting proxy outside the agent, classifier-backed auto mode, deferred tool calls that end the run and resume when the answer arrives as an inbox event) and an outbox (send / nothing / defer; a table plus dispatcher for pacing and retries; eval message volume, start quiet). Cites 78% lower cost per solved task on a long-horizon coding benchmark across model generations. Doc adds failure modes (double runs, retry side effects, timer storms, approval limbo, unattended injection) and a 12-point review checklist.",
+   "file": "entries/building-always-on-agents.html"
   }
  ],
  "edges": [
@@ -3861,6 +3890,48 @@
    "b": "R074",
    "strength": "strong",
    "why": "Typed memory with a source per fact, graph memory as an embedded store, and a branch per agent as a multi-writer merge rule."
+  },
+  {
+   "a": "R084",
+   "b": "R035",
+   "strength": "strong",
+   "why": "Both treat waits as stored timers that hold no compute; R035 uses a workflow engine, R084 a polled timer table feeding an inbox."
+  },
+  {
+   "a": "R084",
+   "b": "R050",
+   "strength": "strong",
+   "why": "Deferred approvals: end the turn, resume on the reply; R049 is a way to render the request as a native card."
+  },
+  {
+   "a": "R084",
+   "b": "R049",
+   "strength": "strong",
+   "why": "Deferred approvals: end the turn, resume on the reply; R049 is a way to render the request as a native card."
+  },
+  {
+   "a": "R084",
+   "b": "R002",
+   "strength": "strong",
+   "why": "What goes in the memory store; R084's rule (store only what can't be looked up again, pointers otherwise) is the cheapest answer to R059's memory tax."
+  },
+  {
+   "a": "R084",
+   "b": "R059",
+   "strength": "strong",
+   "why": "What goes in the memory store; R084's rule (store only what can't be looked up again, pointers otherwise) is the cheapest answer to R059's memory tax."
+  },
+  {
+   "a": "R084",
+   "b": "R083",
+   "strength": "strong",
+   "why": "What goes in the memory store; R084's rule (store only what can't be looked up again, pointers otherwise) is the cheapest answer to R059's memory tax."
+  },
+  {
+   "a": "R084",
+   "b": "R036",
+   "strength": "strong",
+   "why": "Small always-loaded memory index plus pruning (dreaming) passes."
   }
  ]
 }
