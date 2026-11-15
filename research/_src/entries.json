@@ -16,7 +16,8 @@
       "R040",
       "R055",
       "R057",
-      "R059"
+      "R059",
+      "R083"
      ],
      "also": [
       {
@@ -207,6 +208,10 @@
       {
        "id": "R065",
        "why": "narrow agents in a fixed pipeline passing inspectable artifacts, with a human approval gate between design and build"
+      },
+      {
+       "id": "R079",
+       "why": "a 15-pattern catalog regrouped: orchestrator, supervisor and hierarchy are one delegation tree; split agents only for context isolation or parallel breadth"
       }
      ]
     }
@@ -306,7 +311,12 @@
       "R060",
       "R067"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R078",
+       "why": "vendor launch-post scores are three in four first benchmark crossings; only 24% of saturation holds on independent runs"
+      }
+     ]
     }
    ]
   },
@@ -368,7 +378,9 @@
      "n": "3.4",
      "title": "Test oracles for agent-written code",
      "primary": [
-      "R020"
+      "R020",
+      "R080",
+      "R082"
      ],
      "also": [
       {
@@ -603,6 +615,10 @@
       {
        "id": "R076",
        "why": "a PreToolUse hook that redirects Grep/Read to an index, with a strict mode that blocks reads until it is queried"
+      },
+      {
+       "id": "R081",
+       "why": "a 177-library map of the LLM stack by layer; use it to shortlist, and prefer libraries below your control flow over ones that own it"
       }
      ]
     },
@@ -636,6 +652,14 @@
       {
        "id": "R077",
        "why": "citation verification and the accept-or-revert refinement rule live in code; models only discover, draft and critique"
+      },
+      {
+       "id": "R081",
+       "why": "a practitioner skipped agent frameworks for a sales agent and wrote the pipeline on the plain SDK so the model could not skip or loop a step"
+      },
+      {
+       "id": "R079",
+       "why": "the first design decision is whether code or the model owns control flow; pipelines and fan-out are workflows, not agent patterns"
       }
      ]
     },
@@ -645,7 +669,8 @@
      "primary": [
       "R029",
       "R064",
-      "R070"
+      "R070",
+      "R078"
      ],
      "also": [
       {
@@ -667,6 +692,10 @@
       {
        "id": "R069",
        "why": "a judge sees the whole trajectory and scores each step; a model too weak to act can still grade"
+      },
+      {
+       "id": "R080",
+       "why": "an account-free local copy of AWS as a safe environment for agents to create and break resources; trust it only as far as its published fidelity score"
       }
      ]
     },
@@ -695,6 +724,10 @@
       {
        "id": "R074",
        "why": "MCP tools run under the same policy action as their HTTP routes; tool hiding removed as a control"
+      },
+      {
+       "id": "R082",
+       "why": "one 320-tool engine served as CLI commands and MCP tools, with summary-first paged results to protect the context window"
       }
      ]
     },
@@ -722,6 +755,10 @@
       {
        "id": "R043",
        "why": "the same decode-time move for type errors in generated code"
+      },
+      {
+       "id": "R082",
+       "why": "clean-room mode as a tool allowlist that refuses inspection tools and says how to escalate; labeled honestly as policy, not sandbox"
       }
      ]
     }
@@ -802,6 +839,10 @@
       {
        "id": "R077",
        "why": "a reader audit of auto-written papers: numbers traced to the source, but comparative claims overstated and varying run to run"
+      },
+      {
+       "id": "R078",
+       "why": "measurement lags capability: public benchmarks saturate in about a year, so human and task-level evals carry the signal"
       }
      ]
     },
@@ -871,7 +912,8 @@
      "title": "Learning paths for AI engineers",
      "primary": [
       "R022",
-      "R023"
+      "R023",
+      "R081"
      ],
      "also": []
     },
@@ -879,12 +921,17 @@
      "n": "8.3",
      "title": "Teaching materials and glossaries",
      "primary": [
-      "R056"
+      "R056",
+      "R079"
      ],
      "also": [
       {
        "id": "R065",
        "why": "an open tool for educators to author AI-run simulations; teach it as a worked example of an expert-in-the-loop agent pipeline"
+      },
+      {
+       "id": "R083",
+       "why": "a 15-pattern agent-memory catalog with repo links graded for teaching use; regroup by stage, admission first"
       }
      ]
     }
@@ -2236,6 +2283,124 @@
    ],
    "summary": "Idea summary + experiment log + LaTeX template in, manuscript out. Outline agent emits one JSON plan; plotting (PaperBanana, VLM-critic redraws) and literature review (Gemini-3-Flash search discovery, Semantic Scholar verification in code, date cutoff, dedup by paper id) run in parallel; section writing cites only verified papers (prompt demands 90% of the pool); refinement keeps a revision only if the judge score rises, else reverts and stops. ~60-70 calls, 39.6 min per paper. PaperWritingBench (200 CVPR/ICLR 2025 papers reverse-engineered into logs): beats AI Scientist-v2 and single-call baselines (human margins 14-38% overall, 50-68% lit review), simulated acceptance 81-84% vs 86-94% for the real papers; LLM-judge vs human agreement only 0.65 overall and 0.09-0.28 on lit review. A reader audit in the comments found numbers faithful but prose overstated, the source paper cited as prior art in its own rewrite (date-only filter), and an irrelevant quota-driven citation.",
    "file": "entries/paperorchestra-paper-writing-agents.html"
+  },
+  {
+   "id": "R078",
+   "slug": "satbench-benchmark-saturation",
+   "title": "SatBench: how fast AI benchmarks saturate",
+   "by": "Ethan Mollick's post, 2026-11-14, and his emollick/satbench repo on Brian Zhou's Benchmark Almanac data",
+   "source": "https://www.linkedin.com/posts/emollick_ai-is-getting-better-faster-than-our-measurements-activity-7527517896500027394-bzoS",
+   "published": "2026-11-14",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/QuXnF6JnQvLX4WXThZEbqj",
+   "tags": [
+    "benchmarks",
+    "evals",
+    "benchmark-saturation",
+    "model-releases",
+    "ai-impact"
+   ],
+   "summary": "Treats the 173 benchmarks named in 10+ lab launch posts as one exam; an item is solved when the best reported score reaches 85%. 109 of 173 (63%) solved as of 14 Nov 2026: flat near 30% through 2024 while new tests arrived as fast as old ones fell, then +20 points in 12 months; the 2023 edition crossed 85% in Sep 2026. Share solved within a year of release: 17%, 30%, 43% for 2023-25 cohorts (median about 20 to 14 months); 14% of 2026 tests are born solved. Labs swap in harder tests, so the benchmarks they report stay about 45% solved; the 2023 canon (MMLU, HumanEval, GSM8K...) appears in 2 of 134 frontier launch posts in 2026. Benchmarks share one general factor (median rank correlation 0.67, 0.06 after Epoch's ECI). Contested first crossings: OpenAI 20, Google 14, Anthropic 14 (11 in 2026). Caveats the repo states: 75 of 100 first crossings are a lab's own launch-post claim, so independent-only it is 24%; a 10-mention admission lag undercounts 2026 tests (about 57% adjusted); projections (fixed set saturated mid-2028, live index about 2030) are extrapolations. Takeaways: public benchmarks last about a year; own an eval pipeline that makes new hard cases; separate claimed from measured; treat saturation as a trigger to raise the bar or retire.",
+   "file": "entries/satbench-benchmark-saturation.html"
+  },
+  {
+   "id": "R079",
+   "slug": "fifteen-agent-design-patterns",
+   "title": "15 agent design patterns, checked for teaching",
+   "by": "Maryam Miradi's LinkedIn post, 2026-11-11: an infographic of 15 patterns in three tiers, each linked to a paper",
+   "source": "https://www.linkedin.com/posts/maryammiradi_i-curated-15-crucial-ai-agent-design-patterns-activity-7526363810752970752-7y58",
+   "published": "2026-11-11",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/9LHanqLdqsXTPGUn5RozBh",
+   "tags": [
+    "teaching",
+    "agent-architecture",
+    "multi-agent",
+    "agent-workflows",
+    "human-oversight",
+    "learning-resources"
+   ],
+   "summary": "Tiers: single agent (ReAct, plan-and-execute, reflection, tool use), multi-agent (orchestrator-subagent, supervisor, hierarchical, sequential pipeline, fan-out/fan-in, MapReduce, debate) and feedback loops (evaluator-optimizer, critic-actor, self-healing retry, human in the loop). The value is the reading list (ReAct, Plan-and-Act, Reflexion, Gorilla, AutoGen, AgentOrchestra, LLMCompiler, Multiagent Debate, Self-Refine, CRITIC, a CHI 2025 plan-then-execute study); citation fit is graded per pattern (a survey stands in for two, one paper is reused twice). Corrections: five patterns are one produce-check-revise loop that differs only in what grounds the check (self, another model, a tool or test, a human), and self-review without an outside signal is unreliable; three are one delegation tree; the first split is code vs model owning control flow, not agent count; multi-agent pays for context isolation and parallel breadth, not load. Missing: routing, gated prompt chains, handoff, shared state, durable execution, action guardrails, memory. Adds a decision order, failure modes per tier, a review checklist and a 60-minute session plan. Caveat: a course funnel; the 400+ agents claim is unverified; link rather than copy the graphic.",
+   "file": "entries/fifteen-agent-design-patterns.html"
+  },
+  {
+   "id": "R080",
+   "slug": "aws-emulator",
+   "title": "AWS Emulator: a replica graded by the real service",
+   "by": "André Lindenberg's post on aws/aws-emulator, 2026-11-13; CC0-1.0, vendored crates Apache-2.0",
+   "source": "https://www.linkedin.com/posts/alindnbrg_aiagents-aws-codingagents-share-7526985945179430913-ybcj/",
+   "published": "2026-11-13",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/E5upLrQkUxNG26KG6pmVYm",
+   "tags": [
+    "test-oracles",
+    "ai-built-software",
+    "service-emulation",
+    "sandboxing",
+    "dev-infra",
+    "agents-at-scale"
+   ],
+   "summary": "AWS's local emulator of the AWS APIs (one HTTPS endpoint, server mode or in-process embedded mode for Rust tests, one crate per service driven by its Smithy model), built in 30,000+ agent commits. The method is the point: agents first corrected the test suite until real AWS passed it, then built the emulator until it passed those tests, so the real service is the oracle. Fidelity is published as data: a per-service score each release and known gaps as files in `issues/things-that-do-not-work/`. Caveats: calibration is a point in time (AWS drifts), the post doesn't say how tests were frozen during phase 2, fidelity is bounded by suite coverage, not for IAM or security, ~100 GB builds, no PRs accepted, telemetry on by default.",
+   "file": "entries/aws-emulator.html"
+  },
+  {
+   "id": "R081",
+   "slug": "llm-engineer-toolkit",
+   "title": "LLM Engineer Toolkit: a library shortlist, not a ranking",
+   "by": "Denis Bakanov's LinkedIn post on Kalyan KS's GitHub list, 2026-11-09",
+   "source": "https://www.linkedin.com/posts/dbknv_120-open-source-llm-libraries-in-one-github-activity-7525622186007719936-poAE",
+   "published": "2026-11-09",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/RfsWYBx2ZTNz6LQssvtJM1",
+   "tags": [
+    "learning-resources",
+    "library-catalogs",
+    "agent-platforms",
+    "agent-harness",
+    "deterministic-workflows"
+   ],
+   "summary": "One README sorting open-source LLM libraries by job: 177 rows (it says 120+) in 15 sections, largest app development and agents (27 each), then training and evaluation (18 each); app development split into frameworks, data prep, multi-API access, routers, memory, interface, low code and cache. Each row is a name, the project's own tagline and a link: no stars, benchmarks, maintenance status or licence, so it maps the stack's layers and gives a shortlist per layer but cannot rank. The post's sharper point: sometimes the right pick is no framework; his team wrote a sales agent on the plain OpenAI SDK so the model could not skip or loop a step. Gaps: no MCP servers or gateways, sandboxes, coding-agent harnesses, durable execution, Langfuse or Promptfoo; dated rows (OpenAI Swarm, AutoGen). Summary adds a per-layer selection pass and a review checklist. Caveat: the repo doubles as a book and newsletter funnel.",
+   "file": "entries/llm-engineer-toolkit.html"
+  },
+  {
+   "id": "R082",
+   "slug": "craft-anything",
+   "title": "Craft Anything: rebuild software, graded against the original",
+   "by": "Mayank A.'s post on storytold/craft-anything, 2026-11-13; Rust, MIT or Apache-2.0, early alpha v0.6.1; from the PhotoCraft team",
+   "source": "https://www.linkedin.com/posts/curiouslearner_the-team-behind-a-79k-star-open-source-photoshop-share-7527051180494209025-sGZP/",
+   "published": "2026-11-13",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/RqEbd5uKmecwMLC39qGZZt",
+   "tags": [
+    "test-oracles",
+    "reverse-engineering",
+    "ai-built-software",
+    "agent-protocols",
+    "agent-governance",
+    "sandboxing"
+   ],
+   "summary": "A desktop app, CLI and MCP server around a pure-Rust reverse-engineering engine (320 tools: decoders, disassembler, decompiler, optional Ghidra) driving a coding agent (Claude Code first; others via ACP, mostly unverified). Loop: Study the target (website, app, game, file), Build a new project in the requested stack, Check against the original (websites at three widths, games by their own self-test, apps by running them) and refine until Ready. The original is the oracle; findings are evidence records with confidence, coverage, limitations and an unknowns list; open questions live in an `inbox/` folder. Clean room (default) refuses tools that read code or files, explicitly a tool policy and not an OS sandbox; Deep unlocks everything. Caveats: similarity is UI fidelity, not correctness (auth, races, business rules); clean-room leakage via the agent's own shell; IP risk is the user's; installs run code; alpha, two weeks old, 33K stars.",
+   "file": "entries/craft-anything.html"
+  },
+  {
+   "id": "R083",
+   "slug": "fifteen-agent-memory-building-blocks",
+   "title": "15 building blocks of agent memory, checked",
+   "by": "Maryam Miradi's LinkedIn post, 2026-11-13: 15 memory patterns in three groups, each linked to one GitHub repo",
+   "source": "https://www.linkedin.com/posts/maryammiradi_i-curated-15-building-blocks-of-ai-agent-activity-7527106000089255936-jm0n",
+   "published": "2026-11-13",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/1h3maqVrxZVB7ATRVQwjuT",
+   "tags": [
+    "agent-memory",
+    "agent-architecture",
+    "learning-resources",
+    "agent-governance",
+    "data-privacy",
+    "teaching"
+   ],
+   "summary": "Types (working, episodic, semantic, procedural, long-term), mechanisms (summarization, retrieval, consolidation, compression, graph memory) and control (decay, forgetting, conflict resolution, provenance, isolation). Repo fit graded per pattern: 6 good, 3 partial, 5 weak, 1 wrong (DSPy for conflict resolution); AutoGen is in maintenance mode, Letta's source moved to letta-code, and Graphiti is the better link for conflict resolution and provenance. Corrections: the groups mix content type, lifetime (working = context window), data model (graph) and write-path loss (summarize, consolidate, compress are one evidence-discarding decision; R059); decay and forgetting are one policy, separate from verifiable deletion; conflict resolution needs source and validity time. Trend: mem0 v3 went ADD-only with time-aware retrieval, matching R040/R057's append-only evidence. Missing: admission policy (store only verifiable facts), scope and expiry at write time (the one-off address test), memory poisoning, gain/regression vs no-memory and raw-history baselines, cost, multi-writer merge, user correction. Adds a five-stage pipeline (admit, record, derive, retrieve, govern) with a test per stage, failure modes and a review checklist. Caveat: a course funnel; 400+ agents claim unverified.",
+   "file": "entries/fifteen-agent-memory-building-blocks.html"
   }
  ],
  "edges": [
@@ -3432,6 +3597,270 @@
    "b": "R052",
    "strength": "strong",
    "why": "Code for selection and verification, models for judgment, in citation checking as in code review."
+  },
+  {
+   "a": "R078",
+   "b": "R016",
+   "strength": "strong",
+   "why": "BrowseComp and DeepFact are cases of a benchmark measuring something other than its name; SatBench shows how fast such tests are used up."
+  },
+  {
+   "a": "R078",
+   "b": "R029",
+   "strength": "strong",
+   "why": "Synthetic tenants make fresh, private evaluation data, the answer to public-set saturation."
+  },
+  {
+   "a": "R078",
+   "b": "R070",
+   "strength": "strong",
+   "why": "SynthCorp generates benchmarks from a simulated company, so the set can be regenerated when it saturates."
+  },
+  {
+   "a": "R078",
+   "b": "R039",
+   "strength": "strong",
+   "why": "Measure the noise floor before claiming a gain; SatBench's 85% line mixes harnesses and best-of-n, which moves scores by more than that floor."
+  },
+  {
+   "a": "R078",
+   "b": "R064",
+   "strength": "strong",
+   "why": "Paired with/without runs on your own tasks, the kind of eval that a leaderboard can't saturate for you."
+  },
+  {
+   "a": "R078",
+   "b": "R052",
+   "strength": "strong",
+   "why": "AACR-Bench is a task-specific benchmark built from real engineer-labelled PRs."
+  },
+  {
+   "a": "R078",
+   "b": "R060",
+   "strength": "strong",
+   "why": "Launch posts with vendor-reported scores, the input that makes up three in four of SatBench's first crossings."
+  },
+  {
+   "a": "R078",
+   "b": "R067",
+   "strength": "strong",
+   "why": "Launch posts with vendor-reported scores, the input that makes up three in four of SatBench's first crossings."
+  },
+  {
+   "a": "R079",
+   "b": "R056",
+   "strength": "strong",
+   "why": "Two teaching graphics checked the same way; both need the correction that reflection needs an outside signal."
+  },
+  {
+   "a": "R079",
+   "b": "R015",
+   "strength": "strong",
+   "why": "Most of the catalog's \"multi-agent\" patterns are workflows where code owns control flow."
+  },
+  {
+   "a": "R079",
+   "b": "R019",
+   "strength": "strong",
+   "why": "The best-of-N single-agent baseline any of the multi-agent patterns must beat."
+  },
+  {
+   "a": "R079",
+   "b": "R054",
+   "strength": "strong",
+   "why": "Production coding harnesses mostly stay single-agent, the catalog's tier 1."
+  },
+  {
+   "a": "R079",
+   "b": "R039",
+   "strength": "strong",
+   "why": "Evaluator-optimizer loops sort by their judge; accept changes only through a gate that controls false gains."
+  },
+  {
+   "a": "R079",
+   "b": "R066",
+   "strength": "strong",
+   "why": "Evaluator-optimizer loops sort by their judge; accept changes only through a gate that controls false gains."
+  },
+  {
+   "a": "R079",
+   "b": "R069",
+   "strength": "strong",
+   "why": "Critic-actor: models judge in hindsight better than they act."
+  },
+  {
+   "a": "R079",
+   "b": "R077",
+   "strength": "strong",
+   "why": "Sequential pipelines of narrow agents in practice, with and without a human gate."
+  },
+  {
+   "a": "R079",
+   "b": "R065",
+   "strength": "strong",
+   "why": "Sequential pipelines of narrow agents in practice, with and without a human gate."
+  },
+  {
+   "a": "R079",
+   "b": "R023",
+   "strength": "strong",
+   "why": "ReAct as a 20-line loop."
+  },
+  {
+   "a": "R080",
+   "b": "R020",
+   "strength": "strong",
+   "why": "The model proposes, the harness enforces, at the scale of 30k commits, with real AWS as the enforcer."
+  },
+  {
+   "a": "R080",
+   "b": "R058",
+   "strength": "strong",
+   "why": "Protect the oracle: commit the failing test first, block test edits during the fix; the emulator's phase 2 needs the same freeze."
+  },
+  {
+   "a": "R080",
+   "b": "R024",
+   "strength": "strong",
+   "why": "InfraRSI hashes frozen files before any agent edit, the guard a commenter asked whether AWS used."
+  },
+  {
+   "a": "R080",
+   "b": "R038",
+   "strength": "strong",
+   "why": "Agent-built artifacts trusted because an external checker (real AWS, a prover) grades them."
+  },
+  {
+   "a": "R080",
+   "b": "R029",
+   "strength": "strong",
+   "why": "Two ways to give agents a safe environment to test in: a synthetic tenant and a local service replica."
+  },
+  {
+   "a": "R080",
+   "b": "R064",
+   "strength": "strong",
+   "why": "Accept a change only when a measurement says so; publish the score."
+  },
+  {
+   "a": "R080",
+   "b": "R066",
+   "strength": "strong",
+   "why": "Accept a change only when a measurement says so; publish the score."
+  },
+  {
+   "a": "R081",
+   "b": "R022",
+   "strength": "strong",
+   "why": "Learning paths for AI engineers; R081 is the library index that sits beside the reading list and the build-your-own course."
+  },
+  {
+   "a": "R081",
+   "b": "R023",
+   "strength": "strong",
+   "why": "Learning paths for AI engineers; R081 is the library index that sits beside the reading list and the build-your-own course."
+  },
+  {
+   "a": "R081",
+   "b": "R015",
+   "strength": "strong",
+   "why": "Code owns control flow when the steps are known; Bakanov's plain-SDK sales agent is a production example."
+  },
+  {
+   "a": "R081",
+   "b": "R079",
+   "strength": "strong",
+   "why": "Code owns control flow when the steps are known; Bakanov's plain-SDK sales agent is a production example."
+  },
+  {
+   "a": "R081",
+   "b": "R006",
+   "strength": "strong",
+   "why": "The harness layer (tools, sandboxes, permissions, compaction) that a 2024-shaped library list misses."
+  },
+  {
+   "a": "R081",
+   "b": "R054",
+   "strength": "strong",
+   "why": "The harness layer (tools, sandboxes, permissions, compaction) that a 2024-shaped library list misses."
+  },
+  {
+   "a": "R081",
+   "b": "R073",
+   "strength": "strong",
+   "why": "Two curated GitHub lists; both give taglines, not evidence, so selection still needs a per-candidate check."
+  },
+  {
+   "a": "R082",
+   "b": "R080",
+   "strength": "strong",
+   "why": "Both grade an agent-built replica against the real system; R080 calibrates tests on live AWS, R082 diffs a rebuilt UI or game against the running original."
+  },
+  {
+   "a": "R082",
+   "b": "R073",
+   "strength": "strong",
+   "why": "R073's coverage ledgers and R082's evidence records with coverage and unknowns are the same honesty device; R073's BLA is the defense against R082-style AI reverse engineering."
+  },
+  {
+   "a": "R082",
+   "b": "R074",
+   "strength": "strong",
+   "why": "Clean room refuses tools but is not a sandbox; R074's point that only a check below every interface is a control applies."
+  },
+  {
+   "a": "R082",
+   "b": "R052",
+   "strength": "strong",
+   "why": "Same poster (Mayank A.), both open-source agent tools with an engine plus LLM split."
+  },
+  {
+   "a": "R083",
+   "b": "R002",
+   "strength": "strong",
+   "why": "Two memory taxonomies with the same content types; R002 adds that the maintenance step is what usually goes missing, R083 adds a control group and repo links."
+  },
+  {
+   "a": "R083",
+   "b": "R040",
+   "strength": "strong",
+   "why": "Provenance done properly (lessons keep their trajectory; notes link to an append-only source log); R083's corrections recommend exactly that design."
+  },
+  {
+   "a": "R083",
+   "b": "R057",
+   "strength": "strong",
+   "why": "Provenance done properly (lessons keep their trajectory; notes link to an append-only source log); R083's corrections recommend exactly that design."
+  },
+  {
+   "a": "R083",
+   "b": "R059",
+   "strength": "strong",
+   "why": "Summarize, consolidate and compress are the steps that pay the memory tax; R059 is the baseline they must beat."
+  },
+  {
+   "a": "R083",
+   "b": "R079",
+   "strength": "strong",
+   "why": "Same author and format (15 patterns, three groups, one link each); both catalogs omit governance-side judgment."
+  },
+  {
+   "a": "R083",
+   "b": "R028",
+   "strength": "strong",
+   "why": "Typed memory with a source per fact, graph memory as an embedded store, and a branch per agent as a multi-writer merge rule."
+  },
+  {
+   "a": "R083",
+   "b": "R055",
+   "strength": "strong",
+   "why": "Typed memory with a source per fact, graph memory as an embedded store, and a branch per agent as a multi-writer merge rule."
+  },
+  {
+   "a": "R083",
+   "b": "R074",
+   "strength": "strong",
+   "why": "Typed memory with a source per fact, graph memory as an embedded store, and a branch per agent as a multi-writer merge rule."
   }
  ]
 }
