@@ -189,6 +189,10 @@
       {
        "id": "R069",
        "why": "a small decision model as a cheap per-step critic in place of a frontier LLM judge"
+      },
+      {
+       "id": "R085",
+       "why": "sticky model routing: hold a tier for a few requests after a switch so the prompt cache survives"
       }
      ]
     },
@@ -294,7 +298,8 @@
      "primary": [
       "R027",
       "R051",
-      "R072"
+      "R072",
+      "R085"
      ],
      "also": []
     },
@@ -627,6 +632,10 @@
       {
        "id": "R081",
        "why": "a 177-library map of the LLM stack by layer; use it to shortlist, and prefer libraries below your control flow over ones that own it"
+      },
+      {
+       "id": "R085",
+       "why": "a per-request model router fed by the harness's own tool-result history"
       }
      ]
     },
@@ -2430,6 +2439,25 @@
    ],
    "summary": "\"Always-on\" is a UX: the agent sleeps and wakes for short runs (event in, act, persist, sleep) inside new or resumed sessions. Five primitives, each its own durable store or service: an event inbox (every trigger appends a row; fast-ack handler; inbox as source of truth so crashed runs retry; one worker per inbox; batch pending events; dedupe by source ID), timers (follow-ups vs schedules in a separate store; a polling scheduler enqueues events, never starts runs), memory (files on durable storage; only what can't be looked up again, pointers otherwise; user instructions, user notes, past messages, per-task progress; optional dreaming), permissions (credential-injecting proxy outside the agent, classifier-backed auto mode, deferred tool calls that end the run and resume when the answer arrives as an inbox event) and an outbox (send / nothing / defer; a table plus dispatcher for pacing and retries; eval message volume, start quiet). Cites 78% lower cost per solved task on a long-horizon coding benchmark across model generations. Doc adds failure modes (double runs, retry side effects, timer storms, approval limbo, unattended injection) and a 12-point review checklist.",
    "file": "entries/building-always-on-agents.html"
+  },
+  {
+   "id": "R085",
+   "slug": "nemo-switchyard-model-routing",
+   "title": "NeMo Switchyard: route coding-agent turns on tool-result signals",
+   "by": "André Lindenberg's post on NVIDIA-NeMo/Switchyard, Apache-2.0",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527832724234067968/",
+   "published": "2026-11-15",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/Tu2SznmsHsKBNhGjoazrZP",
+   "tags": [
+    "model-routing",
+    "cost",
+    "coding-agents",
+    "prompt-caching",
+    "benchmarks"
+   ],
+   "summary": "A Rust library (libsy) embedded in a gateway or harness picks the model per request; integrations for Envoy Agent Router, LiteLLM, NeMo Relay and OpenRouter. The Stage router scores the tool-result history: error severity, spinning and exploring push to the capable model, clean writes and edits push to the efficient one; repeated failures, critical errors and compaction force capable; a 2-request hold after a switch keeps the tier (and prompt cache) sticky. Other modes: up-front LLM classifier, composite, judge-confirmed escalation that latches, advisor, prefill classifier. Vendor runs: Terminal-Bench 2.1 Stage 79.0% at $110 vs Opus 4.8 alone 77.2% at $149; DeepSWE Stage 61.4% at $466 vs Sol alone 62.8% at $721. Lesson: difficulty is observable mid-run from free tool signals better than predictable from the prompt. Caveats: vendor numbers, coding-calibrated hardcoded signal vocabulary, silent misconfiguration, experimental desktop app.",
+   "file": "entries/nemo-switchyard-model-routing.html"
   }
  ],
  "edges": [
@@ -3932,6 +3960,24 @@
    "b": "R036",
    "strength": "strong",
    "why": "Small always-loaded memory index plus pruning (dreaming) passes."
+  },
+  {
+   "a": "R085",
+   "b": "R042",
+   "strength": "strong",
+   "why": "Both route compute on checker or tool error signals during a run rather than on the task description."
+  },
+  {
+   "a": "R085",
+   "b": "R060",
+   "strength": "strong",
+   "why": "Model tiers as one system; R085 decides per turn which tier runs, R027 which provider is reliable for it."
+  },
+  {
+   "a": "R085",
+   "b": "R027",
+   "strength": "strong",
+   "why": "Model tiers as one system; R085 decides per turn which tier runs, R027 which provider is reliable for it."
   }
  ]
 }
