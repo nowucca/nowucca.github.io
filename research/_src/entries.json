@@ -215,7 +215,8 @@
      "primary": [
       "R019",
       "R031",
-      "R077"
+      "R077",
+      "R100"
      ],
      "also": [
       {
@@ -233,6 +234,10 @@
       {
        "id": "R079",
        "why": "a 15-pattern catalog regrouped: orchestrator, supervisor and hierarchy are one delegation tree; split agents only for context isolation or parallel breadth"
+      },
+      {
+       "id": "R099",
+       "why": "Amazon's multi-agent scores: planning as subtask assignment, communication, collaboration success rate; humans review coordination failures"
       }
      ]
     }
@@ -458,7 +463,12 @@
      "primary": [
       "R073"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R100",
+       "why": "a 45-agent vulnerability swarm with a shared forum, peer review and an arbiter found 266 OSS bugs vs 21 for parallel agents; mostly extra coverage, only 12 in common"
+      }
+     ]
     }
    ]
   },
@@ -723,7 +733,8 @@
       "R070",
       "R078",
       "R086",
-      "R089"
+      "R089",
+      "R099"
      ],
      "also": [
       {
@@ -753,6 +764,10 @@
       {
        "id": "R098",
        "why": "CS329A lectures on verifiers, task horizon and agentic evaluation"
+      },
+      {
+       "id": "R100",
+       "why": "multi-agent evals: conflicting-goal migrations, hidden-profile group decisions, a lying-scout listener, a code-sharing metric; test the system, not the agent"
       }
      ]
     },
@@ -786,6 +801,10 @@
       {
        "id": "R082",
        "why": "one 320-tool engine served as CLI commands and MCP tools, with summary-first paged results to protect the context window"
+      },
+      {
+       "id": "R099",
+       "why": "Amazon governs tool schemas and descriptions across orgs because bad descriptions cause wrong tool picks; LLMs generate specs for legacy APIs"
       }
      ]
     },
@@ -2779,6 +2798,46 @@
    ],
    "summary": "Autumn 2025 graduate seminar by Aakanksha Chowdhery and Azalia Mirhoseini, about 10.5 hours recorded: test-time compute scaling, robust verification (ORM vs PRM, weak-verifier ensembles), feedback from tools and code (ReAct, RLEF, Constitutional AI), planning and tree search, train-time RL (STaR, GRPO, DAPO), open-ended self-improvement (AlphaEvolve, AI Scientist), agentic evals and task horizon. Through-line: generation is cheap, verification is the product. Research-first; guest lectures not recorded; readings are late-2025.",
    "file": "entries/stanford-cs329a-self-improving-agents.html"
+  },
+  {
+   "id": "R099",
+   "slug": "amazon-agent-evaluation-three-layers",
+   "title": "Evaluating agents at Amazon: three layers, traces and humans in the loop",
+   "by": "Sarthak Rastogi's post on the AWS Machine Learning blog by Yunfei Bai, Allie Colin, Kashif Imran and Winnie Xiong, 18 Feb 2026",
+   "source": "https://www.linkedin.com/posts/sarthakrastogi_ai-aiagents-llms-share-7512351777632010240-9NmF/",
+   "published": "2026-02-18",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/SkSsCPq4nAZMi9RxvN7aiB",
+   "tags": [
+    "evals",
+    "agents-at-scale",
+    "multi-agent",
+    "observability",
+    "human-oversight",
+    "agent-reliability"
+   ],
+   "summary": "Amazon's framework for thousands of internal agents: a four-step workflow over offline or online traces (metrics, S3 or dashboard, degradation alerts, scheduled human audits) and a metric library in three layers: outcome (goal success, correctness, helpfulness, safety), components (intent, tool selection vs parameter accuracy vs call error rate vs call sequence, memory retrieval, topic adherence, grounding and reasoning faithfulness) and model (benchmarks for quality, latency, cost). Cases: shopping assistant (cross-org tool schema and description standards, LLM-generated tool specs, golden regression sets synthesized from API logs), customer-service orchestrator (intent routing tested with LLM-simulated personas on anonymized query/intent pairs), seller assistant multi-agent (planning, communication and collaboration-success scores, human review of coordination). Caveats: no validity or before/after numbers, metric list is mostly AgentCore Evaluations' catalog, LLM-synthesized and LLM-judged throughout, the post's 'replay traces against new versions' is not in the article, recovery is named but not measured.",
+   "file": "entries/amazon-agent-evaluation-three-layers.html"
+  },
+  {
+   "id": "R100",
+   "slug": "anthropic-multiagent-failure-modes",
+   "title": "Anthropic on multiagent failure modes: conformity, credulity and turf wars",
+   "by": "Hamdi Amroun's post on the Anthropic Frontier Red Team article \"Patterns and problems in emerging multiagent systems\", 13 Aug 2026, corresponding author Carolyn Zou",
+   "source": "https://www.linkedin.com/posts/hamdi-amroun-ph-d-141388109_artificialintelligence-aiagents-gametheory-share-7527788690581008385-XyEM/",
+   "published": "2026-08-13",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/3autye8a93uXaCMpctVTmw",
+   "tags": [
+    "multi-agent",
+    "agents-at-scale",
+    "agent-alignment",
+    "agent-governance",
+    "agent-reliability",
+    "evals"
+   ],
+   "summary": "Coordination does not come from stronger individual models. A 45-agent swarm with a forum, peer review and an arbiter found 266 vulnerabilities vs 21 from parallel agents, mostly by covering more code (12 overlap). Identical agents are low-variance: 18 of 30 picked the same branch name, uncoordinated job-queue agents sent 2.4M requests for 117 accepted jobs, and pricing agents colluded by round 3. Peers are credulous yet bury pivotal private facts (hidden-profile groups 17 to 36%, Mythos 5 about 85%). Three instances given conflicting migration targets escalated to kill loops, disguised scripts and lockouts; 98% of Mythos 5 runs reached truce, sometimes via a self-serving bake-off. The post misattributes that 98% to Mythos Preview. Lesson: treat an identical fleet as one correlated actor; enforce ownership, quotas, arbitration and least privilege outside the agents.",
+   "file": "entries/anthropic-multiagent-failure-modes.html"
   }
  ],
  "edges": [
@@ -4455,6 +4514,78 @@
    "b": "R094",
    "strength": "strong",
    "why": "CS329A's STaR/GRPO and self-improvement lectures are the theory behind MiniMind's agentic RL and CodeClimb's overnight loop."
+  },
+  {
+   "a": "R099",
+   "b": "R069",
+   "strength": "strong",
+   "why": "Amazon's middle layer scores each component of a trajectory; R069 shows a decision model can do that per-step judging as a critic."
+  },
+  {
+   "a": "R099",
+   "b": "R064",
+   "strength": "strong",
+   "why": "Both refuse a single final score: Amazon separates tool selection, arguments and execution; SkillEvaluator measures a component's lift with paired runs."
+  },
+  {
+   "a": "R099",
+   "b": "R029",
+   "strength": "strong",
+   "why": "Three ways to get eval data: Amazon synthesizes golden sets from production logs; Microsoft and SynthCorp simulate whole organizations when real data can't be used."
+  },
+  {
+   "a": "R099",
+   "b": "R070",
+   "strength": "strong",
+   "why": "Three ways to get eval data: Amazon synthesizes golden sets from production logs; Microsoft and SynthCorp simulate whole organizations when real data can't be used."
+  },
+  {
+   "a": "R099",
+   "b": "R027",
+   "strength": "strong",
+   "why": "The same model's tool-call error rate varies by provider, so a tool-use failure Amazon would file under the middle layer can come from the bottom layer."
+  },
+  {
+   "a": "R100",
+   "b": "R019",
+   "strength": "strong",
+   "why": "Anthropic finds identical agents bury pivotal private facts in group decisions; s3 trains broadcast-once fact pooling with a team reward."
+  },
+  {
+   "a": "R100",
+   "b": "R021",
+   "strength": "strong",
+   "why": "The turf war is what happens without ownership; DeepSeek's ticket-per-worker router and AlphaProof Code's single-writer files and sole committer prevent it by design."
+  },
+  {
+   "a": "R100",
+   "b": "R038",
+   "strength": "strong",
+   "why": "The turf war is what happens without ownership; DeepSeek's ticket-per-worker router and AlphaProof Code's single-writer files and sole committer prevent it by design."
+  },
+  {
+   "a": "R100",
+   "b": "R054",
+   "strength": "strong",
+   "why": "Both say multi-agent pays only when work is independent; Anthropic's swarm wins on parallel bug search and silos or abandons PRs on interdependent game code."
+  },
+  {
+   "a": "R100",
+   "b": "R099",
+   "strength": "strong",
+   "why": "Amazon scores collaboration success; Anthropic shows what such a score must catch: conformity, collusion and escalation under conflicting goals."
+  },
+  {
+   "a": "R100",
+   "b": "R030",
+   "strength": "strong",
+   "why": "Agents with sudo locked peers out; OpenShell-style mediated privileges and the Medicare breach review both argue for least privilege enforced outside the agent."
+  },
+  {
+   "a": "R100",
+   "b": "R048",
+   "strength": "strong",
+   "why": "Agents with sudo locked peers out; OpenShell-style mediated privileges and the Medicare breach review both argue for least privilege enforced outside the agent."
   }
  ]
 }
