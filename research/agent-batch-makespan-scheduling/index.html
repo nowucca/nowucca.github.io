@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cutting agent batch makespan: schedule the longest chains first · Research</title>
+<meta name="description" content="Agent batches alternate GPU inference and environment steps; fixes are a KV vs recurrent-state memory model, cache-affine routing, and Chain-Advancing Action Scheduling that prioritizes long chains under limited sandbox capacity, plus replay for ablations. Makespan down 10.4-65.0% on BFCL, SWE-bench Multilingual, WideSearch, MCP-Atlas with unchanged scores; used for Ling-3.x.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R115 · Infrastructure for agents at scale › Inference providers and serving reliability</span>
+  <h1>Cutting agent batch makespan: schedule the longest chains first</h1>
+  <div class="entry-meta"><span>Feng et al., Ling team, arXiv 2611.16661, via DAIR.AI</span><span>Published 2026-11-12</span><span>Summarized 2026-11-16</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:share:7528194452977451011/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">inference</span><span class="tag">scheduling</span><span class="tag">evaluation</span><span class="tag">rl</span><span class="tag">kv-cache</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Feng et al. (Ling team), <a href="https://arxiv.org/abs/2611.16661">Reducing Batch Makespan for LLM Agent Workloads through Inference-Environment Coordination</a>, arXiv 2611.16661 (submitted 2026-11-12). Highlighted by DAIR.AI.</p>
+<h2 id="the-problem">The problem</h2>
+<p>Benchmark evaluation, synthetic-data generation and RL rollouts all run batches of agent tasks, and a batch is done only when its slowest task finishes. Agent tasks alternate between LLM inference (GPU) and environment steps (sandboxes, tools), so each side idles while waiting for the other, and a few long trajectories leave most workers idle at the tail.</p>
+<h2 id="the-techniques">The techniques</h2>
+<ol><li><p><strong>Workload-based resource model.</strong> For hybrid models with both attention and recurrent layers, it splits GPU memory between KV cache and recurrent state and sets a reference concurrency that exploits parallelism without heavy recomputation.</p></li><li><p><strong>Trajectory-aware routing.</strong> Each trajectory stays on the worker that holds its cache, balanced against worker load.</p></li><li><p><strong>Chain-Advancing Action Scheduling (CAAS).</strong> When environment capacity is limited, it decouples admitting a sample from executing its environment step, and prioritizes the chains with the most observed progress so the long tail starts and finishes sooner.</p></li><li><p><strong>Controlled replay.</strong> Real inference combined with recorded environment responses and durations, so each optimization can be ablated without re-running live environments.</p></li></ol>
+<h2 id="results-as-reported">Results (as reported)</h2>
+<p>On BFCL, SWE-bench Multilingual, WideSearch and MCP-Atlas with Ling-3.0-Flash and Ling-3.1-Flash: batch makespan down 10.4% to 65.0% with evaluation scores unchanged. The methods are in production use for training and evaluating the Ling-3.x series.</p>
+<h2 id="tradeoffs-and-failure-modes">Tradeoffs and failure modes</h2>
+<ul><li><p><strong>Progress is a proxy for length.</strong> Scheduling on observed progress assumes long chains reveal themselves early; tasks that turn long late still land in the tail.</p></li><li><p><strong>Cache affinity vs balance.</strong> Pinning trajectories to their cache can hot-spot a worker; the router has to trade reuse against load.</p></li><li><p><strong>Replay fidelity.</strong> Recorded environment timings may not match live behaviour under different load, so ablation numbers are indicative.</p></li><li><p><strong>Model-specific memory model.</strong> The KV vs recurrent-state split matters for hybrid architectures; pure-transformer stacks get less from step 1.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Plot per-worker utilization across a batch: is the end of the run a long idle tail?</p></li><li><p>Are GPU inference and sandbox capacity scheduled together or by separate systems?</p></li><li><p>Do trajectories keep their KV cache across turns, or get re-prefilled on another worker?</p></li><li><p>Can you replay environment responses to test scheduler changes cheaply?</p></li><li><p>Before adding GPUs, try longest-first or progress-first ordering.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>Other entries on inference serving and reliability (index subtopic 2.4) and on evaluation infrastructure (6.3), including R107.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/ten-eval-papers-2026/">Ten eval papers of 2026: building evals you can trust</a><span class="label">R107 · Agent principles and patterns</span><span class="why">R107 is about what to measure in agent evals; R115 is about running those eval batches faster.</span></li></ul><p><a href="/research/map/#R115">See R115 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

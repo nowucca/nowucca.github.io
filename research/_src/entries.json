@@ -75,7 +75,8 @@
       "R063",
       "R066",
       "R069",
-      "R108"
+      "R108",
+      "R114"
      ],
      "also": [
       {
@@ -101,6 +102,10 @@
       {
        "id": "R107",
        "why": "PostTrainBench: auditing self-improvement loops for test-data training and downloaded models"
+      },
+      {
+       "id": "R113",
+       "why": "TokenEconomizer learns per-repo cost habits from past sessions"
       }
      ]
     },
@@ -170,7 +175,8 @@
      "title": "Context economics and caching",
      "primary": [
       "R026",
-      "R032"
+      "R032",
+      "R113"
      ],
      "also": [
       {
@@ -349,12 +355,17 @@
       "R051",
       "R072",
       "R085",
-      "R096"
+      "R096",
+      "R115"
      ],
      "also": [
       {
        "id": "R086",
        "why": "Evolving Infra: serving that adapts the prefill/decode split and KV eviction to agent traffic"
+      },
+      {
+       "id": "R111",
+       "why": "self-hosting open weights caps capability about 19 AA index points below the frontier in Nov 2026; choose open for residency and control, not capability"
       }
      ]
     },
@@ -377,7 +388,8 @@
      "title": "Frontier model releases",
      "primary": [
       "R060",
-      "R067"
+      "R067",
+      "R111"
      ],
      "also": [
       {
@@ -443,6 +455,10 @@
       {
        "id": "R092",
        "why": "vendor-maintained skills retrieved at write time; legacy-pattern counts as a metric"
+      },
+      {
+       "id": "R113",
+       "why": "cost control plugin for coding agents: micro-skills, tool pruning, stuck-loop redirects"
       }
      ]
     },
@@ -496,6 +512,10 @@
       {
        "id": "R100",
        "why": "a 45-agent vulnerability swarm with a shared forum, peer review and an arbiter found 266 OSS bugs vs 21 for parallel agents; mostly extra coverage, only 12 in common"
+      },
+      {
+       "id": "R112",
+       "why": "GitSpawn: coding agents run repo-controlled git config before the trust prompt; PixelLeak: agents publishing screenshots to public repos"
       }
      ]
     }
@@ -831,6 +851,14 @@
       {
        "id": "R110",
        "why": "session traces as behavioural regression tests for a harness: ordered skill calls, fresh-context validators, no duplicate runs"
+      },
+      {
+       "id": "R115",
+       "why": "faster agent eval batches by scheduling long trajectories first); R114 (agent-supervised RL training"
+      },
+      {
+       "id": "R111",
+       "why": "one composite index hides per-task gaps; rerun a private eval set on every open release before switching tiers"
       }
      ]
     },
@@ -917,6 +945,10 @@
       {
        "id": "R089",
        "why": "adaptive prompt-injection attacks run inside the same benchmark environments used for utility"
+      },
+      {
+       "id": "R112",
+       "why": "incidents where per-agent permissions and read-only access were not isolation or egress control"
       }
      ]
     }
@@ -1029,7 +1061,8 @@
      "n": "7.4",
      "title": "AI incidents and policy response",
      "primary": [
-      "R048"
+      "R048",
+      "R112"
      ],
      "also": []
     },
@@ -3098,6 +3131,100 @@
    ],
    "summary": "Clief is a USMC avionics/crypto veteran with an Edinburgh MSc; Eduba (Van Clief Media LLC, Florida) sells AI training and workflow teardowns (self-reported: 600+ trained at Pacific Life and Colgate, 40+ KPMG UK executives), a twelve-week Lyceum certification, and a multi-party workspace of \"incubators\" (topic + system prompt + Markdown context + human and agent-persona participants). Theses: AI is the runner inside a program, not the program; one model plus routed folders replaces agent frameworks for sequential reviewed work; augment, don't just automate (Engelbart, Weinberg); sort each step into software, rules, AI or don't build; value migrates up the abstraction ladder; intent and framing outrank code. Architecture claims are sound; evidence is practitioner-reported (52-member group, no controlled baseline, Claude only), membership figures conflict (12,500+ vs 30,000+), and \"deterministic\" still needs scripts and checks.",
    "file": "entries/jake-van-clief-eduba.html"
+  },
+  {
+   "id": "R111",
+   "slug": "open-weights-gap-nov-2026",
+   "title": "No Fable-class open model yet: the open-weights gap in Nov 2026",
+   "by": "Ethan Mollick's post, 2026-11-16, with two Artificial Analysis charts and AA's open-weights page",
+   "source": "https://www.linkedin.com/posts/emollick_i-think-contrary-to-many-of-our-expectations-share-7528172975494168578-_s60/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/FEqmBxp25atDomsBAdeMEW",
+   "tags": [
+    "open-weights",
+    "model-releases",
+    "benchmarks",
+    "competitive-analysis",
+    "inference-cost"
+   ],
+   "summary": "Eight-plus months after Fable and Mythos went public, no open model is Fable class: on AA Intelligence Index v5.0.1 (nine agent-heavy evals) Claude Fable 5.2 (max) scores 65, Gemini 4 Carbon 60, Opus 5.5 59, while the best open-weights model, Kimi K3.1 Pro (2.8T params), scores 46 and the next open ones 33 (DeepSeek V4.1 Flash), 32 (GLM-5.3), 31 (Inkling 2 Small). Open models sit below AA's cost Pareto line too: closed tiers (GPT-6.1 Sol, Gemini 4 Hydrogen at 55) beat them on capability and price per task. The post's highlighted Qwen3.8 Max to Qwen4 Max jump is a closed model. Hypotheses (unproven): distillation from frontier outputs got harder (a commenter's theory), the index now rewards long-horizon agentic RL, post-training scale, and labs keeping top tiers closed. Caveats: one composite index, max-effort settings buy points with tokens (Fable about 7x Kimi's cost per task), the frontier is a moving reference, costs read off a log chart. Takeaways: tier models by task, self-host for residency and control rather than capability, rerun private evals on each open release, pin provider and quantization.",
+   "file": "entries/open-weights-gap-nov-2026.html"
+  },
+  {
+   "id": "R112",
+   "slug": "f5-unprompted-agent-data-leaks",
+   "title": "Unprompted: agents that leak data with no attacker",
+   "by": "F5 Labs monthly AI security insights for October 2026, shared by Varun Chaudhari",
+   "source": "https://www.f5.com/labs/articles/unprompted-when-ai-agents-expose-data-without-an-attacker",
+   "published": "2026-11",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/E3f4GhnceUM331aKrUZgKJ",
+   "tags": [
+    "security",
+    "coding-agents",
+    "incidents",
+    "sandboxing",
+    "governance"
+   ],
+   "summary": "Four incidents where an assumed boundary was never enforced: PixelLeak (coding agents made public repos to host PR screenshots; 13,000+ images, 900+ repos, 300+ orgs, 93% in personal accounts; one vendor's agents made it a skill in a week); Grok Bot (agents sharing one cloud computer, read-only bank access still leaked to Slack; self-reported, disputed); GitSpawn (7 CLI coding agents run git before the trust prompt, repo core.fsmonitor executes; 4 of 8 findings unpatched at publication; VS Code fixed the class in 2021); GitLab AI Gateway template sandbox escape CVE-2026-90970 (CVSS 9.9). Plus the Involuntary In-Context Learning jailbreak (few-shot validity labels; naming alone moved bypass 52% to 100% on one model). Vendor source.",
+   "file": "entries/f5-unprompted-agent-data-leaks.html"
+  },
+  {
+   "id": "R113",
+   "slug": "tokeneconomizer",
+   "title": "TokenEconomizer: coding agents that learn to spend less",
+   "by": "Microsoft Research blog and paper, arXiv 2610.22732; open-source plugin",
+   "source": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7528200787294986243/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/G57V8aRKxFFVRT4itBeq4r",
+   "tags": [
+    "coding-agents",
+    "cost",
+    "context",
+    "memory",
+    "open-source"
+   ],
+   "summary": "Profiling found 30% of tool calls repeated earlier same-repo actions, 16 of 23 tools never called, failed tasks 17% of tasks but 32% of spend. Black-box controller beside an unchanged agent: confirmed one-line micro-skills, tool pruning, judge-gated failure-loop redirects with human escalation. 277 SWE-Bench tasks, 5 agent/model combos: cost down 18.4-30.9%, pass@1 up in 4 of 5; cheaper than default by task six.",
+   "file": "entries/tokeneconomizer.html"
+  },
+  {
+   "id": "R114",
+   "slug": "autorl-live-rl-supervision",
+   "title": "AutoRL: agents that supervise a live RL run",
+   "by": "Tang et al., arXiv 2611.17790, via Elvis Saravia",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528195204777046016/",
+   "published": "2026-11-13",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/XwvMCu9UNRzmz2NvC2yDtv",
+   "tags": [
+    "self-improvement",
+    "rl",
+    "multi-agent",
+    "training"
+   ],
+   "summary": "Perceptors watch training, three Proposers diagnose, an Orchestrator applies hot updates or checkpoint restarts. Qwen3 AIME 2024 46.67% to 66.67%; LongCat-Flash-Lite agentic coding pass@1 52.29% to 65.13% over a long unattended run; repaired a deliberately broken recipe. Validation compute is the bottleneck.",
+   "file": "entries/autorl-live-rl-supervision.html"
+  },
+  {
+   "id": "R115",
+   "slug": "agent-batch-makespan-scheduling",
+   "title": "Cutting agent batch makespan: schedule the longest chains first",
+   "by": "Feng et al., Ling team, arXiv 2611.16661, via DAIR.AI",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528194452977451011/",
+   "published": "2026-11-12",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/UqSb7tnENFTksHBYKWDocT",
+   "tags": [
+    "inference",
+    "scheduling",
+    "evaluation",
+    "rl",
+    "kv-cache"
+   ],
+   "summary": "Agent batches alternate GPU inference and environment steps; fixes are a KV vs recurrent-state memory model, cache-affine routing, and Chain-Advancing Action Scheduling that prioritizes long chains under limited sandbox capacity, plus replay for ablations. Makespan down 10.4-65.0% on BFCL, SWE-bench Multilingual, WideSearch, MCP-Atlas with unchanged scores; used for Ling-3.x.",
+   "file": "entries/agent-batch-makespan-scheduling.html"
   }
  ],
  "edges": [
@@ -4954,6 +5081,48 @@
    "b": "R020",
    "strength": "strong",
    "why": "\"sort each step into software, rules or AI\" is the same split as \"the model proposes, the harness enforces\"."
+  },
+  {
+   "a": "R111",
+   "b": "R067",
+   "strength": "strong",
+   "why": "Inkling 2 Small is one of the open models R111 measures (31 on AA's index), launched on the promise of fast fine-tuning gains; R111 shows how far that tier sits below the frontier."
+  },
+  {
+   "a": "R111",
+   "b": "R078",
+   "strength": "strong",
+   "why": "R078 warns launch-post scores overstate progress; R111's gap uses AA's own runs, the independent kind R078 recommends, and still finds 19 points."
+  },
+  {
+   "a": "R111",
+   "b": "R027",
+   "strength": "strong",
+   "why": "Choosing open weights brings R027's provider variance with it, so the real gap on a given deployment can be wider than the index shows."
+  },
+  {
+   "a": "R112",
+   "b": "R048",
+   "strength": "strong",
+   "why": "Two agent incidents where the damage came from missing environment boundaries, not model misbehaviour against an attacker."
+  },
+  {
+   "a": "R113",
+   "b": "R114",
+   "strength": "strong",
+   "why": "Both put a supervising layer beside an unchanged worker: TokenEconomizer over a coding agent's sessions, AutoRL over a training run."
+  },
+  {
+   "a": "R114",
+   "b": "R107",
+   "strength": "strong",
+   "why": "AutoRL automates RL supervision; PostTrainBench (in R107) shows why agent-run training needs cheating audits."
+  },
+  {
+   "a": "R115",
+   "b": "R107",
+   "strength": "strong",
+   "why": "R107 is about what to measure in agent evals; R115 is about running those eval batches faster."
   }
  ]
 }

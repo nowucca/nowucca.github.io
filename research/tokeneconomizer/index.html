@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TokenEconomizer: coding agents that learn to spend less · Research</title>
+<meta name="description" content="Profiling found 30% of tool calls repeated earlier same-repo actions, 16 of 23 tools never called, failed tasks 17% of tasks but 32% of spend. Black-box controller beside an unchanged agent: confirmed one-line micro-skills, tool pruning, judge-gated failure-loop redirects with human escalation. 277 SWE-Bench tasks, 5 agent/model combos: cost down 18.4-30.9%, pass@1 up in 4 of 5; cheaper than default by task six.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R113 · Agent architecture › Context economics and caching</span>
+  <h1>TokenEconomizer: coding agents that learn to spend less</h1>
+  <div class="entry-meta"><span>Microsoft Research blog and paper, arXiv 2610.22732; open-source plugin</span><span>Published 2026-11-16</span><span>Summarized 2026-11-16</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7528200787294986243/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">coding-agents</span><span class="tag">cost</span><span class="tag">context</span><span class="tag">memory</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Microsoft Research blog, <a href="https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient/">TokenEconomizer: Learning from Experience to Make AI Coding Agents More Efficient</a> (2026-11-16); paper <a href="https://arxiv.org/abs/2610.22732">arXiv 2610.22732</a>; code <a href="https://github.com/microsoft/TokenEconomizer">microsoft/TokenEconomizer</a>. UC Berkeley, Microsoft Research and Microsoft Security.</p>
+<h2 id="the-problem-measured">The problem, measured</h2>
+<p>Profiling a coding agent on 60 SWE-Bench tasks run in sequence per repository found three recurring kinds of waste:</p>
+<ul><li><p><strong>Rediscovery.</strong> Once a repo had five completed tasks, 30% of tool calls repeated an action from an earlier task in the same repo (7% matched another repo's history).</p></li><li><p><strong>Unused tools.</strong> 23 tool descriptions went out on every turn; 16 were never called.</p></li><li><p><strong>Failure loops.</strong> The 17% of tasks that failed consumed 32% of spend.</p></li></ul>
+<p>Three popular fixed-strategy cost plugins each helped in some repos and hurt in others, which argues for per-repository adaptation.</p>
+<h2 id="architecture">Architecture</h2>
+<p>A black-box controller that runs beside an unchanged agent and model. After each session it reads the log, updates a per-repo model, and acts through three mechanisms using only interfaces the agent already exposes:</p>
+<ol><li><p><strong>Micro-skills.</strong> One-line repo-specific notes proposed from recurring patterns, added to the starting context only after several sessions confirm them, and retired when later evidence contradicts them.</p></li><li><p><strong>Tool pruning.</strong> Drops tools history says are unlikely to be used, always keeping shell and edit tools; pruned tools can be restored.</p></li><li><p><strong>Failure-loop intervention.</strong> A judge model decides whether a repeating failure is genuinely stuck; if so the agent gets a short redirect note, and if still stuck the developer is alerted rather than the run being killed.</p></li></ol>
+<p>It needs no API key of its own, keeps what it learns on the developer's machine, and reported savings net out its own model calls.</p>
+<h2 id="results">Results</h2>
+<ul><li><p>277 SWE-Bench tasks, six repositories, five agent/model combinations: mean cost per task down 18.4% to 30.9%, with savings in all 30 repository-combination pairs and pass@1 up in four of five combinations.</p></li><li><p>Early tasks can cost more while it learns; cumulative cost dropped below default in every repo by the sixth task.</p></li><li><p>Each mechanism saves on its own; all three combined save most.</p></li><li><p>Sequential web development (Web-Bench): 16.0% to 21.2% lower. Security auditing, where every task is a new repo: 6.4% to 19.6% lower.</p></li><li><p>Lowering reasoning effort saved similar or more but degraded task success substantially.</p></li></ul>
+<h2 id="tradeoffs-and-failure-modes">Tradeoffs and failure modes</h2>
+<ul><li><p><strong>Cold start.</strong> Value depends on repeated work in the same repo; one-off repos see the smallest gains.</p></li><li><p><strong>Stale notes.</strong> A micro-skill that was true last month can mislead after a refactor; the retirement rule is the safeguard, so check how quickly it fires.</p></li><li><p><strong>Over-pruning.</strong> A rarely needed tool removed at the wrong moment costs a turn to restore, or a failed task if the agent doesn't ask.</p></li><li><p><strong>Judge error.</strong> A false "stuck" verdict interrupts productive exploration; a false "progressing" verdict lets a loop burn tokens.</p></li><li><p><strong>Benchmark shape.</strong> SWE-Bench tasks are bounded bug fixes; long feature work may show different waste patterns.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Measure your own waste first: repeated tool calls per repo, never-called tools per turn, and the share of spend in failed tasks.</p></li><li><p>Gate any learned note on repeated confirmation, and give it a retirement path.</p></li><li><p>Keep a non-prunable core tool set.</p></li><li><p>Escalate stuck loops to a person instead of silently killing or continuing them.</p></li><li><p>Compare against simply lowering reasoning effort, and track task success, not just cost.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>Other entries on context economics and caching (index subtopic 1.5) and on agents learning from their own history (1.2).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t1)"><a class="to" href="/research/autorl-live-rl-supervision/">AutoRL: agents that supervise a live RL run</a><span class="label">R114 · Agent architecture</span><span class="why">Both put a supervising layer beside an unchanged worker: TokenEconomizer over a coding agent&#x27;s sessions, AutoRL over a training run.</span></li></ul><p><a href="/research/map/#R113">See R113 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
