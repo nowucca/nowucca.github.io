@@ -87,6 +87,17 @@
             "ai coaching",
             "ruby"
           ]
+        },
+        {
+          "slug": "parentsquare",
+          "title": "ParentSquare",
+          "summary": "K-12 school-family communication platform (owns Remind), founder-led, Serent Capital-backed, ~400 staff remote-first; headline risk is a likely PE exit and a consolidated multi-stack codebase.",
+          "date": "2026-11-16",
+          "tags": [
+            "pe-backed",
+            "edtech",
+            "ruby"
+          ]
         }
       ],
       "noindex": true
