@@ -256,7 +256,12 @@
       "R047",
       "R101"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R102",
+       "why": "benchmark matrices across architectures as CI infrastructure for agent-authored performance work"
+      }
+     ]
     },
     {
      "n": "2.2",
@@ -583,7 +588,8 @@
      "primary": [
       "R006",
       "R054",
-      "R092"
+      "R092",
+      "R103"
      ],
      "also": [
       {
@@ -739,7 +745,8 @@
       "R078",
       "R086",
       "R089",
-      "R099"
+      "R099",
+      "R102"
      ],
      "also": [
       {
@@ -777,6 +784,10 @@
       {
        "id": "R101",
        "why": "agent-run A/B against main as pre-review regression evidence"
+      },
+      {
+       "id": "R103",
+       "why": "a protected evaluator the optimising agent cannot read, so scores transfer"
       }
      ]
     },
@@ -2867,6 +2878,44 @@
    ],
    "summary": "SLATE deploys only the services a branch changes into a per-engineer instance and routes a test account's traffic to it, with all other calls going to shared staging; agents now create SLATE instances, run an agent browser against main and the branch, and attach a before/after regression report with screenshots and video to the PR (also for iOS, Android, backend APIs). Same episode: Model Gateway with security middleware, per-user spend and traces; AIFX wrapper so settings, skills and plugins move across Claude Code, Codex and OpenCode; spend tiers with manager sign-off and ~50% token-cost cut; AI review plus risk score before human review; CI jobs doubled in 12 months, so cheap checks moved into the agent's inner loop; PRs tagged by work type instead of PR velocity.",
    "file": "entries/uber-slate-agent-end-to-end-testing.html"
+  },
+  {
+   "id": "R102",
+   "slug": "ai-perf-tuning-overfits-benchmark-machine",
+   "title": "AI-assisted performance tuning overfits to the benchmark machine",
+   "by": "Gunnar Morling's post from work on Hardwood, a JVM Parquet reader/writer",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528020266258710528/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/VKoYxhH73VTdJJa9QZw9j9",
+   "tags": [
+    "coding-agents",
+    "performance",
+    "benchmarks",
+    "testing",
+    "evaluation"
+   ],
+   "summary": "Agents optimising against one benchmark add data-specific fast paths and cache-line-sized structures; fine for apps, overfitting for libraries; Claude changes in Hardwood helped x86 but hurt aarch64 or vice versa. Remedy: a broad benchmark matrix (architectures, runtimes, data shapes, concurrency, noise control) and review rules for agent-authored perf changes.",
+   "file": "entries/ai-perf-tuning-overfits-benchmark-machine.html"
+  },
+  {
+   "id": "R103",
+   "slug": "evotrias-separation-of-powers",
+   "title": "EvoTrias: separation of powers for agentic program evolution",
+   "by": "Pascal Biese's post on arXiv:2611.15309, Ai, Liu, ..., Pinyan Lu, 2026-11-11",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528031948141723648/",
+   "published": "2026-11-11",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/BZ1tj55XRXyJrHCQEF3j1r",
+   "tags": [
+    "self-improvement",
+    "coding-agents",
+    "evaluation",
+    "cost",
+    "agent-architecture"
+   ],
+   "summary": "Three decisions in LLM program evolution, each with one owner over typed contracts and runtime hooks: Structured Governance (controller picks parents across rounds), Open Proposal (a coding agent writes and repairs inside a round), Protected Judgment (private evaluator the agent can't read). Plug-in for Claude Code/OpenCode. Reported: SOTA on maths, systems and algorithm-design tasks; 64% lower token cost from separating governance (post: ~$41 vs ~$115 per run, ahead on 6 of 7 maths tasks); scales to a 680K-line repo; scores transfer.",
+   "file": "entries/evotrias-separation-of-powers.html"
   }
  ],
  "edges": [
@@ -4633,6 +4682,24 @@
    "b": "R047",
    "strength": "strong",
    "why": "Developer infrastructure strained by agent change volume: Git hosting, build graphs, and now CI and staging (Uber's CI 'code red')."
+  },
+  {
+   "a": "R102",
+   "b": "R103",
+   "strength": "strong",
+   "why": "The same metric-gaming risk at two scales: everyday agent perf tuning overfits one machine; EvoTrias hides the grader so evolved gains transfer."
+  },
+  {
+   "a": "R103",
+   "b": "R098",
+   "strength": "strong",
+   "why": "Program evolution and self-improving coding agents; EvoTrias's private judge is CS329A's verifier lesson and CodeClimb's hidden test data made structural."
+  },
+  {
+   "a": "R103",
+   "b": "R094",
+   "strength": "strong",
+   "why": "Program evolution and self-improving coding agents; EvoTrias's private judge is CS329A's verifier lesson and CodeClimb's hidden test data made structural."
   }
  ]
 }
