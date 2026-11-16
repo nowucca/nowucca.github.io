@@ -260,6 +260,10 @@
       {
        "id": "R102",
        "why": "benchmark matrices across architectures as CI infrastructure for agent-authored performance work"
+      },
+      {
+       "id": "R105",
+       "why": "survey data: review now exceeds writing for most teams; AI-specific merge gates are rare"
       }
      ]
     },
@@ -267,7 +271,8 @@
      "n": "2.2",
      "title": "Consistency and storage tradeoffs",
      "primary": [
-      "R046"
+      "R046",
+      "R104"
      ],
      "also": [
       {
@@ -746,7 +751,8 @@
       "R086",
       "R089",
       "R099",
-      "R102"
+      "R102",
+      "R105"
      ],
      "also": [
       {
@@ -2916,6 +2922,44 @@
    ],
    "summary": "Three decisions in LLM program evolution, each with one owner over typed contracts and runtime hooks: Structured Governance (controller picks parents across rounds), Open Proposal (a coding agent writes and repairs inside a round), Protected Judgment (private evaluator the agent can't read). Plug-in for Claude Code/OpenCode. Reported: SOTA on maths, systems and algorithm-design tasks; 64% lower token cost from separating governance (post: ~$41 vs ~$115 per run, ahead on 6 of 7 maths tasks); scales to a 680K-line repo; scores transfer.",
    "file": "entries/evotrias-separation-of-powers.html"
+  },
+  {
+   "id": "R104",
+   "slug": "pmtiles-single-file-maps",
+   "title": "PMTiles: a world map as one file on object storage",
+   "by": "André Lindenberg's post on Protomaps",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528084335782940673/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/7idKny6553ezV8GfqTv9m5",
+   "tags": [
+    "storage",
+    "file-formats",
+    "open-source",
+    "serverless",
+    "geospatial"
+   ],
+   "summary": "A single-file tile archive (127-byte header, root directory in the first 16 KiB, optional leaf directories, Hilbert-ordered deduplicated tiles) on S3/R2; MapLibre fetches each tile with an HTTP range request, so a basemap needs no tile server. Planet basemap built from OSM with a Planetiler profile in hours. Cloud-optimized single-file pattern (cf. COG, Parquet footers). Tradeoffs: read-only, replace-to-update, cold-cache request count, CORS/Range support, versioned filenames. BSD-3 code, ODbL data.",
+   "file": "entries/pmtiles-single-file-maps.html"
+  },
+  {
+   "id": "R105",
+   "slug": "sonar-state-of-code-2027",
+   "title": "Sonar State of Code 2027: AI code outpaces verification",
+   "by": "Cole Medin's post on Sonar's 2026-11-12 survey of 1,026 developers and managers",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528106526008455168/",
+   "published": "2026-11-12",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/SAzfPrHYYTcSprk7i4mo47",
+   "tags": [
+    "coding-agents",
+    "code-review",
+    "survey",
+    "testing",
+    "governance"
+   ],
+   "summary": "65% of committed code AI-generated or assisted; 76% generate faster than they can verify; 53% spend more time reviewing than writing (18% pre-AI); only 39% say AI code is always checked (48% a year earlier per the post) though 94% don't fully trust it; 23% have AI-specific checks; 5% run agentic software factories, 34% expect to within a year; 36% measure AI ROI. Framework: confidence = intent x guiderails x verification x evidence. Vendor survey, self-reported.",
+   "file": "entries/sonar-state-of-code-2027.html"
   }
  ],
  "edges": [
@@ -4700,6 +4744,18 @@
    "b": "R094",
    "strength": "strong",
    "why": "Program evolution and self-improving coding agents; EvoTrias's private judge is CS329A's verifier lesson and CodeClimb's hidden test data made structural."
+  },
+  {
+   "a": "R104",
+   "b": "R046",
+   "strength": "strong",
+   "why": "Range-request reads over one immutable file on object storage: PMTiles for map tiles, Hardwood's remote Parquet reader for columns."
+  },
+  {
+   "a": "R105",
+   "b": "R101",
+   "strength": "strong",
+   "why": "Survey evidence that review is the bottleneck (R105) and one company's answer: agent-produced evidence attached before review (R101)."
   }
  ]
 }
