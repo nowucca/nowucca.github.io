@@ -7,7 +7,7 @@
    "id": "q1-telemetry-ingestion",
    "status": "unpublished",
    "created": 1,
-   "name": "Q1 Telemetry ingestion: logs, metrics, traces for many tenants",
+   "name": "Resolve Q1 Telemetry ingestion: logs, metrics, traces for many tenants",
    "elements": [
     {
      "id": "q1-telemetry-ingestion-title",
@@ -1290,7 +1290,7 @@
    "id": "q2-alerting-paging",
    "status": "unpublished",
    "created": 1,
-   "name": "Q2 Alerting and on-call paging: from signal to a human (or an agent)",
+   "name": "Resolve Q2 Alerting and on-call paging: from signal to a human (or an agent)",
    "elements": [
     {
      "id": "q2-alerting-paging-title",
@@ -2737,7 +2737,7 @@
    "id": "q3-ai-sre-agent",
    "status": "unpublished",
    "created": 1,
-   "name": "Q3 AI SRE agent: investigate an alert and explain the root cause",
+   "name": "Resolve Q3 AI SRE agent: investigate an alert and explain the root cause",
    "elements": [
     {
      "id": "q3-ai-sre-agent-title",
@@ -4123,7 +4123,7 @@
    "id": "q4-connectors",
    "status": "unpublished",
    "created": 1,
-   "name": "Q4 Integration layer: query many customers' tools safely",
+   "name": "Resolve Q4 Integration layer: query many customers' tools safely",
    "elements": [
     {
      "id": "q4-connectors-title",
@@ -5255,7 +5255,7 @@
    "id": "q5-agent-evals",
    "status": "unpublished",
    "created": 1,
-   "name": "Q5 Evaluating the agent: replay past incidents in a sandbox",
+   "name": "Resolve Q5 Evaluating the agent: replay past incidents in a sandbox",
    "elements": [
     {
      "id": "q5-agent-evals-title",

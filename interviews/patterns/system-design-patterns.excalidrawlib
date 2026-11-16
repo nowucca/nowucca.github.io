@@ -7,7 +7,7 @@
    "id": "00-interview-canvas",
    "status": "unpublished",
    "created": 1,
-   "name": "Interview canvas",
+   "name": "Canvas: interview",
    "elements": [
     {
      "id": "canvas-title",
@@ -556,7 +556,7 @@
    "id": "01-read-heavy",
    "status": "unpublished",
    "created": 1,
-   "name": "Read heavy: cache in front, replicas behind",
+   "name": "Pattern: Read heavy: cache in front, replicas behind",
    "elements": [
     {
      "id": "01-read-heavy-title",
@@ -1831,7 +1831,7 @@
    "id": "02-write-heavy-event-driven",
    "status": "unpublished",
    "created": 1,
-   "name": "Write heavy / event driven: accept fast, process async",
+   "name": "Pattern: Write heavy / event driven: accept fast, process async",
    "elements": [
     {
      "id": "02-write-heavy-event-driven-title",
@@ -3004,7 +3004,7 @@
    "id": "03-real-time-fanout",
    "status": "unpublished",
    "created": 1,
-   "name": "Real time fanout: one event, many open connections",
+   "name": "Pattern: Real time fanout: one event, many open connections",
    "elements": [
     {
      "id": "03-real-time-fanout-title",
@@ -4390,7 +4390,7 @@
    "id": "04-batch-analytics",
    "status": "unpublished",
    "created": 1,
-   "name": "Batch and analytics: land raw data, compute later",
+   "name": "Pattern: Batch and analytics: land raw data, compute later",
    "elements": [
     {
      "id": "04-batch-analytics-title",
@@ -5452,7 +5452,7 @@
    "id": "05-search-filtering",
    "status": "unpublished",
    "created": 1,
-   "name": "Search and filtering: DB is truth, index is a copy",
+   "name": "Pattern: Search and filtering: DB is truth, index is a copy",
    "elements": [
     {
      "id": "05-search-filtering-title",
@@ -6412,7 +6412,7 @@
    "id": "06-file-media",
    "status": "unpublished",
    "created": 1,
-   "name": "File and media: metadata in DB, bytes in blob storage",
+   "name": "Pattern: File and media: metadata in DB, bytes in blob storage",
    "elements": [
     {
      "id": "06-file-media-title",
@@ -7556,7 +7556,7 @@
    "id": "07-workflow-orchestration",
    "status": "unpublished",
    "created": 1,
-   "name": "Workflow orchestration: a durable state machine",
+   "name": "Pattern: Workflow orchestration: a durable state machine",
    "elements": [
     {
      "id": "07-workflow-orchestration-title",
@@ -8647,7 +8647,7 @@
    "id": "08-transactional-financial",
    "status": "unpublished",
    "created": 1,
-   "name": "Transactional / financial: ledger is truth",
+   "name": "Pattern: Transactional / financial: ledger is truth",
    "elements": [
     {
      "id": "08-transactional-financial-title",
@@ -9922,7 +9922,7 @@
    "id": "09-recommendation",
    "status": "unpublished",
    "created": 1,
-   "name": "Recommendation: generate candidates, then rank",
+   "name": "Pattern: Recommendation: generate candidates, then rank",
    "elements": [
     {
      "id": "09-recommendation-title",
@@ -11033,7 +11033,7 @@
    "id": "10-events-notifications",
    "status": "unpublished",
    "created": 1,
-   "name": "Events and notifications: one event, many channels",
+   "name": "Pattern: Events and notifications: one event, many channels",
    "elements": [
     {
      "id": "10-events-notifications-title",
