@@ -135,3 +135,37 @@ table.grid td:first-child { font: 600 0.95rem/1.4 var(--display); white-space: n
 .src .label { font-size: 0.68rem; }
 .ideas li .src { padding: 0 0 1.25rem calc(3.25rem + 1rem); margin-top: -0.6rem; }
 @media (max-width: 480px) { .ideas li .src { padding-left: calc(2.25rem + 1rem); } }
+
+/* Pattern guide: collapsible pattern cards */
+.pattern { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.pattern + .pattern { margin-top: 0.75rem; }
+.pattern summary {
+  list-style: none; cursor: pointer; display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.15rem 0.75rem;
+  padding: 0.9rem 1rem;
+}
+.pattern summary::-webkit-details-marker { display: none; }
+.pattern summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+.pattern .pnum { font: 500 0.85rem/1.9 var(--mono); color: var(--muted); grid-row: span 2; }
+.pattern .pname { font: 600 1.2rem/1.3 var(--display); }
+.pattern .pname::after { content: " +"; color: var(--accent); }
+.pattern[open] .pname::after { content: " \2212"; }
+.pattern .psig { color: var(--muted); font-size: 0.95rem; }
+.pattern summary:hover .pname { color: var(--accent); }
+.pbody { padding: 0 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.9rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.pbody h3 { font-size: 1rem; margin-top: 0.6rem; }
+.pbody .picture { font-size: 1.05rem; }
+.pbody .note .label, .trade .label { margin-right: 0.35rem; }
+.terms { display: grid; grid-template-columns: minmax(8rem, 13rem) 1fr; gap: 0.55rem 1rem; margin: 0; font-size: 0.95rem; }
+.terms dt { font: 600 0.92rem/1.5 var(--display); }
+.terms dd { margin: 0; min-width: 0; }
+.trades { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.75rem; counter-reset: t; }
+.trade { border-left: 3px solid var(--accent); padding: 0.1rem 0 0.1rem 0.9rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.97rem; }
+.trade h4 { margin: 0; font: 600 1rem/1.3 var(--display); }
+.trade .default { background: var(--accent-soft); border-radius: 4px; padding: 0.45rem 0.6rem; }
+.reads { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.95rem; }
+.dl a { font: 500 0.82rem/1.4 var(--mono); }
+@media (max-width: 480px) {
+  .terms { grid-template-columns: 1fr; gap: 0.1rem; }
+  .terms dd { margin-bottom: 0.5rem; }
+  .pattern summary { grid-template-columns: 1.75rem 1fr; }
+}
