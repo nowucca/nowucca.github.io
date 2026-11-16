@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>txtai: vectors, SQL and a graph in one local index · Research</title>
+<meta name="description" content="Open-source embeddings database that unifies sparse/dense vector indexes, a relational store and an optional semantic graph; SQL has similar() so one query ranks by meaning and filters by columns; optional LLM-extracted typed relationships; local-first, pip install, Web and MCP APIs; Apache-2.0, ~13.4k stars. Fits single-node retrieval and agent memory; less so for scaled multi-tenant search.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R106 · Knowledge for agents › Retrieval over long documents</span>
+  <h1>txtai: vectors, SQL and a graph in one local index</h1>
+  <div class="entry-meta"><span>André Lindenberg&#x27;s post, with Stanislav Beliaev&#x27;s as a second source</span><span>Published 2026-11-16</span><span>Summarized 2026-11-16</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:share:7528124599444742144/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">retrieval</span><span class="tag">vector-search</span><span class="tag">sql</span><span class="tag">knowledge-graph</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://github.com/neuml/txtai">neuml/txtai on GitHub</a> (Apache-2.0, about 13.4k stars), highlighted in posts by André Lindenberg and Stanislav Beliaev, 2026-11-16.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>txtai is an open-source Python framework from NeuML built around an "embeddings database": one index that unifies sparse and dense vector indexes, a relational store, and an optional graph network. It runs locally by default and adds pipelines (LLM prompts, QA, summarization, transcription), workflows, agents, and Web and MCP APIs on top.</p>
+<h2 id="the-parts-worth-a-staff-engineers-attention">The parts worth a staff engineer's attention</h2>
+<ul><li><p><strong>One query for meaning and structure.</strong> Its SQL dialect includes a <code>similar()</code> clause, so a single statement can rank by semantic similarity while filtering on ordinary columns such as dates or tags. That removes the usual two-hop pattern of vector search followed by a metadata filter in another store, and the consistency questions between them.</p></li><li><p><strong>A semantic graph as an optional layer.</strong> Indexing can link each document to its nearest neighbours, and an LLM-driven entity-extraction step can add typed relationships. That gives topic exploration and graph-walk retrieval (the repo has GraphRAG examples) without a separate graph database.</p></li><li><p><strong>Local-first and small.</strong> Install with pip, start with a few lines, and add dependencies only when needed. Bindings exist for JavaScript, Java, Rust and Go via the API.</p></li></ul>
+<h2 id="where-it-fits">Where it fits</h2>
+<p>A good default for single-node or embedded retrieval: internal knowledge bases, agent memory stores, notebooks, and prototypes where operating a vector database plus a relational database plus a graph store is too much. It is less obviously the answer for multi-tenant, high-write, horizontally scaled search, where a dedicated engine's sharding and operations tooling matter more.</p>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>Star counts and feature claims are from the project and the posts; they are not independently benchmarked.</p></li><li><p>LLM-extracted relationships inherit the extractor's errors, so treat graph edges as hints unless they are validated.</p></li><li><p>NeuML sells consulting and a hosted offering around the stack.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>R096 and other retrieval entries under index subtopic 4.3; agent memory under 1.1.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/pmtiles-single-file-maps/">PMTiles: a world map as one file on object storage</a><span class="label">R104 · Infrastructure for agents at scale</span><span class="why">Two local-first, single-artifact data tools: PMTiles for maps, txtai for retrieval.</span></li></ul><p><a href="/research/map/#R106">See R106 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

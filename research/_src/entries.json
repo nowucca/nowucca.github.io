@@ -60,6 +60,10 @@
       {
        "id": "R090",
        "why": "full agent transcripts synced across machines and resumable in a different harness"
+      },
+      {
+       "id": "R106",
+       "why": "txtai as a local agent memory store: vectors, SQL and graph in one index"
       }
      ]
     },
@@ -70,7 +74,8 @@
       "R024",
       "R063",
       "R066",
-      "R069"
+      "R069",
+      "R108"
      ],
      "also": [
       {
@@ -92,6 +97,10 @@
       {
        "id": "R094",
        "why": "an unattended improve-and-score loop; the agent repeated a rejected attempt, so keep a memory of failures"
+      },
+      {
+       "id": "R107",
+       "why": "PostTrainBench: auditing self-improvement loops for test-data training and downloaded models"
       }
      ]
     },
@@ -142,7 +151,8 @@
      "n": "1.4",
      "title": "Mental models of the agent system",
      "primary": [
-      "R005"
+      "R005",
+      "R110"
      ],
      "also": [
       {
@@ -206,6 +216,10 @@
       {
        "id": "R088",
        "why": "choose memories by measured decision utility under a token budget, relevance only for recall"
+      },
+      {
+       "id": "R110",
+       "why": "per-context new, cached and output tokens show where fresh contexts drive spend; copies of the parent are mostly cheap cache reads"
       }
      ]
     },
@@ -238,6 +252,10 @@
       {
        "id": "R099",
        "why": "Amazon's multi-agent scores: planning as subtask assignment, communication, collaboration success rate; humans review coordination failures"
+      },
+      {
+       "id": "R108",
+       "why": "routing each task to one specialist harness, with \"keep the base result\" as a first-class option"
       }
      ]
     }
@@ -520,7 +538,8 @@
      "title": "Retrieval over long documents",
      "primary": [
       "R010",
-      "R025"
+      "R025",
+      "R106"
      ],
      "also": [
       {
@@ -577,6 +596,10 @@
       {
        "id": "R064",
        "why": "benchmark each skill with and without it after every model upgrade; delete what shows no lift"
+      },
+      {
+       "id": "R110",
+       "why": "profile your own skill and agent setup with a hook-based call tree; write expected trace shape as a check-trace skill"
       }
      ]
     }
@@ -696,6 +719,10 @@
       {
        "id": "R101",
        "why": "per-change ephemeral environments as the agent's end-to-end verifier; evidence attached to the PR"
+      },
+      {
+       "id": "R108",
+       "why": "harnesses as classes: a shared base plus subclasses that override only what a task cluster needs, chosen per task by a router"
       }
      ]
     },
@@ -752,7 +779,8 @@
       "R089",
       "R099",
       "R102",
-      "R105"
+      "R105",
+      "R107"
      ],
      "also": [
       {
@@ -794,6 +822,10 @@
       {
        "id": "R103",
        "why": "a protected evaluator the optimising agent cannot read, so scores transfer"
+      },
+      {
+       "id": "R110",
+       "why": "session traces as behavioural regression tests for a harness: ordered skill calls, fresh-context validators, no duplicate runs"
       }
      ]
     },
@@ -2960,6 +2992,82 @@
    ],
    "summary": "65% of committed code AI-generated or assisted; 76% generate faster than they can verify; 53% spend more time reviewing than writing (18% pre-AI); only 39% say AI code is always checked (48% a year earlier per the post) though 94% don't fully trust it; 23% have AI-specific checks; 5% run agentic software factories, 34% expect to within a year; 36% measure AI ROI. Framework: confidence = intent x guiderails x verification x evidence. Vendor survey, self-reported.",
    "file": "entries/sonar-state-of-code-2027.html"
+  },
+  {
+   "id": "R106",
+   "slug": "txtai-embeddings-database",
+   "title": "txtai: vectors, SQL and a graph in one local index",
+   "by": "André Lindenberg's post, with Stanislav Beliaev's as a second source",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528124599444742144/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/6E87PExkdRUtvxURM5LieT",
+   "tags": [
+    "retrieval",
+    "vector-search",
+    "sql",
+    "knowledge-graph",
+    "open-source"
+   ],
+   "summary": "Open-source embeddings database that unifies sparse/dense vector indexes, a relational store and an optional semantic graph; SQL has similar() so one query ranks by meaning and filters by columns; optional LLM-extracted typed relationships; local-first, pip install, Web and MCP APIs; Apache-2.0, ~13.4k stars. Fits single-node retrieval and agent memory; less so for scaled multi-tenant search.",
+   "file": "entries/txtai-embeddings-database.html"
+  },
+  {
+   "id": "R107",
+   "slug": "ten-eval-papers-2026",
+   "title": "Ten eval papers of 2026: building evals you can trust",
+   "by": "Elvis Saravia's LinkedIn article, 2026-11-16",
+   "source": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7528128448884805632/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/Mwy3QM6Zy3VTjf1XkSm2Mn",
+   "tags": [
+    "evaluation",
+    "llm-judge",
+    "benchmarks",
+    "agents",
+    "verifiers"
+   ],
+   "summary": "Ten papers as a build sequence: benchmark saturation (nearly half of 60 saturated), Terminal-Bench, SkillsBench paired comparison (33.9% to 50.5%, gain 4-26 pts by setup), JEV confidence-routed judging (41% of GPT-6 cost), correlated judges (9 judges = ~2 votes), agent-as-a-judge survey, Claw-Eval (output-only grading missed 44% of safety violations), process vs outcome verifiers, PostTrainBench cheating audits, LifeVal personal-context tasks. One curator's list; arXiv links in doc.",
+   "file": "entries/ten-eval-papers-2026.html"
+  },
+  {
+   "id": "R108",
+   "slug": "oo-harness-class-hierarchy",
+   "title": "OO-Harness: evolving a class hierarchy of agent harnesses",
+   "by": "Elvis Saravia's post on Li et al., UIUC and Google Cloud AI Research, arXiv 2610.28380",
+   "source": "https://www.linkedin.com/posts/omarsar_build-specialized-harnesses-folks-this-share-7518676737493221377-R_iB/",
+   "published": "2026-10",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/1Q19ssSjBeDVV9DAsD4kr5",
+   "tags": [
+    "self-improving-agents",
+    "agent-harness",
+    "evals",
+    "benchmarks"
+   ],
+   "summary": "Evolves a tree of harness subclasses, each overriding only what a task cluster needs, with design lessons (what helped, what failed) for the evolution agent and routing lessons for a router that reads the task plus a base-harness run and picks a specialist or keeps the base result. Frozen Gemini 3.5 Flash executor, held-out tasks: AutomationBench 61.6 to 77.4, Workspace-Bench 25.5 to 39.5, Toolathlon-GYM PASS 31.2 to 37.5; beats Meta-Harness, AHE and Adaptive Auto-Harness (75.4 on AutomationBench, so most of the gain is specialization). Inheritance beats flat copies by 4.96 points; best-of-K does not reliably help; base reuse protects OOD tasks. Every task pays for a base run, and no router error rate is reported.",
+   "file": "entries/oo-harness-class-hierarchy.html"
+  },
+  {
+   "id": "R110",
+   "slug": "harness-profiler",
+   "title": "harness-profiler: a profiler for Claude Code skill and agent factories",
+   "by": "Aleksandr Furmanov's post and blog post on afurmanov/harness-profiler, MIT, 2026-11-15",
+   "source": "https://www.linkedin.com/posts/afurmanov_claudecode-softwarefactory-aiagents-share-7527914835678953472-uB7n/",
+   "published": "2026-11-15",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/HmtRNxCTiebDd9YUVRq7kJ",
+   "tags": [
+    "observability",
+    "agent-harness",
+    "agent-skills",
+    "inference-cost",
+    "prompt-caching",
+    "harness-config"
+   ],
+   "summary": "Async, fail-open Claude Code hooks (PostToolUse, SubagentStop, compaction) append one JSON line per call to `.harness-profile/<session>.jsonl`; an offline `tree` links calls to contexts by agent id (not by time) and draws a UML sequence diagram, one bar per context (main, fresh subagent or forked skill, or copy of the parent), inline skills as diamonds, with new, cached and output tokens per context from the transcripts. Works on the web by committing the hook via `init`. The case study: a \"final\" validation reran the Rails review, tests and lint after only Markdown changed (up to 60 s and 48k new tokens per change, both runs PASS), because uncommitted code broke a git-keyed reuse rule. Encode a healthy trace as a `check-trace` skill. Caveats: undocumented transcript format, inline skills not separable as cost, Bash-mediated file work hides Reads/Edits, Codex unsupported, traces hold tool arguments; built-in OpenTelemetry tracing beta (per a commenter) may cover fleet use.",
+   "file": "entries/harness-profiler.html"
   }
  ],
  "edges": [
@@ -4756,6 +4864,54 @@
    "b": "R101",
    "strength": "strong",
    "why": "Survey evidence that review is the bottleneck (R105) and one company's answer: agent-produced evidence attached before review (R101)."
+  },
+  {
+   "a": "R107",
+   "b": "R105",
+   "strength": "strong",
+   "why": "R105 shows verification lagging generation; R107 is a reading list on building the verification itself (paired comparisons, judge independence, run-level grading)."
+  },
+  {
+   "a": "R106",
+   "b": "R104",
+   "strength": "strong",
+   "why": "Two local-first, single-artifact data tools: PMTiles for maps, txtai for retrieval."
+  },
+  {
+   "a": "R108",
+   "b": "R066",
+   "strength": "strong",
+   "why": "OO-Harness accepts a subclass when it beats its cluster's score once; TRUST is the statistical gate that would make those acceptances trustworthy on small clusters."
+  },
+  {
+   "a": "R108",
+   "b": "R025",
+   "strength": "strong",
+   "why": "Both get large gains by changing the harness around a frozen model; LongCapHarness writes one harness, OO-Harness evolves a family of them."
+  },
+  {
+   "a": "R108",
+   "b": "R103",
+   "strength": "strong",
+   "why": "Both separate direction-setting from code-writing in agent-driven program evolution; OO-Harness's design and routing lessons are the memory EvoTrias keeps only as scores."
+  },
+  {
+   "a": "R110",
+   "b": "R099",
+   "strength": "strong",
+   "why": "Amazon grades agent runs from traces at scale; harness-profiler is the same idea for one developer's skill factory, with expectations written as a check-trace skill."
+  },
+  {
+   "a": "R110",
+   "b": "R064",
+   "strength": "strong",
+   "why": "SkillEvaluator asks whether a skill helps; the profiler asks what it costs and whether it ran where intended (inline or fresh context)."
+  },
+  {
+   "a": "R110",
+   "b": "R054",
+   "strength": "strong",
+   "why": "R054 maps how harnesses structure sub-agents and context; the profiler makes that structure visible in your own sessions."
   }
  ]
 }
