@@ -1,0 +1,1287 @@
+{
+ "type": "excalidraw",
+ "version": 2,
+ "source": "https://excalidraw.com",
+ "elements": [
+  {
+   "id": "q1-telemetry-ingestion-title",
+   "type": "text",
+   "x": 0,
+   "y": 0,
+   "width": 900,
+   "height": 30,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 442620899,
+   "version": 1,
+   "versionNonce": 806899910,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Q1 Telemetry ingestion: logs, metrics, traces for many tenants",
+   "originalText": "Q1 Telemetry ingestion: logs, metrics, traces for many tenants",
+   "fontSize": 24,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "middle",
+   "containerId": null,
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-ag",
+   "type": "ellipse",
+   "x": 0,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e7f5ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1599435268,
+   "version": 1,
+   "versionNonce": 418461139,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-ag-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e0"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-ag-t",
+   "type": "text",
+   "x": 10,
+   "y": 246.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 269676600,
+   "version": 1,
+   "versionNonce": 255985077,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Agents / OTel collectors\n(customer hosts, k8s)",
+   "originalText": "Agents / OTel collectors\n(customer hosts, k8s)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-ag",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-gw",
+   "type": "rectangle",
+   "x": 330,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#fff4e6",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 884585952,
+   "version": 1,
+   "versionNonce": 2132084005,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-gw-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e0"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e1"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-gw-t",
+   "type": "text",
+   "x": 340,
+   "y": 246.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1836494975,
+   "version": 1,
+   "versionNonce": 1349251824,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Ingest gateway\n(auth, tenant quota, ack)",
+   "originalText": "Ingest gateway\n(auth, tenant quota, ack)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-gw",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-k",
+   "type": "rectangle",
+   "x": 660,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#fff9db",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1999744785,
+   "version": 1,
+   "versionNonce": 1946412081,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-k-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e1"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e2"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e7"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-k-t",
+   "type": "text",
+   "x": 670,
+   "y": 236.0,
+   "width": 160,
+   "height": 60,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1552984409,
+   "version": 1,
+   "versionNonce": 1287489454,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Kafka\n(topic per signal,\nkey = tenant+stream)",
+   "originalText": "Kafka\n(topic per signal,\nkey = tenant+stream)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-k",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-proc",
+   "type": "rectangle",
+   "x": 990,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e6fcf5",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1066984056,
+   "version": 1,
+   "versionNonce": 772092315,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-proc-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e2"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e3"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e4"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-proc-t",
+   "type": "text",
+   "x": 1000,
+   "y": 236.0,
+   "width": 160,
+   "height": 60,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1048386556,
+   "version": 1,
+   "versionNonce": 351564608,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Processors\n(parse, enrich, sample,\nderive metrics)",
+   "originalText": "Processors\n(parse, enrich, sample,\nderive metrics)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-proc",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-hot",
+   "type": "rectangle",
+   "x": 1320,
+   "y": 80,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#f3f0ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1289560150,
+   "version": 1,
+   "versionNonce": 2126508551,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-hot-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e3"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e5"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-hot-t",
+   "type": "text",
+   "x": 1330,
+   "y": 86.0,
+   "width": 160,
+   "height": 60,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1475216846,
+   "version": 1,
+   "versionNonce": 1927728187,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Hot store\n(logs: index 7d,\nmetrics: TSDB)",
+   "originalText": "Hot store\n(logs: index 7d,\nmetrics: TSDB)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-hot",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-cold",
+   "type": "rectangle",
+   "x": 1320,
+   "y": 380,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#f3f0ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1236683273,
+   "version": 1,
+   "versionNonce": 314395343,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-cold-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e4"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e6"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-cold-t",
+   "type": "text",
+   "x": 1330,
+   "y": 396.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 507088657,
+   "version": 1,
+   "versionNonce": 1795823849,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Cold store\n(S3 Parquet, 1y+)",
+   "originalText": "Cold store\n(S3 Parquet, 1y+)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-cold",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-q",
+   "type": "rectangle",
+   "x": 1650,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#ebfbee",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 708506837,
+   "version": 1,
+   "versionNonce": 1469118511,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-q-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e5"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e6"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-q-t",
+   "type": "text",
+   "x": 1660,
+   "y": 246.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 652768598,
+   "version": 1,
+   "versionNonce": 2100080515,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Query service\n(fan-out, limits)",
+   "originalText": "Query service\n(fan-out, limits)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-q",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-rules",
+   "type": "rectangle",
+   "x": 990,
+   "y": 380,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#ebfbee",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1811180650,
+   "version": 1,
+   "versionNonce": 168393880,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-rules-t"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e7"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-rules-t",
+   "type": "text",
+   "x": 1000,
+   "y": 396.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 333377415,
+   "version": 1,
+   "versionNonce": 1347535309,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Alert evaluator\n(reads stream / TSDB)",
+   "originalText": "Alert evaluator\n(reads stream / TSDB)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-rules",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-e0",
+   "type": "arrow",
+   "x": 180.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1460814403,
+   "version": 1,
+   "versionNonce": 1504004732,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-e0-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-ag",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-gw",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e0-t",
+   "type": "text",
+   "x": 207.0,
+   "y": 256.0,
+   "width": 96,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 2133201996,
+   "version": 1,
+   "versionNonce": 1959386987,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "batched OTLP",
+   "originalText": "batched OTLP",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-e0",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-e1",
+   "type": "arrow",
+   "x": 510.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 295334610,
+   "version": 1,
+   "versionNonce": 401991736,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-e1-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-gw",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-k",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e1-t",
+   "type": "text",
+   "x": 561.0,
+   "y": 256.0,
+   "width": 48,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1159380354,
+   "version": 1,
+   "versionNonce": 2036236842,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "append",
+   "originalText": "append",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-e1",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-e2",
+   "type": "arrow",
+   "x": 840.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 279172787,
+   "version": 1,
+   "versionNonce": 260573196,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-k",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-proc",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e3",
+   "type": "arrow",
+   "x": 1159.2,
+   "y": 230.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1329753548,
+   "version": 1,
+   "versionNonce": 1914012529,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.5999999999999,
+     -78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-proc",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-hot",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e4",
+   "type": "arrow",
+   "x": 1159.2,
+   "y": 302.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1222328496,
+   "version": 1,
+   "versionNonce": 1656961616,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.5999999999999,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-proc",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-cold",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e5",
+   "type": "arrow",
+   "x": 1660.8,
+   "y": 230.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1490376254,
+   "version": 1,
+   "versionNonce": 96907016,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     -171.5999999999999,
+     -78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-q",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-hot",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e6",
+   "type": "arrow",
+   "x": 1660.8,
+   "y": 302.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1982966163,
+   "version": 1,
+   "versionNonce": 1526706730,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-e6-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     -171.5999999999999,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-q",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-cold",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e6-t",
+   "type": "text",
+   "x": 1539.0,
+   "y": 331.0,
+   "width": 72,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 721762279,
+   "version": 1,
+   "versionNonce": 502922617,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "slow path",
+   "originalText": "slow path",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-e6",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-e7",
+   "type": "arrow",
+   "x": 829.2,
+   "y": 302.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 2120395275,
+   "version": 1,
+   "versionNonce": 253207297,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.5999999999999,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-k",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-rules",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-notes",
+   "type": "rectangle",
+   "x": 2000,
+   "y": 80,
+   "width": 330,
+   "height": 202,
+   "angle": 0,
+   "strokeColor": "#e67700",
+   "backgroundColor": "#ffec99",
+   "fillStyle": "solid",
+   "strokeWidth": 1,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 937195260,
+   "version": 1,
+   "versionNonce": 1234510746,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-notes-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-notes-t",
+   "type": "text",
+   "x": 2012,
+   "y": 90,
+   "width": 306,
+   "height": 182,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 555512016,
+   "version": 1,
+   "versionNonce": 1063497604,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Trade-offs to raise\n\u2022 Per-tenant quotas: noisy neighbour\n\u2022 Back pressure: Kafka buffers, shed debug\n\u2022 Cardinality limits on metric labels\n\u2022 Sampling traces (head vs tail)\n\u2022 Hot vs cold tiers: cost per GB\n\u2022 Schema-on-read vs parse at ingest",
+   "originalText": "Trade-offs to raise\n\u2022 Per-tenant quotas: noisy neighbour\n\u2022 Back pressure: Kafka buffers, shed debug\n\u2022 Cardinality limits on metric labels\n\u2022 Sampling traces (head vs tail)\n\u2022 Hot vs cold tiers: cost per GB\n\u2022 Schema-on-read vs parse at ingest",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-notes",
+   "lineHeight": 1.25,
+   "autoResize": true
+  }
+ ],
+ "appState": {
+  "viewBackgroundColor": "#ffffff",
+  "gridSize": 20
+ },
+ "files": {}
+}

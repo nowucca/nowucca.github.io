@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Resolve AI interview prep</title>
+</head>
+<body>
+<nav class="nwc-nav" aria-label="Site"><a href="/companies/">&larr; Company research</a><a href="/library/">All pages</a></nav>
+<style>.nwc-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;padding:.6rem max(16px,env(safe-area-inset-left,0px));font:500 13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;border-bottom:1px solid rgba(127,127,127,.3);background:inherit}.nwc-nav a{color:inherit;opacity:.75;text-decoration:none}.nwc-nav a:hover{opacity:1;text-decoration:underline}</style>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: one narrow reading column; index is a ruled list of idea rows, detail is a single article. */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --fg: #17202a;
+  --muted: #5a6774;
+  --line: #d9e0e6;
+  --accent: #1d5c88;
+  --accent-soft: #e2edf5;
+  --mark: #f6e3a1;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad;
+    --line: #2a343f; --accent: #7fb6de; --accent-soft: #1c2c3a; --mark: #5b4a17;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad;
+  --line: #2a343f; --accent: #7fb6de; --accent-soft: #1c2c3a; --mark: #5b4a17;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 var(--body);
+}
+.wrap {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding-block: 3rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+p { margin: 0; }
+.label {
+  font: 500 0.75rem/1.4 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* Header */
+.masthead { display: flex; flex-direction: column; gap: 0.75rem; border-bottom: 2px solid var(--fg); padding-bottom: 1.25rem; }
+.masthead .lede { color: var(--muted); max-width: 36rem; }
+.masthead .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-variant-numeric: tabular-nums; }
+
+/* Index rows */
+.ideas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.ideas li { border-bottom: 1px solid var(--line); }
+.ideas a.row {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: 0 1rem;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  color: inherit;
+}
+.ideas a.row:hover .title, .ideas a.row:focus-visible .title { color: var(--accent); }
+.ideas .num { font: 500 0.85rem/1.9 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.ideas .text { min-width: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+.ideas .title { font: 600 1.3rem/1.25 var(--display); transition: color 120ms; }
+.ideas .one { color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+.tag {
+  font: 500 0.72rem/1 var(--mono);
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Detail */
+.back { font: 500 0.85rem/1 var(--mono); text-decoration: none; }
+.article { display: flex; flex-direction: column; gap: 2.25rem; }
+.article header { display: flex; flex-direction: column; gap: 0.9rem; }
+.article .one { font-size: 1.2rem; color: var(--muted); }
+.section { display: flex; flex-direction: column; gap: 0.9rem; }
+.prose { display: flex; flex-direction: column; gap: 1rem; }
+.say { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.say li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+}
+.say li::before { content: "\201C"; font: 700 1.4rem/0 var(--display); color: var(--accent); margin-right: 0.15rem; vertical-align: -0.35rem; }
+.asks { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.fits { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1rem; margin: 0; }
+.fits dt { font: 600 0.95rem/1.6 var(--display); }
+.fits dd { margin: 0; min-width: 0; }
+.source {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+mark { background: var(--mark); color: inherit; padding: 0 0.15em; }
+footer.foot { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .ideas a.row { grid-template-columns: 2.25rem 1fr; }
+  .fits { grid-template-columns: 1fr; gap: 0.15rem; }
+  .fits dd { margin-bottom: 0.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Tables inside detail sections */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table.grid { border-collapse: collapse; width: 100%; font-size: 0.92rem; line-height: 1.45; }
+table.grid th, table.grid td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
+table.grid th { font: 500 0.72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+table.grid tbody tr:last-child td { border-bottom: 0; }
+table.grid td:first-child { font: 600 0.95rem/1.4 var(--display); white-space: nowrap; }
+.note { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 480px) { table.grid { min-width: 34rem; } }
+
+/* Link to the original article */
+.src { font-size: 0.92rem; color: var(--muted); display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.5rem; }
+.src .label { font-size: 0.68rem; }
+.ideas li .src { padding: 0 0 1.25rem calc(3.25rem + 1rem); margin-top: -0.6rem; }
+@media (max-width: 480px) { .ideas li .src { padding-left: calc(2.25rem + 1rem); } }
+
+/* Pattern guide: collapsible pattern cards */
+.pattern { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.pattern + .pattern { margin-top: 0.75rem; }
+.pattern summary {
+  list-style: none; cursor: pointer; display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.15rem 0.75rem;
+  padding: 0.9rem 1rem;
+}
+.pattern summary::-webkit-details-marker { display: none; }
+.pattern summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+.pattern .pnum { font: 500 0.85rem/1.9 var(--mono); color: var(--muted); grid-row: span 2; }
+.pattern .pname { font: 600 1.2rem/1.3 var(--display); }
+.pattern .pname::after { content: " +"; color: var(--accent); }
+.pattern[open] .pname::after { content: " \2212"; }
+.pattern .psig { color: var(--muted); font-size: 0.95rem; }
+.pattern summary:hover .pname { color: var(--accent); }
+.pbody { padding: 0 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.9rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.pbody h3 { font-size: 1rem; margin-top: 0.6rem; }
+.pbody .picture { font-size: 1.05rem; }
+.pbody .note .label, .trade .label { margin-right: 0.35rem; }
+.terms { display: grid; grid-template-columns: minmax(8rem, 13rem) 1fr; gap: 0.55rem 1rem; margin: 0; font-size: 0.95rem; }
+.terms dt { font: 600 0.92rem/1.5 var(--display); }
+.terms dd { margin: 0; min-width: 0; }
+.trades { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.75rem; counter-reset: t; }
+.trade { border-left: 3px solid var(--accent); padding: 0.1rem 0 0.1rem 0.9rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.97rem; }
+.trade h4 { margin: 0; font: 600 1rem/1.3 var(--display); }
+.trade .default { background: var(--accent-soft); border-radius: 4px; padding: 0.45rem 0.6rem; }
+.reads { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.95rem; }
+.dl a { font: 500 0.82rem/1.4 var(--mono); }
+@media (max-width: 480px) {
+  .terms { grid-template-columns: 1fr; gap: 0.1rem; }
+  .terms dd { margin-bottom: 0.5rem; }
+  .pattern summary { grid-template-columns: 1.75rem 1fr; }
+}
+
+code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding: 0.05em 0.3em; border-radius: 3px; overflow-wrap: anywhere; }
+.pbody > p, .pbody ul { min-width: 0; }
+
+</style>
+<main class="wrap">
+<a class="back" href="https://nowucca.com/interview-tips/ideas/label-the-pattern-first.html" target="_blank" rel="noopener">&larr; Pattern guide</a>
+<article class="article">
+<header>
+  <span class="label">Resolve AI · system design prep · for 2026-11-17</span>
+  <h1>Resolve AI: the night-before read</h1>
+  <p class="one">About 25 minutes of reading, then five practice questions you can work through in Excalidraw. Everything here maps to the ten patterns, so you can label first and then draw.</p>
+</header>
+
+<section class="section"><h2>1. What they build, in one breath</h2><div class="prose">
+<p>Resolve sells an <mark>AI SRE</mark>: an agent that goes on call, triages alerts, investigates incidents and suggests fixes, working in Slack, Teams and the terminal. It mostly <em>reads the customer's existing tools</em> (Datadog, Splunk, Prometheus, Kubernetes, GitHub deploy history) through integrations, rather than being a new place to send all telemetry. The founders built Splunk Observability and co-created OpenTelemetry, so expect them to know ingestion pipelines cold.</p>
+<p>Customers are big enterprises (Coinbase, DoorDash, Salesforce, Zscaler). That means <mark>multi-tenancy, security and per-customer credentials</mark> matter in every design. Their blog keeps returning to agent accuracy, token efficiency, harness design and human-in-the-loop fatigue, and Resolve AI Labs works on evals and simulated environments.</p>
+</div></section>
+
+<section class="section"><h2>2. Which patterns they will probe</h2>
+<div class="table-wrap"><table class="grid"><thead><tr><th>Area</th><th>Pattern labels</th><th>Words to use</th></tr></thead><tbody>
+<tr><td>Telemetry in</td><td>Write heavy + batch/analytics + search</td><td>Back pressure, partition key, cardinality, sampling, hot/cold tiers</td></tr>
+<tr><td>Alerts and paging</td><td>Event driven + notifications + workflow</td><td>Dedup fingerprint, grouping window, flapping, escalation timer, at-least-once paging</td></tr>
+<tr><td>The agent</td><td>Workflow orchestration + search</td><td>Durable run, tool calls, context budget, read-only tools, human approval, evals</td></tr>
+<tr><td>Integrations</td><td>Read heavy + transactional (credentials)</td><td>Per-tenant rate limits, credential vault, cache, normalised schema, audit log</td></tr>
+<tr><td>Quality</td><td>Batch/analytics</td><td>Replay, frozen snapshots, LLM judge, regression gate</td></tr>
+</tbody></table></div></section>
+
+<section class="section"><h2>3. Ten terms they'll assume you know</h2><dl class="terms">
+<dt>MELT</dt><dd>Metrics, events, logs, traces: the four kinds of telemetry.</dd>
+<dt>OpenTelemetry (OTel)</dt><dd>The open standard and SDKs for emitting telemetry; OTLP is its wire protocol and the Collector is its agent/pipeline.</dd>
+<dt>Cardinality</dt><dd>How many distinct label combinations a metric has. <code>http_requests{user_id=...}</code> with 10M users makes 10M time series and melts a TSDB. The number one ingestion risk.</dd>
+<dt>TSDB</dt><dd>Time-series database (Prometheus, M3, Mimir). Stores samples per series, compresses by time.</dd>
+<dt>Head vs tail sampling</dt><dd>Head: decide to keep a trace when it starts (cheap, blind). Tail: decide after it finishes, so you can keep all errors and slow traces (needs buffering).</dd>
+<dt>SLO / error budget / burn rate</dt><dd>SLO: target such as 99.9% of requests succeed. Error budget: the 0.1% you may fail. Burn rate: how fast you're spending it; alert on burn rate, not on raw CPU.</dd>
+<dt>Alert fingerprint</dt><dd>A hash of an alert's identifying labels, used to dedupe repeats of the same alert.</dd>
+<dt>Flapping</dt><dd>An alert firing and resolving over and over. Fix with "must be true for 5 minutes" and a different threshold to resolve (hysteresis).</dd>
+<dt>MTTD / MTTR</dt><dd>Mean time to detect and to resolve. Resolve's whole pitch is cutting MTTR (Coinbase: 72% less time to investigate).</dd>
+<dt>Tool calling / MCP</dt><dd>The LLM asks for a function to be run (query logs, get deploys) and gets the result back. MCP is a standard way to expose such tools; Resolve integrates via MCP.</dd>
+</dl></section>
+
+<section class="section"><h2>4. How to run the 45 minutes</h2><ol class="asks">
+<li><strong>Requirements, 5 min.</strong> Functional, then non-functional (latency, availability, consistency), then what's out of scope. Ask about tenants and scale.</li>
+<li><strong>Numbers, 3 min.</strong> Round hard. 1 day is about 100k seconds. 1M events/s at 500 B is 0.5 GB/s, about 43 TB/day.</li>
+<li><strong>Label the pattern out loud,</strong> then API and data model, 5 min.</li>
+<li><strong>High-level boxes, 10 min.</strong> Drag the template, then adapt it to what they said.</li>
+<li><strong>Deep dives, 15 min.</strong> Pick the two riskiest parts yourself, and name the trade-off and your default answer for each.</li>
+<li><strong>Wrap, 2 min.</strong> Failure modes, what you'd monitor, what you'd build next.</li>
+</ol><p class="note">The "Interview canvas" template in your library lays out these five columns.</p></section>
+
+<section class="section"><h2>5. Practice questions</h2>
+<p class="note">Try each one cold for 20 minutes in Excalidraw, then open the sketch answer. The matching diagram is in your library under the same Q number.</p>
+
+<details class="pattern"><summary><span class="pnum">Q1</span><span class="pname">Design telemetry ingestion for logs, metrics and traces</span><span class="psig">Multi-tenant, 1M events/s peak, queryable within 30 s, retained a year.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> write heavy / event driven, feeding search (logs) and batch/analytics (long-term).</p>
+<h3>Clarify</h3><ul class="reads"><li>Which signals, and is it push (agents) or pull (scrape)?</li><li>Freshness for alerting vs for queries? Retention per tier?</li><li>How many tenants, and is any tenant 100× the others?</li></ul>
+<h3>Numbers</h3><p>1M events/s × 500 B = 0.5 GB/s, about 43 TB/day raw; compressed maybe 5 to 10×, so 5 to 8 TB/day stored. A year of that hot is too expensive, so tier it.</p>
+<h3>Sketch</h3><p>OTel collectors batch and send OTLP to an ingest gateway that authenticates, checks the tenant's quota and acks quickly. It appends to Kafka with topics per signal, keyed by tenant + stream so each stream stays ordered. Processors parse, enrich (service, k8s labels), sample and derive metrics from logs. Logs go to an inverted index for 7 days and Parquet on S3 for a year; metrics go to a TSDB; traces to a trace store with tail sampling. A query service fans out to hot and cold stores with per-tenant limits.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Noisy neighbour</h4><p><span class="label">Example</span> One tenant ships a debug-logging bug and sends 20× normal volume. Without quotas, everyone's ingestion lags.</p><p class="default"><span class="label">Default answer</span> Per-tenant rate limits at the gateway, separate partitions for the biggest tenants, and drop or sample over-quota debug logs, never errors.</p></li>
+<li class="trade"><h4>Cardinality explosion</h4><p><span class="label">Example</span> Someone adds <code>request_id</code> as a metric label and creates millions of series per minute.</p><p class="default"><span class="label">Default answer</span> Enforce a series limit per metric and tenant at ingest, reject or aggregate away high-cardinality labels, and tell the customer.</p></li>
+<li class="trade"><h4>Back pressure</h4><p><span class="label">Example</span> The log index falls behind during an incident, which is exactly when people query most.</p><p class="default"><span class="label">Default answer</span> Kafka absorbs hours of backlog; prioritise error and warn logs; autoscale indexers on consumer lag; alerting reads the stream so it isn't blocked by indexing.</p></li>
+<li class="trade"><h4>Parse at ingest vs at query</h4><p><span class="label">Example</span> Parsing every log line into fields at ingest makes queries fast but costs CPU on data nobody reads.</p><p class="default"><span class="label">Default answer</span> Extract a few common fields (service, level, trace_id) at ingest; parse the rest at query time.</p></li>
+</ol></div></details>
+
+<details class="pattern"><summary><span class="pnum">Q2</span><span class="pname">Design alerting and on-call paging</span><span class="psig">Evaluate 100k rules every minute, group into incidents, page a human within 60 s, escalate if no ack.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> event driven + events/notifications, with an incident workflow (state machine).</p>
+<h3>Clarify</h3><ul class="reads"><li>Rule types: thresholds, SLO burn, log patterns? Evaluation interval?</li><li>Channels and on-call schedules? Should the AI agent start automatically?</li><li>What's worse, a missed page or a duplicate page? (Missed. Say so.)</li></ul>
+<h3>Sketch</h3><p>A rule evaluator, sharded by rule ID, runs each rule on its interval against the TSDB or the log stream and keeps alert state (pending, firing, resolved). Transitions become alert events. A dedup and grouping step computes a fingerprint from labels, drops repeats, and groups related alerts (same service, 5 minute window) into one incident. The incident service is a state machine (triggered, acknowledged, resolved) that pages the primary on call, starts an escalation timer, and kicks off the AI investigation. Notifiers send push, SMS, phone and Slack with retries and fallback.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Flapping and noise</h4><p><span class="label">Example</span> CPU hovers at 89 to 91% against a 90% threshold and pages 30 times an hour.</p><p class="default"><span class="label">Default answer</span> Require the condition to hold for N minutes, resolve at a lower threshold, and alert on SLO burn rate instead of raw resource metrics.</p></li>
+<li class="trade"><h4>Evaluator high availability without double paging</h4><p><span class="label">Example</span> Two evaluator replicas both fire the same alert during a failover.</p><p class="default"><span class="label">Default answer</span> Run replicas, let both evaluate, and rely on the fingerprint dedup downstream; or use leader election per shard. Duplicates are cheap; a missed page is not.</p></li>
+<li class="trade"><h4>Page delivery</h4><p><span class="label">Example</span> The push provider is down at 3 AM.</p><p class="default"><span class="label">Default answer</span> At-least-once delivery with retries, escalate channel (push, then SMS, then phone call) if no ack in N minutes, and track delivery receipts.</p></li>
+<li class="trade"><h4>Grouping too much vs too little</h4><p><span class="label">Example</span> A database outage triggers 300 alerts across 40 services.</p><p class="default"><span class="label">Default answer</span> Group by time window and topology (service dependency graph), so the 300 alerts become one incident with the database as the likely root.</p></li>
+</ol></div></details>
+
+<details class="pattern" open><summary><span class="pnum">Q3</span><span class="pname">Design an AI agent that investigates an alert</span><span class="psig">Given a firing alert, find the likely root cause in under 5 minutes using the customer's tools, and post evidence to Slack. (The most Resolve-shaped question.)</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> workflow orchestration (a durable, budgeted run) over search and read-heavy tool calls.</p>
+<h3>Clarify</h3><ul class="reads"><li>Which tools can it reach (metrics, logs, traces, k8s, deploys, feature flags)? Read-only, or can it act?</li><li>Latency and cost budget per investigation? How many concurrent incidents?</li><li>How do we know it was right? (Leads to evals.)</li></ul>
+<h3>Sketch</h3><p>An alert or Slack mention starts a durable investigation run with an ID, a time budget and a token budget. The orchestrator loops: ask the LLM for the next step given what's known, call a typed tool (query error logs for service X in the last 15 min, list deploys, get pod restarts), summarise the result to fit the context window, record it, and repeat until confident or out of budget. A context store supplies the service dependency graph, runbooks and similar past incidents (retrieval). The output is a short finding in Slack: likely cause, evidence links, confidence, and suggested next action. Every step is logged for replay and evals.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Context window vs evidence</h4><p><span class="label">Example</span> One log query returns 50,000 lines; pasting them in blows the context and the budget.</p><p class="default"><span class="label">Default answer</span> Tools return summaries (top error messages with counts, anomalies vs baseline), not raw dumps; keep raw results in a store the final answer links to.</p></li>
+<li class="trade"><h4>Autonomy vs safety</h4><p><span class="label">Example</span> The agent concludes a bad deploy caused the incident. Should it roll back?</p><p class="default"><span class="label">Default answer</span> Investigation tools are read-only. Actions like rollback are proposed with evidence and need a human click, with an audit log. Widen autonomy per customer as trust grows.</p></li>
+<li class="trade"><h4>Speed vs thoroughness</h4><p><span class="label">Example</span> Checking every service in a 200-service graph takes too long.</p><p class="default"><span class="label">Default answer</span> Start from the alerting service and walk the dependency graph outward, run independent queries in parallel, and stop when a hypothesis is confirmed by two independent signals.</p></li>
+<li class="trade"><h4>Hallucinated root causes</h4><p><span class="label">Example</span> The model says "memory leak" with no memory data looked at.</p><p class="default"><span class="label">Default answer</span> Require each claim to cite a tool result, show confidence, and say "not sure" when evidence is thin. Measure this in evals.</p></li>
+<li class="trade"><h4>Durability</h4><p><span class="label">Example</span> A deploy restarts the orchestrator mid-investigation.</p><p class="default"><span class="label">Default answer</span> Persist each step (Temporal-style durable execution), so the run resumes instead of restarting and re-querying everything.</p></li>
+</ol></div></details>
+
+<details class="pattern"><summary><span class="pnum">Q4</span><span class="pname">Design the integration layer to customers' tools</span><span class="psig">Hundreds of customers, each with Datadog, Splunk, Prometheus, k8s and GitHub, queried safely by agents.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> read heavy with strict tenancy; credentials handled with transactional care.</p>
+<h3>Sketch</h3><p>Agents call one unified query API with (tenant, tool, query). It fetches that tenant's credentials from a vault, checks a per-tenant per-provider rate limiter, checks a short-TTL result cache, then dispatches to connector workers that translate to each provider's API and normalise results into a common shape. Private clusters are reached through a small relay the customer runs in their VPC, which dials out to Resolve so no inbound firewall holes are needed. Every query is audit-logged.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Rate limits</h4><p><span class="label">Example</span> During a big incident, 10 parallel investigations hit the customer's Datadog API limit and their own dashboards start failing.</p><p class="default"><span class="label">Default answer</span> A token bucket per tenant and provider, set below the provider's limit; honour 429 with backoff; cache identical queries for 30 to 60 s.</p></li>
+<li class="trade"><h4>Tenant isolation</h4><p><span class="label">Example</span> A bug sends tenant A's query with tenant B's API key.</p><p class="default"><span class="label">Default answer</span> Tenant ID flows through every call and is checked at the vault; connectors run without shared state between tenants; consider per-tenant worker pools for the largest customers.</p></li>
+<li class="trade"><h4>Partial failure</h4><p><span class="label">Example</span> Splunk times out but Prometheus answers.</p><p class="default"><span class="label">Default answer</span> Tight timeouts, return partial results labelled as partial, and let the agent reason about missing data.</p></li>
+</ol></div></details>
+
+<details class="pattern"><summary><span class="pnum">Q5</span><span class="pname">How would you know the agent is getting better?</span><span class="psig">Design the evaluation system for the investigation agent.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> batch/analytics over replayed runs. Resolve AI Labs works on exactly this, so it may come up as a follow-up to Q3.</p>
+<h3>Sketch</h3><p>Build a set of past incidents labelled with the true root cause. Freeze the telemetry around each one, and serve it through simulated tools so a run is reproducible. An eval runner plays N incidents through M agent versions in parallel. A scorer checks the root cause (exact match where possible, an LLM judge plus human spot checks otherwise), whether evidence was cited, steps taken, tokens and time. Results feed a dashboard, and a release only ships if it doesn't regress.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Live data vs frozen snapshots</h4><p><span class="label">Example</span> Re-running last month's incident against live Datadog returns today's data, so scores change for no reason.</p><p class="default"><span class="label">Default answer</span> Snapshot the data at incident time and replay from it; it costs storage but makes comparisons fair.</p></li>
+<li class="trade"><h4>Accuracy vs cost</h4><p><span class="label">Example</span> A bigger model is 5 points more accurate but 4× the cost and twice as slow.</p><p class="default"><span class="label">Default answer</span> Track accuracy, cost and time together; route easy cases to a cheaper model and keep the big one for hard ones.</p></li>
+</ol></div></details>
+</section>
+
+<section class="section"><h2>6. Lines worth having ready</h2><ul class="say">
+<li>Before I draw, let me label it. This is <mark>write heavy</mark> on the way in and <mark>search</mark> on the way out, so I'll spend my deep dive on back pressure and cardinality.</li>
+<li>For the agent I'd treat each investigation as a <mark>durable workflow</mark> with a budget. Tools are read-only, and anything that changes production needs a human.</li>
+<li>Duplicate pages are annoying; missed pages are incidents. So delivery is <mark>at-least-once</mark>, and dedup happens on a fingerprint.</li>
+<li>I'd want an <mark>eval set of replayed incidents</mark> before changing the prompt or model, otherwise we're tuning by anecdote.</li>
+</ul></section>
+
+<section class="section"><h2>7. Excalidraw</h2><div class="prose">
+<p>The library file <code>resolve-interview.excalidrawlib</code> has 16 items: an interview canvas, Q1 to Q5, and the ten pattern starters. In Excalidraw Plus, open the Library panel (book icon) and drag the file onto it, or use its menu to import from file. During the interview, drag the closest template onto the canvas and edit it to match what they ask. Don't present it as finished; it's a starting point.</p>
+<p>Get the library: <a href="https://nowucca.com/companies/resolve-ai-interview/resolve-interview.excalidrawlib" target="_blank" rel="noopener">resolve-interview.excalidrawlib</a>, or <a href="https://excalidraw.com/#addLibrary=https%3A%2F%2Fnowucca.com%2Fcompanies%2Fresolve-ai-interview%2Fresolve-interview.excalidrawlib" target="_blank" rel="noopener">add it to excalidraw.com in one click</a>. The single files open with Menu &rarr; Open.</p>
+</div><ul class="reads"><li><a href="https://nowucca.com/companies/resolve-ai-interview/00-interview-canvas.excalidraw" target="_blank" rel="noopener">00-interview-canvas.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q1-telemetry-ingestion.excalidraw" target="_blank" rel="noopener">q1-telemetry-ingestion.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q2-alerting-paging.excalidraw" target="_blank" rel="noopener">q2-alerting-paging.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q3-ai-sre-agent.excalidraw" target="_blank" rel="noopener">q3-ai-sre-agent.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q4-connectors.excalidraw" target="_blank" rel="noopener">q4-connectors.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q5-agent-evals.excalidraw" target="_blank" rel="noopener">q5-agent-evals.excalidraw</a></li></ul><div class="prose">
+<p>The ten pattern starters and the full pattern guide are at <a href="https://nowucca.com/interview-tips/ideas/label-the-pattern-first.html" target="_blank" rel="noopener">nowucca.com/interview-tips</a>. Company background is in the <a href="https://nowucca.com/companies/resolve-ai/" target="_blank" rel="noopener">Resolve AI profile</a>.</p>
+</div></section>
+
+<section class="section"><h2>8. Questions to ask them</h2><ul class="asks">
+<li>Do you mainly query customers' existing tools, or do you also ingest and store telemetry yourselves? What drove that choice?</li>
+<li>How do you evaluate an investigation as correct? How big is the replay set?</li>
+<li>Where do agents get to take actions in production today, and what approval model do customers want?</li>
+<li>How is engineering organised day to day, and how do product engineering and Labs work together?</li>
+</ul></section>
+</article>
+
+</main>
+
+</body>
+</html>

@@ -98,6 +98,18 @@
             "edtech",
             "ruby"
           ]
+        },
+        {
+          "slug": "resolve-ai-interview",
+          "title": "Resolve AI interview prep",
+          "summary": "System design prep for a Resolve AI interview: likely patterns, observability terms, five practice questions with sketch answers, and Excalidraw templates.",
+          "date": "2026-11-16",
+          "tags": [
+            "system design",
+            "interview",
+            "resolve-ai"
+          ],
+          "artifact_url": "https://claude.ai/artifact/9reQ6gZ6m3tQnCLgV8VEf8"
         }
       ],
       "noindex": true
