@@ -530,6 +530,10 @@
       {
        "id": "R091",
        "why": "one served copy of each skill instead of drifting laptop copies"
+      },
+      {
+       "id": "R109",
+       "why": "Eduba's incubators: a scoped context of system prompt plus Markdown files shared by people and agent personas"
       }
      ]
     },
@@ -730,7 +734,8 @@
      "n": "6.2",
      "title": "Workflows over agents",
      "primary": [
-      "R015"
+      "R015",
+      "R109"
      ],
      "also": [
       {
@@ -1057,6 +1062,10 @@
       {
        "id": "R005",
        "why": "a free course for builders, one level up from user literacy"
+      },
+      {
+       "id": "R109",
+       "why": "Eduba's model for teaching AI at work: free Skool courses, a twelve-week capstone Lyceum, then in-company workflow teardowns"
       }
      ]
     },
@@ -3068,6 +3077,27 @@
    ],
    "summary": "Async, fail-open Claude Code hooks (PostToolUse, SubagentStop, compaction) append one JSON line per call to `.harness-profile/<session>.jsonl`; an offline `tree` links calls to contexts by agent id (not by time) and draws a UML sequence diagram, one bar per context (main, fresh subagent or forked skill, or copy of the parent), inline skills as diamonds, with new, cached and output tokens per context from the transcripts. Works on the web by committing the hook via `init`. The case study: a \"final\" validation reran the Rails review, tests and lint after only Markdown changed (up to 60 s and 48k new tokens per change, both runs PASS), because uncommitted code broke a git-keyed reuse rule. Encode a healthy trace as a `check-trace` skill. Caveats: undocumented transcript format, inline skills not separable as cost, Bash-mediated file work hides Reads/Edits, Codex unsupported, traces hold tool arguments; built-in OpenTelemetry tracing beta (per a commenter) may cover fleet use.",
    "file": "entries/harness-profiler.html"
+  },
+  {
+   "id": "R109",
+   "slug": "jake-van-clief-eduba",
+   "title": "Jake Van Clief, Eduba and his central theses",
+   "by": "Profile of the ICM author: his company Eduba, its chat.eduba.io workspace, and the six claims behind his course, paper, essays and videos",
+   "source": "https://eduba.io/",
+   "published": "2026-03 to 2026-10",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/Q7KA6oCvefFarPQvhcwBrg",
+   "tags": [
+    "deterministic-workflows",
+    "agent-workflows",
+    "context-engineering",
+    "psychology-of-programming",
+    "education",
+    "agent-platforms",
+    "company-research"
+   ],
+   "summary": "Clief is a USMC avionics/crypto veteran with an Edinburgh MSc; Eduba (Van Clief Media LLC, Florida) sells AI training and workflow teardowns (self-reported: 600+ trained at Pacific Life and Colgate, 40+ KPMG UK executives), a twelve-week Lyceum certification, and a multi-party workspace of \"incubators\" (topic + system prompt + Markdown context + human and agent-persona participants). Theses: AI is the runner inside a program, not the program; one model plus routed folders replaces agent frameworks for sequential reviewed work; augment, don't just automate (Engelbart, Weinberg); sort each step into software, rules, AI or don't build; value migrates up the abstraction ladder; intent and framing outrank code. Architecture claims are sound; evidence is practitioner-reported (52-member group, no controlled baseline, Claude only), membership figures conflict (12,500+ vs 30,000+), and \"deterministic\" still needs scripts and checks.",
+   "file": "entries/jake-van-clief-eduba.html"
   }
  ],
  "edges": [
@@ -4912,6 +4942,18 @@
    "b": "R054",
    "strength": "strong",
    "why": "R054 maps how harnesses structure sub-agents and context; the profiler makes that structure visible in your own sessions."
+  },
+  {
+   "a": "R109",
+   "b": "R015",
+   "strength": "strong",
+   "why": "The reel is thesis 6 (framing over code); R109 places it among the other five and repeats the determinism caveat."
+  },
+  {
+   "a": "R109",
+   "b": "R020",
+   "strength": "strong",
+   "why": "\"sort each step into software, rules or AI\" is the same split as \"the model proposes, the harness enforces\"."
   }
  ]
 }
