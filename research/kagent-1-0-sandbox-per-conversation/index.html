@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>kagent 1.0: one sandbox per conversation, pinned to its prompt and model · Research</title>
+<meta name="description" content="Agents move from shared Kubernetes Deployments to a Substrate that suspends, resumes and snapshots them; per the post each conversation gets its own sandbox pinned to its starting prompt and model, so changes reach only new conversations. Harnesses include kagent ADKs, Codex and Claude; sessions persist in PostgreSQL with checkpoint and fork. Tradeoffs: cold starts, stale prompts in long conversations, forcing urgent fixes.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R093 · Infrastructure for agents at scale › Agent session hosting and control planes</span>
+  <h1>kagent 1.0: one sandbox per conversation, pinned to its prompt and model</h1>
+  <div class="entry-meta"><span>André Lindenberg&#x27;s post on kagent-dev/kagent 1.0, Apache-2.0</span><span>Published 2026-11-13</span><span>Summarized 2026-11-15</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:share:7527141610330009600/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-hosting</span><span class="tag">kubernetes</span><span class="tag">sandboxing</span><span class="tag">durable-execution</span></div>
+</header>
+<article class="article"><p>Source: kagent-dev/kagent README (Apache-2.0, CNCF sandbox project originally from Solo.io); 1.0 GA announced November 2026. Surfaced by André Lindenberg.</p>
+<h2 id="what-changed">What changed</h2>
+<p>Before 1.0, kagent ran each agent on Kubernetes like a web service: a long-lived Deployment that served every conversation. In 1.0, agents run on a Substrate layer that manages their lifecycle (suspension, resumption, snapshots), and, per the post, each conversation gets its own sandbox pinned to the prompt and model it started with. A prompt change therefore reaches only conversations opened after it.</p>
+<h2 id="building-blocks-from-the-readme">Building blocks (from the README)</h2>
+<ul><li><p><strong>Agents and AgentTemplates</strong> as Kubernetes custom resources: system prompt, tools, subagents, model config.</p></li><li><p><strong>Harnesses</strong> choose how an agent runs: kagent's own Go and Python ADKs, Codex, Claude, or a custom runtime. Third-party coding agents run like native agents.</p></li><li><p><strong>Sessions</strong> persist conversations and task history in PostgreSQL, independent of the running agent; you can suspend, resume, checkpoint and fork.</p></li><li><p><strong>MCP tools</strong> for Kubernetes, Istio, Helm, Argo, Prometheus, Grafana, Cilium and others, shared through RemoteMCPServer resources.</p></li></ul>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p><strong>Instruction stability.</strong> A running agent should not change instructions mid-task. Pinning per conversation is the agent equivalent of not hot-swapping code under an in-flight request.</p></li><li><p><strong>Isolation.</strong> Per-conversation sandboxes limit blast radius when an agent runs tools or code.</p></li><li><p><strong>Rollouts look like deployments.</strong> New prompts and models roll out to new conversations, so you can compare old and new side by side.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p>More sandboxes means more scheduling and cold-start cost; long-lived conversations keep old prompts, including old bugs, until they end.</p></li><li><p>You need a way to force-migrate or end conversations when a prompt has a security fix.</p></li><li><p>Session state in a shared database becomes the critical dependency.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ol><li><p>Can a prompt or model change reach a conversation mid-task in our system?</p></li><li><p>How do we force an urgent fix onto running conversations?</p></li><li><p>Is each agent run isolated from other users' runs?</p></li><li><p>Can we fork a conversation from a checkpoint to debug it?</p></li></ol>
+<h2 id="related-entries">Related entries</h2>
+<p>R084 (always-on agent primitives), R035 (durable execution), R074 (policy on every mutation), R021.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/building-always-on-agents/">Building always-on agents: five primitives for agents that sleep, wake and act</a><span class="label">R084 · Agent principles and patterns</span><span class="why">Sessions that suspend, resume and stay pinned to their instructions.</span></li><li style="--c:var(--t6)"><a class="to" href="/research/durable-execution-for-agents/">Long-horizon agents and durable execution</a><span class="label">R035 · Agent principles and patterns</span><span class="why">Sessions that suspend, resume and stay pinned to their instructions.</span></li></ul><p><a href="/research/map/#R093">See R093 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

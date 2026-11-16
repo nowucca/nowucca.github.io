@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MetaPI: turn agent benchmarks into prompt-injection suites · Research</title>
+<meta name="description" content="Converts utility benchmarks (AppWorld, VitaBench, Terminal-Bench) into end-to-end indirect-injection suites: find injection points, generate attacker goals, optimize adaptive payloads, validate in the real environment. No evaluated defense was both useful and secure; per DAIR, robust closed models still exceed 20% attack success, DataSentinel keeps utility but blocks less, CaMeL blocks more at large utility cost. Lesson: measure utility and injection on the same tasks.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R089 · Agent principles and patterns › Evaluation data for agents</span>
+  <h1>MetaPI: turn agent benchmarks into prompt-injection suites</h1>
+  <div class="entry-meta"><span>DAIR.AI&#x27;s post on Wang, Xiang, Qu et al., arXiv 2611.10026, 5 Nov 2026</span><span>Published 2026-11-05</span><span>Summarized 2026-11-15</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:share:7527379833434226689/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-security</span><span class="tag">prompt-injection</span><span class="tag">benchmarks</span><span class="tag">evaluation</span></div>
+</header>
+<article class="article"><p>Source: Wang, Xiang, Qu, Li, Zhang, Suh and Tian, "MetaPI: Constructing Prompt Injection Benchmarks from LLM Agent Benchmarks", arXiv 2611.10026, 5 Nov 2026. Surfaced by DAIR.AI.</p>
+<h2 id="the-problem">The problem</h2>
+<p>Indirect prompt injection (IPI) benchmarks lag behind utility benchmarks: they cover few tasks and environments and use fixed, static attacks. Meanwhile agents get high-privilege tools in exactly the environments utility benchmarks already model.</p>
+<h2 id="the-approach-meta-benchmarking">The approach: meta-benchmarking</h2>
+<p>MetaPI converts an existing utility benchmark into an end-to-end IPI suite that reuses its tasks, environments and infrastructure. The toolkit:</p>
+<ol><li><p>Finds plausible injection points (tool outputs, files, web content the agent will read).</p></li><li><p>Generates realistic attacker objectives for that environment.</p></li><li><p>Optimizes adaptive payloads rather than using fixed strings.</p></li><li><p>Validates each attack by running it in the real environment and checking whether the objective was achieved.</p></li></ol>
+<p>Interfaces are modular, so new environments, agents, defenses and attack algorithms plug in without rewriting the pipeline.</p>
+<h2 id="findings-author-reported">Findings (author-reported)</h2>
+<ul><li><p>Applied to AppWorld, VitaBench and Terminal-Bench across several backbone models.</p></li><li><p>No evaluated defense achieved both strong utility and strong security under adaptive attacks.</p></li><li><p>Per the DAIR summary: the most robust closed models still had attack success above 20%; a detector-style defense (DataSentinel) kept utility but blocked less, while a capability-separation design (CaMeL) blocked more at a large utility cost.</p></li></ul>
+<h2 id="what-to-do-with-it">What to do with it</h2>
+<ul><li><p>If you already run a utility benchmark for your agent, run injection attacks inside the same environment, so security and utility are measured on the same tasks.</p></li><li><p>Track both numbers per release; a defense that halves attack success but drops task success is a product decision, not a free win.</p></li><li><p>Use adaptive, environment-validated attacks. Static strings overstate robustness.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>Adaptive payload optimization means results depend on attacker budget; compare defenses at equal budgets.</p></li><li><p>Validation checks the attacker's goal, not subtler harms such as data exposure in logs.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ol><li><p>Which inputs to our agent come from places an attacker could write?</p></li><li><p>Do we test injections inside our real task environment, not a toy one?</p></li><li><p>Do we report utility and attack success together for each defense?</p></li><li><p>Are high-privilege tools gated by something other than the model's judgment?</p></li></ol>
+<h2 id="related-entries">Related entries</h2>
+<p>R086 (graders as an attack surface in Singularity-Bench), R074 (policy on every mutation, not tool hiding), R064, R052.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/agents-doing-ai-engineering-benchmarks/">Agents doing AI engineering: four November 2026 benchmarks</a><span class="label">R086 · Agent principles and patterns</span><span class="why">Both treat the evaluation environment as an attack surface; R086 for graders, R089 for agent inputs.</span></li></ul><p><a href="/research/map/#R089">See R089 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

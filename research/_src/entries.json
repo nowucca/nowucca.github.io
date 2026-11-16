@@ -17,7 +17,8 @@
       "R055",
       "R057",
       "R059",
-      "R083"
+      "R083",
+      "R088"
      ],
      "also": [
       {
@@ -55,6 +56,10 @@
       {
        "id": "R084",
        "why": "memory for an always-on agent: user instructions, user notes, past messages and per-task progress files on durable storage; pointers for anything owned elsewhere"
+      },
+      {
+       "id": "R090",
+       "why": "full agent transcripts synced across machines and resumable in a different harness"
       }
      ]
     },
@@ -83,6 +88,10 @@
       {
        "id": "R057",
        "why": "agent-run reorganization passes and a write-time probe that asks a question about each new interaction and repairs memory when it can't answer"
+      },
+      {
+       "id": "R094",
+       "why": "an unattended improve-and-score loop; the agent repeated a rejected attempt, so keep a memory of failures"
       }
      ]
     },
@@ -193,6 +202,10 @@
       {
        "id": "R085",
        "why": "sticky model routing: hold a tier for a few requests after a switch so the prompt cache survives"
+      },
+      {
+       "id": "R088",
+       "why": "choose memories by measured decision utility under a token budget, relevance only for recall"
       }
      ]
     },
@@ -263,7 +276,9 @@
       "R021",
       "R030",
       "R061",
-      "R074"
+      "R074",
+      "R090",
+      "R093"
      ],
      "also": [
       {
@@ -299,9 +314,15 @@
       "R027",
       "R051",
       "R072",
-      "R085"
+      "R085",
+      "R096"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R086",
+       "why": "Evolving Infra: serving that adapts the prefill/decode split and KV eviction to agent traffic"
+      }
+     ]
     },
     {
      "n": "2.5",
@@ -384,6 +405,10 @@
       {
        "id": "R015",
        "why": "the one-minute case for workflows over agents, with the model as the runtime for each step"
+      },
+      {
+       "id": "R092",
+       "why": "vendor-maintained skills retrieved at write time; legacy-pattern counts as a metric"
       }
      ]
     },
@@ -462,6 +487,10 @@
       {
        "id": "R005",
        "why": "LLM-wiki second brain: nothing ingested until linked, index.md + log.md, lint skills"
+      },
+      {
+       "id": "R091",
+       "why": "one served copy of each skill instead of drifting laptop copies"
       }
      ]
     },
@@ -542,7 +571,8 @@
      "title": "Harness building blocks",
      "primary": [
       "R006",
-      "R054"
+      "R054",
+      "R092"
      ],
      "also": [
       {
@@ -636,6 +666,10 @@
       {
        "id": "R085",
        "why": "a per-request model router fed by the harness's own tool-result history"
+      },
+      {
+       "id": "R095",
+       "why": "a five-subsystem harness checklist with audit script"
       }
      ]
     },
@@ -687,7 +721,9 @@
       "R029",
       "R064",
       "R070",
-      "R078"
+      "R078",
+      "R086",
+      "R089"
      ],
      "also": [
       {
@@ -723,7 +759,8 @@
       "R034",
       "R049",
       "R062",
-      "R071"
+      "R071",
+      "R091"
      ],
      "also": [
       {
@@ -753,12 +790,25 @@
      "title": "Long-running agents and durable execution",
      "primary": [
       "R035",
-      "R084"
+      "R084",
+      "R094"
      ],
      "also": [
       {
        "id": "R050",
        "why": "human waits taken out of the session: the agent ends its turn and resumes when the reply arrives"
+      },
+      {
+       "id": "R086",
+       "why": "12 to 24h agent runs: eval length changes model rankings; agents stop early and test badly"
+      },
+      {
+       "id": "R093",
+       "why": "instructions pinned per conversation; prompt rollouts only reach new conversations"
+      },
+      {
+       "id": "R096",
+       "why": "process-level checkpoint and restore of GPU workers; the same idea as durable agent state, one layer down"
       }
      ]
     },
@@ -777,6 +827,10 @@
       {
        "id": "R082",
        "why": "clean-room mode as a tool allowlist that refuses inspection tools and says how to escalate; labeled honestly as policy, not sandbox"
+      },
+      {
+       "id": "R089",
+       "why": "adaptive prompt-injection attacks run inside the same benchmark environments used for utility"
       }
      ]
     }
@@ -931,7 +985,9 @@
      "primary": [
       "R022",
       "R023",
-      "R081"
+      "R081",
+      "R087",
+      "R095"
      ],
      "also": []
     },
@@ -950,6 +1006,14 @@
       {
        "id": "R083",
        "why": "a 15-pattern agent-memory catalog with repo links graded for teaching use; regroup by stage, admission first"
+      },
+      {
+       "id": "R087",
+       "why": "a full public agents syllabus with slides and readings; build-first ordering is reusable for sessions"
+      },
+      {
+       "id": "R095",
+       "why": "five-subsystem harness framework and production teardowns; reusable audit checklist for sessions"
       }
      ]
     }
@@ -2458,6 +2522,209 @@
    ],
    "summary": "A Rust library (libsy) embedded in a gateway or harness picks the model per request; integrations for Envoy Agent Router, LiteLLM, NeMo Relay and OpenRouter. The Stage router scores the tool-result history: error severity, spinning and exploring push to the capable model, clean writes and edits push to the efficient one; repeated failures, critical errors and compaction force capable; a 2-request hold after a switch keeps the tier (and prompt cache) sticky. Other modes: up-front LLM classifier, composite, judge-confirmed escalation that latches, advisor, prefill classifier. Vendor runs: Terminal-Bench 2.1 Stage 79.0% at $110 vs Opus 4.8 alone 77.2% at $149; DeepSWE Stage 61.4% at $466 vs Sol alone 62.8% at $721. Lesson: difficulty is observable mid-run from free tool signals better than predictable from the prompt. Caveats: vendor numbers, coding-calibrated hardcoded signal vocabulary, silent misconfiguration, experimental desktop app.",
    "file": "entries/nemo-switchyard-model-routing.html"
+  },
+  {
+   "id": "R086",
+   "slug": "agents-doing-ai-engineering-benchmarks",
+   "title": "Agents doing AI engineering: four November 2026 benchmarks",
+   "by": "Tom Anusic's post on four arXiv papers, 9 to 12 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527851459728687104/",
+   "published": "2026-11-09",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/QpH1CDKpwpUYNjitRu2NGq",
+   "tags": [
+    "benchmarks",
+    "long-horizon",
+    "evaluation",
+    "reward-hacking",
+    "inference-serving",
+    "robotics"
+   ],
+   "summary": "Infrathon (2611.11995, UW and Ai2): ~25 infra-optimization tasks with 12 to 24h budgets, 150 runs; rankings change with the horizon, 135 of 150 runs still improving in the second half, Opus 5.5 beats a human KV-cache codec (6.82 to 19.86); failures are task violations, unreliable self-testing, premature completion. Singularity-Bench (2611.16591): six end-to-end AI-stack tasks scored against mature human systems; Opus 5.5 in Claude Code index 1.25 vs others 0.58; red-teaming found reward hacks in Harbor, fixed by Breakwater. Embodied First Exam (2611.12177): 1,156 simulated robot tasks where coding agents pick direct control, control code or policy training; best agent 34% with sensors only and no resets. Evolving Infra (2611.12304): agent-aware prefill/decode serving that re-plans the split online and evicts KV on agent context signals; up to 4.1x lower latency and 14x lower P95 TTFT than Dynamo. Caveats: single runs, author-run numbers, simulation only for robotics.",
+   "file": "entries/agents-doing-ai-engineering-benchmarks.html"
+  },
+  {
+   "id": "R087",
+   "slug": "stanford-cs329z-engineering-ai-agents",
+   "title": "Stanford CS329Z: Engineering AI Agents, a free course map",
+   "by": "Hao Hoang's post on Stanford's Fall 2026 course by Diyi Yang, Michael Ryan and John Yang",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527870176831361024/",
+   "published": "2026-09-23",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/NdHbfzT87B3LLcF5MTmX5i",
+   "tags": [
+    "education",
+    "agent-architecture",
+    "evaluation",
+    "rag",
+    "tool-use",
+    "teaching"
+   ],
+   "summary": "Build RAG, tool use and agent loops from scratch, then see what DSPy-style frameworks abstract; two applied homeworks and a project. Blocks: foundations, building blocks (RAG, tools, MCP), frameworks and design patterns (workflows vs agents, ReAct, CodeAct), memory and multi-agent, optimization, data for agents (two lectures), evaluation (benchmark design, LLM-as-judge), guest lectures from the Terminal-Bench and SWE-bench teams, Andrew Ng fireside, safety, coding and personal agents. Slides and readings public; videos posted as the quarter runs (8 on 2026-11-15). Gaps: little on production operation, durable execution or cost.",
+   "file": "entries/stanford-cs329z-engineering-ai-agents.html"
+  },
+  {
+   "id": "R088",
+   "slug": "memcredit-decision-utility-memory",
+   "title": "MemCredit: pick agent memories by decision utility, not relevance",
+   "by": "Elvis Saravia's and DAIR.AI's posts on Guo, Wang, Zhu et al., arXiv 2611.15600, 11 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527376311149903872/",
+   "published": "2026-11-11",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/4C8xLDZRC9Z5Ac3AxKYmTU",
+   "tags": [
+    "agent-memory",
+    "context-economics",
+    "retrieval",
+    "benchmarks"
+   ],
+   "summary": "Counterfactual interventions measure how each memory changes the agent's next action; a light estimator trained on those credits picks, from relevance-retrieved candidates, what fits a token budget. Most retrieved memories never change the action. ALFWorld at 500 tokens: 86.57% vs 65.67% for BM25 with ~75% fewer memory tokens; policy unchanged. Caveats: policy-conditional credits, replayable decisions needed, short-action benchmarks.",
+   "file": "entries/memcredit-decision-utility-memory.html"
+  },
+  {
+   "id": "R089",
+   "slug": "metapi-prompt-injection-benchmarks",
+   "title": "MetaPI: turn agent benchmarks into prompt-injection suites",
+   "by": "DAIR.AI's post on Wang, Xiang, Qu et al., arXiv 2611.10026, 5 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527379833434226689/",
+   "published": "2026-11-05",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/ChhmjmS9AJkxbhmr761xTV",
+   "tags": [
+    "agent-security",
+    "prompt-injection",
+    "benchmarks",
+    "evaluation"
+   ],
+   "summary": "Converts utility benchmarks (AppWorld, VitaBench, Terminal-Bench) into end-to-end indirect-injection suites: find injection points, generate attacker goals, optimize adaptive payloads, validate in the real environment. No evaluated defense was both useful and secure; per DAIR, robust closed models still exceed 20% attack success, DataSentinel keeps utility but blocks less, CaMeL blocks more at large utility cost. Lesson: measure utility and injection on the same tasks.",
+   "file": "entries/metapi-prompt-injection-benchmarks.html"
+  },
+  {
+   "id": "R090",
+   "slug": "atuin-threads-agent-sessions",
+   "title": "Atuin Threads: move an agent session between machines and harnesses",
+   "by": "André Lindenberg's post on atuinsh/atuin, MIT",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527720970040774656/",
+   "published": "2026-11-15",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/GcaHMxz1eRpMCm2ESWZGAy",
+   "tags": [
+    "agent-memory",
+    "session-portability",
+    "devtools",
+    "agent-harness"
+   ],
+   "summary": "Encrypted capture and sync of Claude Code, Codex, Pi, OpenCode and Omp sessions; `atuin resume` continues a thread on another machine or in another harness with the full transcript, dead ends included; opt-in capture, self-hostable sync, MCP search over shell history and threads. Risks: transcripts hold secrets, cross-harness replay limits, wider read surface for injected agents.",
+   "file": "entries/atuin-threads-agent-sessions.html"
+  },
+  {
+   "id": "R091",
+   "slug": "fastmcp-skills-over-mcp",
+   "title": "FastMCP 4.2: serve agent skills from the MCP server",
+   "by": "André Lindenberg's post on PrefectHQ/fastmcp 4.2, Apache-2.0",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527384471013105664/",
+   "published": "2026-11-14",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/G9M1oSfYJxg96hzaWwmd8N",
+   "tags": [
+    "mcp",
+    "agent-skills",
+    "agent-protocols",
+    "docs-as-code"
+   ],
+   "summary": "A SkillCatalogProvider serves SKILL.md plus files as `skill://` resources so tools and their instructions ship in one deploy; experimental MCP Skills extension (`skills/list` with hashed manifests); skills from code, folders, packages, a database per request, or object storage by digest; client can write skills to local folders after deploy. Tradeoffs: server dependency, skills as an injection surface.",
+   "file": "entries/fastmcp-skills-over-mcp.html"
+  },
+  {
+   "id": "R092",
+   "slug": "modern-web-guidance",
+   "title": "Modern Web Guidance 1.0: browser vendors' skills against legacy web code",
+   "by": "André Lindenberg's post on GoogleChrome/modern-web-guidance, Apache-2.0, stewarded with Edge, Firefox and MDN",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527339251655602176/",
+   "published": "2026-11-14",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/UMH4wKpaTeYusNX1MQ9Teh",
+   "tags": [
+    "agent-skills",
+    "coding-agents",
+    "web-platform",
+    "retrieval"
+   ],
+   "summary": "A skill and CLI that search curated, compatibility-aware guides (209 per the post) before an agent writes UI code, plus `legacy-scan` for legacy patterns; guides pruned by evals for token efficiency. Caveat: queries go to Google unless telemetry is disabled.",
+   "file": "entries/modern-web-guidance.html"
+  },
+  {
+   "id": "R093",
+   "slug": "kagent-1-0-sandbox-per-conversation",
+   "title": "kagent 1.0: one sandbox per conversation, pinned to its prompt and model",
+   "by": "André Lindenberg's post on kagent-dev/kagent 1.0, Apache-2.0",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527141610330009600/",
+   "published": "2026-11-13",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/CTjQZQYAjYcEFAn3AjGoz9",
+   "tags": [
+    "agent-hosting",
+    "kubernetes",
+    "sandboxing",
+    "durable-execution"
+   ],
+   "summary": "Agents move from shared Kubernetes Deployments to a Substrate that suspends, resumes and snapshots them; per the post each conversation gets its own sandbox pinned to its starting prompt and model, so changes reach only new conversations. Harnesses include kagent ADKs, Codex and Claude; sessions persist in PostgreSQL with checkpoint and fork. Tradeoffs: cold starts, stale prompts in long conversations, forcing urgent fixes.",
+   "file": "entries/kagent-1-0-sandbox-per-conversation.html"
+  },
+  {
+   "id": "R094",
+   "slug": "codeclimb-overnight-coding-agent",
+   "title": "CodeClimb: an overnight self-improving coding agent on durable workflows",
+   "by": "Paul Iusztin's first-hand build notes, 14 to 15 Nov 2026",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527712506945945600/",
+   "published": "2026-11-15",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/QBV55SGheVoRMNKkYWhxBx",
+   "tags": [
+    "durable-execution",
+    "self-improvement",
+    "cost-control",
+    "evaluation",
+    "coding-agents"
+   ],
+   "summary": "Rounds of write, score on dev, keep if beyond a noise margin; durable checkpointed steps, pause up to three days when credits run out, state outside the sandbox, coder and grader in separate sandboxes with hidden test data, scoped tokens, a metering proxy returning HTTP 402 at $2.50 per experiment and $15 per night, plateau detection and a kill switch. First night about $10 for five experiments; targets not yet met; the coder repeated a rejected decision.",
+   "file": "entries/codeclimb-overnight-coding-agent.html"
+  },
+  {
+   "id": "R095",
+   "slug": "learn-harness-engineering",
+   "title": "Learn Harness Engineering: an open course with four production teardowns",
+   "by": "Shubham Saboo's post on walkinglabs/learn-harness-engineering, MIT",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527210465593282561/",
+   "published": "2026-11-14",
+   "added": "2026-11-15",
+   "artifact": "https://claude.ai/artifact/TbrfoeRAiDwsAY8jpESpWP",
+   "tags": [
+    "education",
+    "agent-harness",
+    "teaching",
+    "multi-agent"
+   ],
+   "summary": "14 lectures and 8 projects built on five harness subsystems (instructions, tools, environment, state, feedback), from a single loop to builder-checker loops to agent graphs with rollback and approval; a scaffolding skill and repo audit script; teardowns of Claude Code, Codex, Pi and DeepSeek harnesses. Caveat: teardowns are outside readings.",
+   "file": "entries/learn-harness-engineering.html"
+  },
+  {
+   "id": "R096",
+   "slug": "nvidia-dynamo-snapshot",
+   "title": "NVIDIA Snapshot: checkpoint and restore GPU inference pods in seconds",
+   "by": "Ron Kahn's post after the KubeCon open-source release, with NVIDIA's May 2026 Dynamo Snapshot blog",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527870037542502400/",
+   "published": "2026-11",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/AJT1Uyj7PuyzgAk2QnQWHC",
+   "tags": [
+    "inference-serving",
+    "kubernetes",
+    "cold-start",
+    "checkpointing"
+   ],
+   "summary": "cuda-checkpoint dumps GPU state to host memory and CRIU captures the process and container layer; a privileged node DaemonSet checkpoints runc containers to shared storage; the worker signals a safe point after engine warm-up but before joining the control plane (CRIU can't capture live TCP), then resumes there; KV cache released before checkpoint; striped-NVMe weights restore in under 5s (21x for gpt-oss-120b). Partner numbers: GLM-5.3 pod readiness ~8 min to 31 s; vLLM scale-from-zero 2-8.5 min to 6-34 s on HGX B300. Risks: privileged agent, secrets in artifacts, driver coupling, storage bound.",
+   "file": "entries/nvidia-dynamo-snapshot.html"
   }
  ],
  "edges": [
@@ -3978,6 +4245,126 @@
    "b": "R027",
    "strength": "strong",
    "why": "Model tiers as one system; R085 decides per turn which tier runs, R027 which provider is reliable for it."
+  },
+  {
+   "a": "R086",
+   "b": "R064",
+   "strength": "strong",
+   "why": "How to measure agents: paired runs and generated benchmarks there; horizon length and grader hardening here."
+  },
+  {
+   "a": "R086",
+   "b": "R070",
+   "strength": "strong",
+   "why": "How to measure agents: paired runs and generated benchmarks there; horizon length and grader hardening here."
+  },
+  {
+   "a": "R086",
+   "b": "R085",
+   "strength": "strong",
+   "why": "Agent work as a long run whose progress signals matter; R086 shows rankings move with budget."
+  },
+  {
+   "a": "R086",
+   "b": "R042",
+   "strength": "strong",
+   "why": "Agent work as a long run whose progress signals matter; R086 shows rankings move with budget."
+  },
+  {
+   "a": "R087",
+   "b": "R023",
+   "strength": "strong",
+   "why": "Both teach agents by building the harness yourself; R023 is coding-agent specific, R087 a full university syllabus."
+  },
+  {
+   "a": "R087",
+   "b": "R086",
+   "strength": "strong",
+   "why": "The course's evaluation block is the theory behind the long-horizon benchmarks and paired-run measurements."
+  },
+  {
+   "a": "R087",
+   "b": "R064",
+   "strength": "strong",
+   "why": "The course's evaluation block is the theory behind the long-horizon benchmarks and paired-run measurements."
+  },
+  {
+   "a": "R088",
+   "b": "R040",
+   "strength": "strong",
+   "why": "What to keep in memory; R088 measures each memory's effect on actions instead of trusting relevance."
+  },
+  {
+   "a": "R088",
+   "b": "R059",
+   "strength": "strong",
+   "why": "What to keep in memory; R088 measures each memory's effect on actions instead of trusting relevance."
+  },
+  {
+   "a": "R089",
+   "b": "R086",
+   "strength": "strong",
+   "why": "Both treat the evaluation environment as an attack surface; R086 for graders, R089 for agent inputs."
+  },
+  {
+   "a": "R090",
+   "b": "R084",
+   "strength": "strong",
+   "why": "Raw transcript portability vs curated memory files for an always-on agent."
+  },
+  {
+   "a": "R091",
+   "b": "R092",
+   "strength": "strong",
+   "why": "Serving skills centrally, a vendor-maintained skill, and measuring whether skills help."
+  },
+  {
+   "a": "R091",
+   "b": "R064",
+   "strength": "strong",
+   "why": "Serving skills centrally, a vendor-maintained skill, and measuring whether skills help."
+  },
+  {
+   "a": "R093",
+   "b": "R084",
+   "strength": "strong",
+   "why": "Sessions that suspend, resume and stay pinned to their instructions."
+  },
+  {
+   "a": "R093",
+   "b": "R035",
+   "strength": "strong",
+   "why": "Sessions that suspend, resume and stay pinned to their instructions."
+  },
+  {
+   "a": "R094",
+   "b": "R086",
+   "strength": "strong",
+   "why": "Long unattended runs need hidden test data, noise margins and external budgets."
+  },
+  {
+   "a": "R094",
+   "b": "R039",
+   "strength": "strong",
+   "why": "Long unattended runs need hidden test data, noise margins and external budgets."
+  },
+  {
+   "a": "R095",
+   "b": "R023",
+   "strength": "strong",
+   "why": "Three ways to learn agent engineering: build a coding agent, a university syllabus, a harness framework with teardowns."
+  },
+  {
+   "a": "R095",
+   "b": "R087",
+   "strength": "strong",
+   "why": "Three ways to learn agent engineering: build a coding agent, a university syllabus, a harness framework with teardowns."
+  },
+  {
+   "a": "R096",
+   "b": "R086",
+   "strength": "strong",
+   "why": "Two answers to agent-era serving: adapt the prefill/decode split (R086) and make new replicas ready in seconds (R096)."
   }
  ]
 }

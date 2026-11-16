@@ -1,0 +1,16 @@
+<p>Source: walkinglabs/learn-harness-engineering README (MIT). Surfaced by Shubham Saboo.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>A project-based course on what you build around a coding agent so it finishes the job reliably: the environment, state management, verification and control. 14 lectures and 8 projects, translated into 15 languages.</p>
+<h2 id="the-framework">The framework</h2>
+<p>The course uses five harness subsystems: instructions, tools, environment, state and feedback. Everything else is organized around them.</p>
+<h2 id="path-through-the-material">Path through the material</h2>
+<ul><li><p>Start with the five subsystems on a real Electron app.</p></li><li><p>Move to loops where one agent builds and another checks.</p></li><li><p>Then to agent graphs: parallel work, rollback and a human approval step. Lecture 14 argues why a single loop grows into a graph (prompt, context, loop, graph layers), names failures in-loop checks cannot fix at scale (Goodhart effects, blindness upward, conflicting goals), and asks when a graph is worth its orchestration tax.</p></li><li><p>A skill scaffolds a harness into your project, and an audit script checks a repo against the five subsystems.</p></li></ul>
+<h2 id="frontier-harness-teardowns-august-2026-section">Frontier harness teardowns (August 2026 section)</h2>
+<table><thead><tr><th>Product</th><th>Harness choices highlighted</th></tr></thead><tbody><tr><td>Claude Code</td><td>four memory layers, five compaction levels, hooks, isolated sub-agents</td></tr><tr><td>Codex</td><td>repository as source of truth, AGENTS.md as a directory page, worktree isolation</td></tr><tr><td>Pi</td><td>minimal kernel, extend it by asking it to build what you need</td></tr><tr><td>DeepSeek</td><td>everything is a plugin, capability seams, an event pipeline</td></tr></tbody></table>
+<p>All four are read through the same five-part lens, so you can compare designs and borrow pieces.</p>
+<h2 id="why-it-is-worth-a-staff-engineers-time">Why it is worth a staff engineer's time</h2>
+<ul><li><p>A shared vocabulary for harness reviews, and a checklist via the audit script.</p></li><li><p>The teardowns are the fastest way to see how production teams trade off memory, compaction and isolation.</p></li><li><p>The graph lecture is a sober take on when multi-agent structure pays.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>Teardowns are reverse-engineered from outside; treat details as informed reading, not vendor documentation.</p></li><li><p>Coding-agent focused; little on non-coding agents or production operation at scale.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>R023 (building a coding agent from scratch), R087 (Stanford CS329Z), R006 (harness vocabulary), R054, R094.</p>

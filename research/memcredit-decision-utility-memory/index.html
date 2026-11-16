@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MemCredit: pick agent memories by decision utility, not relevance · Research</title>
+<meta name="description" content="Counterfactual interventions measure how each memory changes the agent&#x27;s next action; a light estimator trained on those credits picks, from relevance-retrieved candidates, what fits a token budget. Most retrieved memories never change the action. ALFWorld at 500 tokens: 86.57% vs 65.67% for BM25 with ~75% fewer memory tokens; policy unchanged. Caveats: policy-conditional credits, replayable decisions needed, short-action benchmarks.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R088 · Agent architecture › Memory and context</span>
+  <h1>MemCredit: pick agent memories by decision utility, not relevance</h1>
+  <div class="entry-meta"><span>Elvis Saravia&#x27;s and DAIR.AI&#x27;s posts on Guo, Wang, Zhu et al., arXiv 2611.15600, 11 Nov 2026</span><span>Published 2026-11-11</span><span>Summarized 2026-11-15</span></div>
+  <p><a href="https://www.linkedin.com/feed/update/urn:li:share:7527376311149903872/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-memory</span><span class="tag">context-economics</span><span class="tag">retrieval</span><span class="tag">benchmarks</span></div>
+</header>
+<article class="article"><p>Source: Guo, Wang, Zhu et al., "MemCredit: From Relevance to Utility for Decision-Time Memory in Long-Horizon Web Agents", arXiv 2611.15600, 11 Nov 2026. Surfaced by Elvis Saravia and DAIR.AI.</p>
+<h2 id="the-claim">The claim</h2>
+<p>Most agent memory systems retrieve the memories most semantically similar to the current state. The paper's counterfactual analysis finds that memory utility is sparse and strongly state-dependent: most retrieved memories do not change the agent's next action, and similarity is a poor predictor of which ones do.</p>
+<h2 id="how-it-works">How it works</h2>
+<ol><li><p><strong>Measure credit offline.</strong> Run controlled interventions: replay a decision with and without a given memory in context and record whether and how the action changes. That difference is the memory's credit for that state, reference context and policy.</p></li><li><p><strong>Distill an estimator.</strong> Train a lightweight model to predict a memory's credit from features of the state and the memory.</p></li><li><p><strong>Select at inference.</strong> Semantic retrieval still produces a high-recall candidate set; the utility estimator decides which candidates fit in a fixed token budget. The agent policy is unchanged and no extra environment interaction is needed.</p></li></ol>
+<h2 id="results-author-reported">Results (author-reported)</h2>
+<ul><li><p>ALFWorld, 500-token memory budget: 86.57% success versus 65.67% for BM25 retrieval.</p></li><li><p>About 152 memory tokens per decision, roughly 75% fewer than BM25 (per the DAIR summary).</p></li><li><p>Also evaluated on WebShop.</p></li></ul>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p>Memory is a context-budget problem. Filling the budget with similar-but-useless items costs tokens and can distract the policy.</p></li><li><p>The pattern generalizes: use cheap retrieval for recall, then a learned or rule-based gate for precision against a budget.</p></li><li><p>The intervention method is also a diagnostic. Even without the estimator, ablating memories on logged decisions tells you which memory types ever matter.</p></li></ul>
+<h2 id="tradeoffs-and-failure-modes">Tradeoffs and failure modes</h2>
+<ul><li><p>Credits are policy-conditional. Swap the model and the estimator may need retraining.</p></li><li><p>Offline interventions cost compute and need replayable decisions; production agents with side effects are harder to replay.</p></li><li><p>Benchmarks are ALFWorld and WebShop, both short-action-space environments; coding or research agents may behave differently.</p></li><li><p>A utility gate can starve rare-but-critical memories (a constraint mentioned once) if they were rarely decisive in training data.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ol><li><p>Do we know what fraction of retrieved memories ever changes an action?</p></li><li><p>Is retrieval tuned for recall, with a separate precision step under a token budget?</p></li><li><p>Can we replay decisions to ablate memories offline?</p></li><li><p>Are hard constraints kept out of the utility-ranked pool so they are always loaded?</p></li></ol>
+<h2 id="related-entries">Related entries</h2>
+<p>R040 (evidence-linked agent memory), R059 (the memory tax), R083 (agent memory pattern catalog), R084 (what an always-on agent should store), R002.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t1)"><a class="to" href="/research/wikitrace-agent-memory/">WikiTrace: agent memory that keeps the evidence behind each lesson</a><span class="label">R040 · Agent architecture</span><span class="why">What to keep in memory; R088 measures each memory&#x27;s effect on actions instead of trusting relevance.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/memory-tax/">Memory Tax: when agent memory loses to searching the raw history</a><span class="label">R059 · Agent architecture</span><span class="why">What to keep in memory; R088 measures each memory&#x27;s effect on actions instead of trusting relevance.</span></li></ul><p><a href="/research/map/#R088">See R088 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<p>Source: atuinsh/atuin README (MIT). Surfaced by André Lindenberg.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>Atuin started as an encrypted, syncable shell-history tool. It now also captures coding-agent sessions. Threads records the sessions of agents such as Claude Code, Codex, Pi, OpenCode and Omp, syncs them across machines with end-to-end encryption, and lets <code>atuin resume</code> pick a session up on another machine, even in a different harness (for example, start in Claude Code on a laptop, resume in Codex over SSH on a dev server). A built-in MCP server lets an agent search your shell history and past threads.</p>
+<h2 id="design-points">Design points</h2>
+<ul><li><p><strong>Full transcript, not a summary.</strong> The resumed session keeps everything, including dead ends, so the next agent sees what was tried and rejected.</p></li><li><p><strong>Opt-in capture, self-hostable sync server.</strong> Teams can keep transcripts inside their own infrastructure.</p></li><li><p><strong>Harness-neutral format.</strong> The value is moving work between tools, so the thread representation must map across harnesses that model tools and context differently.</p></li></ul>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p>The work behind a coding task is increasingly the agent transcript, not just the diff. Losing it when you switch machines forces the next session to rediscover context.</p></li><li><p>Cross-harness resume lets you pick the best agent per stage without paying a re-explanation tax.</p></li><li><p>Shell history plus agent threads behind one MCP gives agents a searchable memory of how the environment was actually operated.</p></li></ul>
+<h2 id="risks-and-failure-modes">Risks and failure modes</h2>
+<ul><li><p>Transcripts contain secrets, file contents and customer data. Encryption in transit is not enough; decide retention and who can read synced threads.</p></li><li><p>Replaying a full transcript into a new harness can exceed its context window or confuse it with tool calls it does not support; check how resume compacts or translates.</p></li><li><p>An MCP that exposes full history widens what a prompt-injected agent can read.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ol><li><p>Is capture opt-in per repo or project, with secrets redacted?</p></li><li><p>Where does the sync server run, and what is the retention policy?</p></li><li><p>What does resume do when the target harness lacks a tool used in the thread?</p></li><li><p>Which agents may query history through the MCP server?</p></li></ol>
+<h2 id="related-entries">Related entries</h2>
+<p>R084 (memory for always-on agents), R035 (durable waits), R083 (agent memory patterns), R002.</p>
