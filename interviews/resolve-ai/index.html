@@ -1,16 +1,7 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta name="robots" content="noindex, nofollow">
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Resolve AI interview prep</title>
-</head>
-<body>
-<nav class="nwc-nav" aria-label="Site"><a href="/companies/">&larr; Company research</a><a href="/library/">All pages</a></nav>
-<style>.nwc-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;padding:.6rem max(16px,env(safe-area-inset-left,0px));font:500 13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;border-bottom:1px solid rgba(127,127,127,.3);background:inherit}.nwc-nav a{color:inherit;opacity:.75;text-decoration:none}.nwc-nav a:hover{opacity:1;text-decoration:underline}</style>
-
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
@@ -191,7 +182,7 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 
 </style>
 <main class="wrap">
-<a class="back" href="https://nowucca.com/interview-tips/ideas/label-the-pattern-first.html" target="_blank" rel="noopener">&larr; Pattern guide</a>
+<a class="back" href="https://nowucca.com/interviews/" target="_blank" rel="noopener">&larr; All interview notes</a>
 <article class="article">
 <header>
   <span class="label">Resolve AI · system design prep · for 2026-11-17</span>
@@ -199,12 +190,12 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
   <p class="one">About 25 minutes of reading, then five practice questions you can work through in Excalidraw. Everything here maps to the ten patterns, so you can label first and then draw.</p>
 </header>
 
-<section class="section"><h2>1. What they build, in one breath</h2><div class="prose">
+<section class="section" id="s1"><h2>1. What they build, in one breath</h2><div class="prose">
 <p>Resolve sells an <mark>AI SRE</mark>: an agent that goes on call, triages alerts, investigates incidents and suggests fixes, working in Slack, Teams and the terminal. It mostly <em>reads the customer's existing tools</em> (Datadog, Splunk, Prometheus, Kubernetes, GitHub deploy history) through integrations, rather than being a new place to send all telemetry. The founders built Splunk Observability and co-created OpenTelemetry, so expect them to know ingestion pipelines cold.</p>
 <p>Customers are big enterprises (Coinbase, DoorDash, Salesforce, Zscaler). That means <mark>multi-tenancy, security and per-customer credentials</mark> matter in every design. Their blog keeps returning to agent accuracy, token efficiency, harness design and human-in-the-loop fatigue, and Resolve AI Labs works on evals and simulated environments.</p>
 </div></section>
 
-<section class="section"><h2>2. Which patterns they will probe</h2>
+<section class="section" id="s2"><h2>2. Which patterns they will probe</h2>
 <div class="table-wrap"><table class="grid"><thead><tr><th>Area</th><th>Pattern labels</th><th>Words to use</th></tr></thead><tbody>
 <tr><td>Telemetry in</td><td>Write heavy + batch/analytics + search</td><td>Back pressure, partition key, cardinality, sampling, hot/cold tiers</td></tr>
 <tr><td>Alerts and paging</td><td>Event driven + notifications + workflow</td><td>Dedup fingerprint, grouping window, flapping, escalation timer, at-least-once paging</td></tr>
@@ -213,7 +204,7 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 <tr><td>Quality</td><td>Batch/analytics</td><td>Replay, frozen snapshots, LLM judge, regression gate</td></tr>
 </tbody></table></div></section>
 
-<section class="section"><h2>3. Ten terms they'll assume you know</h2><dl class="terms">
+<section class="section" id="s3"><h2>3. Ten terms they'll assume you know</h2><dl class="terms">
 <dt>MELT</dt><dd>Metrics, events, logs, traces: the four kinds of telemetry.</dd>
 <dt>OpenTelemetry (OTel)</dt><dd>The open standard and SDKs for emitting telemetry; OTLP is its wire protocol and the Collector is its agent/pipeline.</dd>
 <dt>Cardinality</dt><dd>How many distinct label combinations a metric has. <code>http_requests{user_id=...}</code> with 10M users makes 10M time series and melts a TSDB. The number one ingestion risk.</dd>
@@ -226,19 +217,19 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 <dt>Tool calling / MCP</dt><dd>The LLM asks for a function to be run (query logs, get deploys) and gets the result back. MCP is a standard way to expose such tools; Resolve integrates via MCP.</dd>
 </dl></section>
 
-<section class="section"><h2>4. How to run the 45 minutes</h2><ol class="asks">
+<section class="section" id="s4"><h2>4. How to run the 45 minutes</h2><ol class="asks">
 <li><strong>Requirements, 5 min.</strong> Functional, then non-functional (latency, availability, consistency), then what's out of scope. Ask about tenants and scale.</li>
 <li><strong>Numbers, 3 min.</strong> Round hard. 1 day is about 100k seconds. 1M events/s at 500 B is 0.5 GB/s, about 43 TB/day.</li>
 <li><strong>Label the pattern out loud,</strong> then API and data model, 5 min.</li>
 <li><strong>High-level boxes, 10 min.</strong> Drag the template, then adapt it to what they said.</li>
 <li><strong>Deep dives, 15 min.</strong> Pick the two riskiest parts yourself, and name the trade-off and your default answer for each.</li>
 <li><strong>Wrap, 2 min.</strong> Failure modes, what you'd monitor, what you'd build next.</li>
-</ol><p class="note">The "Interview canvas" template in your library lays out these five columns.</p></section>
+</ol><p class="note">The "Interview canvas" template in the general library lays out these five columns.</p></section>
 
-<section class="section"><h2>5. Practice questions</h2>
+<section class="section" id="s5"><h2>5. Practice questions</h2>
 <p class="note">Try each one cold for 20 minutes in Excalidraw, then open the sketch answer. The matching diagram is in your library under the same Q number.</p>
 
-<details class="pattern"><summary><span class="pnum">Q1</span><span class="pname">Design telemetry ingestion for logs, metrics and traces</span><span class="psig">Multi-tenant, 1M events/s peak, queryable within 30 s, retained a year.</span></summary><div class="pbody">
+<details class="pattern" id="q1"><summary><span class="pnum">Q1</span><span class="pname">Design telemetry ingestion for logs, metrics and traces</span><span class="psig">Multi-tenant, 1M events/s peak, queryable within 30 s, retained a year.</span></summary><div class="pbody">
 <p class="picture"><strong>Label:</strong> write heavy / event driven, feeding search (logs) and batch/analytics (long-term).</p>
 <h3>Clarify</h3><ul class="reads"><li>Which signals, and is it push (agents) or pull (scrape)?</li><li>Freshness for alerting vs for queries? Retention per tier?</li><li>How many tenants, and is any tenant 100× the others?</li></ul>
 <h3>Numbers</h3><p>1M events/s × 500 B = 0.5 GB/s, about 43 TB/day raw; compressed maybe 5 to 10×, so 5 to 8 TB/day stored. A year of that hot is too expensive, so tier it.</p>
@@ -250,7 +241,7 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 <li class="trade"><h4>Parse at ingest vs at query</h4><p><span class="label">Example</span> Parsing every log line into fields at ingest makes queries fast but costs CPU on data nobody reads.</p><p class="default"><span class="label">Default answer</span> Extract a few common fields (service, level, trace_id) at ingest; parse the rest at query time.</p></li>
 </ol></div></details>
 
-<details class="pattern"><summary><span class="pnum">Q2</span><span class="pname">Design alerting and on-call paging</span><span class="psig">Evaluate 100k rules every minute, group into incidents, page a human within 60 s, escalate if no ack.</span></summary><div class="pbody">
+<details class="pattern" id="q2"><summary><span class="pnum">Q2</span><span class="pname">Design alerting and on-call paging</span><span class="psig">Evaluate 100k rules every minute, group into incidents, page a human within 60 s, escalate if no ack.</span></summary><div class="pbody">
 <p class="picture"><strong>Label:</strong> event driven + events/notifications, with an incident workflow (state machine).</p>
 <h3>Clarify</h3><ul class="reads"><li>Rule types: thresholds, SLO burn, log patterns? Evaluation interval?</li><li>Channels and on-call schedules? Should the AI agent start automatically?</li><li>What's worse, a missed page or a duplicate page? (Missed. Say so.)</li></ul>
 <h3>Sketch</h3><p>A rule evaluator, sharded by rule ID, runs each rule on its interval against the TSDB or the log stream and keeps alert state (pending, firing, resolved). Transitions become alert events. A dedup and grouping step computes a fingerprint from labels, drops repeats, and groups related alerts (same service, 5 minute window) into one incident. The incident service is a state machine (triggered, acknowledged, resolved) that pages the primary on call, starts an escalation timer, and kicks off the AI investigation. Notifiers send push, SMS, phone and Slack with retries and fallback.</p>
@@ -261,7 +252,7 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 <li class="trade"><h4>Grouping too much vs too little</h4><p><span class="label">Example</span> A database outage triggers 300 alerts across 40 services.</p><p class="default"><span class="label">Default answer</span> Group by time window and topology (service dependency graph), so the 300 alerts become one incident with the database as the likely root.</p></li>
 </ol></div></details>
 
-<details class="pattern" open><summary><span class="pnum">Q3</span><span class="pname">Design an AI agent that investigates an alert</span><span class="psig">Given a firing alert, find the likely root cause in under 5 minutes using the customer's tools, and post evidence to Slack. (The most Resolve-shaped question.)</span></summary><div class="pbody">
+<details class="pattern" id="q3" open><summary><span class="pnum">Q3</span><span class="pname">Design an AI agent that investigates an alert</span><span class="psig">Given a firing alert, find the likely root cause in under 5 minutes using the customer's tools, and post evidence to Slack. (The most Resolve-shaped question.)</span></summary><div class="pbody">
 <p class="picture"><strong>Label:</strong> workflow orchestration (a durable, budgeted run) over search and read-heavy tool calls.</p>
 <h3>Clarify</h3><ul class="reads"><li>Which tools can it reach (metrics, logs, traces, k8s, deploys, feature flags)? Read-only, or can it act?</li><li>Latency and cost budget per investigation? How many concurrent incidents?</li><li>How do we know it was right? (Leads to evals.)</li></ul>
 <h3>Sketch</h3><p>An alert or Slack mention starts a durable investigation run with an ID, a time budget and a token budget. The orchestrator loops: ask the LLM for the next step given what's known, call a typed tool (query error logs for service X in the last 15 min, list deploys, get pod restarts), summarise the result to fit the context window, record it, and repeat until confident or out of budget. A context store supplies the service dependency graph, runbooks and similar past incidents (retrieval). The output is a short finding in Slack: likely cause, evidence links, confidence, and suggested next action. Every step is logged for replay and evals.</p>
@@ -273,7 +264,7 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 <li class="trade"><h4>Durability</h4><p><span class="label">Example</span> A deploy restarts the orchestrator mid-investigation.</p><p class="default"><span class="label">Default answer</span> Persist each step (Temporal-style durable execution), so the run resumes instead of restarting and re-querying everything.</p></li>
 </ol></div></details>
 
-<details class="pattern"><summary><span class="pnum">Q4</span><span class="pname">Design the integration layer to customers' tools</span><span class="psig">Hundreds of customers, each with Datadog, Splunk, Prometheus, k8s and GitHub, queried safely by agents.</span></summary><div class="pbody">
+<details class="pattern" id="q4"><summary><span class="pnum">Q4</span><span class="pname">Design the integration layer to customers' tools</span><span class="psig">Hundreds of customers, each with Datadog, Splunk, Prometheus, k8s and GitHub, queried safely by agents.</span></summary><div class="pbody">
 <p class="picture"><strong>Label:</strong> read heavy with strict tenancy; credentials handled with transactional care.</p>
 <h3>Sketch</h3><p>Agents call one unified query API with (tenant, tool, query). It fetches that tenant's credentials from a vault, checks a per-tenant per-provider rate limiter, checks a short-TTL result cache, then dispatches to connector workers that translate to each provider's API and normalise results into a common shape. Private clusters are reached through a small relay the customer runs in their VPC, which dials out to Resolve so no inbound firewall holes are needed. Every query is audit-logged.</p>
 <h3>Deep dives</h3><ol class="trades">
@@ -282,7 +273,7 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 <li class="trade"><h4>Partial failure</h4><p><span class="label">Example</span> Splunk times out but Prometheus answers.</p><p class="default"><span class="label">Default answer</span> Tight timeouts, return partial results labelled as partial, and let the agent reason about missing data.</p></li>
 </ol></div></details>
 
-<details class="pattern"><summary><span class="pnum">Q5</span><span class="pname">How would you know the agent is getting better?</span><span class="psig">Design the evaluation system for the investigation agent.</span></summary><div class="pbody">
+<details class="pattern" id="q5"><summary><span class="pnum">Q5</span><span class="pname">How would you know the agent is getting better?</span><span class="psig">Design the evaluation system for the investigation agent.</span></summary><div class="pbody">
 <p class="picture"><strong>Label:</strong> batch/analytics over replayed runs. Resolve AI Labs works on exactly this, so it may come up as a follow-up to Q3.</p>
 <h3>Sketch</h3><p>Build a set of past incidents labelled with the true root cause. Freeze the telemetry around each one, and serve it through simulated tools so a run is reproducible. An eval runner plays N incidents through M agent versions in parallel. A scorer checks the root cause (exact match where possible, an LLM judge plus human spot checks otherwise), whether evidence was cited, steps taken, tokens and time. Results feed a dashboard, and a release only ships if it doesn't regress.</p>
 <h3>Deep dives</h3><ol class="trades">
@@ -291,21 +282,25 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 </ol></div></details>
 </section>
 
-<section class="section"><h2>6. Lines worth having ready</h2><ul class="say">
+<section class="section" id="s6"><h2>6. Lines worth having ready</h2><ul class="say">
 <li>Before I draw, let me label it. This is <mark>write heavy</mark> on the way in and <mark>search</mark> on the way out, so I'll spend my deep dive on back pressure and cardinality.</li>
 <li>For the agent I'd treat each investigation as a <mark>durable workflow</mark> with a budget. Tools are read-only, and anything that changes production needs a human.</li>
 <li>Duplicate pages are annoying; missed pages are incidents. So delivery is <mark>at-least-once</mark>, and dedup happens on a fingerprint.</li>
 <li>I'd want an <mark>eval set of replayed incidents</mark> before changing the prompt or model, otherwise we're tuning by anecdote.</li>
 </ul></section>
 
-<section class="section"><h2>7. Excalidraw</h2><div class="prose">
-<p>The library file <code>resolve-interview.excalidrawlib</code> has 16 items: an interview canvas, Q1 to Q5, and the ten pattern starters. In Excalidraw Plus, open the Library panel (book icon) and drag the file onto it, or use its menu to import from file. During the interview, drag the closest template onto the canvas and edit it to match what they ask. Don't present it as finished; it's a starting point.</p>
-<p>Get the library: <a href="https://nowucca.com/companies/resolve-ai-interview/resolve-interview.excalidrawlib" target="_blank" rel="noopener">resolve-interview.excalidrawlib</a>, or <a href="https://excalidraw.com/#addLibrary=https%3A%2F%2Fnowucca.com%2Fcompanies%2Fresolve-ai-interview%2Fresolve-interview.excalidrawlib" target="_blank" rel="noopener">add it to excalidraw.com in one click</a>. The single files open with Menu &rarr; Open.</p>
-</div><ul class="reads"><li><a href="https://nowucca.com/companies/resolve-ai-interview/00-interview-canvas.excalidraw" target="_blank" rel="noopener">00-interview-canvas.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q1-telemetry-ingestion.excalidraw" target="_blank" rel="noopener">q1-telemetry-ingestion.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q2-alerting-paging.excalidraw" target="_blank" rel="noopener">q2-alerting-paging.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q3-ai-sre-agent.excalidraw" target="_blank" rel="noopener">q3-ai-sre-agent.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q4-connectors.excalidraw" target="_blank" rel="noopener">q4-connectors.excalidraw</a></li><li><a href="https://nowucca.com/companies/resolve-ai-interview/q5-agent-evals.excalidraw" target="_blank" rel="noopener">q5-agent-evals.excalidraw</a></li></ul><div class="prose">
-<p>The ten pattern starters and the full pattern guide are at <a href="https://nowucca.com/interview-tips/ideas/label-the-pattern-first.html" target="_blank" rel="noopener">nowucca.com/interview-tips</a>. Company background is in the <a href="https://nowucca.com/companies/resolve-ai/" target="_blank" rel="noopener">Resolve AI profile</a>.</p>
-</div></section>
+<section class="section" id="s7"><h2>7. Excalidraw</h2><div class="prose">
+<p>Load two libraries. They don't overlap.</p>
+</div><dl class="terms">
+<dt>General (11 items)</dt><dd>The blank interview canvas and the ten pattern starters. <a href="https://nowucca.com/interviews/patterns/system-design-patterns.excalidrawlib" target="_blank" rel="noopener">system-design-patterns.excalidrawlib</a> &middot; <a href="https://excalidraw.com/#addLibrary=https%3A%2F%2Fnowucca.com%2Finterviews%2Fpatterns%2Fsystem-design-patterns.excalidrawlib" target="_blank" rel="noopener">add to excalidraw.com</a></dd>
+<dt>Resolve AI (5 items)</dt><dd>The diagrams for Q1 to Q5 above. <a href="https://nowucca.com/interviews/resolve-ai/resolve-interview.excalidrawlib" target="_blank" rel="noopener">resolve-interview.excalidrawlib</a> &middot; <a href="https://excalidraw.com/#addLibrary=https%3A%2F%2Fnowucca.com%2Finterviews%2Fresolve-ai%2Fresolve-interview.excalidrawlib" target="_blank" rel="noopener">add to excalidraw.com</a></dd>
+</dl><div class="prose">
+<p>In Excalidraw Plus, open the Library panel (book icon) and drag each file onto it. During the interview, drag the closest template onto the canvas and edit it to match what they ask. It's a starting point, not a finished answer. Single files open with Menu &rarr; Open:</p>
+</div><ul class="reads"><li><a href="https://nowucca.com/interviews/resolve-ai/q1-telemetry-ingestion.excalidraw" target="_blank" rel="noopener">q1-telemetry-ingestion.excalidraw</a></li><li><a href="https://nowucca.com/interviews/resolve-ai/q2-alerting-paging.excalidraw" target="_blank" rel="noopener">q2-alerting-paging.excalidraw</a></li><li><a href="https://nowucca.com/interviews/resolve-ai/q3-ai-sre-agent.excalidraw" target="_blank" rel="noopener">q3-ai-sre-agent.excalidraw</a></li><li><a href="https://nowucca.com/interviews/resolve-ai/q4-connectors.excalidraw" target="_blank" rel="noopener">q4-connectors.excalidraw</a></li><li><a href="https://nowucca.com/interviews/resolve-ai/q5-agent-evals.excalidraw" target="_blank" rel="noopener">q5-agent-evals.excalidraw</a></li></ul>
+<p class="note">More: the <a href="https://nowucca.com/interviews/ideas/label-the-pattern-first.html" target="_blank" rel="noopener">pattern guide</a> and the <a href="https://nowucca.com/companies/resolve-ai/" target="_blank" rel="noopener">Resolve AI company profile</a>.</p>
+</section>
 
-<section class="section"><h2>8. Questions to ask them</h2><ul class="asks">
+<section class="section" id="s8"><h2>8. Questions to ask them</h2><ul class="asks">
 <li>Do you mainly query customers' existing tools, or do you also ingest and store telemetry yourselves? What drove that choice?</li>
 <li>How do you evaluate an investigation as correct? How big is the replay set?</li>
 <li>Where do agents get to take actions in production today, and what approval model do customers want?</li>
@@ -314,6 +309,15 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 </article>
 
 </main>
-
-</body>
-</html>
+<script>
+(function () {
+  function openTarget() {
+    var id = location.hash.slice(1); if (!id) return;
+    var el = document.getElementById(id); if (!el) return;
+    if (el.tagName === "DETAILS") el.open = true;
+    el.scrollIntoView();
+  }
+  window.addEventListener("hashchange", openTarget);
+  openTarget();
+})();
+</script>

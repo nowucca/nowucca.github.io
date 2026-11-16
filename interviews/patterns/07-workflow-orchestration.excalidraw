@@ -4,7 +4,7 @@
  "source": "https://excalidraw.com",
  "elements": [
   {
-   "id": "q4-connectors-title",
+   "id": "07-workflow-orchestration-title",
    "type": "text",
    "x": 0,
    "y": 0,
@@ -21,16 +21,16 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 682281554,
+   "seed": 1135808359,
    "version": 1,
-   "versionNonce": 730160160,
+   "versionNonce": 522601131,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Q4 Integration layer: query many customers' tools safely",
-   "originalText": "Q4 Integration layer: query many customers' tools safely",
+   "text": "Workflow orchestration: a durable state machine",
+   "originalText": "Workflow orchestration: a durable state machine",
    "fontSize": 24,
    "fontFamily": 5,
    "textAlign": "left",
@@ -40,7 +40,7 @@
    "autoResize": true
   },
   {
-   "id": "q4-connectors-ag",
+   "id": "07-workflow-orchestration-t",
    "type": "ellipse",
    "x": 0,
    "y": 230,
@@ -59,18 +59,18 @@
    "roundness": {
     "type": 2
    },
-   "seed": 545625653,
+   "seed": 1948942436,
    "version": 1,
-   "versionNonce": 118321418,
+   "versionNonce": 49591107,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-ag-t"
+     "id": "07-workflow-orchestration-t-t"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e0"
+     "id": "07-workflow-orchestration-e0"
     }
    ],
    "updated": 1,
@@ -78,12 +78,12 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-ag-t",
+   "id": "07-workflow-orchestration-t-t",
    "type": "text",
    "x": 10,
-   "y": 256.0,
+   "y": 246.0,
    "width": 160,
-   "height": 20,
+   "height": 40,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -95,26 +95,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 649187325,
+   "seed": 1456645773,
    "version": 1,
-   "versionNonce": 1998679711,
+   "versionNonce": 1794266953,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Agents / UI",
-   "originalText": "Agents / UI",
+   "text": "Trigger\n(API, event, cron)",
+   "originalText": "Trigger\n(API, event, cron)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-ag",
+   "containerId": "07-workflow-orchestration-t",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-api",
+   "id": "07-workflow-orchestration-orc",
    "type": "rectangle",
    "x": 330,
    "y": 230,
@@ -133,34 +133,34 @@
    "roundness": {
     "type": 3
    },
-   "seed": 627813882,
+   "seed": 1150448851,
    "version": 1,
-   "versionNonce": 2037347502,
+   "versionNonce": 555016297,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-api-t"
+     "id": "07-workflow-orchestration-orc-t"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e0"
+     "id": "07-workflow-orchestration-e0"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e1"
+     "id": "07-workflow-orchestration-e1"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e2"
+     "id": "07-workflow-orchestration-e2"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e3"
+     "id": "07-workflow-orchestration-e3"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e4"
+     "id": "07-workflow-orchestration-e4"
     }
    ],
    "updated": 1,
@@ -168,7 +168,7 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-api-t",
+   "id": "07-workflow-orchestration-orc-t",
    "type": "text",
    "x": 340,
    "y": 246.0,
@@ -185,26 +185,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1504988819,
+   "seed": 185567036,
    "version": 1,
-   "versionNonce": 669638768,
+   "versionNonce": 1024075532,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Unified query API\n(tenant, tool, query)",
-   "originalText": "Unified query API\n(tenant, tool, query)",
+   "text": "Orchestrator\n(Temporal, Step Fns)",
+   "originalText": "Orchestrator\n(Temporal, Step Fns)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-api",
+   "containerId": "07-workflow-orchestration-orc",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-sec",
+   "id": "07-workflow-orchestration-st",
    "type": "rectangle",
    "x": 330,
    "y": 380,
@@ -223,18 +223,18 @@
    "roundness": {
     "type": 3
    },
-   "seed": 562571391,
+   "seed": 470090439,
    "version": 1,
-   "versionNonce": 91898035,
+   "versionNonce": 693418589,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-sec-t"
+     "id": "07-workflow-orchestration-st-t"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e1"
+     "id": "07-workflow-orchestration-e1"
     }
    ],
    "updated": 1,
@@ -242,7 +242,7 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-sec-t",
+   "id": "07-workflow-orchestration-st-t",
    "type": "text",
    "x": 340,
    "y": 396.0,
@@ -259,26 +259,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 61172930,
+   "seed": 1124831726,
    "version": 1,
-   "versionNonce": 441402618,
+   "versionNonce": 216379242,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Credential vault\n(per-tenant OAuth / keys)",
-   "originalText": "Credential vault\n(per-tenant OAuth / keys)",
+   "text": "Workflow state\n(durable history)",
+   "originalText": "Workflow state\n(durable history)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-sec",
+   "containerId": "07-workflow-orchestration-st",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-rl",
+   "id": "07-workflow-orchestration-a",
    "type": "rectangle",
    "x": 660,
    "y": 80,
@@ -297,18 +297,18 @@
    "roundness": {
     "type": 3
    },
-   "seed": 598077321,
+   "seed": 778016013,
    "version": 1,
-   "versionNonce": 1863197322,
+   "versionNonce": 866588009,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-rl-t"
+     "id": "07-workflow-orchestration-a-t"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e2"
+     "id": "07-workflow-orchestration-e2"
     }
    ],
    "updated": 1,
@@ -316,7 +316,7 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-rl-t",
+   "id": "07-workflow-orchestration-a-t",
    "type": "text",
    "x": 670,
    "y": 96.0,
@@ -333,100 +333,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 836682997,
+   "seed": 1339997165,
    "version": 1,
-   "versionNonce": 906419965,
+   "versionNonce": 1309988210,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Per-tenant, per-provider\nrate limiter",
-   "originalText": "Per-tenant, per-provider\nrate limiter",
+   "text": "Step A\n(reserve)",
+   "originalText": "Step A\n(reserve)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-rl",
+   "containerId": "07-workflow-orchestration-a",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-cache",
-   "type": "rectangle",
-   "x": 660,
-   "y": 380,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#f3f0ff",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 120232147,
-   "version": 1,
-   "versionNonce": 1081622283,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "q4-connectors-cache-t"
-    },
-    {
-     "type": "arrow",
-     "id": "q4-connectors-e3"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "q4-connectors-cache-t",
-   "type": "text",
-   "x": 670,
-   "y": 396.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 913882254,
-   "version": 1,
-   "versionNonce": 1258282194,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Result cache\n(short TTL, keyed by query)",
-   "originalText": "Result cache\n(short TTL, keyed by query)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "q4-connectors-cache",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "q4-connectors-con",
+   "id": "07-workflow-orchestration-b",
    "type": "rectangle",
    "x": 660,
    "y": 230,
@@ -445,22 +371,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1033108813,
+   "seed": 884211553,
    "version": 1,
-   "versionNonce": 1400113411,
+   "versionNonce": 1245372314,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-con-t"
+     "id": "07-workflow-orchestration-b-t"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e4"
+     "id": "07-workflow-orchestration-e3"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e5"
+     "id": "07-workflow-orchestration-e5"
     }
    ],
    "updated": 1,
@@ -468,12 +394,12 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-con-t",
+   "id": "07-workflow-orchestration-b-t",
    "type": "text",
    "x": 670,
-   "y": 236.0,
+   "y": 246.0,
    "width": 160,
-   "height": 60,
+   "height": 40,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -485,34 +411,34 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1113963314,
+   "seed": 1914210560,
    "version": 1,
-   "versionNonce": 1799645191,
+   "versionNonce": 764074177,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Connector workers\n(Datadog, Splunk,\nPrometheus, k8s, GitHub)",
-   "originalText": "Connector workers\n(Datadog, Splunk,\nPrometheus, k8s, GitHub)",
+   "text": "Step B\n(charge)",
+   "originalText": "Step B\n(charge)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-con",
+   "containerId": "07-workflow-orchestration-b",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-prov",
+   "id": "07-workflow-orchestration-cc",
    "type": "rectangle",
-   "x": 990,
-   "y": 230,
+   "x": 660,
+   "y": 380,
    "width": 180,
    "height": 72,
    "angle": 0,
    "strokeColor": "#1e1e1e",
-   "backgroundColor": "#f1f3f5",
+   "backgroundColor": "#ebfbee",
    "fillStyle": "solid",
    "strokeWidth": 2,
    "strokeStyle": "solid",
@@ -523,18 +449,18 @@
    "roundness": {
     "type": 3
    },
-   "seed": 562957180,
+   "seed": 1161884711,
    "version": 1,
-   "versionNonce": 261582917,
+   "versionNonce": 1490358044,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-prov-t"
+     "id": "07-workflow-orchestration-cc-t"
     },
     {
      "type": "arrow",
-     "id": "q4-connectors-e5"
+     "id": "07-workflow-orchestration-e4"
     }
    ],
    "updated": 1,
@@ -542,12 +468,12 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-prov-t",
+   "id": "07-workflow-orchestration-cc-t",
    "type": "text",
-   "x": 1000,
-   "y": 236.0,
+   "x": 670,
+   "y": 396.0,
    "width": 160,
-   "height": 60,
+   "height": 40,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -559,26 +485,100 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1519490801,
+   "seed": 78009938,
    "version": 1,
-   "versionNonce": 1967786446,
+   "versionNonce": 1075669244,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Customer systems\n(SaaS API or\nin-VPC relay)",
-   "originalText": "Customer systems\n(SaaS API or\nin-VPC relay)",
+   "text": "Step C\n(ship)",
+   "originalText": "Step C\n(ship)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-prov",
+   "containerId": "07-workflow-orchestration-cc",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-e0",
+   "id": "07-workflow-orchestration-comp",
+   "type": "rectangle",
+   "x": 990,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e6fcf5",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 158696257,
+   "version": 1,
+   "versionNonce": 65911073,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "07-workflow-orchestration-comp-t"
+    },
+    {
+     "type": "arrow",
+     "id": "07-workflow-orchestration-e5"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "07-workflow-orchestration-comp-t",
+   "type": "text",
+   "x": 1000,
+   "y": 246.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 79172990,
+   "version": 1,
+   "versionNonce": 813709450,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Compensations\n(undo A, refund B)",
+   "originalText": "Compensations\n(undo A, refund B)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "07-workflow-orchestration-comp",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "07-workflow-orchestration-e0",
    "type": "arrow",
    "x": 180.0,
    "y": 266.0,
@@ -597,11 +597,16 @@
    "roundness": {
     "type": 2
    },
-   "seed": 1806584668,
+   "seed": 2039081425,
    "version": 1,
-   "versionNonce": 561623934,
+   "versionNonce": 1055185499,
    "isDeleted": false,
-   "boundElements": [],
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "07-workflow-orchestration-e0-t"
+    }
+   ],
    "updated": 1,
    "link": null,
    "locked": false,
@@ -617,12 +622,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "q4-connectors-ag",
+    "elementId": "07-workflow-orchestration-t",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "q4-connectors-api",
+    "elementId": "07-workflow-orchestration-orc",
     "focus": 0,
     "gap": 4
    },
@@ -631,7 +636,43 @@
    "elbowed": false
   },
   {
-   "id": "q4-connectors-e1",
+   "id": "07-workflow-orchestration-e0-t",
+   "type": "text",
+   "x": 219.0,
+   "y": 256.0,
+   "width": 72,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1920088989,
+   "version": 1,
+   "versionNonce": 456474908,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "start(id)",
+   "originalText": "start(id)",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "07-workflow-orchestration-e0",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "07-workflow-orchestration-e1",
    "type": "arrow",
    "x": 420.0,
    "y": 302.0,
@@ -650,14 +691,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 652132316,
+   "seed": 1856188578,
    "version": 1,
-   "versionNonce": 80336782,
+   "versionNonce": 2126015576,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-e1-t"
+     "id": "07-workflow-orchestration-e1-t"
     }
    ],
    "updated": 1,
@@ -675,12 +716,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "q4-connectors-api",
+    "elementId": "07-workflow-orchestration-orc",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "q4-connectors-sec",
+    "elementId": "07-workflow-orchestration-st",
     "focus": 0,
     "gap": 4
    },
@@ -689,11 +730,11 @@
    "elbowed": false
   },
   {
-   "id": "q4-connectors-e1-t",
+   "id": "07-workflow-orchestration-e1-t",
    "type": "text",
-   "x": 376.0,
+   "x": 352.0,
    "y": 331.0,
-   "width": 88,
+   "width": 136,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -706,26 +747,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1890322093,
+   "seed": 1688291830,
    "version": 1,
-   "versionNonce": 786442398,
+   "versionNonce": 1321918115,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "fetch creds",
-   "originalText": "fetch creds",
+   "text": "persist each step",
+   "originalText": "persist each step",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-e1",
+   "containerId": "07-workflow-orchestration-e1",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-e2",
+   "id": "07-workflow-orchestration-e2",
    "type": "arrow",
    "x": 499.2,
    "y": 230.0,
@@ -744,16 +785,11 @@
    "roundness": {
     "type": 2
    },
-   "seed": 16889874,
+   "seed": 924195863,
    "version": 1,
-   "versionNonce": 643396776,
+   "versionNonce": 985979547,
    "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "q4-connectors-e2-t"
-    }
-   ],
+   "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
@@ -769,12 +805,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "q4-connectors-api",
+    "elementId": "07-workflow-orchestration-orc",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "q4-connectors-rl",
+    "elementId": "07-workflow-orchestration-a",
     "focus": 0,
     "gap": 4
    },
@@ -783,137 +819,7 @@
    "elbowed": false
   },
   {
-   "id": "q4-connectors-e2-t",
-   "type": "text",
-   "x": 561.0,
-   "y": 181.0,
-   "width": 48,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 740223520,
-   "version": 1,
-   "versionNonce": 607991153,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "token?",
-   "originalText": "token?",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "q4-connectors-e2",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "q4-connectors-e3",
-   "type": "arrow",
-   "x": 499.2,
-   "y": 302.0,
-   "width": 171.59999999999997,
-   "height": 78.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "dashed",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 2033636663,
-   "version": 1,
-   "versionNonce": 516841822,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "q4-connectors-e3-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     171.59999999999997,
-     78.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "q4-connectors-api",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "q4-connectors-cache",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "q4-connectors-e3-t",
-   "type": "text",
-   "x": 569.0,
-   "y": 331.0,
-   "width": 32,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 265236939,
-   "version": 1,
-   "versionNonce": 1400082662,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "hit?",
-   "originalText": "hit?",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "q4-connectors-e3",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "q4-connectors-e4",
+   "id": "07-workflow-orchestration-e3",
    "type": "arrow",
    "x": 510.0,
    "y": 266.0,
@@ -932,9 +838,9 @@
    "roundness": {
     "type": 2
    },
-   "seed": 2072265938,
+   "seed": 1471905176,
    "version": 1,
-   "versionNonce": 455736474,
+   "versionNonce": 853085646,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
@@ -952,12 +858,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "q4-connectors-api",
+    "elementId": "07-workflow-orchestration-orc",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "q4-connectors-con",
+    "elementId": "07-workflow-orchestration-b",
     "focus": 0,
     "gap": 4
    },
@@ -966,12 +872,12 @@
    "elbowed": false
   },
   {
-   "id": "q4-connectors-e5",
+   "id": "07-workflow-orchestration-e4",
    "type": "arrow",
-   "x": 840.0,
-   "y": 266.0,
-   "width": 150.0,
-   "height": 0.0,
+   "x": 499.2,
+   "y": 302.0,
+   "width": 171.59999999999997,
+   "height": 78.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -985,14 +891,67 @@
    "roundness": {
     "type": 2
    },
-   "seed": 244051093,
+   "seed": 600087727,
    "version": 1,
-   "versionNonce": 1067275002,
+   "versionNonce": 1738163422,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.59999999999997,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "07-workflow-orchestration-orc",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "07-workflow-orchestration-cc",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "07-workflow-orchestration-e5",
+   "type": "arrow",
+   "x": 840.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1492725227,
+   "version": 1,
+   "versionNonce": 233596964,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-e5-t"
+     "id": "07-workflow-orchestration-e5-t"
     }
    ],
    "updated": 1,
@@ -1010,12 +969,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "q4-connectors-con",
+    "elementId": "07-workflow-orchestration-b",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "q4-connectors-prov",
+    "elementId": "07-workflow-orchestration-comp",
     "focus": 0,
     "gap": 4
    },
@@ -1024,11 +983,11 @@
    "elbowed": false
   },
   {
-   "id": "q4-connectors-e5-t",
+   "id": "07-workflow-orchestration-e5-t",
    "type": "text",
-   "x": 851.0,
+   "x": 875.0,
    "y": 256.0,
-   "width": 128,
+   "width": 80,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -1041,31 +1000,31 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 821653593,
+   "seed": 557566592,
    "version": 1,
-   "versionNonce": 1189349777,
+   "versionNonce": 61225319,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "normalised query",
-   "originalText": "normalised query",
+   "text": "on failure",
+   "originalText": "on failure",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-e5",
+   "containerId": "07-workflow-orchestration-e5",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "q4-connectors-notes",
+   "id": "07-workflow-orchestration-notes",
    "type": "rectangle",
    "x": 1340,
    "y": 80,
    "width": 330,
-   "height": 202,
+   "height": 176,
    "angle": 0,
    "strokeColor": "#e67700",
    "backgroundColor": "#ffec99",
@@ -1077,14 +1036,14 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 181242850,
+   "seed": 303752167,
    "version": 1,
-   "versionNonce": 419812754,
+   "versionNonce": 1097767345,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "q4-connectors-notes-t"
+     "id": "07-workflow-orchestration-notes-t"
     }
    ],
    "updated": 1,
@@ -1092,12 +1051,12 @@
    "locked": false
   },
   {
-   "id": "q4-connectors-notes-t",
+   "id": "07-workflow-orchestration-notes-t",
    "type": "text",
    "x": 1352,
    "y": 90,
    "width": 306,
-   "height": 182,
+   "height": 156,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -1109,21 +1068,21 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1942080813,
+   "seed": 1850017270,
    "version": 1,
-   "versionNonce": 119682499,
+   "versionNonce": 701138478,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Trade-offs to raise\n\u2022 Tenant isolation: creds never cross tenants\n\u2022 Respect provider rate limits (429 backoff)\n\u2022 Normalise results to a common schema\n\u2022 In-VPC relay for private clusters\n\u2022 Timeouts + partial results\n\u2022 Audit log of every query",
-   "originalText": "Trade-offs to raise\n\u2022 Tenant isolation: creds never cross tenants\n\u2022 Respect provider rate limits (429 backoff)\n\u2022 Normalise results to a common schema\n\u2022 In-VPC relay for private clusters\n\u2022 Timeouts + partial results\n\u2022 Audit log of every query",
+   "text": "Trade-offs to raise\n\u2022 Orchestration vs choreography\n\u2022 Each step idempotent + retry policy\n\u2022 Timeouts and human waits\n\u2022 Saga compensation, not rollback\n\u2022 Visibility: find stuck runs",
+   "originalText": "Trade-offs to raise\n\u2022 Orchestration vs choreography\n\u2022 Each step idempotent + retry policy\n\u2022 Timeouts and human waits\n\u2022 Saga compensation, not rollback\n\u2022 Visibility: find stuck runs",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "left",
    "verticalAlign": "middle",
-   "containerId": "q4-connectors-notes",
+   "containerId": "07-workflow-orchestration-notes",
    "lineHeight": 1.25,
    "autoResize": true
   }

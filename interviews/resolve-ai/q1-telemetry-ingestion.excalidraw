@@ -4,7 +4,7 @@
  "source": "https://excalidraw.com",
  "elements": [
   {
-   "id": "03-real-time-fanout-title",
+   "id": "q1-telemetry-ingestion-title",
    "type": "text",
    "x": 0,
    "y": 0,
@@ -21,16 +21,16 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1128488134,
+   "seed": 1390851129,
    "version": 1,
-   "versionNonce": 1210883261,
+   "versionNonce": 647892280,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Real time fanout: one event, many open connections",
-   "originalText": "Real time fanout: one event, many open connections",
+   "text": "Q1 Telemetry ingestion: logs, metrics, traces for many tenants",
+   "originalText": "Q1 Telemetry ingestion: logs, metrics, traces for many tenants",
    "fontSize": 24,
    "fontFamily": 5,
    "textAlign": "left",
@@ -40,7 +40,7 @@
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-pub",
+   "id": "q1-telemetry-ingestion-ag",
    "type": "ellipse",
    "x": 0,
    "y": 230,
@@ -59,22 +59,18 @@
    "roundness": {
     "type": 2
    },
-   "seed": 17581914,
+   "seed": 1695753999,
    "version": 1,
-   "versionNonce": 625675343,
+   "versionNonce": 207388625,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-pub-t"
+     "id": "q1-telemetry-ingestion-ag-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e0"
-    },
-    {
-     "type": "arrow",
-     "id": "03-real-time-fanout-e6"
+     "id": "q1-telemetry-ingestion-e0"
     }
    ],
    "updated": 1,
@@ -82,7 +78,7 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-pub-t",
+   "id": "q1-telemetry-ingestion-ag-t",
    "type": "text",
    "x": 10,
    "y": 246.0,
@@ -99,26 +95,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1799361520,
+   "seed": 311111476,
    "version": 1,
-   "versionNonce": 1585932014,
+   "versionNonce": 404285458,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Publisher\n(service or user)",
-   "originalText": "Publisher\n(service or user)",
+   "text": "Agents / OTel collectors\n(customer hosts, k8s)",
+   "originalText": "Agents / OTel collectors\n(customer hosts, k8s)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-pub",
+   "containerId": "q1-telemetry-ingestion-ag",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-bus",
+   "id": "q1-telemetry-ingestion-gw",
    "type": "rectangle",
    "x": 330,
    "y": 230,
@@ -126,7 +122,7 @@
    "height": 72,
    "angle": 0,
    "strokeColor": "#1e1e1e",
-   "backgroundColor": "#fff9db",
+   "backgroundColor": "#fff4e6",
    "fillStyle": "solid",
    "strokeWidth": 2,
    "strokeStyle": "solid",
@@ -137,26 +133,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1368426742,
+   "seed": 1570621945,
    "version": 1,
-   "versionNonce": 538981927,
+   "versionNonce": 249103478,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-bus-t"
+     "id": "q1-telemetry-ingestion-gw-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e0"
+     "id": "q1-telemetry-ingestion-e0"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e1"
-    },
-    {
-     "type": "arrow",
-     "id": "03-real-time-fanout-e2"
+     "id": "q1-telemetry-ingestion-e1"
     }
    ],
    "updated": 1,
@@ -164,7 +156,7 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-bus-t",
+   "id": "q1-telemetry-ingestion-gw-t",
    "type": "text",
    "x": 340,
    "y": 246.0,
@@ -181,34 +173,34 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 231897702,
+   "seed": 922121677,
    "version": 1,
-   "versionNonce": 1961269854,
+   "versionNonce": 161042649,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Pub/sub bus\n(Redis, Kafka, NATS)",
-   "originalText": "Pub/sub bus\n(Redis, Kafka, NATS)",
+   "text": "Ingest gateway\n(auth, tenant quota, ack)",
+   "originalText": "Ingest gateway\n(auth, tenant quota, ack)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-bus",
+   "containerId": "q1-telemetry-ingestion-gw",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-g1",
+   "id": "q1-telemetry-ingestion-k",
    "type": "rectangle",
    "x": 660,
-   "y": 80,
+   "y": 230,
    "width": 180,
    "height": 72,
    "angle": 0,
    "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
+   "backgroundColor": "#fff9db",
    "fillStyle": "solid",
    "strokeWidth": 2,
    "strokeStyle": "solid",
@@ -219,26 +211,26 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1685254564,
+   "seed": 369140571,
    "version": 1,
-   "versionNonce": 1709696036,
+   "versionNonce": 1862494043,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-g1-t"
+     "id": "q1-telemetry-ingestion-k-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e1"
+     "id": "q1-telemetry-ingestion-e1"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e3"
+     "id": "q1-telemetry-ingestion-e2"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e5"
+     "id": "q1-telemetry-ingestion-e7"
     }
    ],
    "updated": 1,
@@ -246,12 +238,12 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-g1-t",
+   "id": "q1-telemetry-ingestion-k-t",
    "type": "text",
    "x": 670,
-   "y": 96.0,
+   "y": 236.0,
    "width": 160,
-   "height": 40,
+   "height": 60,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -263,34 +255,34 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1713601029,
+   "seed": 1796035740,
    "version": 1,
-   "versionNonce": 1692732590,
+   "versionNonce": 300026768,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Gateway shard 1\n(WebSockets)",
-   "originalText": "Gateway shard 1\n(WebSockets)",
+   "text": "Kafka\n(topic per signal,\nkey = tenant+stream)",
+   "originalText": "Kafka\n(topic per signal,\nkey = tenant+stream)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-g1",
+   "containerId": "q1-telemetry-ingestion-k",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-g2",
+   "id": "q1-telemetry-ingestion-proc",
    "type": "rectangle",
-   "x": 660,
-   "y": 380,
+   "x": 990,
+   "y": 230,
    "width": 180,
    "height": 72,
    "angle": 0,
    "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
+   "backgroundColor": "#e6fcf5",
    "fillStyle": "solid",
    "strokeWidth": 2,
    "strokeStyle": "solid",
@@ -301,22 +293,26 @@
    "roundness": {
     "type": 3
    },
-   "seed": 444688429,
+   "seed": 1033639717,
    "version": 1,
-   "versionNonce": 2068124765,
+   "versionNonce": 389609434,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-g2-t"
+     "id": "q1-telemetry-ingestion-proc-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e2"
+     "id": "q1-telemetry-ingestion-e2"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e4"
+     "id": "q1-telemetry-ingestion-e3"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e4"
     }
    ],
    "updated": 1,
@@ -324,12 +320,12 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-g2-t",
+   "id": "q1-telemetry-ingestion-proc-t",
    "type": "text",
-   "x": 670,
-   "y": 396.0,
+   "x": 1000,
+   "y": 236.0,
    "width": 160,
-   "height": 40,
+   "height": 60,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -341,28 +337,28 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1719888007,
+   "seed": 1823296039,
    "version": 1,
-   "versionNonce": 267352361,
+   "versionNonce": 253877687,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Gateway shard 2\n(WebSockets)",
-   "originalText": "Gateway shard 2\n(WebSockets)",
+   "text": "Processors\n(parse, enrich, sample,\nderive metrics)",
+   "originalText": "Processors\n(parse, enrich, sample,\nderive metrics)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-g2",
+   "containerId": "q1-telemetry-ingestion-proc",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-reg",
+   "id": "q1-telemetry-ingestion-hot",
    "type": "rectangle",
-   "x": 330,
+   "x": 1320,
    "y": 80,
    "width": 180,
    "height": 72,
@@ -379,18 +375,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 818661758,
+   "seed": 531725348,
    "version": 1,
-   "versionNonce": 289255806,
+   "versionNonce": 958804058,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-reg-t"
+     "id": "q1-telemetry-ingestion-hot-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e5"
+     "id": "q1-telemetry-ingestion-e3"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e5"
     }
    ],
    "updated": 1,
@@ -398,12 +398,12 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-reg-t",
+   "id": "q1-telemetry-ingestion-hot-t",
    "type": "text",
-   "x": 340,
-   "y": 96.0,
+   "x": 1330,
+   "y": 86.0,
    "width": 160,
-   "height": 40,
+   "height": 60,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -415,28 +415,28 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 896631051,
+   "seed": 265695474,
    "version": 1,
-   "versionNonce": 1892478002,
+   "versionNonce": 1703729685,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Connection registry\n(user -> gateway)",
-   "originalText": "Connection registry\n(user -> gateway)",
+   "text": "Hot store\n(logs: index 7d,\nmetrics: TSDB)",
+   "originalText": "Hot store\n(logs: index 7d,\nmetrics: TSDB)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-reg",
+   "containerId": "q1-telemetry-ingestion-hot",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-hist",
+   "id": "q1-telemetry-ingestion-cold",
    "type": "rectangle",
-   "x": 330,
+   "x": 1320,
    "y": 380,
    "width": 180,
    "height": 72,
@@ -453,18 +453,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 697086886,
+   "seed": 212984477,
    "version": 1,
-   "versionNonce": 472138490,
+   "versionNonce": 949539217,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-hist-t"
+     "id": "q1-telemetry-ingestion-cold-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e6"
+     "id": "q1-telemetry-ingestion-e4"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e6"
     }
    ],
    "updated": 1,
@@ -472,9 +476,9 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-hist-t",
+   "id": "q1-telemetry-ingestion-cold-t",
    "type": "text",
-   "x": 340,
+   "x": 1330,
    "y": 396.0,
    "width": 160,
    "height": 40,
@@ -489,34 +493,34 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1460519318,
+   "seed": 200071089,
    "version": 1,
-   "versionNonce": 225810526,
+   "versionNonce": 571981486,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Message history\n(for reconnect)",
-   "originalText": "Message history\n(for reconnect)",
+   "text": "Cold store\n(S3 Parquet, 1y+)",
+   "originalText": "Cold store\n(S3 Parquet, 1y+)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-hist",
+   "containerId": "q1-telemetry-ingestion-cold",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-c1",
-   "type": "ellipse",
-   "x": 990,
-   "y": 80,
+   "id": "q1-telemetry-ingestion-q",
+   "type": "rectangle",
+   "x": 1650,
+   "y": 230,
    "width": 180,
    "height": 72,
    "angle": 0,
    "strokeColor": "#1e1e1e",
-   "backgroundColor": "#e7f5ff",
+   "backgroundColor": "#ebfbee",
    "fillStyle": "solid",
    "strokeWidth": 2,
    "strokeStyle": "solid",
@@ -525,20 +529,24 @@
    "groupIds": [],
    "frameId": null,
    "roundness": {
-    "type": 2
+    "type": 3
    },
-   "seed": 439717025,
+   "seed": 1243862423,
    "version": 1,
-   "versionNonce": 1001929,
+   "versionNonce": 1800188483,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-c1-t"
+     "id": "q1-telemetry-ingestion-q-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e3"
+     "id": "q1-telemetry-ingestion-e5"
+    },
+    {
+     "type": "arrow",
+     "id": "q1-telemetry-ingestion-e6"
     }
    ],
    "updated": 1,
@@ -546,12 +554,12 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-c1-t",
+   "id": "q1-telemetry-ingestion-q-t",
    "type": "text",
-   "x": 1000,
-   "y": 106.0,
+   "x": 1660,
+   "y": 246.0,
    "width": 160,
-   "height": 20,
+   "height": 40,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -563,34 +571,34 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 649677952,
+   "seed": 619570853,
    "version": 1,
-   "versionNonce": 435786141,
+   "versionNonce": 505913793,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Clients",
-   "originalText": "Clients",
+   "text": "Query service\n(fan-out, limits)",
+   "originalText": "Query service\n(fan-out, limits)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-c1",
+   "containerId": "q1-telemetry-ingestion-q",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-c2",
-   "type": "ellipse",
+   "id": "q1-telemetry-ingestion-rules",
+   "type": "rectangle",
    "x": 990,
    "y": 380,
    "width": 180,
    "height": 72,
    "angle": 0,
    "strokeColor": "#1e1e1e",
-   "backgroundColor": "#e7f5ff",
+   "backgroundColor": "#ebfbee",
    "fillStyle": "solid",
    "strokeWidth": 2,
    "strokeStyle": "solid",
@@ -599,20 +607,20 @@
    "groupIds": [],
    "frameId": null,
    "roundness": {
-    "type": 2
+    "type": 3
    },
-   "seed": 1561692720,
+   "seed": 1324919353,
    "version": 1,
-   "versionNonce": 109525499,
+   "versionNonce": 776213900,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-c2-t"
+     "id": "q1-telemetry-ingestion-rules-t"
     },
     {
      "type": "arrow",
-     "id": "03-real-time-fanout-e4"
+     "id": "q1-telemetry-ingestion-e7"
     }
    ],
    "updated": 1,
@@ -620,12 +628,12 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-c2-t",
+   "id": "q1-telemetry-ingestion-rules-t",
    "type": "text",
    "x": 1000,
-   "y": 406.0,
+   "y": 396.0,
    "width": 160,
-   "height": 20,
+   "height": 40,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -637,26 +645,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 302003102,
+   "seed": 442620899,
    "version": 1,
-   "versionNonce": 893149981,
+   "versionNonce": 806899910,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Clients",
-   "originalText": "Clients",
+   "text": "Alert evaluator\n(reads stream / TSDB)",
+   "originalText": "Alert evaluator\n(reads stream / TSDB)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-c2",
+   "containerId": "q1-telemetry-ingestion-rules",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-e0",
+   "id": "q1-telemetry-ingestion-e0",
    "type": "arrow",
    "x": 180.0,
    "y": 266.0,
@@ -675,14 +683,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 1615892811,
+   "seed": 1599435268,
    "version": 1,
-   "versionNonce": 638019486,
+   "versionNonce": 418461139,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-e0-t"
+     "id": "q1-telemetry-ingestion-e0-t"
     }
    ],
    "updated": 1,
@@ -700,12 +708,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "03-real-time-fanout-pub",
+    "elementId": "q1-telemetry-ingestion-ag",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "03-real-time-fanout-bus",
+    "elementId": "q1-telemetry-ingestion-gw",
     "focus": 0,
     "gap": 4
    },
@@ -714,11 +722,11 @@
    "elbowed": false
   },
   {
-   "id": "03-real-time-fanout-e0-t",
+   "id": "q1-telemetry-ingestion-e0-t",
    "type": "text",
-   "x": 235.0,
+   "x": 207.0,
    "y": 256.0,
-   "width": 40,
+   "width": 96,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -731,30 +739,177 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1083438815,
+   "seed": 269676600,
    "version": 1,
-   "versionNonce": 1492026738,
+   "versionNonce": 255985077,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "event",
-   "originalText": "event",
+   "text": "batched OTLP",
+   "originalText": "batched OTLP",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e0",
+   "containerId": "q1-telemetry-ingestion-e0",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-e1",
+   "id": "q1-telemetry-ingestion-e1",
    "type": "arrow",
-   "x": 499.2,
+   "x": 510.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 884585952,
+   "version": 1,
+   "versionNonce": 2132084005,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "q1-telemetry-ingestion-e1-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-gw",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-k",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e1-t",
+   "type": "text",
+   "x": 561.0,
+   "y": 256.0,
+   "width": 48,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1836494975,
+   "version": 1,
+   "versionNonce": 1349251824,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "append",
+   "originalText": "append",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "q1-telemetry-ingestion-e1",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "q1-telemetry-ingestion-e2",
+   "type": "arrow",
+   "x": 840.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1999744785,
+   "version": 1,
+   "versionNonce": 1946412081,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-k",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-proc",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e3",
+   "type": "arrow",
+   "x": 1159.2,
    "y": 230.0,
-   "width": 171.59999999999997,
+   "width": 171.5999999999999,
    "height": 78.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -769,16 +924,11 @@
    "roundness": {
     "type": 2
    },
-   "seed": 1564070057,
+   "seed": 1552984409,
    "version": 1,
-   "versionNonce": 2036465043,
+   "versionNonce": 1287489454,
    "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "03-real-time-fanout-e1-t"
-    }
-   ],
+   "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
@@ -788,18 +938,18 @@
      0
     ],
     [
-     171.59999999999997,
+     171.5999999999999,
      -78.0
     ]
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "03-real-time-fanout-bus",
+    "elementId": "q1-telemetry-ingestion-proc",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "03-real-time-fanout-g1",
+    "elementId": "q1-telemetry-ingestion-hot",
     "focus": 0,
     "gap": 4
    },
@@ -808,423 +958,11 @@
    "elbowed": false
   },
   {
-   "id": "03-real-time-fanout-e1-t",
-   "type": "text",
-   "x": 549.0,
-   "y": 181.0,
-   "width": 72,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 527603372,
-   "version": 1,
-   "versionNonce": 495439556,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "topic sub",
-   "originalText": "topic sub",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e1",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "03-real-time-fanout-e2",
+   "id": "q1-telemetry-ingestion-e4",
    "type": "arrow",
-   "x": 499.2,
+   "x": 1159.2,
    "y": 302.0,
-   "width": 171.59999999999997,
-   "height": 78.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 2096236325,
-   "version": 1,
-   "versionNonce": 2001409496,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "03-real-time-fanout-e2-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     171.59999999999997,
-     78.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "03-real-time-fanout-bus",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "03-real-time-fanout-g2",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "03-real-time-fanout-e2-t",
-   "type": "text",
-   "x": 549.0,
-   "y": 331.0,
-   "width": 72,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 2063281257,
-   "version": 1,
-   "versionNonce": 2078054028,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "topic sub",
-   "originalText": "topic sub",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e2",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "03-real-time-fanout-e3",
-   "type": "arrow",
-   "x": 840.0,
-   "y": 116.0,
-   "width": 150.0,
-   "height": 0.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 1339395519,
-   "version": 1,
-   "versionNonce": 368871839,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "03-real-time-fanout-e3-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     150.0,
-     0.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "03-real-time-fanout-g1",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "03-real-time-fanout-c1",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "03-real-time-fanout-e3-t",
-   "type": "text",
-   "x": 899.0,
-   "y": 106.0,
-   "width": 32,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 618979931,
-   "version": 1,
-   "versionNonce": 438892468,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "push",
-   "originalText": "push",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e3",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "03-real-time-fanout-e4",
-   "type": "arrow",
-   "x": 840.0,
-   "y": 416.0,
-   "width": 150.0,
-   "height": 0.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 1471609727,
-   "version": 1,
-   "versionNonce": 1137122203,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "03-real-time-fanout-e4-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     150.0,
-     0.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "03-real-time-fanout-g2",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "03-real-time-fanout-c2",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "03-real-time-fanout-e4-t",
-   "type": "text",
-   "x": 899.0,
-   "y": 406.0,
-   "width": 32,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 2055665571,
-   "version": 1,
-   "versionNonce": 693373551,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "push",
-   "originalText": "push",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e4",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "03-real-time-fanout-e5",
-   "type": "arrow",
-   "x": 660.0,
-   "y": 116.0,
-   "width": 150.0,
-   "height": 0.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "dashed",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 99195380,
-   "version": 1,
-   "versionNonce": 881391735,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "03-real-time-fanout-e5-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     -150.0,
-     0.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "03-real-time-fanout-g1",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "03-real-time-fanout-reg",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "03-real-time-fanout-e5-t",
-   "type": "text",
-   "x": 553.0,
-   "y": 106.0,
-   "width": 64,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 1553714998,
-   "version": 1,
-   "versionNonce": 629653100,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "register",
-   "originalText": "register",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e5",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "03-real-time-fanout-e6",
-   "type": "arrow",
-   "x": 169.2,
-   "y": 302.0,
-   "width": 171.60000000000002,
+   "width": 171.5999999999999,
    "height": 78.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -1239,14 +977,120 @@
    "roundness": {
     "type": 2
    },
-   "seed": 116146606,
+   "seed": 1066984056,
    "version": 1,
-   "versionNonce": 1280285447,
+   "versionNonce": 772092315,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.5999999999999,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-proc",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-cold",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e5",
+   "type": "arrow",
+   "x": 1660.8,
+   "y": 230.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1048386556,
+   "version": 1,
+   "versionNonce": 351564608,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     -171.5999999999999,
+     -78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-q",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-hot",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-e6",
+   "type": "arrow",
+   "x": 1660.8,
+   "y": 302.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1289560150,
+   "version": 1,
+   "versionNonce": 2126508551,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-e6-t"
+     "id": "q1-telemetry-ingestion-e6-t"
     }
    ],
    "updated": 1,
@@ -1258,18 +1102,18 @@
      0
     ],
     [
-     171.60000000000002,
+     -171.5999999999999,
      78.0
     ]
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "03-real-time-fanout-pub",
+    "elementId": "q1-telemetry-ingestion-q",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "03-real-time-fanout-hist",
+    "elementId": "q1-telemetry-ingestion-cold",
     "focus": 0,
     "gap": 4
    },
@@ -1278,11 +1122,11 @@
    "elbowed": false
   },
   {
-   "id": "03-real-time-fanout-e6-t",
+   "id": "q1-telemetry-ingestion-e6-t",
    "type": "text",
-   "x": 227.0,
+   "x": 1539.0,
    "y": 331.0,
-   "width": 56,
+   "width": 72,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -1295,31 +1139,84 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 390887331,
+   "seed": 1475216846,
    "version": 1,
-   "versionNonce": 1121481225,
+   "versionNonce": 1927728187,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "persist",
-   "originalText": "persist",
+   "text": "slow path",
+   "originalText": "slow path",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-e6",
+   "containerId": "q1-telemetry-ingestion-e6",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "03-real-time-fanout-notes",
+   "id": "q1-telemetry-ingestion-e7",
+   "type": "arrow",
+   "x": 829.2,
+   "y": 302.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1236683273,
+   "version": 1,
+   "versionNonce": 314395343,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.5999999999999,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "q1-telemetry-ingestion-k",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "q1-telemetry-ingestion-rules",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "q1-telemetry-ingestion-notes",
    "type": "rectangle",
-   "x": 1340,
+   "x": 2000,
    "y": 80,
    "width": 330,
-   "height": 176,
+   "height": 202,
    "angle": 0,
    "strokeColor": "#e67700",
    "backgroundColor": "#ffec99",
@@ -1331,14 +1228,14 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1574963608,
+   "seed": 507088657,
    "version": 1,
-   "versionNonce": 717440071,
+   "versionNonce": 1795823849,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "03-real-time-fanout-notes-t"
+     "id": "q1-telemetry-ingestion-notes-t"
     }
    ],
    "updated": 1,
@@ -1346,12 +1243,12 @@
    "locked": false
   },
   {
-   "id": "03-real-time-fanout-notes-t",
+   "id": "q1-telemetry-ingestion-notes-t",
    "type": "text",
-   "x": 1352,
+   "x": 2012,
    "y": 90,
    "width": 306,
-   "height": 156,
+   "height": 182,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -1363,21 +1260,21 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1527703408,
+   "seed": 708506837,
    "version": 1,
-   "versionNonce": 956887592,
+   "versionNonce": 1469118511,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Trade-offs to raise\n\u2022 WebSocket vs SSE vs long poll\n\u2022 Shard gateways by user or topic\n\u2022 Reconnect: resume from last seq id\n\u2022 Batch/coalesce hot topics\n\u2022 Fallback to polling",
-   "originalText": "Trade-offs to raise\n\u2022 WebSocket vs SSE vs long poll\n\u2022 Shard gateways by user or topic\n\u2022 Reconnect: resume from last seq id\n\u2022 Batch/coalesce hot topics\n\u2022 Fallback to polling",
+   "text": "Trade-offs to raise\n\u2022 Per-tenant quotas: noisy neighbour\n\u2022 Back pressure: Kafka buffers, shed debug\n\u2022 Cardinality limits on metric labels\n\u2022 Sampling traces (head vs tail)\n\u2022 Hot vs cold tiers: cost per GB\n\u2022 Schema-on-read vs parse at ingest",
+   "originalText": "Trade-offs to raise\n\u2022 Per-tenant quotas: noisy neighbour\n\u2022 Back pressure: Kafka buffers, shed debug\n\u2022 Cardinality limits on metric labels\n\u2022 Sampling traces (head vs tail)\n\u2022 Hot vs cold tiers: cost per GB\n\u2022 Schema-on-read vs parse at ingest",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "left",
    "verticalAlign": "middle",
-   "containerId": "03-real-time-fanout-notes",
+   "containerId": "q1-telemetry-ingestion-notes",
    "lineHeight": 1.25,
    "autoResize": true
   }

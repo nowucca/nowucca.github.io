@@ -4,7 +4,7 @@
  "source": "https://excalidraw.com",
  "elements": [
   {
-   "id": "07-workflow-orchestration-title",
+   "id": "04-batch-analytics-title",
    "type": "text",
    "x": 0,
    "y": 0,
@@ -21,16 +21,16 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1423772582,
+   "seed": 514982154,
    "version": 1,
-   "versionNonce": 1268965730,
+   "versionNonce": 1668748296,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Workflow orchestration: a durable state machine",
-   "originalText": "Workflow orchestration: a durable state machine",
+   "text": "Batch and analytics: land raw data, compute later",
+   "originalText": "Batch and analytics: land raw data, compute later",
    "fontSize": 24,
    "fontFamily": 5,
    "textAlign": "left",
@@ -40,7 +40,7 @@
    "autoResize": true
   },
   {
-   "id": "07-workflow-orchestration-t",
+   "id": "04-batch-analytics-src",
    "type": "ellipse",
    "x": 0,
    "y": 230,
@@ -59,18 +59,22 @@
    "roundness": {
     "type": 2
    },
-   "seed": 276126872,
+   "seed": 856070306,
    "version": 1,
-   "versionNonce": 484686861,
+   "versionNonce": 2053134994,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "07-workflow-orchestration-t-t"
+     "id": "04-batch-analytics-src-t"
     },
     {
      "type": "arrow",
-     "id": "07-workflow-orchestration-e0"
+     "id": "04-batch-analytics-e0"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e4"
     }
    ],
    "updated": 1,
@@ -78,7 +82,7 @@
    "locked": false
   },
   {
-   "id": "07-workflow-orchestration-t-t",
+   "id": "04-batch-analytics-src-t",
    "type": "text",
    "x": 10,
    "y": 246.0,
@@ -95,119 +99,29 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 981631322,
+   "seed": 766744960,
    "version": 1,
-   "versionNonce": 450024946,
+   "versionNonce": 1863693998,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Trigger\n(API, event, cron)",
-   "originalText": "Trigger\n(API, event, cron)",
+   "text": "Sources\n(events, DB CDC)",
+   "originalText": "Sources\n(events, DB CDC)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-t",
+   "containerId": "04-batch-analytics-src",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "07-workflow-orchestration-orc",
+   "id": "04-batch-analytics-lake",
    "type": "rectangle",
    "x": 330,
    "y": 230,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 361040388,
-   "version": 1,
-   "versionNonce": 1140589864,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "07-workflow-orchestration-orc-t"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e0"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e1"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e2"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e3"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e4"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "07-workflow-orchestration-orc-t",
-   "type": "text",
-   "x": 340,
-   "y": 246.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 1167889501,
-   "version": 1,
-   "versionNonce": 170029958,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Orchestrator\n(Temporal, Step Fns)",
-   "originalText": "Orchestrator\n(Temporal, Step Fns)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-orc",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "07-workflow-orchestration-st",
-   "type": "rectangle",
-   "x": 330,
-   "y": 380,
    "width": 180,
    "height": 72,
    "angle": 0,
@@ -223,18 +137,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 779757290,
+   "seed": 1428150522,
    "version": 1,
-   "versionNonce": 1161557138,
+   "versionNonce": 372587780,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "07-workflow-orchestration-st-t"
+     "id": "04-batch-analytics-lake-t"
     },
     {
      "type": "arrow",
-     "id": "07-workflow-orchestration-e1"
+     "id": "04-batch-analytics-e0"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e1"
     }
    ],
    "updated": 1,
@@ -242,161 +160,9 @@
    "locked": false
   },
   {
-   "id": "07-workflow-orchestration-st-t",
+   "id": "04-batch-analytics-lake-t",
    "type": "text",
    "x": 340,
-   "y": 396.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 556436892,
-   "version": 1,
-   "versionNonce": 1813567875,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Workflow state\n(durable history)",
-   "originalText": "Workflow state\n(durable history)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-st",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "07-workflow-orchestration-a",
-   "type": "rectangle",
-   "x": 660,
-   "y": 80,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 1110717269,
-   "version": 1,
-   "versionNonce": 1743532651,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "07-workflow-orchestration-a-t"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e2"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "07-workflow-orchestration-a-t",
-   "type": "text",
-   "x": 670,
-   "y": 96.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 641530463,
-   "version": 1,
-   "versionNonce": 2124342558,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Step A\n(reserve)",
-   "originalText": "Step A\n(reserve)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-a",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "07-workflow-orchestration-b",
-   "type": "rectangle",
-   "x": 660,
-   "y": 230,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 1404662648,
-   "version": 1,
-   "versionNonce": 384237252,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "07-workflow-orchestration-b-t"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e3"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e5"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "07-workflow-orchestration-b-t",
-   "type": "text",
-   "x": 670,
    "y": 246.0,
    "width": 160,
    "height": 40,
@@ -411,102 +177,28 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1198563464,
+   "seed": 1700113407,
    "version": 1,
-   "versionNonce": 247074473,
+   "versionNonce": 1989259376,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Step B\n(charge)",
-   "originalText": "Step B\n(charge)",
+   "text": "Raw store\n(S3 data lake)",
+   "originalText": "Raw store\n(S3 data lake)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-b",
+   "containerId": "04-batch-analytics-lake",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "07-workflow-orchestration-cc",
+   "id": "04-batch-analytics-batch",
    "type": "rectangle",
    "x": 660,
-   "y": 380,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 787456634,
-   "version": 1,
-   "versionNonce": 1826722755,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "07-workflow-orchestration-cc-t"
-    },
-    {
-     "type": "arrow",
-     "id": "07-workflow-orchestration-e4"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "07-workflow-orchestration-cc-t",
-   "type": "text",
-   "x": 670,
-   "y": 396.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 311016187,
-   "version": 1,
-   "versionNonce": 1155017300,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Step C\n(ship)",
-   "originalText": "Step C\n(ship)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-cc",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "07-workflow-orchestration-comp",
-   "type": "rectangle",
-   "x": 990,
    "y": 230,
    "width": 180,
    "height": 72,
@@ -523,18 +215,22 @@
    "roundness": {
     "type": 3
    },
-   "seed": 72291701,
+   "seed": 1723943247,
    "version": 1,
-   "versionNonce": 380387730,
+   "versionNonce": 364725392,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "07-workflow-orchestration-comp-t"
+     "id": "04-batch-analytics-batch-t"
     },
     {
      "type": "arrow",
-     "id": "07-workflow-orchestration-e5"
+     "id": "04-batch-analytics-e1"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e2"
     }
    ],
    "updated": 1,
@@ -542,7 +238,89 @@
    "locked": false
   },
   {
-   "id": "07-workflow-orchestration-comp-t",
+   "id": "04-batch-analytics-batch-t",
+   "type": "text",
+   "x": 670,
+   "y": 246.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 682281554,
+   "version": 1,
+   "versionNonce": 730160160,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Batch job\n(Spark, hourly)",
+   "originalText": "Batch job\n(Spark, hourly)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "04-batch-analytics-batch",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "04-batch-analytics-dw",
+   "type": "rectangle",
+   "x": 990,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#f3f0ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 545625653,
+   "version": 1,
+   "versionNonce": 118321418,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "04-batch-analytics-dw-t"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e2"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e3"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e5"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "04-batch-analytics-dw-t",
    "type": "text",
    "x": 1000,
    "y": 246.0,
@@ -559,26 +337,178 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1119061846,
+   "seed": 649187325,
    "version": 1,
-   "versionNonce": 359671404,
+   "versionNonce": 1998679711,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Compensations\n(undo A, refund B)",
-   "originalText": "Compensations\n(undo A, refund B)",
+   "text": "Warehouse\n(columnar)",
+   "originalText": "Warehouse\n(columnar)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-comp",
+   "containerId": "04-batch-analytics-dw",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "07-workflow-orchestration-e0",
+   "id": "04-batch-analytics-bi",
+   "type": "ellipse",
+   "x": 1320,
+   "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e7f5ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 627813882,
+   "version": 1,
+   "versionNonce": 2037347502,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "04-batch-analytics-bi-t"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e3"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "04-batch-analytics-bi-t",
+   "type": "text",
+   "x": 1330,
+   "y": 256.0,
+   "width": 160,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1504988819,
+   "version": 1,
+   "versionNonce": 669638768,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Dashboards / ad hoc SQL",
+   "originalText": "Dashboards / ad hoc SQL",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "04-batch-analytics-bi",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "04-batch-analytics-stream",
+   "type": "rectangle",
+   "x": 660,
+   "y": 80,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e6fcf5",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 562571391,
+   "version": 1,
+   "versionNonce": 91898035,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "04-batch-analytics-stream-t"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e4"
+    },
+    {
+     "type": "arrow",
+     "id": "04-batch-analytics-e5"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "04-batch-analytics-stream-t",
+   "type": "text",
+   "x": 670,
+   "y": 96.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 61172930,
+   "version": 1,
+   "versionNonce": 441402618,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Stream processor\n(Flink, minute windows)",
+   "originalText": "Stream processor\n(Flink, minute windows)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "04-batch-analytics-stream",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "04-batch-analytics-e0",
    "type": "arrow",
    "x": 180.0,
    "y": 266.0,
@@ -597,14 +527,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 955235052,
+   "seed": 598077321,
    "version": 1,
-   "versionNonce": 286141623,
+   "versionNonce": 1863197322,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "07-workflow-orchestration-e0-t"
+     "id": "04-batch-analytics-e0-t"
     }
    ],
    "updated": 1,
@@ -622,12 +552,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "07-workflow-orchestration-t",
+    "elementId": "04-batch-analytics-src",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "07-workflow-orchestration-orc",
+    "elementId": "04-batch-analytics-lake",
     "focus": 0,
     "gap": 4
    },
@@ -636,11 +566,11 @@
    "elbowed": false
   },
   {
-   "id": "07-workflow-orchestration-e0-t",
+   "id": "04-batch-analytics-e0-t",
    "type": "text",
-   "x": 219.0,
+   "x": 231.0,
    "y": 256.0,
-   "width": 72,
+   "width": 48,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -653,173 +583,26 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1135808359,
+   "seed": 836682997,
    "version": 1,
-   "versionNonce": 522601131,
+   "versionNonce": 906419965,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "start(id)",
-   "originalText": "start(id)",
+   "text": "append",
+   "originalText": "append",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-e0",
+   "containerId": "04-batch-analytics-e0",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "07-workflow-orchestration-e1",
-   "type": "arrow",
-   "x": 420.0,
-   "y": 302.0,
-   "width": 0.0,
-   "height": 78.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "dashed",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 1948942436,
-   "version": 1,
-   "versionNonce": 49591107,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "07-workflow-orchestration-e1-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     0.0,
-     78.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "07-workflow-orchestration-orc",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "07-workflow-orchestration-st",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "07-workflow-orchestration-e1-t",
-   "type": "text",
-   "x": 352.0,
-   "y": 331.0,
-   "width": 136,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 1456645773,
-   "version": 1,
-   "versionNonce": 1794266953,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "persist each step",
-   "originalText": "persist each step",
-   "fontSize": 14,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-e1",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "07-workflow-orchestration-e2",
-   "type": "arrow",
-   "x": 499.2,
-   "y": 230.0,
-   "width": 171.59999999999997,
-   "height": 78.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 1150448851,
-   "version": 1,
-   "versionNonce": 555016297,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     171.59999999999997,
-     -78.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "07-workflow-orchestration-orc",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "07-workflow-orchestration-a",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "07-workflow-orchestration-e3",
+   "id": "04-batch-analytics-e1",
    "type": "arrow",
    "x": 510.0,
    "y": 266.0,
@@ -838,9 +621,9 @@
    "roundness": {
     "type": 2
    },
-   "seed": 185567036,
+   "seed": 120232147,
    "version": 1,
-   "versionNonce": 1024075532,
+   "versionNonce": 1081622283,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
@@ -858,12 +641,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "07-workflow-orchestration-orc",
+    "elementId": "04-batch-analytics-lake",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "07-workflow-orchestration-b",
+    "elementId": "04-batch-analytics-batch",
     "focus": 0,
     "gap": 4
    },
@@ -872,12 +655,12 @@
    "elbowed": false
   },
   {
-   "id": "07-workflow-orchestration-e4",
+   "id": "04-batch-analytics-e2",
    "type": "arrow",
-   "x": 499.2,
-   "y": 302.0,
-   "width": 171.59999999999997,
-   "height": 78.0,
+   "x": 840.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -891,67 +674,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 470090439,
+   "seed": 913882254,
    "version": 1,
-   "versionNonce": 693418589,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     171.59999999999997,
-     78.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "07-workflow-orchestration-orc",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "07-workflow-orchestration-cc",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "07-workflow-orchestration-e5",
-   "type": "arrow",
-   "x": 840.0,
-   "y": 266.0,
-   "width": 150.0,
-   "height": 0.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "dashed",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 1124831726,
-   "version": 1,
-   "versionNonce": 216379242,
+   "versionNonce": 1258282194,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "07-workflow-orchestration-e5-t"
+     "id": "04-batch-analytics-e2-t"
     }
    ],
    "updated": 1,
@@ -969,12 +699,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "07-workflow-orchestration-b",
+    "elementId": "04-batch-analytics-batch",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "07-workflow-orchestration-comp",
+    "elementId": "04-batch-analytics-dw",
     "focus": 0,
     "gap": 4
    },
@@ -983,10 +713,157 @@
    "elbowed": false
   },
   {
-   "id": "07-workflow-orchestration-e5-t",
+   "id": "04-batch-analytics-e2-t",
    "type": "text",
-   "x": 875.0,
+   "x": 899.0,
    "y": 256.0,
+   "width": 32,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1033108813,
+   "version": 1,
+   "versionNonce": 1400113411,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "load",
+   "originalText": "load",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "04-batch-analytics-e2",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "04-batch-analytics-e3",
+   "type": "arrow",
+   "x": 1170.0,
+   "y": 266.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1113963314,
+   "version": 1,
+   "versionNonce": 1799645191,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "04-batch-analytics-dw",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "04-batch-analytics-bi",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "04-batch-analytics-e4",
+   "type": "arrow",
+   "x": 180.0,
+   "y": 245.54545454545456,
+   "width": 480.0,
+   "height": 109.09090909090912,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 562957180,
+   "version": 1,
+   "versionNonce": 261582917,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "04-batch-analytics-e4-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     480.0,
+     -109.09090909090912
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "04-batch-analytics-src",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "04-batch-analytics-stream",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "04-batch-analytics-e4-t",
+   "type": "text",
+   "x": 380.0,
+   "y": 181.0,
    "width": 80,
    "height": 20,
    "angle": 0,
@@ -1000,28 +877,122 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 778016013,
+   "seed": 1519490801,
    "version": 1,
-   "versionNonce": 866588009,
+   "versionNonce": 1967786446,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "on failure",
-   "originalText": "on failure",
+   "text": "speed path",
+   "originalText": "speed path",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-e5",
+   "containerId": "04-batch-analytics-e4",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "07-workflow-orchestration-notes",
+   "id": "04-batch-analytics-e5",
+   "type": "arrow",
+   "x": 829.2,
+   "y": 152.0,
+   "width": 171.5999999999999,
+   "height": 78.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1806584668,
+   "version": 1,
+   "versionNonce": 561623934,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "04-batch-analytics-e5-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     171.5999999999999,
+     78.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "04-batch-analytics-stream",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "04-batch-analytics-dw",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "04-batch-analytics-e5-t",
+   "type": "text",
+   "x": 863.0,
+   "y": 181.0,
+   "width": 104,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 652132316,
+   "version": 1,
+   "versionNonce": 80336782,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "approx, fresh",
+   "originalText": "approx, fresh",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "04-batch-analytics-e5",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "04-batch-analytics-notes",
    "type": "rectangle",
-   "x": 1340,
+   "x": 1670,
    "y": 80,
    "width": 330,
    "height": 176,
@@ -1036,14 +1007,14 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1339997165,
+   "seed": 1890322093,
    "version": 1,
-   "versionNonce": 1309988210,
+   "versionNonce": 786442398,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "07-workflow-orchestration-notes-t"
+     "id": "04-batch-analytics-notes-t"
     }
    ],
    "updated": 1,
@@ -1051,9 +1022,9 @@
    "locked": false
   },
   {
-   "id": "07-workflow-orchestration-notes-t",
+   "id": "04-batch-analytics-notes-t",
    "type": "text",
-   "x": 1352,
+   "x": 1682,
    "y": 90,
    "width": 306,
    "height": 156,
@@ -1068,21 +1039,21 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 884211553,
+   "seed": 16889874,
    "version": 1,
-   "versionNonce": 1245372314,
+   "versionNonce": 643396776,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Trade-offs to raise\n\u2022 Orchestration vs choreography\n\u2022 Each step idempotent + retry policy\n\u2022 Timeouts and human waits\n\u2022 Saga compensation, not rollback\n\u2022 Visibility: find stuck runs",
-   "originalText": "Trade-offs to raise\n\u2022 Orchestration vs choreography\n\u2022 Each step idempotent + retry policy\n\u2022 Timeouts and human waits\n\u2022 Saga compensation, not rollback\n\u2022 Visibility: find stuck runs",
+   "text": "Trade-offs to raise\n\u2022 Freshness vs cost\n\u2022 Lambda (batch+stream) vs Kappa (stream only)\n\u2022 Late data: watermarks\n\u2022 Partition by date for cheap scans\n\u2022 Reprocess raw data when logic changes",
+   "originalText": "Trade-offs to raise\n\u2022 Freshness vs cost\n\u2022 Lambda (batch+stream) vs Kappa (stream only)\n\u2022 Late data: watermarks\n\u2022 Partition by date for cheap scans\n\u2022 Reprocess raw data when logic changes",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "left",
    "verticalAlign": "middle",
-   "containerId": "07-workflow-orchestration-notes",
+   "containerId": "04-batch-analytics-notes",
    "lineHeight": 1.25,
    "autoResize": true
   }

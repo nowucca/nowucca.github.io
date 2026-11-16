@@ -169,3 +169,18 @@ table.grid td:first-child { font: 600 0.95rem/1.4 var(--display); white-space: n
   .terms dd { margin-bottom: 0.5rem; }
   .pattern summary { grid-template-columns: 1.75rem 1fr; }
 }
+
+/* Contents page */
+.toc { display: flex; flex-direction: column; gap: 2.5rem; }
+.toc ol { margin: 0; }
+.toc-1 { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5rem; }
+.toc-1 > li { display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); min-width: 0; }
+.toc-1 > li:last-child { border-bottom: 0; padding-bottom: 0; }
+.toc-title { font: 600 1.3rem/1.25 var(--display); text-decoration: none; color: var(--fg); }
+.toc-title:hover, .toc-title:focus-visible { color: var(--accent); }
+.toc-one { color: var(--muted); }
+.toc-2 { padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.4rem !important; font-size: 0.97rem; }
+.toc-2 > li::marker { color: var(--muted); font: 500 0.8rem var(--mono); }
+.toc-3 { padding-left: 1.2rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.15rem 1rem; margin: 0.3rem 0 0.4rem !important; font-size: 0.92rem; }
+.toc-3 > li::marker { color: var(--muted); font: 500 0.75rem var(--mono); }
+@media (max-width: 480px) { .toc-3 { grid-template-columns: 1fr; } }

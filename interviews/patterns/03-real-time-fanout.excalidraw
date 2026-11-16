@@ -4,7 +4,7 @@
  "source": "https://excalidraw.com",
  "elements": [
   {
-   "id": "10-events-notifications-title",
+   "id": "03-real-time-fanout-title",
    "type": "text",
    "x": 0,
    "y": 0,
@@ -21,16 +21,16 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 991004122,
+   "seed": 302003102,
    "version": 1,
-   "versionNonce": 1977145509,
+   "versionNonce": 893149981,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Events and notifications: one event, many channels",
-   "originalText": "Events and notifications: one event, many channels",
+   "text": "Real time fanout: one event, many open connections",
+   "originalText": "Real time fanout: one event, many open connections",
    "fontSize": 24,
    "fontFamily": 5,
    "textAlign": "left",
@@ -40,7 +40,7 @@
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-src",
+   "id": "03-real-time-fanout-pub",
    "type": "ellipse",
    "x": 0,
    "y": 230,
@@ -59,18 +59,22 @@
    "roundness": {
     "type": 2
    },
-   "seed": 2121493856,
+   "seed": 1615892811,
    "version": 1,
-   "versionNonce": 1643084754,
+   "versionNonce": 638019486,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-src-t"
+     "id": "03-real-time-fanout-pub-t"
     },
     {
      "type": "arrow",
-     "id": "10-events-notifications-e0"
+     "id": "03-real-time-fanout-e0"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e6"
     }
    ],
    "updated": 1,
@@ -78,7 +82,7 @@
    "locked": false
   },
   {
-   "id": "10-events-notifications-src-t",
+   "id": "03-real-time-fanout-pub-t",
    "type": "text",
    "x": 10,
    "y": 246.0,
@@ -95,29 +99,111 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 329595264,
+   "seed": 1083438815,
    "version": 1,
-   "versionNonce": 2057332978,
+   "versionNonce": 1492026738,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Event sources\n(order shipped)",
-   "originalText": "Event sources\n(order shipped)",
+   "text": "Publisher\n(service or user)",
+   "originalText": "Publisher\n(service or user)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-src",
+   "containerId": "03-real-time-fanout-pub",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-ns",
+   "id": "03-real-time-fanout-bus",
    "type": "rectangle",
    "x": 330,
    "y": 230,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#fff9db",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1564070057,
+   "version": 1,
+   "versionNonce": 2036465043,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-bus-t"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e0"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e1"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e2"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "03-real-time-fanout-bus-t",
+   "type": "text",
+   "x": 340,
+   "y": 246.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 527603372,
+   "version": 1,
+   "versionNonce": 495439556,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Pub/sub bus\n(Redis, Kafka, NATS)",
+   "originalText": "Pub/sub bus\n(Redis, Kafka, NATS)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-bus",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-g1",
+   "type": "rectangle",
+   "x": 660,
+   "y": 80,
    "width": 180,
    "height": 72,
    "angle": 0,
@@ -133,26 +219,26 @@
    "roundness": {
     "type": 3
    },
-   "seed": 1234026409,
+   "seed": 2096236325,
    "version": 1,
-   "versionNonce": 200778942,
+   "versionNonce": 2001409496,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-ns-t"
+     "id": "03-real-time-fanout-g1-t"
     },
     {
      "type": "arrow",
-     "id": "10-events-notifications-e0"
+     "id": "03-real-time-fanout-e1"
     },
     {
      "type": "arrow",
-     "id": "10-events-notifications-e1"
+     "id": "03-real-time-fanout-e3"
     },
     {
      "type": "arrow",
-     "id": "10-events-notifications-e2"
+     "id": "03-real-time-fanout-e5"
     }
    ],
    "updated": 1,
@@ -160,12 +246,12 @@
    "locked": false
   },
   {
-   "id": "10-events-notifications-ns-t",
+   "id": "03-real-time-fanout-g1-t",
    "type": "text",
-   "x": 340,
-   "y": 256.0,
+   "x": 670,
+   "y": 96.0,
    "width": 160,
-   "height": 20,
+   "height": 40,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -177,26 +263,104 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 851649605,
+   "seed": 2063281257,
    "version": 1,
-   "versionNonce": 332738928,
+   "versionNonce": 2078054028,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Notification service",
-   "originalText": "Notification service",
+   "text": "Gateway shard 1\n(WebSockets)",
+   "originalText": "Gateway shard 1\n(WebSockets)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-ns",
+   "containerId": "03-real-time-fanout-g1",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-pref",
+   "id": "03-real-time-fanout-g2",
+   "type": "rectangle",
+   "x": 660,
+   "y": 380,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#ebfbee",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 3
+   },
+   "seed": 1339395519,
+   "version": 1,
+   "versionNonce": 368871839,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-g2-t"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e2"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e4"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "03-real-time-fanout-g2-t",
+   "type": "text",
+   "x": 670,
+   "y": 396.0,
+   "width": 160,
+   "height": 40,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 618979931,
+   "version": 1,
+   "versionNonce": 438892468,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Gateway shard 2\n(WebSockets)",
+   "originalText": "Gateway shard 2\n(WebSockets)",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-g2",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-reg",
    "type": "rectangle",
    "x": 330,
    "y": 80,
@@ -215,18 +379,18 @@
    "roundness": {
     "type": 3
    },
-   "seed": 633185882,
+   "seed": 1471609727,
    "version": 1,
-   "versionNonce": 1424953947,
+   "versionNonce": 1137122203,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-pref-t"
+     "id": "03-real-time-fanout-reg-t"
     },
     {
      "type": "arrow",
-     "id": "10-events-notifications-e1"
+     "id": "03-real-time-fanout-e5"
     }
    ],
    "updated": 1,
@@ -234,7 +398,7 @@
    "locked": false
   },
   {
-   "id": "10-events-notifications-pref-t",
+   "id": "03-real-time-fanout-reg-t",
    "type": "text",
    "x": 340,
    "y": 96.0,
@@ -251,262 +415,28 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1090665198,
+   "seed": 2055665571,
    "version": 1,
-   "versionNonce": 1307461651,
+   "versionNonce": 693373551,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Preferences +\nsuppression + dedup",
-   "originalText": "Preferences +\nsuppression + dedup",
+   "text": "Connection registry\n(user -> gateway)",
+   "originalText": "Connection registry\n(user -> gateway)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-pref",
+   "containerId": "03-real-time-fanout-reg",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-q",
+   "id": "03-real-time-fanout-hist",
    "type": "rectangle",
-   "x": 660,
-   "y": 230,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#fff9db",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 573124783,
-   "version": 1,
-   "versionNonce": 53554862,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "10-events-notifications-q-t"
-    },
-    {
-     "type": "arrow",
-     "id": "10-events-notifications-e2"
-    },
-    {
-     "type": "arrow",
-     "id": "10-events-notifications-e3"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "10-events-notifications-q-t",
-   "type": "text",
-   "x": 670,
-   "y": 256.0,
-   "width": 160,
-   "height": 20,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 2071981132,
-   "version": 1,
-   "versionNonce": 260537060,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Per-channel queues",
-   "originalText": "Per-channel queues",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "10-events-notifications-q",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "10-events-notifications-w",
-   "type": "rectangle",
-   "x": 990,
-   "y": 230,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#ebfbee",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 2086486749,
-   "version": 1,
-   "versionNonce": 1154370228,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "10-events-notifications-w-t"
-    },
-    {
-     "type": "arrow",
-     "id": "10-events-notifications-e3"
-    },
-    {
-     "type": "arrow",
-     "id": "10-events-notifications-e4"
-    },
-    {
-     "type": "arrow",
-     "id": "10-events-notifications-e5"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "10-events-notifications-w-t",
-   "type": "text",
-   "x": 1000,
-   "y": 246.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 427431139,
-   "version": 1,
-   "versionNonce": 934986292,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Channel workers\n(rate limited)",
-   "originalText": "Channel workers\n(rate limited)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "10-events-notifications-w",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "10-events-notifications-prov",
-   "type": "rectangle",
-   "x": 1320,
-   "y": 230,
-   "width": 180,
-   "height": 72,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "#f1f3f5",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 3
-   },
-   "seed": 2102877464,
-   "version": 1,
-   "versionNonce": 1249219059,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "10-events-notifications-prov-t"
-    },
-    {
-     "type": "arrow",
-     "id": "10-events-notifications-e4"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "10-events-notifications-prov-t",
-   "type": "text",
-   "x": 1330,
-   "y": 246.0,
-   "width": 160,
-   "height": 40,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 1226400162,
-   "version": 1,
-   "versionNonce": 1995711775,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "text": "Providers\n(APNs, FCM, SES, Twilio)",
-   "originalText": "Providers\n(APNs, FCM, SES, Twilio)",
-   "fontSize": 16,
-   "fontFamily": 5,
-   "textAlign": "center",
-   "verticalAlign": "middle",
-   "containerId": "10-events-notifications-prov",
-   "lineHeight": 1.25,
-   "autoResize": true
-  },
-  {
-   "id": "10-events-notifications-log",
-   "type": "rectangle",
-   "x": 990,
+   "x": 330,
    "y": 380,
    "width": 180,
    "height": 72,
@@ -523,18 +453,18 @@
    "roundness": {
     "type": 3
    },
-   "seed": 2001014987,
+   "seed": 99195380,
    "version": 1,
-   "versionNonce": 2002911414,
+   "versionNonce": 881391735,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-log-t"
+     "id": "03-real-time-fanout-hist-t"
     },
     {
      "type": "arrow",
-     "id": "10-events-notifications-e5"
+     "id": "03-real-time-fanout-e6"
     }
    ],
    "updated": 1,
@@ -542,9 +472,9 @@
    "locked": false
   },
   {
-   "id": "10-events-notifications-log-t",
+   "id": "03-real-time-fanout-hist-t",
    "type": "text",
-   "x": 1000,
+   "x": 340,
    "y": 396.0,
    "width": 160,
    "height": 40,
@@ -559,26 +489,174 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 508965897,
+   "seed": 1553714998,
    "version": 1,
-   "versionNonce": 855772366,
+   "versionNonce": 629653100,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Delivery log\n(sent, opened)",
-   "originalText": "Delivery log\n(sent, opened)",
+   "text": "Message history\n(for reconnect)",
+   "originalText": "Message history\n(for reconnect)",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-log",
+   "containerId": "03-real-time-fanout-hist",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-e0",
+   "id": "03-real-time-fanout-c1",
+   "type": "ellipse",
+   "x": 990,
+   "y": 80,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e7f5ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 116146606,
+   "version": 1,
+   "versionNonce": 1280285447,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-c1-t"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e3"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "03-real-time-fanout-c1-t",
+   "type": "text",
+   "x": 1000,
+   "y": 106.0,
+   "width": 160,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 390887331,
+   "version": 1,
+   "versionNonce": 1121481225,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Clients",
+   "originalText": "Clients",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-c1",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-c2",
+   "type": "ellipse",
+   "x": 990,
+   "y": 380,
+   "width": 180,
+   "height": 72,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "#e7f5ff",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1574963608,
+   "version": 1,
+   "versionNonce": 717440071,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-c2-t"
+    },
+    {
+     "type": "arrow",
+     "id": "03-real-time-fanout-e4"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "03-real-time-fanout-c2-t",
+   "type": "text",
+   "x": 1000,
+   "y": 406.0,
+   "width": 160,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1527703408,
+   "version": 1,
+   "versionNonce": 956887592,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Clients",
+   "originalText": "Clients",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-c2",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-e0",
    "type": "arrow",
    "x": 180.0,
    "y": 266.0,
@@ -597,11 +675,16 @@
    "roundness": {
     "type": 2
    },
-   "seed": 1338632473,
+   "seed": 1415900355,
    "version": 1,
-   "versionNonce": 368741222,
+   "versionNonce": 957956675,
    "isDeleted": false,
-   "boundElements": [],
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-e0-t"
+    }
+   ],
    "updated": 1,
    "link": null,
    "locked": false,
@@ -617,12 +700,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "10-events-notifications-src",
+    "elementId": "03-real-time-fanout-pub",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "10-events-notifications-ns",
+    "elementId": "03-real-time-fanout-bus",
     "focus": 0,
     "gap": 4
    },
@@ -631,11 +714,47 @@
    "elbowed": false
   },
   {
-   "id": "10-events-notifications-e1",
+   "id": "03-real-time-fanout-e0-t",
+   "type": "text",
+   "x": 235.0,
+   "y": 256.0,
+   "width": 40,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 838145800,
+   "version": 1,
+   "versionNonce": 1028162214,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "event",
+   "originalText": "event",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-e0",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-e1",
    "type": "arrow",
-   "x": 420.0,
+   "x": 499.2,
    "y": 230.0,
-   "width": 0.0,
+   "width": 171.59999999999997,
    "height": 78.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -650,14 +769,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 2031284043,
+   "seed": 1720926263,
    "version": 1,
-   "versionNonce": 75181073,
+   "versionNonce": 973838694,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-e1-t"
+     "id": "03-real-time-fanout-e1-t"
     }
    ],
    "updated": 1,
@@ -669,18 +788,18 @@
      0
     ],
     [
-     0.0,
+     171.59999999999997,
      -78.0
     ]
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "10-events-notifications-ns",
+    "elementId": "03-real-time-fanout-bus",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "10-events-notifications-pref",
+    "elementId": "03-real-time-fanout-g1",
     "focus": 0,
     "gap": 4
    },
@@ -689,11 +808,11 @@
    "elbowed": false
   },
   {
-   "id": "10-events-notifications-e1-t",
+   "id": "03-real-time-fanout-e1-t",
    "type": "text",
-   "x": 348.0,
+   "x": 549.0,
    "y": 181.0,
-   "width": 144,
+   "width": 72,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -706,31 +825,31 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1243774778,
+   "seed": 858641202,
    "version": 1,
-   "versionNonce": 1971264699,
+   "versionNonce": 2116481899,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "allowed? seen key?",
-   "originalText": "allowed? seen key?",
+   "text": "topic sub",
+   "originalText": "topic sub",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-e1",
+   "containerId": "03-real-time-fanout-e1",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-e2",
+   "id": "03-real-time-fanout-e2",
    "type": "arrow",
-   "x": 510.0,
-   "y": 266.0,
-   "width": 150.0,
-   "height": 0.0,
+   "x": 499.2,
+   "y": 302.0,
+   "width": 171.59999999999997,
+   "height": 78.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -744,14 +863,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 328411397,
+   "seed": 1527129487,
    "version": 1,
-   "versionNonce": 1930377202,
+   "versionNonce": 124468791,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-e2-t"
+     "id": "03-real-time-fanout-e2-t"
     }
    ],
    "updated": 1,
@@ -763,18 +882,18 @@
      0
     ],
     [
-     150.0,
-     0.0
+     171.59999999999997,
+     78.0
     ]
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "10-events-notifications-ns",
+    "elementId": "03-real-time-fanout-bus",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "10-events-notifications-q",
+    "elementId": "03-real-time-fanout-g2",
     "focus": 0,
     "gap": 4
    },
@@ -783,11 +902,11 @@
    "elbowed": false
   },
   {
-   "id": "10-events-notifications-e2-t",
+   "id": "03-real-time-fanout-e2-t",
    "type": "text",
-   "x": 557.0,
-   "y": 256.0,
-   "width": 56,
+   "x": 549.0,
+   "y": 331.0,
+   "width": 72,
    "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -800,29 +919,29 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1153874070,
+   "seed": 119988829,
    "version": 1,
-   "versionNonce": 1661501011,
+   "versionNonce": 1200093500,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "fan out",
-   "originalText": "fan out",
+   "text": "topic sub",
+   "originalText": "topic sub",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-e2",
+   "containerId": "03-real-time-fanout-e2",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-e3",
+   "id": "03-real-time-fanout-e3",
    "type": "arrow",
    "x": 840.0,
-   "y": 266.0,
+   "y": 116.0,
    "width": 150.0,
    "height": 0.0,
    "angle": 0,
@@ -838,67 +957,14 @@
    "roundness": {
     "type": 2
    },
-   "seed": 901243977,
+   "seed": 2028255630,
    "version": 1,
-   "versionNonce": 904987393,
-   "isDeleted": false,
-   "boundElements": [],
-   "updated": 1,
-   "link": null,
-   "locked": false,
-   "points": [
-    [
-     0,
-     0
-    ],
-    [
-     150.0,
-     0.0
-    ]
-   ],
-   "lastCommittedPoint": null,
-   "startBinding": {
-    "elementId": "10-events-notifications-q",
-    "focus": 0,
-    "gap": 4
-   },
-   "endBinding": {
-    "elementId": "10-events-notifications-w",
-    "focus": 0,
-    "gap": 4
-   },
-   "startArrowhead": null,
-   "endArrowhead": "arrow",
-   "elbowed": false
-  },
-  {
-   "id": "10-events-notifications-e4",
-   "type": "arrow",
-   "x": 1170.0,
-   "y": 266.0,
-   "width": 150.0,
-   "height": 0.0,
-   "angle": 0,
-   "strokeColor": "#1e1e1e",
-   "backgroundColor": "transparent",
-   "fillStyle": "solid",
-   "strokeWidth": 2,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": {
-    "type": 2
-   },
-   "seed": 320459813,
-   "version": 1,
-   "versionNonce": 387848845,
+   "versionNonce": 1113145427,
    "isDeleted": false,
    "boundElements": [
     {
      "type": "text",
-     "id": "10-events-notifications-e4-t"
+     "id": "03-real-time-fanout-e3-t"
     }
    ],
    "updated": 1,
@@ -916,12 +982,12 @@
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "10-events-notifications-w",
+    "elementId": "03-real-time-fanout-g1",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "10-events-notifications-prov",
+    "elementId": "03-real-time-fanout-c1",
     "focus": 0,
     "gap": 4
    },
@@ -930,10 +996,10 @@
    "elbowed": false
   },
   {
-   "id": "10-events-notifications-e4-t",
+   "id": "03-real-time-fanout-e3-t",
    "type": "text",
-   "x": 1229.0,
-   "y": 256.0,
+   "x": 899.0,
+   "y": 106.0,
    "width": 32,
    "height": 20,
    "angle": 0,
@@ -947,30 +1013,218 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 608771575,
+   "seed": 831698693,
    "version": 1,
-   "versionNonce": 1124460935,
+   "versionNonce": 1478675320,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "send",
-   "originalText": "send",
+   "text": "push",
+   "originalText": "push",
    "fontSize": 14,
    "fontFamily": 5,
    "textAlign": "center",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-e4",
+   "containerId": "03-real-time-fanout-e3",
    "lineHeight": 1.25,
    "autoResize": true
   },
   {
-   "id": "10-events-notifications-e5",
+   "id": "03-real-time-fanout-e4",
    "type": "arrow",
-   "x": 1080.0,
+   "x": 840.0,
+   "y": 416.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 1920828234,
+   "version": 1,
+   "versionNonce": 1501175504,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-e4-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "03-real-time-fanout-g2",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "03-real-time-fanout-c2",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "03-real-time-fanout-e4-t",
+   "type": "text",
+   "x": 899.0,
+   "y": 406.0,
+   "width": 32,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1566099206,
+   "version": 1,
+   "versionNonce": 345908636,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "push",
+   "originalText": "push",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-e4",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-e5",
+   "type": "arrow",
+   "x": 660.0,
+   "y": 116.0,
+   "width": 150.0,
+   "height": 0.0,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "dashed",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": {
+    "type": 2
+   },
+   "seed": 946878465,
+   "version": 1,
+   "versionNonce": 438761610,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-e5-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     -150.0,
+     0.0
+    ]
+   ],
+   "lastCommittedPoint": null,
+   "startBinding": {
+    "elementId": "03-real-time-fanout-g1",
+    "focus": 0,
+    "gap": 4
+   },
+   "endBinding": {
+    "elementId": "03-real-time-fanout-reg",
+    "focus": 0,
+    "gap": 4
+   },
+   "startArrowhead": null,
+   "endArrowhead": "arrow",
+   "elbowed": false
+  },
+  {
+   "id": "03-real-time-fanout-e5-t",
+   "type": "text",
+   "x": 553.0,
+   "y": 106.0,
+   "width": 64,
+   "height": 20,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 974295421,
+   "version": 1,
+   "versionNonce": 2018978167,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "register",
+   "originalText": "register",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-e5",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-e6",
+   "type": "arrow",
+   "x": 169.2,
    "y": 302.0,
-   "width": 0.0,
+   "width": 171.60000000000002,
    "height": 78.0,
    "angle": 0,
    "strokeColor": "#1e1e1e",
@@ -985,11 +1239,16 @@
    "roundness": {
     "type": 2
    },
-   "seed": 1544270864,
+   "seed": 844846558,
    "version": 1,
-   "versionNonce": 569534435,
+   "versionNonce": 1450571438,
    "isDeleted": false,
-   "boundElements": [],
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-e6-t"
+    }
+   ],
    "updated": 1,
    "link": null,
    "locked": false,
@@ -999,18 +1258,18 @@
      0
     ],
     [
-     0.0,
+     171.60000000000002,
      78.0
     ]
    ],
    "lastCommittedPoint": null,
    "startBinding": {
-    "elementId": "10-events-notifications-w",
+    "elementId": "03-real-time-fanout-pub",
     "focus": 0,
     "gap": 4
    },
    "endBinding": {
-    "elementId": "10-events-notifications-log",
+    "elementId": "03-real-time-fanout-hist",
     "focus": 0,
     "gap": 4
    },
@@ -1019,44 +1278,12 @@
    "elbowed": false
   },
   {
-   "id": "10-events-notifications-notes",
-   "type": "rectangle",
-   "x": 1670,
-   "y": 80,
-   "width": 330,
-   "height": 202,
-   "angle": 0,
-   "strokeColor": "#e67700",
-   "backgroundColor": "#ffec99",
-   "fillStyle": "solid",
-   "strokeWidth": 1,
-   "strokeStyle": "solid",
-   "roughness": 1,
-   "opacity": 100,
-   "groupIds": [],
-   "frameId": null,
-   "roundness": null,
-   "seed": 1200734954,
-   "version": 1,
-   "versionNonce": 483946434,
-   "isDeleted": false,
-   "boundElements": [
-    {
-     "type": "text",
-     "id": "10-events-notifications-notes-t"
-    }
-   ],
-   "updated": 1,
-   "link": null,
-   "locked": false
-  },
-  {
-   "id": "10-events-notifications-notes-t",
+   "id": "03-real-time-fanout-e6-t",
    "type": "text",
-   "x": 1682,
-   "y": 90,
-   "width": 306,
-   "height": 182,
+   "x": 227.0,
+   "y": 331.0,
+   "width": 56,
+   "height": 20,
    "angle": 0,
    "strokeColor": "#1e1e1e",
    "backgroundColor": "transparent",
@@ -1068,21 +1295,89 @@
    "groupIds": [],
    "frameId": null,
    "roundness": null,
-   "seed": 1568472786,
+   "seed": 877776916,
    "version": 1,
-   "versionNonce": 993785024,
+   "versionNonce": 2072980150,
    "isDeleted": false,
    "boundElements": [],
    "updated": 1,
    "link": null,
    "locked": false,
-   "text": "Trade-offs to raise\n\u2022 Dedup key per (user, event)\n\u2022 Quiet hours, opt-outs, frequency caps\n\u2022 Immediate vs digest\n\u2022 Retries via delay queue + backoff\n\u2022 Provider fallback (SMS if push fails)\n\u2022 Template + locale rendering",
-   "originalText": "Trade-offs to raise\n\u2022 Dedup key per (user, event)\n\u2022 Quiet hours, opt-outs, frequency caps\n\u2022 Immediate vs digest\n\u2022 Retries via delay queue + backoff\n\u2022 Provider fallback (SMS if push fails)\n\u2022 Template + locale rendering",
+   "text": "persist",
+   "originalText": "persist",
+   "fontSize": 14,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "03-real-time-fanout-e6",
+   "lineHeight": 1.25,
+   "autoResize": true
+  },
+  {
+   "id": "03-real-time-fanout-notes",
+   "type": "rectangle",
+   "x": 1340,
+   "y": 80,
+   "width": 330,
+   "height": 176,
+   "angle": 0,
+   "strokeColor": "#e67700",
+   "backgroundColor": "#ffec99",
+   "fillStyle": "solid",
+   "strokeWidth": 1,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 8196149,
+   "version": 1,
+   "versionNonce": 2059322682,
+   "isDeleted": false,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "03-real-time-fanout-notes-t"
+    }
+   ],
+   "updated": 1,
+   "link": null,
+   "locked": false
+  },
+  {
+   "id": "03-real-time-fanout-notes-t",
+   "type": "text",
+   "x": 1352,
+   "y": 90,
+   "width": 306,
+   "height": 156,
+   "angle": 0,
+   "strokeColor": "#1e1e1e",
+   "backgroundColor": "transparent",
+   "fillStyle": "solid",
+   "strokeWidth": 2,
+   "strokeStyle": "solid",
+   "roughness": 1,
+   "opacity": 100,
+   "groupIds": [],
+   "frameId": null,
+   "roundness": null,
+   "seed": 1477498383,
+   "version": 1,
+   "versionNonce": 364120812,
+   "isDeleted": false,
+   "boundElements": [],
+   "updated": 1,
+   "link": null,
+   "locked": false,
+   "text": "Trade-offs to raise\n\u2022 WebSocket vs SSE vs long poll\n\u2022 Shard gateways by user or topic\n\u2022 Reconnect: resume from last seq id\n\u2022 Batch/coalesce hot topics\n\u2022 Fallback to polling",
+   "originalText": "Trade-offs to raise\n\u2022 WebSocket vs SSE vs long poll\n\u2022 Shard gateways by user or topic\n\u2022 Reconnect: resume from last seq id\n\u2022 Batch/coalesce hot topics\n\u2022 Fallback to polling",
    "fontSize": 16,
    "fontFamily": 5,
    "textAlign": "left",
    "verticalAlign": "middle",
-   "containerId": "10-events-notifications-notes",
+   "containerId": "03-real-time-fanout-notes",
    "lineHeight": 1.25,
    "autoResize": true
   }
