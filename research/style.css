@@ -147,3 +147,6 @@ figure.diagram figcaption { margin-top: 0.6rem; font: 500 0.75rem/1.4 var(--mono
 .to-top { align-self: flex-start; text-decoration: none; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Code blocks scroll inside the column */
+.article pre { overflow-x: auto; max-width: 100%; }

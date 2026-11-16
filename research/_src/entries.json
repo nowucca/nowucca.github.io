@@ -749,6 +749,10 @@
       {
        "id": "R080",
        "why": "an account-free local copy of AWS as a safe environment for agents to create and break resources; trust it only as far as its published fidelity score"
+      },
+      {
+       "id": "R098",
+       "why": "CS329A lectures on verifiers, task horizon and agentic evaluation"
       }
      ]
     },
@@ -987,7 +991,9 @@
       "R023",
       "R081",
       "R087",
-      "R095"
+      "R095",
+      "R097",
+      "R098"
      ],
      "also": []
     },
@@ -1014,6 +1020,14 @@
       {
        "id": "R095",
        "why": "five-subsystem harness framework and production teardowns; reusable audit checklist for sessions"
+      },
+      {
+       "id": "R097",
+       "why": "a stage-by-stage training repo to step through; its single policy/advantage/KL frame for DPO, PPO, GRPO and CISPO is a ready-made lecture"
+      },
+      {
+       "id": "R098",
+       "why": "recorded research seminar on self-improving agents; lectures 2-3 make the generation-verification argument in one sitting"
       }
      ]
     }
@@ -2725,6 +2739,46 @@
    ],
    "summary": "cuda-checkpoint dumps GPU state to host memory and CRIU captures the process and container layer; a privileged node DaemonSet checkpoints runc containers to shared storage; the worker signals a safe point after engine warm-up but before joining the control plane (CRIU can't capture live TCP), then resumes there; KV cache released before checkpoint; striped-NVMe weights restore in under 5s (21x for gpt-oss-120b). Partner numbers: GLM-5.3 pod readiness ~8 min to 31 s; vLLM scale-from-zero 2-8.5 min to 6-34 s on HGX B300. Risks: privileged agent, secrets in artifacts, driver coupling, storage bound.",
    "file": "entries/nvidia-dynamo-snapshot.html"
+  },
+  {
+   "id": "R097",
+   "slug": "minimind-llm-training-pipeline",
+   "title": "MiniMind: the whole LLM training pipeline at 64M parameters",
+   "by": "Dr. Alvaro Cintas's post on jingyaogong/minimind, Apache-2.0",
+   "source": "https://www.linkedin.com/posts/alvaro-cintas_you-can-now-train-your-own-llm-from-scratch-share-7527836897302212609-cqjS/",
+   "published": "2026-11-15",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/WcuDieu3J9TfPBdoj22Qfk",
+   "tags": [
+    "education",
+    "learning-resources",
+    "llm-training",
+    "reinforcement-learning",
+    "open-weights",
+    "teaching"
+   ],
+   "summary": "One readable script per stage on a Qwen3-style 64M decoder (8 layers, d768, GQA, 6,400-token vocab; a 198M-A64M MoE too): tokenizer, pretrain, SFT with tool calls mixed in and an open_thinking template switch, hand-written LoRA, DPO, PPO with GAE, GRPO, CISPO, multi-turn agentic RL (488-line train_agent.py: up to 3 tool turns, six mock tools, trajectory reward from answer, tool count, format, reward model and unfinished penalty, clipped to [-3, 3]; rollout engine split torch/sglang) and white-box distillation; open data for every stage, exports to transformers, llama.cpp, vLLM, Ollama. The \"2 hours\" is mini pretrain + mini SFT on one 3090 (2.31 h, about RMB 3). Agent RL lifts a 20-task tool-math check from 12/20 to 17/20; lm-eval scores are near chance, and the README prints stderr per benchmark. Best lessons: reward sparsity and degenerate GRPO groups at small scale (watch reward variance), judge rewards drift from environment rewards, RL costs general ability, exam-format LoRA adds about 2.9 points. Caveats: data heavily distilled from Qwen3/R1, Chinese-first, tools are mocks, transformers still used for tokenizer/base class/reward model, single-author repo with breaking reorganisations.",
+   "file": "entries/minimind-llm-training-pipeline.html"
+  },
+  {
+   "id": "R098",
+   "slug": "stanford-cs329a-self-improving-agents",
+   "title": "Stanford CS329A: Self-Improving AI Agents, a free lecture map",
+   "by": "Mayank A.'s post on Stanford Online's 9-part playlist",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7527832109093400576/",
+   "published": "2025-09-22",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/5RhdRXni7AhiqKaooGbHBh",
+   "tags": [
+    "education",
+    "learning-resources",
+    "reinforcement-learning",
+    "evaluation",
+    "test-time-compute",
+    "teaching"
+   ],
+   "summary": "Autumn 2025 graduate seminar by Aakanksha Chowdhery and Azalia Mirhoseini, about 10.5 hours recorded: test-time compute scaling, robust verification (ORM vs PRM, weak-verifier ensembles), feedback from tools and code (ReAct, RLEF, Constitutional AI), planning and tree search, train-time RL (STaR, GRPO, DAPO), open-ended self-improvement (AlphaEvolve, AI Scientist), agentic evals and task horizon. Through-line: generation is cheap, verification is the product. Research-first; guest lectures not recorded; readings are late-2025.",
+   "file": "entries/stanford-cs329a-self-improving-agents.html"
   }
  ],
  "edges": [
@@ -4365,6 +4419,42 @@
    "b": "R086",
    "strength": "strong",
    "why": "Two answers to agent-era serving: adapt the prefill/decode split (R086) and make new replicas ready in seconds (R096)."
+  },
+  {
+   "a": "R097",
+   "b": "R053",
+   "strength": "strong",
+   "why": "Both train small models from scratch through pretrain, SFT, DPO and GRPO; MiniMind is a cheap bench for R053-style poisoning studies."
+  },
+  {
+   "a": "R097",
+   "b": "R023",
+   "strength": "strong",
+   "why": "Learn by building: the model and its post-training (R097), a coding-agent harness (R023), a university agent syllabus (R087)."
+  },
+  {
+   "a": "R097",
+   "b": "R087",
+   "strength": "strong",
+   "why": "Learn by building: the model and its post-training (R097), a coding-agent harness (R023), a university agent syllabus (R087)."
+  },
+  {
+   "a": "R098",
+   "b": "R087",
+   "strength": "strong",
+   "why": "Two Stanford agent courses: CS329Z is applied (build the harness), CS329A is the research theory (sampling, verifiers, RL)."
+  },
+  {
+   "a": "R098",
+   "b": "R097",
+   "strength": "strong",
+   "why": "CS329A's STaR/GRPO and self-improvement lectures are the theory behind MiniMind's agentic RL and CodeClimb's overnight loop."
+  },
+  {
+   "a": "R098",
+   "b": "R094",
+   "strength": "strong",
+   "why": "CS329A's STaR/GRPO and self-improvement lectures are the theory behind MiniMind's agentic RL and CodeClimb's overnight loop."
   }
  ]
 }
