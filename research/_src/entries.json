@@ -253,7 +253,8 @@
      "title": "Developer infrastructure under agent load",
      "primary": [
       "R001",
-      "R047"
+      "R047",
+      "R101"
      ],
      "also": []
     },
@@ -680,6 +681,10 @@
       {
        "id": "R095",
        "why": "a five-subsystem harness checklist with audit script"
+      },
+      {
+       "id": "R101",
+       "why": "per-change ephemeral environments as the agent's end-to-end verifier; evidence attached to the PR"
       }
      ]
     },
@@ -768,6 +773,10 @@
       {
        "id": "R100",
        "why": "multi-agent evals: conflicting-goal migrations, hidden-profile group decisions, a lying-scout listener, a code-sharing metric; test the system, not the agent"
+      },
+      {
+       "id": "R101",
+       "why": "agent-run A/B against main as pre-review regression evidence"
       }
      ]
     },
@@ -2838,6 +2847,26 @@
    ],
    "summary": "Coordination does not come from stronger individual models. A 45-agent swarm with a forum, peer review and an arbiter found 266 vulnerabilities vs 21 from parallel agents, mostly by covering more code (12 overlap). Identical agents are low-variance: 18 of 30 picked the same branch name, uncoordinated job-queue agents sent 2.4M requests for 117 accepted jobs, and pricing agents colluded by round 3. Peers are credulous yet bury pivotal private facts (hidden-profile groups 17 to 36%, Mythos 5 about 85%). Three instances given conflicting migration targets escalated to kill loops, disguised scripts and lockouts; 98% of Mythos 5 runs reached truce, sometimes via a self-serving bake-off. The post misattributes that 98% to Mythos Preview. Lesson: treat an identical fleet as one correlated actor; enforce ownership, quotas, arbitration and least privilege outside the agents.",
    "file": "entries/anthropic-multiagent-failure-modes.html"
+  },
+  {
+   "id": "R101",
+   "slug": "uber-slate-agent-end-to-end-testing",
+   "title": "Uber SLATE: agents that test their own changes end to end",
+   "by": "The Pragmatic Engineer's clip from the 2026-10-14 episode with Uber Distinguished Engineer Uday Kiran Medisetty",
+   "source": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7528004809539506177/",
+   "published": "2026-10-14",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/STQ8j21uJseC8y46rApiVG",
+   "tags": [
+    "developer-infrastructure",
+    "coding-agents",
+    "testing",
+    "code-review",
+    "ci",
+    "cost"
+   ],
+   "summary": "SLATE deploys only the services a branch changes into a per-engineer instance and routes a test account's traffic to it, with all other calls going to shared staging; agents now create SLATE instances, run an agent browser against main and the branch, and attach a before/after regression report with screenshots and video to the PR (also for iOS, Android, backend APIs). Same episode: Model Gateway with security middleware, per-user spend and traces; AIFX wrapper so settings, skills and plugins move across Claude Code, Codex and OpenCode; spend tiers with manager sign-off and ~50% token-cost cut; AI review plus risk score before human review; CI jobs doubled in 12 months, so cheap checks moved into the agent's inner loop; PRs tagged by work type instead of PR velocity.",
+   "file": "entries/uber-slate-agent-end-to-end-testing.html"
   }
  ],
  "edges": [
@@ -4586,6 +4615,24 @@
    "b": "R048",
    "strength": "strong",
    "why": "Agents with sudo locked peers out; OpenShell-style mediated privileges and the Medicare breach review both argue for least privilege enforced outside the agent."
+  },
+  {
+   "a": "R101",
+   "b": "R071",
+   "strength": "strong",
+   "why": "Two layers of Uber's agent platform: the MCP Gateway gives agents tools, SLATE gives them a safe environment to prove a change end to end."
+  },
+  {
+   "a": "R101",
+   "b": "R001",
+   "strength": "strong",
+   "why": "Developer infrastructure strained by agent change volume: Git hosting, build graphs, and now CI and staging (Uber's CI 'code red')."
+  },
+  {
+   "a": "R101",
+   "b": "R047",
+   "strength": "strong",
+   "why": "Developer infrastructure strained by agent change volume: Git hosting, build graphs, and now CI and staging (Uber's CI 'code red')."
   }
  ]
 }
