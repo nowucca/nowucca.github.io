@@ -1,0 +1,256 @@
+{
+  "date": "2026-11-17",
+  "generated": "2026-11-17T07:15:00-06:00",
+  "headline": "California sues OpenAI over hacking risks; Democrats flip Texas high courts; EU hits Russian banks",
+  "sections": {
+    "austin": [
+      {
+        "headline": "Leadership shift revives hopes for Austin's delayed light rail",
+        "summary": "A taxpayer lawsuit over Project Connect's bonds is on appeal, and the incoming Democratic attorney general says he is reviewing the case before 2027 construction.",
+        "source": "Texas Tribune / Austin Current",
+        "url": "https://www.texastribune.org/2026/11/16/texas-austin-project-connect-light-rail-lawsuit/",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Austin musicians stick with tape and real instruments over AI",
+        "summary": "Local artists and a Buda studio owner describe recording with analog gear and keeping AI out of their work.",
+        "source": "KUT News",
+        "url": "https://www.kut.org/life-arts/2026-11-17/austin-tx-musicians-analog-tools-ai-digital-technology",
+        "date": "2026-11-17"
+      }
+    ],
+    "texas": [
+      {
+        "headline": "Democrats flip Texas Supreme Court and criminal appeals seats",
+        "summary": "Voters gave Democrats four Supreme Court seats, including the chief justice's, three Court of Criminal Appeals seats and control of the 15th Court of Appeals.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/17/texas-supreme-court-criminal-appeals-15th-2026-elections/",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "Paxton's office drops bid to ban CAIR in Texas",
+        "summary": "The attorney general's office ended its lawsuit seeking to declare the Muslim civil rights group a terrorist organization.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/16/texas-cair-ken-paxton-lawsuit-dropped/",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Voter-approved $3 billion dementia fund still stuck in court",
+        "summary": "A year after passage, the dementia research institute remains idle over a lawsuit about vote-counting machines, and a GOP lawmaker has filed a repeal bill.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/17/texas-dementia-alzheimers-research-fund-dprit/",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "Texas local governments forgo more than $1 billion for data centers",
+        "summary": "The Tribune tallies property tax breaks granted by local governments to data center projects.",
+        "source": "Texas Tribune",
+        "url": "https://www.texastribune.org/2026/11/17/texas-data-centers-local-property-tax-breaks/",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "How Texas cannabis policy could change in 2027",
+        "summary": "New Democratic statewide officials could revisit hemp rules and enforcement, though a Republican Senate remains the main obstacle to legalization bills.",
+        "source": "KUT News",
+        "url": "https://www.kut.org/politics/2026-11-17/texas-election-hemp-marijuana-democrats-cannabis-bills-filed",
+        "date": "2026-11-17"
+      }
+    ],
+    "us": [
+      {
+        "headline": "Appeals court weighs moving Trump's hush money case to federal court",
+        "summary": "A 2nd Circuit panel questioned both sides at length on Trump's bid to erase the conviction but did not rule.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/politics/trump-appeals-to-state-and-federal-courts-to-erase-hush-money-criminal-conviction",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Van Hollen says he can beat Schumer for Senate Democratic leader",
+        "summary": "The Maryland senator is making his case to colleagues in the leadership race.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/16/nx-s1-6041687/chris-van-hollen-chuck-schumer-senate-leader",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Judge sets March retrial for Lindsay Clancy",
+        "summary": "A Massachusetts judge scheduled a new trial for the mother charged in the deaths of her three children.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/nation/judge-sets-march-retrial-date-for-lindsay-clancy-in-deaths-of-her-3-children",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "United says it fixed a technology issue that delayed departures",
+        "summary": "The airline reported resolving a systems problem that held up outbound flights days after the nationwide ground stop.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/nation/united-airlines-says-it-resolved-a-technology-issue-that-delayed-departing-flights",
+        "date": "2026-11-16"
+      }
+    ],
+    "australia": [
+      {
+        "headline": "Australia joins US-led pact on AI supply chains",
+        "summary": "Australia signed a 10-nation declaration to protect critical minerals, energy, data centres and sensitive AI technology as Albanese attended ASEAN talks in Manila.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-17/australia-signs-us-led-ai-supply-chain-agreement/107392252",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "Government reverses course on backpacker visa rules",
+        "summary": "The third-year working holiday cap rises from 5,000 to 25,000 places, the ballot is delayed, and second-year applicants will need more regional work days.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-17/backflip-backpacker-working-holiday-visa-regional-work/107393474",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "Chalmers proposes letting super funds invest more in housing and energy",
+        "summary": "The treasurer outlined rule changes to widen superannuation investment in housing, energy and startups.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-17/chalmers-proposes-new-rules-for-super-funds/107396462",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "Victorian leaders face off as early voting nears",
+        "summary": "Labor, Liberal, Greens and One Nation leaders debated ahead of the November 28 state election, with early voting opening Wednesday.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-17/victoria-election-blog-november-17-royal-commission/107393612",
+        "date": "2026-11-17"
+      },
+      {
+        "headline": "Armed clashes reported in remote NT community",
+        "summary": "Up to 100 people armed with axes, spears and crossbows were reported fighting in the Northern Territory's remote west.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-17/armed-fugitive-peppimenarti-and-wadeye-unrest/107396456",
+        "date": "2026-11-17"
+      }
+    ],
+    "ai": [
+      {
+        "headline": "California sues OpenAI over hacking risks",
+        "summary": "The state attorney general filed suit tied to a Hugging Face hacking incident and the risk of losing control of AI models.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/16/nx-s1-6042920/california-sues-openai-hugging-face-hacking-incident",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Trump says he is fine with Huang returning as Nvidia CEO",
+        "summary": "The president said he sees no national security risk in Jensen Huang's possible return.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/16/trump-lutnick-nvidia-national-security-jensen-huant.html",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "OpenAI signs up four independent safety evaluators",
+        "summary": "The company announced agreements with outside groups to test its models.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/amp/2026/11/16/openai-independent-ai-safety-evaluators.html",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Altimeter plans a $5 billion order in Anthropic's IPO",
+        "summary": "Brad Gerstner's firm says it is putting in for $5 billion of shares in the upcoming listing.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/16/altimeters-gerstner-investing-5-billion-in-anthropic-ipo.html",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "UN talks aim to curb autonomous weapons",
+        "summary": "Negotiators are discussing limits on so-called killer robots amid growing concern over AI-driven drones.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/16/nx-s1-6042548/un-killer-robots-ai-weapons-drones",
+        "date": "2026-11-16"
+      }
+    ],
+    "tech": [
+      {
+        "headline": "Chase glitch disrupts online banking at major US banks",
+        "summary": "Customers reported problems at several big banks; Chase blamed a technical bug, not a cyberattack, and said funds remained accessible.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/nation/customers-at-major-banks-are-experiencing-issues-accessing-their-accounts",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "US moves to close loophole giving China access to advanced chips",
+        "summary": "Officials are working to shut a route that let Chinese firms obtain advanced AI chips.",
+        "source": "PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/show/u-s-works-to-close-loophole-that-let-china-access-advanced-ai-chips",
+        "date": "2026-11-16"
+      }
+    ],
+    "world": [
+      {
+        "headline": "EU accuses Russia of stalling talks while hitting power plants",
+        "summary": "EU foreign ministers sanctioned nearly 50 Russian banks and financial firms and said a ceasefire must come first.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/world/eu-accuses-russia-of-stalling-ukraine-peace-talks-to-target-power-plants-as-winter-nears",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "At least 17 killed in two South African mass shootings",
+        "summary": "Eight people were found dead near Pietermaritzburg and nine near Pretoria on Sunday; police have not established motives.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/world/at-least-17-people-killed-in-2-mass-shootings-on-the-same-day-in-south-africa",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Le Pen says France would end financial aid to Kyiv under her",
+        "summary": "The National Rally leader said she would halt new French financial support for Ukraine if elected in 2027 while honouring existing commitments.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/16/france-can-no-longer-support-kyiv-financially-le-pen-tells-ukrainian-ambassador",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Romania, Estonia and Sweden urge united EU response to Russian attacks",
+        "summary": "The ministers cited drone strikes on ships near Romania's Sulina Canal and an alleged GRU sabotage attempt in Estonia.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/16/eu-ministers-demand-united-response-as-russian-attacks-spill-beyond-ukraine",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Pope wraps up South America trip in Peru",
+        "summary": "The pontiff left Peru at the end of a lengthy tour of the region.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/world/pope-bids-hasta-luego-to-peru-as-he-wraps-up-marathon-south-america-trip",
+        "date": "2026-11-16"
+      }
+    ],
+    "aus-cricket": [
+      {
+        "headline": "Stars storm back to beat Thunder in WBBL",
+        "summary": "Defending 120, the Melbourne Stars took the Thunder's last seven wickets for 26 to win by six runs, with Georgia Prestwidge taking 5-25.",
+        "source": "cricket.com.au (AAP)",
+        "url": "https://cricket.com.au/news/4609775/wbbl12-melbourne-stars-sydney-thunder-nicola-hancock-match-report",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Ecclestone ruled out of WBBL|12 in blow to Strikers",
+        "summary": "England spinner Sophie Ecclestone will miss the rest of the season with a back injury.",
+        "source": "cricket.com.au",
+        "url": "https://www.cricket.com.au/news/4609626/sophie-ecclestone-back-injury-adelaide-strikers-wbbl12-england-spinner",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Nine-month wait poses World Cup selection puzzle for Australia",
+        "summary": "ABC Sport looks at the long gap before Australia's next Cricket World Cup assignment.",
+        "source": "ABC Sport",
+        "url": "https://www.abc.net.au/news/2026-11-17/nine-months-wait-leaves-australia-cricket-world-cup-conundrum/107396258",
+        "date": "2026-11-17"
+      }
+    ],
+    "warriors": [
+      {
+        "headline": "Warriors lose 115-94 at New Orleans for third straight defeat",
+        "summary": "Yaxel Lendeborg scored 28 but Golden State fell to 8-6 as Jeremiah Fears posted a triple-double for the Pelicans.",
+        "source": "NBA.com",
+        "url": "https://www.nba.com/warriors/news/gameday-recap-20261116",
+        "date": "2026-11-16"
+      },
+      {
+        "headline": "Curry and Williams still sidelined; Warriors at Dallas Wednesday",
+        "summary": "Stephen Curry (oblique) and Brandon Williams (hamstring) sat again; Golden State visits the Mavericks at 5 p.m. PT Wednesday, then Memphis Thursday.",
+        "source": "NBA.com",
+        "url": "https://www.nba.com/warriors/news/gameday-recap-20261116",
+        "date": "2026-11-16"
+      }
+    ]
+  }
+}
