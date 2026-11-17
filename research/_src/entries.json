@@ -76,7 +76,8 @@
       "R066",
       "R069",
       "R108",
-      "R114"
+      "R114",
+      "R121"
      ],
      "also": [
       {
@@ -149,6 +150,10 @@
       {
        "id": "R004",
        "why": "periodic manual wipe as governance, with no eval gate"
+      },
+      {
+       "id": "R121",
+       "why": "Harness²: no-verifier harness edits need eval gates, versioning, staged rollout and human review because guardrails are in the edit set"
       }
      ]
     },
@@ -771,6 +776,10 @@
       {
        "id": "R108",
        "why": "harnesses as classes: a shared base plus subclasses that override only what a task cluster needs, chosen per task by a router"
+      },
+      {
+       "id": "R121",
+       "why": "Harness²: eight-file harness decomposition, and a weak model with a tuned harness beating a stronger one on its stock harness"
       }
      ]
     },
@@ -3360,6 +3369,25 @@
    ],
    "summary": "Minimal single-node harness: BPE tokenizer (32,768 vocab), pretraining (Muon + AdamW, FP8), SFT on SmolTalk + MMLU aux x3 + GSM8K x4 with a Python tool, RL, CORE and bits-per-byte evals, KV-cache inference, chat CLI. Reference speedrun beats GPT-2 CORE (0.2565) in 1.65 h on 8xH100 (~$48), down from 3.04 h in Jan 2026; ClimbMix data and two autoresearch rounds drove the biggest gains. Distinctive ideas the post skips: one `--depth` dial sets every hyperparameter compute-optimally and changes must help at all depths; a public time-to-GPT-2 leaderboard with commits; explicit precision instead of autocast; no config framework; PRs disclose LLM-written code. Post overstates \"understand RoPE, GQA\" (code implements, Discussions guides teach) and omits the 8xH100 cost. Data mix: one pretraining dataset; SFT mix via epoch flags or editing chat_sft.py. Caveats: speedrun data ratio 8 is tuned to the leaderboard, SFT on MMLU/GSM8K train flatters those evals, from-scratch only.",
    "file": "entries/nanochat-llm-pipeline.html"
+  },
+  {
+   "id": "R121",
+   "slug": "harness-squared-self-improving-harnesses",
+   "title": "Harness²: self-improving harnesses without a ground-truth verifier",
+   "by": "Aishwarya Naresh Reganti's LinkedIn review, 2026-10-21, of Xu, Chen, Pfister et al., Google Cloud AI Research and Northwestern, arXiv 2610.14224",
+   "source": "https://www.linkedin.com/posts/areganti_finally-took-the-time-to-review-googles-share-7518498818573799424-r9cQ/",
+   "published": "2026-10-21",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/JZTtYq5Xvg16Un4oSFeoAJ",
+   "tags": [
+    "self-improving-agents",
+    "agent-harness",
+    "agent-governance",
+    "evals",
+    "benchmarks"
+   ],
+   "summary": "Frozen executor, eight editable harness files (prompt, guardrails, memory, skills, tool guidance, scripts, subagents, middleware). Per task, a contrastive Propose-Probe-Compose step: run once as reference, draft an invariant and a domain-scoped candidate, run both under matched conditions, compose a successor from behavioral contrasts with no ground-truth verifier; afterwards an improvement library keeps the adopted harness plus an evidence-backed EXPERIENCE.md, and each new task starts from the base harness. One step: GLM-5 on WorkBuddy 64.2 to 75.7 (beats stock Gemini 3.5 Flash), LAB +11.8 pp; parallel k=5 adds 3 to 7; fewer execution steps; scoping is the biggest ablation (-2.9/-3.7); editing blind drops WB-Code 73.4 to 63.2. Reganti's critique: evaluator shares the executor's blind spots, and it edits its own guardrails, so propose offline, regression-gate, review, stage and roll back.",
+   "file": "entries/harness-squared-self-improving-harnesses.html"
   }
  ],
  "edges": [
@@ -5336,6 +5364,30 @@
    "b": "R098",
    "strength": "strong",
    "why": "Same post author; CS329A covers the RL and verification theory that nanochat's chat_rl stage only touches."
+  },
+  {
+   "a": "R121",
+   "b": "R108",
+   "strength": "strong",
+   "why": "Same Google Cloud AI Research group and both Meta-Harness challengers; OO-Harness freezes a specialist family offline and routes, Harness² edits per task online and keeps a lesson library."
+  },
+  {
+   "a": "R121",
+   "b": "R066",
+   "strength": "strong",
+   "why": "Harness² accepts edits on one-run behavioral contrasts; TRUST is the statistical gate it lacks."
+  },
+  {
+   "a": "R121",
+   "b": "R040",
+   "strength": "strong",
+   "why": "Both keep lessons only with the evidence behind them (EXPERIENCE.md vs WikiTrace's source-linked lessons)."
+  },
+  {
+   "a": "R121",
+   "b": "R026",
+   "strength": "strong",
+   "why": "Same post author (Aishwarya Naresh Reganti)."
   }
  ]
 }
