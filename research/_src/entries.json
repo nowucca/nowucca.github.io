@@ -64,6 +64,10 @@
       {
        "id": "R106",
        "why": "txtai as a local agent memory store: vectors, SQL and graph in one index"
+      },
+      {
+       "id": "R123",
+       "why": "memory from seed, feedback and outcomes; salience, expiry and duplication handled by a scheduled \"dreaming\" rewrite; judge memory by outcomes"
       }
      ]
     },
@@ -409,7 +413,8 @@
      "primary": [
       "R060",
       "R067",
-      "R111"
+      "R111",
+      "R125"
      ],
      "also": [
       {
@@ -483,6 +488,10 @@
       {
        "id": "R113",
        "why": "cost control plugin for coding agents: micro-skills, tool pruning, stuck-loop redirects"
+      },
+      {
+       "id": "R124",
+       "why": "multi-session agent port with claimed units in MAP.md, HANDOFF.md at each checkpoint, ADRs from an up-front question round, and a cutover script for human-only steps"
       }
      ]
     },
@@ -492,7 +501,8 @@
      "primary": [
       "R020",
       "R080",
-      "R082"
+      "R082",
+      "R124"
      ],
      "also": [
       {
@@ -654,6 +664,10 @@
       {
        "id": "R118",
        "why": "harness tips that protect the prefix cache: stable system prompt, append-only tools, fixed effort, truncation notices"
+      },
+      {
+       "id": "R125",
+       "why": "OpenAI: keep prompt prefixes unchanged and append new instructions; cached input is 95% off on GPT-6.2 Astra; require explicit blocker reporting"
       }
      ]
     }
@@ -939,7 +953,8 @@
      "primary": [
       "R035",
       "R084",
-      "R094"
+      "R094",
+      "R123"
      ],
      "also": [
       {
@@ -1083,6 +1098,14 @@
       {
        "id": "R117",
        "why": "plan-doc review, describe-then-approve gates and pilot-then-batch for an agent with write access"
+      },
+      {
+       "id": "R125",
+       "why": "GPT-6.2 models more often omit obstacles that blocked their work; check agents report missing files and tools"
+      },
+      {
+       "id": "R123",
+       "why": "make each agent check-in fast to review, since review is how human taste reaches memory; track the share of check-ins people act on"
       }
      ]
     },
@@ -3416,6 +3439,63 @@
    ],
    "summary": "A Kubernetes runtime that maps many stateful actors onto a small pool of pre-started gVisor or microVM worker Pods: idle actors are snapshotted (RAM and filesystem) and resumed on request by an agent-aware router, claiming 10x to 30x oversubscription and sub-500 ms resume. Its own control plane (mTLS/OIDC, OpenFGA per atespace) handles lifecycle calls Kubernetes can't; per-actor SPIFFE identity; credentials injected by an egress gateway so sandboxes and snapshots hold none; default-deny networking. Tradeoffs: snapshot data management, resume latency on the request path, a second control plane, sandbox compatibility.",
    "file": "entries/agent-substrate-warm-pool.html"
+  },
+  {
+   "id": "R123",
+   "slug": "proactive-agents-memory-ux",
+   "title": "Proactive agents: memory decides what's worth a check-in, UX decides if anyone answers",
+   "by": "LangChain's post resharing Sydney Runkle's blog, 2026-11-17",
+   "source": "https://www.langchain.com/blog/what-weve-learned-building-proactive-agents",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/Xjyk6dAQNxthMvNgEVtips",
+   "tags": [
+    "long-running-agents",
+    "memory",
+    "human-in-the-loop",
+    "agent-ux",
+    "scheduling"
+   ],
+   "summary": "Lessons from two internal agents (GTM Agent for sales, Robin for engineering) on Managed Deep Agents, where over 70% of runs start from schedules. Triggers: real-world events, developer schedules, agent-set schedules. Memory from seed (past), feedback (present) and outcomes (future); maintenance problems are salience, expiry and duplication, often handled by a scheduled \"dreaming\" job over recent traces; measure memory by outcomes and by the share of check-ins acted on. UX: surface only high-signal items (a separate decision model for when to join a Slack thread), make every check-in fast to review because review feeds memory, and post where people already work with a one-line headline and detail in thread. Vendor-written.",
+   "file": "entries/proactive-agents-memory-ux.html"
+  },
+  {
+   "id": "R124",
+   "slug": "rust-anything-port-to-rust",
+   "title": "rust-anything: port an app to Rust one unit at a time, gated on recorded behavior",
+   "by": "André Lindenberg's post on erkamyaman/rust-anything, MIT, created 2026-11-16",
+   "source": "https://github.com/erkamyaman/rust-anything",
+   "published": "2026-11-16",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/3PeQMXv7Nn5rLiZKH8USy8",
+   "tags": [
+    "test-oracles",
+    "legacy-migration",
+    "coding-agents",
+    "mcp",
+    "open-source"
+   ],
+   "summary": "The agent writes the Rust; the tool profiles, plans port order, bridges each unit so callers keep the original API, records the original on generated cases, traps and real inputs, replays every case against the port, benchmarks, shadows in production and gates done. Six source languages; whole-app mode records the app as a black box and lifts units behind a Rust front door. Multi-session agent files: DECISIONS.md ADRs, MAP.md unit claims, HANDOFF.md per checkpoint, cutover.sh for human-only steps. Limits it states: unrecorded inputs, regex and float semantics, wildcarded nondeterminism, and no side-effect comparison.",
+   "file": "entries/rust-anything-port-to-rust.html"
+  },
+  {
+   "id": "R125",
+   "slug": "gpt-6-2-astra-sol",
+   "title": "GPT-6.2 Astra and Sol: cheaper frontier tasks, and the first High rating for AI self-improvement",
+   "by": "OpenAI launch post, 2026-11-17",
+   "source": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/SFSLDMa6RiJ1T9x7w5mP1D",
+   "tags": [
+    "model-release",
+    "benchmarks",
+    "pricing",
+    "caching",
+    "ai-safety"
+   ],
+   "summary": "Astra (frontier) and Sol (efficient); Astra API $8/$0.40 cached/$40 per M tokens, 20% below GPT-6 Astra; Sol unchanged at $2/$0.10/$10. Vendor claims: Agents' Last Exam +5.2 over GPT-6 Astra at under a third the cost and +5.5 over Fable 5.2 (which excludes nine fallback tasks); Sol within 0.5 of Astra on FrontierCode 2.0 at a fifth the cost; Harvey LAB-AA more than double Fable 5.2. Critical cyber and High bio thresholds; Astra is OpenAI's first external model rated High for AI self-improvement. Regression: more likely to omit blockers such as a missing file. OpenAI advises unchanged prompt prefixes with appended instructions for cache reuse.",
+   "file": "entries/gpt-6-2-astra-sol.html"
   }
  ],
  "edges": [
@@ -5434,6 +5514,36 @@
    "b": "R035",
    "strength": "strong",
    "why": "Two answers to waits that hold no compute: durable workflows at the application layer vs snapshot-and-resume at the sandbox layer."
+  },
+  {
+   "a": "R123",
+   "b": "R084",
+   "strength": "strong",
+   "why": "R084 gives the primitives for agents that sleep, wake and act; R123 is about what they should do on waking: when to interrupt and how to make the check-in reviewable."
+  },
+  {
+   "a": "R123",
+   "b": "R083",
+   "strength": "strong",
+   "why": "R083 catalogs memory building blocks; R123 names the three maintenance problems (salience, expiry, duplication) and a scheduled rewrite to handle them."
+  },
+  {
+   "a": "R124",
+   "b": "R082",
+   "strength": "strong",
+   "why": "Both grade a rebuild against the original; Craft Anything grades a whole reimplementation, rust-anything gates each unit on replayed recordings while the original keeps serving."
+  },
+  {
+   "a": "R125",
+   "b": "R078",
+   "strength": "strong",
+   "why": "Launch-post scores; R125's Fable 5.2 comparisons mix harnesses and exclude tasks, the pattern R078 warns about."
+  },
+  {
+   "a": "R125",
+   "b": "R118",
+   "strength": "strong",
+   "why": "OpenAI's own advice to keep prefixes stable and append instructions is R118's harness rule."
   }
  ]
 }

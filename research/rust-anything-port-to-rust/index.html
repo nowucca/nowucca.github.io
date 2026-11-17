@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>rust-anything: port an app to Rust one unit at a time, gated on recorded behavior · Research</title>
+<meta name="description" content="The agent writes the Rust; the tool profiles, plans port order, bridges each unit so callers keep the original API, records the original on generated cases, traps and real inputs, replays every case against the port, benchmarks, shadows in production and gates done. Six source languages; whole-app mode records the app as a black box and lifts units behind a Rust front door. Multi-session agent files: DECISIONS.md ADRs, MAP.md unit claims, HANDOFF.md per checkpoint, cutover.sh for human-only steps. Limits it states: unrecorded inputs, regex and float semantics, wildcarded nondeterminism, and no side-effect comparison.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R124 · AI-built software and its verification › Test oracles for agent-written code</span>
+  <h1>rust-anything: port an app to Rust one unit at a time, gated on recorded behavior</h1>
+  <div class="entry-meta"><span>André Lindenberg&#x27;s post on erkamyaman/rust-anything, MIT, created 2026-11-16</span><span>Published 2026-11-16</span><span>Summarized 2026-11-17</span></div>
+  <p><a href="https://github.com/erkamyaman/rust-anything" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">test-oracles</span><span class="tag">legacy-migration</span><span class="tag">coding-agents</span><span class="tag">mcp</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p>Source: <a href="https://github.com/erkamyaman/rust-anything">erkamyaman/rust-anything</a> (MIT, created 2026-11-16), surfaced by André Lindenberg on LinkedIn. Distributed on crates.io and npm; registers itself as an MCP server and skill for Claude Code, Codex, Cursor and Gemini CLI.</p>
+<h2 id="the-idea">The idea</h2>
+<p>rust-anything does not translate code. The coding agent (or a person) writes the Rust; the tool supplies what an agent cannot reliably guess: where the time goes, what to port first, a bridge so existing callers keep the original API, the exact behavior the port must match, and a gate that defines done. The original program stays the source of truth throughout.</p>
+<p>It supports TypeScript/JavaScript, Python, C, Go, Ruby and Java, each with a native bridge (napi-rs or wasm, PyO3, <code>extern "C"</code>, cgo, magnus, JNI) and a driver that records and replays the original.</p>
+<h2 id="the-loop">The loop</h2>
+<ol><li><p><strong>Profile</strong> a real workload with the language's profiler to find hot functions and loops worth batching; it flags code that is already compiled, where Rust gains little.</p></li><li><p><strong>Analyze</strong> units, port order, risks with file and line, and dependency-to-crate fit.</p></li><li><p><strong>Bridge</strong> generates a crate with bindings and <code>port.rs</code> stubs; <code>--batch</code> keeps many values inside Rust so a call crosses the boundary once.</p></li><li><p><strong>Record</strong> runs the original on generated edge cases, built-in traps and user inputs, saving outputs and errors.</p></li><li><p><strong>Port</strong> (agent or human writes <code>port.rs</code>).</p></li><li><p><strong>Diff</strong> replays every recorded case against the Rust.</p></li><li><p><strong>Bench</strong> gives a faster-or-not verdict; calling Rust once per small function is often slower than a JIT, so the tool aims at loops.</p></li><li><p><strong>Shadow</strong> runs both side by side in production.</p></li><li><p><strong>Gate</strong> must pass before a unit counts as done.</p></li></ol>
+<p>For a whole app, the same loop runs unit by unit inside an outside-in frame: record the app as a black box from its documented entry points, let a Rust front door take the entry point while unported units fall back to the original, then lift units until replay is 100% in pure Rust. The README claims 38,251 recorded cases replayed with zero mismatches across its demos and speedups from 3x (Java slugify) to 20x (a TypeScript search over 50,000 keys).</p>
+<h2 id="agent-workflow-around-it">Agent workflow around it</h2>
+<p>The whole-app skill structures multi-session agent work with files: decisions as ADRs in <code>rust/DECISIONS.md</code> (settled by an up-front question round with a recommended answer for each), a glossary mapping original terms to Rust names, background research notes per dependency, a <code>rust/MAP.md</code> of every unit and its state that a session claims before starting, a <code>rust/HANDOFF.md</code> at each checkpoint, and a generated <code>cutover.sh</code> for steps only a person can do (deploys, DNS, secrets), each with a way back.</p>
+<h2 id="what-it-cant-catch-stated-by-the-project">What it can't catch (stated by the project)</h2>
+<ul><li><p>Inputs nobody recorded: the recording is the ceiling, so add production samples, bug reports and the original's fixtures.</p></li><li><p>Regex semantics: the Rust <code>regex</code> crate lacks lookaround and backreferences, and Unicode classes and case folding differ; record adds traps, but real patterns need fuzzing on real text.</p></li><li><p>Nondeterminism: values that change between runs become wildcards and reordered lines compare in any order, which can hide a real ordering or concurrency change.</p></li><li><p>Float formatting differences between languages; tolerance forgives rounding, never formatting.</p></li><li><p>Anything outside output: timing, memory, concurrency under load, network calls, databases and signals are not compared.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p>Recorded-behavior equivalence is a strong, cheap oracle but only as good as its inputs; it encodes the original's bugs as the spec.</p></li><li><p>The bridge phase means two runtimes in one process for a while, with FFI overhead and two sets of failure modes.</p></li><li><p>Very young project: a day old at the time of the post, with broad language claims that are not yet battle-tested.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Do the recorded inputs include production samples and past bug reports, not only generated cases?</p></li><li><p>Were wildcarded and order-insensitive diffs reviewed one by one?</p></li><li><p>Are side effects (files, network, database writes) covered by an app-level replay or separate tests?</p></li><li><p>Did bench show a real win on a realistic workload before porting, and after batching?</p></li><li><p>Is shadow mode run long enough to see rare inputs before the gate is trusted?</p></li><li><p>Is the rollback path to the original kept until cutover is complete?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R082 Craft Anything: rebuild software, graded against the original.</p></li><li><p>R080 AWS Emulator: a replica graded by the real service.</p></li><li><p>R020 The model proposes, the harness enforces.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t3)"><a class="to" href="/research/craft-anything/">Craft Anything: rebuild software, graded against the original</a><span class="label">R082 · AI-built software and its verification</span><span class="why">Both grade a rebuild against the original; Craft Anything grades a whole reimplementation, rust-anything gates each unit on replayed recordings while the original keeps serving.</span></li></ul><p><a href="/research/map/#R124">See R124 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
