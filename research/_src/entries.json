@@ -332,7 +332,8 @@
       "R061",
       "R074",
       "R090",
-      "R093"
+      "R093",
+      "R122"
      ],
      "also": [
       {
@@ -956,6 +957,10 @@
       {
        "id": "R096",
        "why": "process-level checkpoint and restore of GPU workers; the same idea as durable agent state, one layer down"
+      },
+      {
+       "id": "R122",
+       "why": "suspend idle agents to snapshots and resume them on any warm worker, so waiting costs storage, not compute"
       }
      ]
     },
@@ -986,6 +991,10 @@
       {
        "id": "R117",
        "why": "house rules for an agent operating physical systems; hard exclusions and scoped credentials"
+      },
+      {
+       "id": "R122",
+       "why": "credentials injected by an egress gateway outside the sandbox; default-deny networking with a replaceable policy enforcement point"
       }
      ]
     }
@@ -3388,6 +3397,25 @@
    ],
    "summary": "Frozen executor, eight editable harness files (prompt, guardrails, memory, skills, tool guidance, scripts, subagents, middleware). Per task, a contrastive Propose-Probe-Compose step: run once as reference, draft an invariant and a domain-scoped candidate, run both under matched conditions, compose a successor from behavioral contrasts with no ground-truth verifier; afterwards an improvement library keeps the adopted harness plus an evidence-backed EXPERIENCE.md, and each new task starts from the base harness. One step: GLM-5 on WorkBuddy 64.2 to 75.7 (beats stock Gemini 3.5 Flash), LAB +11.8 pp; parallel k=5 adds 3 to 7; fewer execution steps; scoping is the biggest ablation (-2.9/-3.7); editing blind drops WB-Code 73.4 to 63.2. Reganti's critique: evaluator shares the executor's blind spots, and it edits its own guardrails, so propose offline, regression-gate, review, stage and roll back.",
    "file": "entries/harness-squared-self-improving-harnesses.html"
+  },
+  {
+   "id": "R122",
+   "slug": "agent-substrate-warm-pool",
+   "title": "Agent Substrate: suspend idle agents, resume them on a warm pool",
+   "by": "Charly Wargnier's post on agent-substrate/substrate, Apache-2.0, 1.0",
+   "source": "https://github.com/agent-substrate/substrate",
+   "published": "2026-11",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/18v9VAeWbYjqJMmiCV5FVd",
+   "tags": [
+    "agent-sandbox",
+    "kubernetes",
+    "agent-runtime",
+    "security",
+    "open-source"
+   ],
+   "summary": "A Kubernetes runtime that maps many stateful actors onto a small pool of pre-started gVisor or microVM worker Pods: idle actors are snapshotted (RAM and filesystem) and resumed on request by an agent-aware router, claiming 10x to 30x oversubscription and sub-500 ms resume. Its own control plane (mTLS/OIDC, OpenFGA per atespace) handles lifecycle calls Kubernetes can't; per-actor SPIFFE identity; credentials injected by an egress gateway so sandboxes and snapshots hold none; default-deny networking. Tradeoffs: snapshot data management, resume latency on the request path, a second control plane, sandbox compatibility.",
+   "file": "entries/agent-substrate-warm-pool.html"
   }
  ],
  "edges": [
@@ -5388,6 +5416,24 @@
    "b": "R026",
    "strength": "strong",
    "why": "Same post author (Aishwarya Naresh Reganti)."
+  },
+  {
+   "a": "R122",
+   "b": "R093",
+   "strength": "strong",
+   "why": "Kagent 1.0 runs its per-conversation sandboxes on Agent Substrate; R122 is the layer underneath."
+  },
+  {
+   "a": "R122",
+   "b": "R030",
+   "strength": "strong",
+   "why": "Both keep credentials out of the agent (OpenShell's supervisor, Substrate's egress gateway) and decide egress outside the sandbox."
+  },
+  {
+   "a": "R122",
+   "b": "R035",
+   "strength": "strong",
+   "why": "Two answers to waits that hold no compute: durable workflows at the application layer vs snapshot-and-resume at the sandbox layer."
   }
  ]
 }
