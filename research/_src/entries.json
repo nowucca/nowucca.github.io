@@ -68,6 +68,14 @@
       {
        "id": "R123",
        "why": "memory from seed, feedback and outcomes; salience, expiry and duplication handled by a scheduled \"dreaming\" rewrite; judge memory by outcomes"
+      },
+      {
+       "id": "R128",
+       "why": "context over prompts: templates, CRM and call transcripts, stage gates and a shared per-account folder as the agent's working memory"
+      },
+      {
+       "id": "R127",
+       "why": "cheap, continuously rebuilt graph retrieval for changing agent knowledge; repository knowledge as reviewable Markdown with provenance"
       }
      ]
     },
@@ -81,7 +89,8 @@
       "R069",
       "R108",
       "R114",
-      "R121"
+      "R121",
+      "R126"
      ],
      "also": [
       {
@@ -424,6 +433,10 @@
       {
        "id": "R116",
        "why": "enterprise token-share swings after model launches; open-weight share at 30.9%"
+      },
+      {
+       "id": "R126",
+       "why": "a harness-specific RL LoRA roughly doubles an open model's hard SWE-bench Pro score under one agent: model-harness fit drives benchmark results"
       }
      ]
     }
@@ -599,7 +612,8 @@
      "primary": [
       "R010",
       "R025",
-      "R106"
+      "R106",
+      "R127"
      ],
      "also": [
       {
@@ -668,6 +682,10 @@
       {
        "id": "R125",
        "why": "OpenAI: keep prompt prefixes unchanged and append new instructions; cached input is 95% off on GPT-6.2 Astra; require explicit blocker reporting"
+      },
+      {
+       "id": "R126",
+       "why": "open models can be RL-tuned to one harness; pin the adapter to the harness version and API mode it was trained with"
       }
      ]
     }
@@ -685,7 +703,8 @@
       "R006",
       "R054",
       "R092",
-      "R103"
+      "R103",
+      "R128"
      ],
      "also": [
       {
@@ -907,6 +926,10 @@
       {
        "id": "R111",
        "why": "one composite index hides per-task gaps; rerun a private eval set on every open release before switching tiers"
+      },
+      {
+       "id": "R127",
+       "why": "source-grounded assertions, graded evidence coverage, retrieval scored apart from answer quality, cached judgments reused across versions"
       }
      ]
     },
@@ -976,6 +999,10 @@
       {
        "id": "R122",
        "why": "suspend idle agents to snapshots and resume them on any warm worker, so waiting costs storage, not compute"
+      },
+      {
+       "id": "R128",
+       "why": "scheduled pre-meeting briefs that offer the artifact a deal stage is missing; tasks assigned when a stage gate lacks its document"
       }
      ]
     },
@@ -1106,6 +1133,10 @@
       {
        "id": "R123",
        "why": "make each agent check-in fast to review, since review is how human taste reaches memory; track the share of check-ins people act on"
+      },
+      {
+       "id": "R128",
+       "why": "render-and-review loops need a stop rule: ship on the first clean review; flag fields a human must fill; owners' taste as the quality signal"
       }
      ]
     },
@@ -3496,6 +3527,63 @@
    ],
    "summary": "Astra (frontier) and Sol (efficient); Astra API $8/$0.40 cached/$40 per M tokens, 20% below GPT-6 Astra; Sol unchanged at $2/$0.10/$10. Vendor claims: Agents' Last Exam +5.2 over GPT-6 Astra at under a third the cost and +5.5 over Fable 5.2 (which excludes nine fallback tasks); Sol within 0.5 of Astra on FrontierCode 2.0 at a fifth the cost; Harvey LAB-AA more than double Fable 5.2. Critical cyber and High bio thresholds; Astra is OpenAI's first external model rated High for AI self-improvement. Regression: more likely to omit blockers such as a missing file. OpenAI advises unchanged prompt prefixes with appended instructions for cache reuse.",
    "file": "entries/gpt-6-2-astra-sol.html"
+  },
+  {
+   "id": "R126",
+   "slug": "harness-adapters-rl-tuned-qwen-pi",
+   "title": "Harness adapters: RL-tuning an open model for one coding agent",
+   "by": "Clem Delangue's post on harness-hub/Qwen3.8-27B-pi-adapted, Apache-2.0 LoRA",
+   "source": "https://huggingface.co/harness-hub/Qwen3.8-27B-pi-adapted",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/HJVeH5K4URvBggqa5RBpyQ",
+   "tags": [
+    "open-weights",
+    "reinforcement-learning",
+    "coding-agents",
+    "agent-harness",
+    "benchmarks"
+   ],
+   "summary": "One async-GRPO LoRA fits Qwen3.8-27B to the pi coding agent: Terminal-Bench 2.1 39.5% to 55.8% (held-out 68 tasks 39.7% to 55.9%) and SWE-bench Pro hard-51 29.4% to 62.7%, with 55-62% fewer tool calls; paired runs, sign tests, tool calls on tasks both solved. Part of an 11-adapter collection for specific harnesses. Must match the base model and pi's chat-completions API mode. Risks: harness overfitting, API-shape brittleness, small slices.",
+   "file": "entries/harness-adapters-rl-tuned-qwen-pi.html"
+  },
+  {
+   "id": "R127",
+   "slug": "graphrag-zero",
+   "title": "GraphRAG Zero: graph-guided retrieval with no LLM calls at index time",
+   "by": "Microsoft Research story, 2026-11-17",
+   "source": "https://www.microsoft.com/en-us/research/story/the-evolution-of-graphrag-advancing-systems-and-evaluation-together/",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/4hEwTobTByLsD6iQ3EzBxu",
+   "tags": [
+    "retrieval",
+    "rag",
+    "knowledge-graphs",
+    "evals",
+    "memory"
+   ],
+   "summary": "GraphRAG to LazyGraphRAG (indexing at 0.1% of GraphRAG's cost, work deferred to query time) to GraphRAG Zero: an embedding-geometry graph with no LLM calls at index time and none before answer generation in real-time mode; context in 0.93 s; global assertion coverage 53.4% (vector RAG) to 57.4% at a 50-chunk budget, with higher cluster recall but lower chunk precision. BenchmarkQED adds source-grounded assertions, graded evidence coverage and reusable cached judgments for loop engineering. Ships in Foundry IQ and GitHub Next's Repo Mind Light.",
+   "file": "entries/graphrag-zero.html"
+  },
+  {
+   "id": "R128",
+   "slug": "langchain-gtm-agent-sales-artifacts",
+   "title": "Sales artifacts from an agent: context, templates and a stop rule",
+   "by": "LangChain blog post by Nick Bray, \"How our GTM Agent builds consistent, high-quality sales artifacts\"",
+   "source": "https://www.langchain.com/blog/gtm-agent-high-quality-sales-artifacts",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/SWroD5NjwikwZc7nWNKPPQ",
+   "tags": [
+    "agent-harness",
+    "context-engineering",
+    "self-review",
+    "human-in-the-loop",
+    "enterprise-agents"
+   ],
+   "summary": "An internal sales agent builds account plans, proof-of-value docs, decks and onboarding plans: 1,540 in 12 weeks; deals with a sent artifact advanced 47% vs 16% for matched deals (correlational, self-reported); 337 rep hours saved. Quality credited to context, not prompts: leadership-owned templates, CRM and call transcripts, stage gates; brand kit baked into the sandbox image and changed by PR. Fixed path: ask for missing inputs, fill template with python-pptx, render via LibreOffice, rasterize and self-review, convert to native Google files with human-fill flags. A ship-on-first-clean-review stop rule cut a one-pager from 18 to 7 minutes. Metrics: volume, utilization, leverage, outcomes. Vendor-written.",
+   "file": "entries/langchain-gtm-agent-sales-artifacts.html"
   }
  ],
  "edges": [
@@ -5544,6 +5632,42 @@
    "b": "R118",
    "strength": "strong",
    "why": "OpenAI's own advice to keep prefixes stable and append instructions is R118's harness rule."
+  },
+  {
+   "a": "R126",
+   "b": "R114",
+   "strength": "strong",
+   "why": "Both use RL to improve agents; AutoRL automates the RL loop, R126 applies RL to fit one model to one harness."
+  },
+  {
+   "a": "R126",
+   "b": "R111",
+   "strength": "strong",
+   "why": "The open-weights gap measured on general indexes; R126 shows harness-specific tuning closing much of it for one agent."
+  },
+  {
+   "a": "R127",
+   "b": "R106",
+   "strength": "strong",
+   "why": "Two embeddings-first retrieval stacks; txtai as a general database, GraphRAG Zero adding embedding-derived graph structure for global questions."
+  },
+  {
+   "a": "R127",
+   "b": "R123",
+   "strength": "strong",
+   "why": "Memory for changing agent knowledge; R123 maintains it, R127 measures whether retrieval over it covers what is needed."
+  },
+  {
+   "a": "R128",
+   "b": "R123",
+   "strength": "strong",
+   "why": "Same team and same GTM agent; R123 is about when a proactive agent should speak, R128 about what it builds and how it stops reviewing."
+  },
+  {
+   "a": "R128",
+   "b": "R022",
+   "strength": "strong",
+   "why": "Generator-evaluator loops; R022 sets hard thresholds, R128 adds the stopping rule (ship on the first clean review) that keeps self-review from burning latency."
   }
  ]
 }

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harness adapters: RL-tuning an open model for one coding agent · Research</title>
+<meta name="description" content="One async-GRPO LoRA fits Qwen3.8-27B to the pi coding agent: Terminal-Bench 2.1 39.5% to 55.8% (held-out 68 tasks 39.7% to 55.9%) and SWE-bench Pro hard-51 29.4% to 62.7%, with 55-62% fewer tool calls; paired runs, sign tests, tool calls on tasks both solved. Part of an 11-adapter collection for specific harnesses. Must match the base model and pi&#x27;s chat-completions API mode. Risks: harness overfitting, API-shape brittleness, small slices.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R126 · Agent architecture › Self-improvement and learning loops</span>
+  <h1>Harness adapters: RL-tuning an open model for one coding agent</h1>
+  <div class="entry-meta"><span>Clem Delangue&#x27;s post on harness-hub/Qwen3.8-27B-pi-adapted, Apache-2.0 LoRA</span><span>Published 2026-11-17</span><span>Summarized 2026-11-17</span></div>
+  <p><a href="https://huggingface.co/harness-hub/Qwen3.8-27B-pi-adapted" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">open-weights</span><span class="tag">reinforcement-learning</span><span class="tag">coding-agents</span><span class="tag">agent-harness</span><span class="tag">benchmarks</span></div>
+</header>
+<article class="article"><p>Source: <a href="https://huggingface.co/harness-hub/Qwen3.8-27B-pi-adapted">harness-hub/Qwen3.8-27B-pi-adapted</a> model card (Apache-2.0 LoRA on Qwen3.8-27B), part of a Hugging Face collection of 11 harness-specific adapters; announced by Hugging Face CEO Clem Delangue on LinkedIn, 2026-11-17. The card says the full training recipe will follow in a release blog post.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>A single LoRA adapter trained with reinforcement learning (async GRPO via TRL) so that Qwen3.8-27B works well as the model behind one specific coding agent, the open-source <strong>pi</strong> harness. Training data comes from two harness-hub task sets for software-engineering and terminal work. The point is not a better general model but a model fitted to one harness's tools, prompts and API shape.</p>
+<h2 id="results-as-reported-on-the-card">Results (as reported on the card)</h2>
+<p>All runs use the pi harness, one attempt per task at temperature 0.8 with thinking off, paired against the base model under pi on the same tasks; intervals are 95% and p-values come from an exact sign test on tasks whose outcome changed.</p>
+<ul><li><p><strong>Terminal-Bench 2.1 (86 tasks):</strong> 39.5% to 55.8% (+16.3 points), 16 newly solved and 2 lost, 62% fewer tool calls per task (48% fewer on tasks both solved).</p></li><li><p><strong>Held-out check:</strong> on the 68 Terminal-Bench tasks not used to pick the checkpoint, 39.7% to 55.9%, so checkpoint selection did not drive the gain.</p></li><li><p><strong>SWE-bench Pro, hardest 51:</strong> 29.4% to 62.7% (+33.3 points, interval about plus or minus 14), 18 newly solved and 1 lost, 55% fewer tool calls.</p></li></ul>
+<p>The card is careful in ways launch posts often aren't: paired comparisons, a sign test, a held-out split, and tool calls measured on tasks both models solved, so efficiency gains aren't just an artifact of failing faster.</p>
+<h2 id="how-it-is-meant-to-be-run">How it is meant to be run</h2>
+<p>Load the adapter on the exact base model (it does not transfer to other bases), merge it into the base weights with PEFT for a standalone checkpoint, or serve the base plus LoRA through llama.cpp-style local apps or <code>transformers serve</code>. The card warns that pi must use the chat-completions API: by default pi uses a different API shape, which the adapter was neither trained nor evaluated with.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p><strong>Harness fit is a large, cheap lever.</strong> The same weights plus one adapter roughly doubled hard SWE-bench Pro and cut tool calls in half. Much of what looks like model capability in agent benchmarks is model-harness fit.</p></li><li><p><strong>Open weights make this possible.</strong> Closed models can only be prompted toward a harness; open ones can be trained for it, including by the harness's own users.</p></li><li><p><strong>Fewer tool calls is a cost and latency win</strong> on top of accuracy.</p></li></ul>
+<h2 id="tradeoffs-and-failure-modes">Tradeoffs and failure modes</h2>
+<ul><li><p><strong>Overfitting to one harness.</strong> An adapter tuned for pi's tools and API shape may get worse in other harnesses or after pi changes its prompts or tool schemas. Version the adapter against the harness version.</p></li><li><p><strong>API-shape brittleness.</strong> A silent config default (the wrong API mode) moves you off the evaluated distribution without an error.</p></li><li><p><strong>Small benchmark slices.</strong> 51 and 86 tasks give wide intervals; the direction is clear, the exact size less so.</p></li><li><p><strong>Training-set contamination risk</strong> if the RL task sets overlap the evaluation suites; the held-out Terminal-Bench split addresses checkpoint selection, not training overlap.</p></li><li><p><strong>Thinking off, temperature 0.8, one attempt:</strong> results may differ in other settings.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Is the adapter pinned to the exact base model and harness version you run?</p></li><li><p>Is the harness configured with the same API mode and tool schema used in training?</p></li><li><p>Did you re-run a paired comparison on your own tasks, base versus adapter, in your harness?</p></li><li><p>Do you track tool calls per solved task, not just pass rate?</p></li><li><p>What is the plan when the harness changes its prompts or tools: retrain, or fall back to the base?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R067 Inkling 2 Small: an open-weight MoE built for agent loops and fine-tuning.</p></li><li><p>R111 The open-weights gap in November 2026.</p></li><li><p>R114 AutoRL.</p></li><li><p>R118 Prefix caching for coding agents.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t1)"><a class="to" href="/research/autorl-live-rl-supervision/">AutoRL: agents that supervise a live RL run</a><span class="label">R114 · Agent architecture</span><span class="why">Both use RL to improve agents; AutoRL automates the RL loop, R126 applies RL to fit one model to one harness.</span></li><li style="--c:var(--t2)"><a class="to" href="/research/open-weights-gap-nov-2026/">No Fable-class open model yet: the open-weights gap in Nov 2026</a><span class="label">R111 · Infrastructure for agents at scale</span><span class="why">The open-weights gap measured on general indexes; R126 shows harness-specific tuning closing much of it for one agent.</span></li></ul><p><a href="/research/map/#R126">See R126 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
