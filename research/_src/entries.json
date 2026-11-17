@@ -226,6 +226,10 @@
       {
        "id": "R110",
        "why": "per-context new, cached and output tokens show where fresh contexts drive spend; copies of the parent are mostly cheap cache reads"
+      },
+      {
+       "id": "R116",
+       "why": "cost per completed task vs token price across coding agents; per-user spend concentration"
       }
      ]
     },
@@ -356,7 +360,8 @@
       "R072",
       "R085",
       "R096",
-      "R115"
+      "R115",
+      "R116"
      ],
      "also": [
       {
@@ -395,6 +400,10 @@
       {
        "id": "R078",
        "why": "vendor launch-post scores are three in four first benchmark crossings; only 24% of saturation holds on independent runs"
+      },
+      {
+       "id": "R116",
+       "why": "enterprise token-share swings after model launches; open-weight share at 30.9%"
       }
      ]
     }
@@ -529,7 +538,9 @@
     {
      "n": "4.1",
      "title": "Docs-as-code and project memory",
-     "primary": [],
+     "primary": [
+      "R117"
+     ],
      "also": [
       {
        "id": "R022",
@@ -949,6 +960,10 @@
       {
        "id": "R112",
        "why": "incidents where per-agent permissions and read-only access were not isolation or egress control"
+      },
+      {
+       "id": "R117",
+       "why": "house rules for an agent operating physical systems; hard exclusions and scoped credentials"
       }
      ]
     }
@@ -1033,6 +1048,10 @@
       {
        "id": "R078",
        "why": "measurement lags capability: public benchmarks saturate in about a year, so human and task-level evals carry the signal"
+      },
+      {
+       "id": "R117",
+       "why": "plan-doc review, describe-then-approve gates and pilot-then-batch for an agent with write access"
       }
      ]
     },
@@ -3225,6 +3244,44 @@
    ],
    "summary": "Agent batches alternate GPU inference and environment steps; fixes are a KV vs recurrent-state memory model, cache-affine routing, and Chain-Advancing Action Scheduling that prioritizes long chains under limited sandbox capacity, plus replay for ablations. Makespan down 10.4-65.0% on BFCL, SWE-bench Multilingual, WideSearch, MCP-Atlas with unchanged scores; used for Ling-3.x.",
    "file": "entries/agent-batch-makespan-scheduling.html"
+  },
+  {
+   "id": "R116",
+   "slug": "databricks-ai-index",
+   "title": "Databricks AI Index: enterprise model share and coding-agent cost",
+   "by": "Databricks blog, 2026-11-16, shared by Ali Ghodsi",
+   "source": "https://www.databricks.com/blog/introducing-databricks-ai-index-state-enterprise-ai-tokenomics",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/JMqGJQR6suRXFU1xiN6D27",
+   "tags": [
+    "inference",
+    "cost",
+    "coding-agents",
+    "benchmarks",
+    "survey"
+   ],
+   "summary": "Gateway data from ~10,000 companies plus a private-codebase coding-agent benchmark across Claude Code and Codex. Opus 5.5 went 7.2% to 37.9% of proprietary tokens in six weeks; single-provider enterprises 64% to 28% since July; open-weight token share 7.3% to 30.9%. Cost per task, not token price: GPT-6 Luna and Opus 5.5 both 89.1% at $0.05 vs $1.62; Gemini 3.8 Flash 140 turns and $11.97 per task; Fable 5.1 96.0% at $7.47 vs Muse Wonder 94.9% at $1.53. Median user $2.49 vs p99 $699.74. Vendor data.",
+   "file": "entries/databricks-ai-index.html"
+  },
+  {
+   "id": "R117",
+   "slug": "agent-smart-home-write-access",
+   "title": "An agent with write access to a smart home: plan doc, house rules, results",
+   "by": "Matthew Purcell, Unprompted newsletter, 2026-11-16; first-hand",
+   "source": "https://www.linkedin.com/pulse/i-gave-ai-keys-my-smart-home-matthew-purcell-rz0uc/",
+   "published": "2026-11-16",
+   "added": "2026-11-16",
+   "artifact": "https://claude.ai/artifact/Jsvr65GeaScAVaZLHZRUtp",
+   "tags": [
+    "agents",
+    "mcp",
+    "project-memory",
+    "human-in-the-loop",
+    "governance"
+   ],
+   "summary": "Read-only MCP made an adviser; community ha-mcp (84 tools) under a dedicated revocable service account made an operator. Plan written as a reviewed doc; the same doc held checklists and every decision with date and reason, so fresh sessions resumed from the next unticked box. House rules: backup per phase, describe-then-wait-for-yes (prompt-only, author flags it is not a guarantee), pilot one then batch, alarm/garage/sprinklers off-limits. Four days: ~1,000+ entities renamed, latent dead-letter alert found. Failures: confident wrong diagnosis; renames broke an external agent's 61 hard-coded IDs, fixed by PR plus a new plan rule.",
+   "file": "entries/agent-smart-home-write-access.html"
   }
  ],
  "edges": [
@@ -5123,6 +5180,24 @@
    "b": "R107",
    "strength": "strong",
    "why": "R107 is about what to measure in agent evals; R115 is about running those eval batches faster."
+  },
+  {
+   "a": "R116",
+   "b": "R113",
+   "strength": "strong",
+   "why": "Market-level evidence that cost per task, not token price, decides coding-agent spend (R116), and one technique for lowering it per repo (R113)."
+  },
+  {
+   "a": "R116",
+   "b": "R111",
+   "strength": "strong",
+   "why": "R111 argues no open model matches the frontier; R116 shows open-weight share of enterprise tokens quadrupling anyway."
+  },
+  {
+   "a": "R117",
+   "b": "R112",
+   "strength": "strong",
+   "why": "R112's incidents came from boundaries assumed but not enforced; R117 shows a small, explicit set of boundaries (scoped token, hard exclusions, approval gate) working in practice, with the author noting prompt-only gates are not guarantees."
   }
  ]
 }
