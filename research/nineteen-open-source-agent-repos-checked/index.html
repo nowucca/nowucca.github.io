@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>19 open-source agent repos, checked: what&#x27;s current, what&#x27;s stale · Research</title>
+<meta name="description" content="Each repo checked on 2026-11-17: 12 pushed in the last month, 4 quiet 5 to 10 months (MetaGPT, GPTSwarm, AgentOps, Letta&#x27;s old repo), 3 stale over a year (Devika, whose README says many features are broken; Plandex, whose cloud wound down 2025-10; STORM). Six moved owner or name (MetaGPT, Atomic Agents, Burr to Apache, OpenHands, Agent Zero, MemGPT to Letta to letta-code). Corrections: the groups mix layers (Burr is single-app control flow, Atomic Agents a component library, DSPy a prompt optimiser, STORM a report-writing app); the builders are 2024 SWE-bench-era agents and miss the coding agents used daily in 2026; &quot;$0.00&quot; ignores tokens, hosted tiers, AGPL Skyvern and Agent Zero&#x27;s custom license; stars do not track health. Missing: mainstream frameworks, durable execution, evals, OpenTelemetry tracing, MCP, guardrails. Adds an 8-point selection checklist. Caveat: the post funnels to a course.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R119 · AI education › Learning paths for AI engineers</span>
+  <h1>19 open-source agent repos, checked: what&#x27;s current, what&#x27;s stale</h1>
+  <div class="entry-meta"><span>Maryam Miradi&#x27;s LinkedIn post, 2026-10-23: 19 GitHub repos in four groups</span><span>Published 2026-10-23</span><span>Summarized 2026-11-17</span></div>
+  <p><a href="https://www.linkedin.com/posts/maryammiradi_i-curated-19-open-source-github-repos-for-share-7519480579617292288-PhXm/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">learning-resources</span><span class="tag">library-catalogs</span><span class="tag">agent-platforms</span><span class="tag">multi-agent</span><span class="tag">agent-memory</span><span class="tag">observability</span><span class="tag">sandboxing</span></div>
+</header>
+<article class="article"><p>As of 2026-11-17. Source: <a href="https://www.linkedin.com/posts/maryammiradi_i-curated-19-open-source-github-repos-for-share-7519480579617292288-PhXm/">Maryam Miradi, LinkedIn, 2026-10-23</a>.</p>
+<p><strong>Bottom line.</strong> A fair 2024 reading list, a weak 2026 stack. Of 19 repos, 12 had a push in the last month, 4 are quiet (5 to 10 months), and 3 have had no push in over a year. Six have moved to a new owner or name. The four categories mix layers, and the list leaves out the frameworks, coding agents, eval and tracing tools most teams actually run.</p>
+<h2>The list, checked</h2>
+<p>GitHub stars and last push from the GitHub search API on 2026-11-17. Status is ours.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Post category</th>
+<th>Repo (current home)</th>
+<th>Stars</th>
+<th>Last push</th>
+<th>License</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-agent</td>
+<td><a href="https://github.com/camel-ai/camel">camel-ai/camel</a></td>
+<td>18.0k</td>
+<td>2026-11-16</td>
+<td>Apache-2.0</td>
+<td>Active. Research-flavoured role-play multi-agent framework.</td>
+</tr>
+<tr>
+<td>Multi-agent</td>
+<td><a href="https://github.com/FoundationAgents/MetaGPT">FoundationAgents/MetaGPT</a> (was geekan)</td>
+<td>71.3k</td>
+<td>2026-01-21</td>
+<td>MIT</td>
+<td>Quiet ~10 months; moved. SOP-driven "software company" simulation.</td>
+</tr>
+<tr>
+<td>Multi-agent</td>
+<td><a href="https://github.com/Eigenwise/atomic-agents">Eigenwise/atomic-agents</a> (was BrainBlend-AI)</td>
+<td>6.3k</td>
+<td>2026-11-14</td>
+<td>MIT</td>
+<td>Active; moved. Schema-first small components, not an orchestrator.</td>
+</tr>
+<tr>
+<td>Multi-agent</td>
+<td><a href="https://github.com/metauto-ai/GPTSwarm">metauto-ai/GPTSwarm</a></td>
+<td>1.1k</td>
+<td>2026-02-05</td>
+<td>MIT</td>
+<td>Research code (agents as optimisable graphs); quiet ~9 months.</td>
+</tr>
+<tr>
+<td>Multi-agent</td>
+<td><a href="https://github.com/apache/burr">apache/burr</a> (was DAGWorks-Inc)</td>
+<td>2.6k</td>
+<td>2026-11-15</td>
+<td>Apache-2.0</td>
+<td>Active; now Apache. A state machine for one app with a tracking UI.</td>
+</tr>
+<tr>
+<td>Builders</td>
+<td><a href="https://github.com/SWE-agent/SWE-agent">SWE-agent/SWE-agent</a></td>
+<td>20.8k</td>
+<td>2026-11-16</td>
+<td>MIT</td>
+<td>Active. A research harness for issue fixing and benchmarks.</td>
+</tr>
+<tr>
+<td>Builders</td>
+<td><a href="https://github.com/OpenHands/OpenHands">OpenHands/OpenHands</a> (was All-Hands-AI)</td>
+<td>93.6k</td>
+<td>2026-11-17</td>
+<td>MIT</td>
+<td>Active; moved. The strongest pick in the list.</td>
+</tr>
+<tr>
+<td>Builders</td>
+<td><a href="https://github.com/agent0ai/agent-zero">agent0ai/agent-zero</a> (was frdel)</td>
+<td>19.9k</td>
+<td>2026-11-17</td>
+<td>not SPDX</td>
+<td>Active; moved. License is custom, so check before embedding.</td>
+</tr>
+<tr>
+<td>Builders</td>
+<td><a href="https://github.com/stitionai/devika">stitionai/devika</a></td>
+<td>19.5k</td>
+<td>2025-09-25</td>
+<td>MIT</td>
+<td>Stale. README says early, many features broken, points to a successor. Drop.</td>
+</tr>
+<tr>
+<td>Builders</td>
+<td><a href="https://github.com/plandex-ai/plandex">plandex-ai/plandex</a></td>
+<td>15.9k</td>
+<td>2025-10-03</td>
+<td>MIT</td>
+<td>Stale. Plandex Cloud wound down 2025-10-03; self-host only.</td>
+</tr>
+<tr>
+<td>Memory &amp; reasoning</td>
+<td><a href="https://github.com/stanfordnlp/dspy">stanfordnlp/dspy</a></td>
+<td>39.1k</td>
+<td>2026-11-13</td>
+<td>MIT</td>
+<td>Active, but a prompt and program optimiser, not memory.</td>
+</tr>
+<tr>
+<td>Memory &amp; reasoning</td>
+<td><a href="https://github.com/mem0ai/mem0">mem0ai/mem0</a></td>
+<td>69.1k</td>
+<td>2026-11-17</td>
+<td>Apache-2.0</td>
+<td>Active.</td>
+</tr>
+<tr>
+<td>Memory &amp; reasoning</td>
+<td>MemGPT → <a href="https://github.com/letta-ai/letta">letta-ai/letta</a> → <a href="https://github.com/letta-ai/letta-code">letta-ai/letta-code</a></td>
+<td>25.5k / 3.9k</td>
+<td>2026-10-18 / 2026-11-17</td>
+<td>Apache-2.0</td>
+<td>Link is two hops stale: letta's README says current source is letta-code; the V1 server is on an archive branch.</td>
+</tr>
+<tr>
+<td>Memory &amp; reasoning</td>
+<td><a href="https://github.com/stanford-oval/storm">stanford-oval/storm</a></td>
+<td>31.9k</td>
+<td>2025-09-30</td>
+<td>MIT</td>
+<td>Stale. A research-report writer, not a memory or reasoning component.</td>
+</tr>
+<tr>
+<td>Tools &amp; observability</td>
+<td><a href="https://github.com/Skyvern-AI/skyvern">Skyvern-AI/skyvern</a></td>
+<td>23.4k</td>
+<td>2026-11-17</td>
+<td>AGPL-3.0</td>
+<td>Active. AGPL matters if you ship it inside a product.</td>
+</tr>
+<tr>
+<td>Tools &amp; observability</td>
+<td><a href="https://github.com/e2b-dev/E2B">e2b-dev/E2B</a></td>
+<td>14.9k</td>
+<td>2026-11-16</td>
+<td>Apache-2.0</td>
+<td>Active. Sandbox SDK; the hosted runtime is paid beyond free tier.</td>
+</tr>
+<tr>
+<td>Tools &amp; observability</td>
+<td><a href="https://github.com/AgentOps-AI/agentops">AgentOps-AI/agentops</a></td>
+<td>6.0k</td>
+<td>2026-06-25</td>
+<td>MIT</td>
+<td>Quiet ~5 months. Vendor SDK rather than OpenTelemetry.</td>
+</tr>
+<tr>
+<td>Tools &amp; observability</td>
+<td><a href="https://github.com/ComposioHQ/composio">ComposioHQ/composio</a></td>
+<td>31.1k</td>
+<td>2026-11-17</td>
+<td>MIT</td>
+<td>Active. Tool integrations and auth; the useful part is hosted.</td>
+</tr>
+</tbody>
+</table></div>
+<p>GitHub redirects the moved repos, so links still work, but a pinned dependency on the old name can confuse supply-chain tooling.</p>
+<h2>Corrections</h2>
+<ul>
+<li><strong>"Multi-agent orchestration" mixes three things.</strong> CAMEL and MetaGPT are multi-agent simulations; Atomic Agents is a component library; Burr is code-owned control flow for one app (closer to durable workflows, R015/R079 territory). GPTSwarm is a paper's code.</li>
+<li><strong>"Memory &amp; reasoning" holds one memory store and a half.</strong> mem0 and Letta are memory; DSPy optimises prompts and programs; STORM is an application that writes cited reports.</li>
+<li><strong>"Autonomous builders" are coding agents from the 2024 SWE-bench wave.</strong> The coding agents teams run daily in 2026 (Claude Code, Codex CLI, Aider, Cline, OpenCode, Goose) are absent; only OpenHands and SWE-agent are still central.</li>
+<li><strong>"Total cost: $0.00" is not true in use.</strong> Model tokens dominate cost; E2B, Composio and Skyvern have paid hosted tiers; AGPL (Skyvern) and a custom license (Agent Zero) carry legal cost.</li>
+<li><strong>Stars are not fitness.</strong> Devika (19.5k) and Plandex (15.9k) out-star half the active entries and are stale.</li>
+</ul>
+<h2>Missing layers</h2>
+<ul>
+<li><strong>Agent frameworks most production code uses:</strong> LangGraph, OpenAI Agents SDK, Pydantic AI, Google ADK, CrewAI (R081 lists these).</li>
+<li><strong>Durable execution:</strong> Temporal, Restate, Inngest, or LangGraph checkpoints (R094).</li>
+<li><strong>Evals:</strong> Inspect AI, promptfoo, DeepEval (R099, R107).</li>
+<li><strong>Tracing on OpenTelemetry:</strong> Langfuse, Arize Phoenix, OpenLLMetry, instead of a vendor-only SDK.</li>
+<li><strong>Protocols:</strong> MCP SDKs and servers, A2A (theme 6.4).</li>
+<li><strong>Sandboxes beyond E2B:</strong> Daytona, gVisor/Firecracker-based runners (R093).</li>
+<li><strong>Guardrails and policy:</strong> action allowlists and an MCP gateway (R071); interpreter-level sandboxes (R061).</li>
+</ul>
+<h2>Review checklist for picking from a list like this</h2>
+<ol>
+<li>Last push and last release within 90 days; open-issue response time.</li>
+<li>Canonical repo: follow redirects and pin the new owner.</li>
+<li>License fits how you ship (AGPL, custom, "source available").</li>
+<li>Who owns control flow: your code or the model. Prefer code when the steps are known.</li>
+<li>Traces export to OpenTelemetry.</li>
+<li>Sandbox and permission story for any tool that runs code or a browser.</li>
+<li>An eval hook: can you run the same task suite before and after an upgrade?</li>
+<li>Exit path: what breaks if the project stalls (Devika, Plandex).</li>
+</ol>
+<h2>Caveats</h2>
+<ul>
+<li>The post funnels to the author's course; the "20 years, 400+ agents" claims are unverified.</li>
+<li>Stars and dates are as of 2026-11-17.</li>
+<li>Status notes on Devika, Plandex and Letta come from their READMEs; the rest from repo metadata and general knowledge.</li>
+</ul>
+<h2>Related</h2>
+<p>R081 (LLM Engineer Toolkit, a larger library list), R083 and R079 (same author: memory blocks, design patterns), R073 (another curated GitHub list), R023 and R095 (build-your-own harness courses), R094 (durable execution), R099 and R107 (evals).</p>
+<h2>Sources</h2>
+<ul>
+<li><a href="https://www.linkedin.com/posts/maryammiradi_i-curated-19-open-source-github-repos-for-share-7519480579617292288-PhXm/">LinkedIn post</a></li>
+<li>GitHub repo pages linked in the table; READMEs of <a href="https://github.com/stitionai/devika">devika</a>, <a href="https://github.com/plandex-ai/plandex">plandex</a>, <a href="https://github.com/letta-ai/letta">letta</a>.</li>
+</ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t8)"><a class="to" href="/research/llm-engineer-toolkit/">LLM Engineer Toolkit: a library shortlist, not a ranking</a><span class="label">R081 · AI education</span><span class="why">Two library lists for agent builders; R081 is the larger catalogue, R119 the one checked for staleness and moves.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/fifteen-agent-memory-building-blocks/">15 building blocks of agent memory, checked</a><span class="label">R083 · Agent architecture</span><span class="why">Same author; R119&#x27;s memory picks (mem0, Letta) recur in R083, where Letta&#x27;s move to letta-code was first noted.</span></li><li style="--c:var(--t8)"><a class="to" href="/research/fifteen-agent-design-patterns/">15 agent design patterns, checked for teaching</a><span class="label">R079 · AI education</span><span class="why">Same author; R119&#x27;s memory picks (mem0, Letta) recur in R083, where Letta&#x27;s move to letta-code was first noted.</span></li><li style="--c:var(--t3)"><a class="to" href="/research/twelve-repos-securing-ai-code/">Twelve open-source repos for securing AI-written code</a><span class="label">R073 · AI-built software and its verification</span><span class="why">Curated GitHub lists sell by taglines and stars; both need a per-repo activity and license check before use.</span></li></ul><p><a href="/research/map/#R119">See R119 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

@@ -176,7 +176,8 @@
      "primary": [
       "R026",
       "R032",
-      "R113"
+      "R113",
+      "R118"
      ],
      "also": [
       {
@@ -266,6 +267,10 @@
       {
        "id": "R108",
        "why": "routing each task to one specialist harness, with \"keep the base result\" as a first-class option"
+      },
+      {
+       "id": "R119",
+       "why": "a 2026 status check of five popular multi-agent repos; two are simulations, one a component library, one research code, one single-app control flow"
       }
      ]
     }
@@ -371,6 +376,10 @@
       {
        "id": "R111",
        "why": "self-hosting open weights caps capability about 19 AA index points below the frontier in Nov 2026; choose open for residency and control, not capability"
+      },
+      {
+       "id": "R118",
+       "why": "engine-side cache routing, CPU offload of idle agent caches, prefill/decode disaggregation"
       }
      ]
     },
@@ -635,6 +644,10 @@
       {
        "id": "R110",
        "why": "profile your own skill and agent setup with a hook-based call tree; write expected trace shape as a check-trace skill"
+      },
+      {
+       "id": "R118",
+       "why": "harness tips that protect the prefix cache: stable system prompt, append-only tools, fixed effort, truncation notices"
       }
      ]
     }
@@ -1131,7 +1144,9 @@
       "R087",
       "R095",
       "R097",
-      "R098"
+      "R098",
+      "R119",
+      "R120"
      ],
      "also": []
     },
@@ -1166,6 +1181,10 @@
       {
        "id": "R098",
        "why": "recorded research seminar on self-improving agents; lectures 2-3 make the generation-verification argument in one sitting"
+      },
+      {
+       "id": "R120",
+       "why": "nanochat: run runcpu.sh once, then read the stage scripts in order; the depth dial and leaderboard are a lesson in measuring changes honestly"
       }
      ]
     }
@@ -3282,6 +3301,65 @@
    ],
    "summary": "Read-only MCP made an adviser; community ha-mcp (84 tools) under a dedicated revocable service account made an operator. Plan written as a reviewed doc; the same doc held checklists and every decision with date and reason, so fresh sessions resumed from the next unticked box. House rules: backup per phase, describe-then-wait-for-yes (prompt-only, author flags it is not a guarantee), pilot one then batch, alarm/garage/sprinklers off-limits. Four days: ~1,000+ entities renamed, latent dead-letter alert found. Failures: confident wrong diagnosis; renames broke an external agent's 61 hard-coded IDs, fixed by PR plus a new plan rule.",
    "file": "entries/agent-smart-home-write-access.html"
+  },
+  {
+   "id": "R118",
+   "slug": "prefix-caching-coding-agents",
+   "title": "Prefix caching for coding agents: what the harness and the engine must each get right",
+   "by": "Together AI and Ollama blog, via Ollama's post",
+   "source": "https://www.together.ai/blog/making-open-models-work-for-long-horizon-agentic-workloads",
+   "published": "2026-11",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/Sy8Pj5ycvfzkTuGogWRhY5",
+   "tags": [
+    "context",
+    "caching",
+    "inference",
+    "coding-agents",
+    "harness"
+   ],
+   "summary": "Agent turns are nearly all prefill; uncached redo grows quadratically (100 turns: 5,050 vs 100 units). Cache matches only up to the first changed token. Harness: byte-identical system prompt (no timestamps/git status), late-loaded tools appended at the end (template permitting), fixed reasoning effort (one model writes it into the first system block), honest truncation notices, deliberate subagent context. Engine: cache-key or prefix-hash routing with load awareness, CPU offload during tool waits, paged cache and continuous batching, disaggregated prefill/decode over RDMA.",
+   "file": "entries/prefix-caching-coding-agents.html"
+  },
+  {
+   "id": "R119",
+   "slug": "nineteen-open-source-agent-repos-checked",
+   "title": "19 open-source agent repos, checked: what's current, what's stale",
+   "by": "Maryam Miradi's LinkedIn post, 2026-10-23: 19 GitHub repos in four groups",
+   "source": "https://www.linkedin.com/posts/maryammiradi_i-curated-19-open-source-github-repos-for-share-7519480579617292288-PhXm/",
+   "published": "2026-10-23",
+   "added": "2026-11-17",
+   "artifact": "",
+   "tags": [
+    "learning-resources",
+    "library-catalogs",
+    "agent-platforms",
+    "multi-agent",
+    "agent-memory",
+    "observability",
+    "sandboxing"
+   ],
+   "summary": "Each repo checked on 2026-11-17: 12 pushed in the last month, 4 quiet 5 to 10 months (MetaGPT, GPTSwarm, AgentOps, Letta's old repo), 3 stale over a year (Devika, whose README says many features are broken; Plandex, whose cloud wound down 2025-10; STORM). Six moved owner or name (MetaGPT, Atomic Agents, Burr to Apache, OpenHands, Agent Zero, MemGPT to Letta to letta-code). Corrections: the groups mix layers (Burr is single-app control flow, Atomic Agents a component library, DSPy a prompt optimiser, STORM a report-writing app); the builders are 2024 SWE-bench-era agents and miss the coding agents used daily in 2026; \"$0.00\" ignores tokens, hosted tiers, AGPL Skyvern and Agent Zero's custom license; stars do not track health. Missing: mainstream frameworks, durable execution, evals, OpenTelemetry tracing, MCP, guardrails. Adds an 8-point selection checklist. Caveat: the post funnels to a course.",
+   "file": "entries/nineteen-open-source-agent-repos-checked.html"
+  },
+  {
+   "id": "R120",
+   "slug": "nanochat-llm-pipeline",
+   "title": "nanochat: the whole LLM pipeline in one hackable repo",
+   "by": "Mayank A.'s LinkedIn post, 2026-11-01, on karpathy/nanochat, MIT",
+   "source": "https://www.linkedin.com/posts/curiouslearner_this-59k-star-github-repo-is-basically-an-share-7522536858304749568-Eg8E/",
+   "published": "2026-11-01",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/GDdEkByFHhVKn45rRczPoj",
+   "tags": [
+    "education",
+    "learning-resources",
+    "llm-training",
+    "reinforcement-learning",
+    "teaching"
+   ],
+   "summary": "Minimal single-node harness: BPE tokenizer (32,768 vocab), pretraining (Muon + AdamW, FP8), SFT on SmolTalk + MMLU aux x3 + GSM8K x4 with a Python tool, RL, CORE and bits-per-byte evals, KV-cache inference, chat CLI. Reference speedrun beats GPT-2 CORE (0.2565) in 1.65 h on 8xH100 (~$48), down from 3.04 h in Jan 2026; ClimbMix data and two autoresearch rounds drove the biggest gains. Distinctive ideas the post skips: one `--depth` dial sets every hyperparameter compute-optimally and changes must help at all depths; a public time-to-GPT-2 leaderboard with commits; explicit precision instead of autocast; no config framework; PRs disclose LLM-written code. Post overstates \"understand RoPE, GQA\" (code implements, Discussions guides teach) and omits the 8xH100 cost. Data mix: one pretraining dataset; SFT mix via epoch flags or editing chat_sft.py. Caveats: speedrun data ratio 8 is tuned to the leaderboard, SFT on MMLU/GSM8K train flatters those evals, from-scratch only.",
+   "file": "entries/nanochat-llm-pipeline.html"
   }
  ],
  "edges": [
@@ -5198,6 +5276,66 @@
    "b": "R112",
    "strength": "strong",
    "why": "R112's incidents came from boundaries assumed but not enforced; R117 shows a small, explicit set of boundaries (scoped token, hard exclusions, approval gate) working in practice, with the author noting prompt-only gates are not guarantees."
+  },
+  {
+   "a": "R118",
+   "b": "R113",
+   "strength": "strong",
+   "why": "Two ways to cut coding-agent cost: keep the prompt prefix stable so it caches (R118), and learn which tools and facts each repo needs (R113); tool pruning mid-session would itself break the cache unless done at session start."
+  },
+  {
+   "a": "R118",
+   "b": "R115",
+   "strength": "strong",
+   "why": "Both keep each trajectory on the worker holding its KV cache."
+  },
+  {
+   "a": "R119",
+   "b": "R081",
+   "strength": "strong",
+   "why": "Two library lists for agent builders; R081 is the larger catalogue, R119 the one checked for staleness and moves."
+  },
+  {
+   "a": "R119",
+   "b": "R083",
+   "strength": "strong",
+   "why": "Same author; R119's memory picks (mem0, Letta) recur in R083, where Letta's move to letta-code was first noted."
+  },
+  {
+   "a": "R119",
+   "b": "R079",
+   "strength": "strong",
+   "why": "Same author; R119's memory picks (mem0, Letta) recur in R083, where Letta's move to letta-code was first noted."
+  },
+  {
+   "a": "R119",
+   "b": "R073",
+   "strength": "strong",
+   "why": "Curated GitHub lists sell by taglines and stars; both need a per-repo activity and license check before use."
+  },
+  {
+   "a": "R120",
+   "b": "R097",
+   "strength": "strong",
+   "why": "Two from-scratch training repos; MiniMind goes wider on post-training (DPO, PPO, GRPO, agent RL), nanochat deeper on pretraining speed and scaling."
+  },
+  {
+   "a": "R120",
+   "b": "R024",
+   "strength": "strong",
+   "why": "Agents tuning training runs; nanochat's autoresearch rounds set two of its six speedrun records."
+  },
+  {
+   "a": "R120",
+   "b": "R063",
+   "strength": "strong",
+   "why": "Agents tuning training runs; nanochat's autoresearch rounds set two of its six speedrun records."
+  },
+  {
+   "a": "R120",
+   "b": "R098",
+   "strength": "strong",
+   "why": "Same post author; CS329A covers the RL and verification theory that nanochat's chat_rl stage only touches."
   }
  ]
 }
