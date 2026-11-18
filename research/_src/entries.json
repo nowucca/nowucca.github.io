@@ -1016,7 +1016,8 @@
       "R062",
       "R071",
       "R091",
-      "R135"
+      "R135",
+      "R143"
      ],
      "also": [
       {
@@ -1354,6 +1355,10 @@
       {
        "id": "R120",
        "why": "nanochat: run runcpu.sh once, then read the stage scripts in order; the depth dial and leaderboard are a lesson in measuring changes honestly"
+      },
+      {
+       "id": "R143",
+       "why": "an MCP vs API whiteboard for newcomers, with a corrections table: no hub, configured servers, authored descriptions, auth on both paths"
       }
      ]
     }
@@ -3950,6 +3955,24 @@
    ],
    "summary": "Fine-tuning gpt-oss-20b and Kimi-K2.6 on math traces rewritten in many personas (no evasion examples) raised CoT controllability and cut monitorability (g-mean2 = TPR x TNR) on covert side tasks from 0.94 to 0.68 unprompted and 0.22 when told to hide; near zero in some intervention evals. Long or multi-step hidden tasks stay easier to catch; transparency prompts recover much of the loss. Lesson: any training that shapes reasoning style can degrade CoT oversight, so measure monitor recall on planted cases after every model change and keep action-level controls.",
    "file": "entries/cot-controllability-blinds-monitors.html"
+  },
+  {
+   "id": "R143",
+   "slug": "mcp-vs-api-adapter",
+   "title": "MCP vs API: an adapter in front of the same endpoints",
+   "by": "Luís Rodrigues's whiteboard post, 2026-11-18",
+   "source": "https://www.linkedin.com/posts/lfrodrigues_mcp-vs-api-is-not-the-real-question-in-share-7528796662211932161--EsJ/",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/QGvAASFnFPdjEhJvEzpsmk",
+   "tags": [
+    "mcp",
+    "agent-protocols",
+    "agent-auth",
+    "learning-resources"
+   ],
+   "summary": "Right on the core claim: an MCP server is an adapter calling the same APIs, and the difference is that MCP tells a model what it can ask for. Corrections: MCP has no central hub (one client per configured server; a gateway is something you add, R071); discovery is `tools/list` on servers the host was configured with; someone still writes the tool schemas and descriptions; MCP paths that skip the API gateway create a second, less governed route to the data (R074); remote servers need OAuth 2.1 (R062). The 2026-07-28 revision is stateless (no initialize, no session id), puts `Mcp-Method`/`Mcp-Name` headers on HTTP POSTs for gateway routing, and makes list results cacheable, so MCP now looks much like an HTTP API with a model-facing description layer. Lesson: treat tool descriptions as a versioned interface, keep MCP tools under the same policy as their routes, and pick MCP only when a model chooses the call at run time.",
+   "file": "entries/mcp-vs-api-adapter.html"
   }
  ],
  "edges": [
@@ -6244,6 +6267,30 @@
    "b": "R141",
    "strength": "strong",
    "why": "Both rest on an automated reviewer's recall; measure it on planted cases before trusting it."
+  },
+  {
+   "a": "R143",
+   "b": "R071",
+   "strength": "strong",
+   "why": "The post draws MCP as a hub; Uber built that hub as a registry plus gateway over 10,000 services."
+  },
+  {
+   "a": "R143",
+   "b": "R062",
+   "strength": "strong",
+   "why": "The token check the whiteboard shows only on the API side; remote MCP servers need OAuth 2.1 too."
+  },
+  {
+   "a": "R143",
+   "b": "R074",
+   "strength": "strong",
+   "why": "MCP tools should run under the same policy as the HTTP routes they wrap, or they become a second path."
+  },
+  {
+   "a": "R143",
+   "b": "R099",
+   "strength": "strong",
+   "why": "Discovery moves the work into tool descriptions, and bad descriptions cause wrong picks."
   }
  ]
 }
