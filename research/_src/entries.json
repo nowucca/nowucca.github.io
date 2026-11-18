@@ -634,7 +634,8 @@
       "R010",
       "R025",
       "R106",
-      "R127"
+      "R127",
+      "R137"
      ],
      "also": [
       {
@@ -3786,6 +3787,25 @@
    ],
    "summary": "The \"second brain\" is a blank Karpathy-style LLM wiki for one author's personal brand: append-only raw/ with manifests, 17 stub pages (identity, audience, strategy, voice, brand, inspiration) with frontmatter, Source Notes and wikilinks, index.md + log.md, a structural lint. Best ideas: empty means unknown; proof.md as a claims ledger with source and public-use clearance; source text is data not instructions; authorization scoped per verb; a draft-vs-what-the-human-posted feedback loop that promotes a pattern seen twice into a rule. Weak: none of Tim's content is in it, lint checks structure not claims, no staleness model, 50 unevaluated skills, bottom half (Profile Watcher, AI qualification, DMs) locked to OXYGEN credits.",
    "file": "entries/linkedin-funnel-second-brain-template.html"
+  },
+  {
+   "id": "R137",
+   "slug": "blink-multilingual-64m-static-embeddings",
+   "title": "blink-multilingual-64M: a static embedding table that beats larger static models in 100+ languages",
+   "by": "Thomas van Dongen's post resharing Minish's release, 2026-11-18; MIT",
+   "source": "https://huggingface.co/minishlab/blink-multilingual-64M",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/E6wi3FyvknDnCYUZQdEpbp",
+   "tags": [
+    "embeddings",
+    "retrieval",
+    "rag",
+    "open-source",
+    "benchmarks"
+   ],
+   "summary": "A 250k x 256 token table with mean pooling (64M params, no transformer at inference): MMTEB mean 51.60 vs 48.37 for bekko and 47.67 for potion-multilingual-128M at 256d, a clear lead on bitext and STS but a tie with bekko on retrieval. Six-step recipe: full-script WordPiece, bge-m3 init with PCA and SIF, Tokenlearn distillation, bekko-style contrastive MNRL, 0.8/0.2 weight averaging, and baked-in language codes. Best used as a cheap first stage behind a re-ranker.",
+   "file": "entries/blink-multilingual-64m-static-embeddings.html"
   }
  ],
  "edges": [
@@ -5930,6 +5950,30 @@
    "b": "R117",
    "strength": "strong",
    "why": "The same problem from two sides; R117 is one person's agent with house rules, R135 the MCP server many such agents use, with its safety defaults."
+  },
+  {
+   "a": "R137",
+   "b": "R127",
+   "strength": "strong",
+   "why": "Both make indexing cheap; GraphRAG Zero drops LLM calls at index time, blink drops the transformer from embedding itself."
+  },
+  {
+   "a": "R137",
+   "b": "R106",
+   "strength": "strong",
+   "why": "Txtai is a local index that can host a static embedder like blink as its vector model."
+  },
+  {
+   "a": "R137",
+   "b": "R010",
+   "strength": "strong",
+   "why": "Opposite bets on retrieval; PageIndex reasons over a tree with no embeddings, blink makes embeddings almost free."
+  },
+  {
+   "a": "R137",
+   "b": "R054",
+   "strength": "strong",
+   "why": "Where embeddings help (multilingual prose search) versus where coding harnesses skip them (finding code)."
   }
  ]
 }
