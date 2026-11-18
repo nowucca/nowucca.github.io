@@ -18,7 +18,8 @@
       "R057",
       "R059",
       "R083",
-      "R088"
+      "R088",
+      "R147"
      ],
      "also": [
       {
@@ -97,7 +98,8 @@
       "R126",
       "R129",
       "R131",
-      "R138"
+      "R138",
+      "R144"
      ],
      "also": [
       {
@@ -178,6 +180,10 @@
       {
        "id": "R142",
        "why": "CoT monitors as an oversight layer can go blind after benign style training; measure recall on planted hidden tasks after each model change"
+      },
+      {
+       "id": "R144",
+       "why": "a capable agent with Bash and file write builds its own practice-and-evaluate loop even when none is provided; cap edits and rollouts, keep a held-out eval it never sees, review the learned text"
       }
      ]
     },
@@ -268,6 +274,10 @@
       {
        "id": "R138",
        "why": "RL rollouts for long multi-round agent episodes offload the KV prefix cache to CPU and cap concurrency to keep hit rates high"
+      },
+      {
+       "id": "R147",
+       "why": "the memory hierarchy as a cost map: injected context is paid every call and must stay small and stable; notes and transcripts are paid only when retrieved"
       }
      ]
     },
@@ -374,7 +384,8 @@
       "R074",
       "R090",
       "R093",
-      "R122"
+      "R122",
+      "R146"
      ],
      "also": [
       {
@@ -413,7 +424,8 @@
       "R085",
       "R096",
       "R115",
-      "R116"
+      "R116",
+      "R148"
      ],
      "also": [
       {
@@ -465,6 +477,10 @@
       {
        "id": "R126",
        "why": "a harness-specific RL LoRA roughly doubles an open model's hard SWE-bench Pro score under one agent: model-harness fit drives benchmark results"
+      },
+      {
+       "id": "R148",
+       "why": "open 3B/8B continuous diffusion LMs from NVIDIA; a research release whose value is self-speculative decoding and few-step generation, not frontier accuracy"
       }
      ]
     }
@@ -541,6 +557,10 @@
       {
        "id": "R141",
        "why": "auto-approval as the next bottleneck in an agent software factory: policy, guards, shadow mode, re-review on push"
+      },
+      {
+       "id": "R145",
+       "why": "the layer above delivery: an agentic product funnel with a decision-record gate before build and an outcome-review gate after release"
       }
      ]
     },
@@ -607,6 +627,14 @@
        "why": "GitSpawn: coding agents run repo-controlled git config before the trust prompt; PixelLeak: agents publishing screenshots to public repos"
       }
      ]
+    },
+    {
+     "n": "3.7",
+     "title": "Product management above agentic delivery",
+     "primary": [
+      "R145"
+     ],
+     "also": []
     }
    ]
   },
@@ -646,6 +674,10 @@
       {
        "id": "R109",
        "why": "Eduba's incubators: a scoped context of system prompt plus Markdown files shared by people and agent personas"
+      },
+      {
+       "id": "R147",
+       "why": "project memory kept as files: a bounded MEMORY.md index on top, detail pushed down with links, wikis checked against sources"
       }
      ]
     },
@@ -884,6 +916,10 @@
       {
        "id": "R138",
        "why": "counter-case to harnesses: RL removes the perception tools and motion menu entirely, widening the action space at the cost of speed"
+      },
+      {
+       "id": "R146",
+       "why": "an agent runtime shipped as an SDK: explicit-tools mode, per-session identity and state, three hosting modes from in-process to a shared server"
       }
      ]
     },
@@ -1004,6 +1040,10 @@
       {
        "id": "R130",
        "why": "eval engineering as an exam domain: CI/CD eval gates, LLM-as-judge calibration, judge drift, golden sets"
+      },
+      {
+       "id": "R147",
+       "why": "agent-memory evals: CL-Bench 1.0, Pokemon Red, Stainless corpus wiki, Harvey LAB briefs"
       }
      ]
     },
@@ -3973,6 +4013,99 @@
    ],
    "summary": "Right on the core claim: an MCP server is an adapter calling the same APIs, and the difference is that MCP tells a model what it can ask for. Corrections: MCP has no central hub (one client per configured server; a gateway is something you add, R071); discovery is `tools/list` on servers the host was configured with; someone still writes the tool schemas and descriptions; MCP paths that skip the API gateway create a second, less governed route to the data (R074); remote servers need OAuth 2.1 (R062). The 2026-07-28 revision is stateless (no initialize, no session id), puts `Mcp-Method`/`Mcp-Name` headers on HTTP POSTs for gateway routing, and makes list results cacheable, so MCP now looks much like an HTTP API with a model-facing description layer. Lesson: treat tool descriptions as a versioned interface, keep MCP tools under the same policy as their routes, and pick MCP only when a model chooses the call at run time.",
    "file": "entries/mcp-vs-api-adapter.html"
+  },
+  {
+   "id": "R144",
+   "slug": "self-organized-self-improvement",
+   "title": "Self-organized self-improvement: frozen agents that design their own learning loop",
+   "by": "Elvis Saravia's post on Sundaram, Sancaktar and Isola, MIT CSAIL and Tübingen, arXiv 2611.23219",
+   "source": "https://arxiv.org/abs/2611.23219",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/H4MD2zRtAzv3UEzZ7H4t8K",
+   "tags": [
+    "self-improvement",
+    "evals",
+    "safety",
+    "agent-skills",
+    "context-engineering"
+   ],
+   "summary": "No prescribed loop: a frozen teacher with Read/Write/Bash/Gameplay tools, 20 context edits and 150 gameplays writes its own PuzzleScript games and edits a same-model player's prompt and skill files, with no real games or validation scores. Newer generations self-improve on held-out PS-t20 (+20% Opus-5, +10% GPT 6-Astra, +6% GLM 5.3), older ones don't; Opus-5 roughly matches GEPA on 20 real games. Transfer: PS-t30 +9%, ARC-AGI-3 L1 +21%, MazeBench +0.15 SPL. Unprompted strategies: A/B tests with and without artifacts, BFS-filtered difficulty, replay concentrated at 20-60% win rates, adversarial games, regression suites. Read/Write alone recovers under half the gain; one Bash-only teacher built its own simulator. More eval detail in the prompt or tool budgets drives overfitting. Safety point: omitting a loop doesn't prevent one. Caveats: games only, 3 seeds, self-graded progress.",
+   "file": "entries/self-organized-self-improvement.html"
+  },
+  {
+   "id": "R145",
+   "slug": "product-management-agentic-funnel",
+   "title": "Product management as one agentic funnel",
+   "by": "Alex Barády's post, ENDGAME, 2026-11-18",
+   "source": "https://www.linkedin.com/posts/alexbarady_most-teams-already-run-agents-in-delivery-share-7528791013776216064-6lfJ/",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/Va6GQfzjAZ3G1883GhDZMx",
+   "tags": [
+    "product-management",
+    "sdlc",
+    "agent-workflows",
+    "human-oversight"
+   ],
+   "summary": "Once coding, review and release run on agents, the bottleneck moves to deciding what to build; research, prioritization and delivery run on three clocks that don't sync. The fix: one funnel where agents turn signals (goals, research, customers, tech debt, analytics, last release's metrics) into a backlog and score each candidate on cost, time to market and expected move in conversion, LTV and churn; a product lead picks one feature; Gate A writes a decision record and a Product Slice (epic, stories, acceptance criteria); an agentic line builds and releases it and returns evidence; Gate B reviews outcomes, and metrics feed the next round. Maps agent coverage today: delivery typical, epics and stories partial, strategy, roadmap and business case the gap. Weak spots: consultancy pitch, no data, agent-estimated value is uncalibrated point estimates, metric scoring crowds out platform work; a commenter's fix is a falsifiable change-my-mind criterion at Gate A.",
+   "file": "entries/product-management-agentic-funnel.html"
+  },
+  {
+   "id": "R146",
+   "slug": "copilot-sdk-shared-runtime",
+   "title": "Copilot SDK shared runtime: one process for many sessions, a sandbox only when a shell is needed",
+   "by": "André Lindenberg's post, 2026-11-18, on github/copilot-sdk (now Microsoft Copilot SDK)",
+   "source": "https://github.com/github/copilot-sdk/blob/main/docs/setup/multi-tenancy.md",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/7GFbMLixHXGVVjD9qXGaXq",
+   "tags": [
+    "agent-harness",
+    "sandboxing",
+    "agents-at-scale",
+    "agent-auth",
+    "vendor"
+   ],
+   "summary": "SDK v2 drives a standalone multi-tenant agent runtime over JSON-RPC, hosted in process (default; not a sandbox, no crash isolation), as a spawned child, or as a shared `copilot-runtime --server`. Sessions that only call app tools share one runtime: `mode: \"empty\"` (no ambient OS tools or built-in skills), source-qualified tool allowlists, per-session user tokens, per-session state or a `sessionFs` provider. Patterns: isolated runtime per user, shared runtime, or hybrid that routes shell-heavy work to cloud/sandboxed sessions (escalation is app code). Failure modes: one broad allowlist exposes the host, unchecked session IDs allow cross-user resume, `sessionFs` grants spread across a shared namespace, shell bypasses `sessionFs`.",
+   "file": "entries/copilot-sdk-shared-runtime.html"
+  },
+  {
+   "id": "R147",
+   "slug": "anthropic-components-of-agent-memory",
+   "title": "Anthropic's components of agent memory: notes, dreaming, wikis, injected context",
+   "by": "Lance Martin's Anthropic research article, 2026-11-06, surfaced by Elvis Saravia's LinkedIn post",
+   "source": "https://www.anthropic.com/research/components-of-agent-memory",
+   "published": "2026-11-06 (article; post ~2026-11-11)",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/65wTBLL6ZZtW8emKucMdNo",
+   "tags": [
+    "agent-memory",
+    "context-engineering",
+    "evals",
+    "knowledge-management",
+    "harness-config"
+   ],
+   "summary": "Four layers (transcripts, agent-written notes, derived wikis, a small injected index) plus dreaming, an offline pass that corrects notes against transcripts, builds wikis and prunes the injected layer. Measured: memory lifts Opus 5 0.564 to 0.828 on a CL-Bench task but Sonnet 4.6 only 0.330 to 0.364; a fixed \"record only failures\" rule costs strong models most of the gain; Fable 5's 10-file Pokemon memory beat Sonnet 3.7's 413 files; wiki + search 61% vs search 53%, no gain on single-document lookup; one writer per page kept 57/57 facts vs 41/57.",
+   "file": "entries/anthropic-components-of-agent-memory.html"
+  },
+  {
+   "id": "R148",
+   "slug": "nemotron-labs-sigma-continuous-diffusion",
+   "title": "Nemotron-Labs-Sigma: continuous diffusion language models with a built-in drafter",
+   "by": "NVIDIA AI's and Morteza Mardani's posts on Yang, Guo, Lemercier et al., NVIDIA/Cornell/Georgia Tech, arXiv 2610.02665",
+   "source": "https://arxiv.org/abs/2610.02665",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/DmtjrfRMfDvvXDjQSwkidn",
+   "tags": [
+    "inference",
+    "open-models",
+    "reasoning",
+    "vendor"
+   ],
+   "summary": "Tokens become learned points on a 16-D unit sphere; the model denoises Gaussian-corrupted 32-token blocks on a KV-cached prefix, warm-started from a 1T-token AR checkpoint (+300B tokens). Embedding-space CFG and score temperature steer quality vs diversity; distribution-matching distillation gives 4 (code) to 8 (math) tokens per forward pass with diversity kept; one backbone carries diffusion and AR streams, so the distilled diffusion stream drafts 32 tokens and the AR stream verifies: lossless greedy output, 3.46x avg over AR at 8B on one GB200 (NLD 3.04x; spec-tuned up to 4.20x). Accuracy about on par with NVIDIA's masked-diffusion NLD (8B base 71.2 vs 70.2; instruct diffusion ~59 vs 59.9), AR-mode instruct trails. Caveats: batch-size-1 speedups, low-step code bugs, sampler tuning, serving-stack support.",
+   "file": "entries/nemotron-labs-sigma-continuous-diffusion.html"
   }
  ],
  "edges": [
@@ -6291,6 +6424,48 @@
    "b": "R099",
    "strength": "strong",
    "why": "Discovery moves the work into tool descriptions, and bad descriptions cause wrong picks."
+  },
+  {
+   "a": "R145",
+   "b": "R058",
+   "strength": "strong",
+   "why": "Both say faster build moves the bottleneck; R058 answers with committed intent and spec files inside delivery, R145 with a scored funnel and two human gates above it."
+  },
+  {
+   "a": "R145",
+   "b": "R141",
+   "strength": "strong",
+   "why": "R141 finds the next bottleneck inside delivery (approval), R145 above it (choosing what to build); both keep a human at one gate with evidence attached."
+  },
+  {
+   "a": "R145",
+   "b": "R069",
+   "strength": "strong",
+   "why": "R145 has agents score options for a human picker; R069's finding that a separate critic judges better than the actor argues the scorer should not be the agent that proposed the option."
+  },
+  {
+   "a": "R147",
+   "b": "R059",
+   "strength": "strong",
+   "why": "Memory Tax says memory often loses to search over raw history; Anthropic's wiki-alone (48%) vs search (53%) agrees, and wiki + search (61%) is the configuration that wins."
+  },
+  {
+   "a": "R147",
+   "b": "R040",
+   "strength": "strong",
+   "why": "WikiTrace keeps the evidence behind each lesson; dreaming re-checks notes against transcripts. Both keep the source so a wrong lesson can be caught."
+  },
+  {
+   "a": "R147",
+   "b": "R036",
+   "strength": "strong",
+   "why": "R036 drew config advice from this article (small injected layer, purpose over procedure); R147 covers the article with its numbers."
+  },
+  {
+   "a": "R147",
+   "b": "R057",
+   "strength": "strong",
+   "why": "SoMem's self-organized linked Markdown is Anthropic's dreamed wiki; Anthropic adds that a wiki can outgrow its corpus (1.77x) and abstract nothing."
   }
  ]
 }
