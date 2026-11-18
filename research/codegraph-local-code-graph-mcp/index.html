@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CodeGraph: a local code graph agents query over MCP, and what its benchmark does and doesn&#x27;t show · Research</title>
+<meta name="description" content="Rust and tree-sitter code graph in local SQLite (symbols, calls, imports, routes for 20+ frameworks, cross-language mobile bridging), queried over MCP by ~25 agents; watcher re-sync, per-file staleness banner and connect-time reconciliation keep it fresh. Maintainer benchmark (7 repos, Opus 4.8, median of 4): 88% fewer tool calls, 53% faster, 62% fewer tokens, 44% cheaper on architecture questions, but savings near zero on Gin and 13% on Django, and ~80% more retrieval context left resident in long sessions. The control arm reached the CLI through bash in 26 of 28 runs until blocked; earlier figures lacked that block. Anonymous telemetry.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R134 · Knowledge for agents › Code knowledge graphs for agents</span>
+  <h1>CodeGraph: a local code graph agents query over MCP, and what its benchmark does and doesn&#x27;t show</h1>
+  <div class="entry-meta"><span>Mayank A.&#x27;s post on github.com/colbymchenry/codegraph, MIT</span><span>Published 2026-11-18</span><span>Summarized 2026-11-17</span></div>
+  <p><a href="https://github.com/colbymchenry/codegraph" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">code-knowledge-graph</span><span class="tag">mcp</span><span class="tag">coding-agents</span><span class="tag">benchmarks</span><span class="tag">context-economics</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> github.com/colbymchenry/codegraph (MIT; benchmark re-measured 2026-08-05); highlighted by Mayank A. on LinkedIn (2026-11-17).</p>
+<h2 id="what-it-is">What it is</h2>
+<p>CodeGraph builds a persistent knowledge graph of a repository: symbols, call edges, imports, inheritance and dependencies, parsed by a native Rust kernel with tree-sitter, and stored in a local SQLite database with FTS5 full-text search. Coding agents (Claude Code, Codex, Cursor, Copilot, Gemini CLI and about twenty others) query it over MCP. Instead of grep, glob and file reads, one <code>codegraph_explore</code> call returns entry points, related symbols, call paths and source snippets. It is fully local: no LLM calls to index, no API keys, no external services.</p>
+<p>Other features: impact analysis (callers, callees, blast radius of a change), framework-aware routes for more than 20 web frameworks (URL patterns linked to handlers), cross-language bridging for Swift/Objective-C, React Native and Expo, and navigation edges for client-side routers.</p>
+<h2 id="freshness-design">Freshness design</h2>
+<p>Stale indexes are the classic failure of code-search tools. CodeGraph uses three layers:</p>
+<ol><li><p><strong>A native file watcher</strong> with a debounced re-sync (2 s by default) on every create, modify or delete.</p></li><li><p><strong>A per-file staleness banner.</strong> During the debounce window, any tool response that references a still-pending file is prefixed with a warning telling the agent to read the file directly.</p></li><li><p><strong>Connect-time catch-up.</strong> When the MCP server reconnects, it reconciles size, mtime and content hash against the working tree before answering, so edits from git pulls or other editors aren't missed.</p></li></ol>
+<p>Incremental sync takes well under a second on a single-file save. Reported fresh indexes: the 27k-file Swift compiler repo in about 100 seconds on a workstation; the Linux kernel (70k files, 2M symbols) in under 12 minutes on a 2-core, 6 GB VPS.</p>
+<h2 id="the-benchmark">The benchmark</h2>
+<p>Seven open-source repos in seven languages (VS Code, Excalidraw, Django, Tokio, OkHttp, Gin, Alamofire), one architecture question each, Claude Opus 4.8 headless, median of 4 runs per arm, with and without the CodeGraph MCP server. Built-in read, grep and bash tools are available in both arms.</p>
+<ul><li><p><strong>Headline:</strong> 88% fewer tool calls, 53% faster, 62% fewer tokens processed, 44% cheaper on average, and zero file reads in every repo.</p></li><li><p><strong>Variance:</strong> cost savings ran 57 to 78% where the baseline needed 28 to 43 tool calls, but only 13% on Django and about even on Gin. Savings track how much discovery the question demands, not repo size.</p></li><li><p><strong>A control-arm fix worth copying.</strong> On an unblocked harness, the baseline agent found the <code>codegraph</code> CLI on PATH and used it through bash in 26 of 28 runs, which contaminated the comparison. The re-measurement blocks the CLI in both arms with a sanitized PATH and a PreToolUse hook. All 28 baseline runs tried the CLI and all were blocked. The README notes that earlier published figures were produced without this block.</p></li><li><p><strong>The cost the headline hides.</strong> In multi-turn sessions, CodeGraph's responses leave about 80% more retrieval context resident at session end (on VS Code, 67k tokens vs 18k). Dense verbatim payloads stay in the window, while a grep-and-read agent's many small results get evicted. Fewer tokens processed and a larger persistent footprint are both true at once.</p></li></ul>
+<h2 id="how-to-read-it">How to read it</h2>
+<ul><li><p>It is the maintainer's benchmark: one question per repo, four runs, one model. The questions are architecture questions, which is where a graph helps most; editing tasks were not measured.</p></li><li><p>The honesty is unusual and useful: the contamination finding and the context-footprint caveat are published alongside the wins.</p></li><li><p>The repo has anonymous telemetry, and a hosted product is planned. Check the telemetry settings before using it on proprietary code.</p></li><li><p>The star count is high, but stars are not a quality measure.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Precomputed structure vs on-demand reading:</strong> faster answers and fewer calls, at the cost of an index to keep fresh and a larger resident context.</p></li><li><p><strong>Static analysis limits:</strong> dynamic dispatch, reflection and generated code can be missed; the bridging resolvers tag heuristic edges with provenance so the agent can tell.</p></li><li><p><strong>Another MCP server in the trust boundary,</strong> with read access to the whole repo.</p></li></ul>
+<h2 id="review-checklist-for-adopting-a-code-graph">Review checklist for adopting a code graph</h2>
+<ul><li><p>Does your benchmark block the tool in the control arm, so the baseline can't reach it another way?</p></li><li><p>Do you measure resident context in long sessions, not just tokens processed per answer?</p></li><li><p>How does the tool signal staleness to the agent between an edit and the next sync?</p></li><li><p>Are heuristic or inferred edges labelled as such?</p></li><li><p>Is telemetry acceptable for your codebase?</p></li><li><p>Have you tested edit tasks, not only questions?</p></li></ul>
+<h2 id="related">Related</h2>
+<ul><li><p>R076: Graphify, a tree-sitter code graph that agents query instead of grep.</p></li><li><p>R037: a generated codebase map for humans.</p></li><li><p>R055: embedded property-graph storage.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t4)"><a class="to" href="/research/graphify-code-graph/">Graphify: a tree-sitter code graph that agents query instead of grep</a><span class="label">R076 · Knowledge for agents</span><span class="why">Two tree-sitter code graphs queried over MCP; R134 adds a staleness banner, a contaminated-control finding and a resident-context caveat.</span></li></ul><p><a href="/research/map/#R134">See R134 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

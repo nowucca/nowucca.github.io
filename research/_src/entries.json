@@ -76,6 +76,10 @@
       {
        "id": "R127",
        "why": "cheap, continuously rebuilt graph retrieval for changing agent knowledge; repository knowledge as reviewable Markdown with provenance"
+      },
+      {
+       "id": "R131",
+       "why": "memory for the optimizer, not the agent: problem, rationale, predicted vs observed outcome and provenance per harness edit; diagnoses without outcomes do not help"
       }
      ]
     },
@@ -90,7 +94,9 @@
       "R108",
       "R114",
       "R121",
-      "R126"
+      "R126",
+      "R129",
+      "R131"
      ],
      "also": [
       {
@@ -249,6 +255,10 @@
       {
        "id": "R116",
        "why": "cost per completed task vs token price across coding agents; per-user spend concentration"
+      },
+      {
+       "id": "R132",
+       "why": "progressive disclosure of skills and tools instead of one long prompt; Claude Code's system prompt cut by over 80%). R134 (a code graph cuts tokens processed per answer but leaves more context resident in long sessions"
       }
      ]
     },
@@ -259,7 +269,8 @@
       "R019",
       "R031",
       "R077",
-      "R100"
+      "R100",
+      "R132"
      ],
      "also": [
       {
@@ -289,6 +300,10 @@
       {
        "id": "R119",
        "why": "a 2026 status check of five popular multi-agent repos; two are simulations, one a component library, one research code, one single-app control flow"
+      },
+      {
+       "id": "R129",
+       "why": "a thousand stateless child agents coordinated only through an external append-only archive and one controller per problem; evaluation throughput, not agent count, set the scale limit"
       }
      ]
     }
@@ -515,7 +530,8 @@
       "R020",
       "R080",
       "R082",
-      "R124"
+      "R124",
+      "R133"
      ],
      "also": [
       {
@@ -529,6 +545,10 @@
       {
        "id": "R058",
        "why": "protect the oracle: commit the failing test first, then a hook blocks test-file edits during the fix"
+      },
+      {
+       "id": "R129",
+       "why": "all correctness verdicts outside the model in five check classes, including robustness on unshipped shapes and reward-hack detection; the search found hacks on its own"
       }
      ]
     },
@@ -577,7 +597,8 @@
      "n": "4.1",
      "title": "Docs-as-code and project memory",
      "primary": [
-      "R117"
+      "R117",
+      "R136"
      ],
      "also": [
       {
@@ -638,7 +659,8 @@
      "n": "4.4",
      "title": "Code knowledge graphs for agents",
      "primary": [
-      "R076"
+      "R076",
+      "R134"
      ],
      "also": []
     }
@@ -686,6 +708,14 @@
       {
        "id": "R126",
        "why": "open models can be RL-tuned to one harness; pin the adapter to the harness version and API mode it was trained with"
+      },
+      {
+       "id": "R136",
+       "why": "one skills/ folder symlinked as .claude/skills and .agents/skills with a catalog check, so Claude Code and Codex share skills; learn rules from the diff between draft and what the human kept"
+      },
+      {
+       "id": "R131",
+       "why": "a harness tuned for one model can underperform the seed on another; keep the edit log with the harness and re-run a cold-start control when the model changes"
       }
      ]
     }
@@ -814,6 +844,14 @@
       {
        "id": "R121",
        "why": "Harness²: eight-file harness decomposition, and a weak model with a tuned harness beating a stronger one on its stock harness"
+      },
+      {
+       "id": "R133",
+       "why": "an external judge exposed as five composable tools: transcribe, grep, inspect, align, diff; the stop decision comes from the judge"
+      },
+      {
+       "id": "R132",
+       "why": "one model, one window, an open tool loop with harness budgets and write gates; procedures in skills, hard limits in tools; split into subagents by context, not by team"
       }
      ]
     },
@@ -930,6 +968,10 @@
       {
        "id": "R127",
        "why": "source-grounded assertions, graded evidence coverage, retrieval scored apart from answer quality, cached judgments reused across versions"
+      },
+      {
+       "id": "R130",
+       "why": "eval engineering as an exam domain: CI/CD eval gates, LLM-as-judge calibration, judge drift, golden sets"
       }
      ]
     },
@@ -941,7 +983,8 @@
       "R049",
       "R062",
       "R071",
-      "R091"
+      "R091",
+      "R135"
      ],
      "also": [
       {
@@ -1037,6 +1080,10 @@
       {
        "id": "R122",
        "why": "credentials injected by an egress gateway outside the sandbox; default-deny networking with a replaceable policy enforcement point"
+      },
+      {
+       "id": "R135",
+       "why": "snapshot before every edit, read-only mode, per-tool switches, approval policies off by default, opt-in file tools, admin-scoped credential"
       }
      ]
     }
@@ -1203,6 +1250,10 @@
       {
        "id": "R109",
        "why": "Eduba's model for teaching AI at work: free Skool courses, a twelve-week capstone Lyceum, then in-company workflow teardowns"
+      },
+      {
+       "id": "R130",
+       "why": "vendor certification blueprints as a curriculum signal: all four Claude exams shift weight toward evaluation and production operations"
       }
      ]
     },
@@ -1218,7 +1269,8 @@
       "R097",
       "R098",
       "R119",
-      "R120"
+      "R120",
+      "R130"
      ],
      "also": []
     },
@@ -3584,6 +3636,156 @@
    ],
    "summary": "An internal sales agent builds account plans, proof-of-value docs, decks and onboarding plans: 1,540 in 12 weeks; deals with a sent artifact advanced 47% vs 16% for matched deals (correlational, self-reported); 337 rep hours saved. Quality credited to context, not prompts: leadership-owned templates, CRM and call transcripts, stage gates; brand kit baked into the sandbox image and changed by PR. Fixed path: ask for missing inputs, fill template with python-pptx, render via LibreOffice, rasterize and self-review, convert to native Google files with human-fill flags. A ship-on-first-clean-review stop rule cut a one-pager from 18 to 7 minutes. Metrics: volume, utilization, leverage, outcomes. Vendor-written.",
    "file": "entries/langchain-gtm-agent-sales-artifacts.html"
+  },
+  {
+   "id": "R129",
+   "slug": "compoundingkernel-gpu-kernel-search",
+   "title": "CompoundingKernel: a thousand agents, one archive, and the evaluation rate as the limit",
+   "by": "DAIR.AI's post on Qu et al., Amazon, arXiv 2611.19230",
+   "source": "https://arxiv.org/abs/2611.19230",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/8AER9C89LnKVcVNHecsG42",
+   "tags": [
+    "self-improvement",
+    "multi-agent",
+    "gpu-kernels",
+    "benchmarks",
+    "reward-hacking"
+   ],
+   "summary": "Self-improving GPU-kernel search on NVIDIA B200: #1 on SOL-ExecBench L1, L2 and Quantization boards (2026-11-11), all 235 problems site-verified correct, 4.40x geomean over the PyTorch baseline on 209 public problems. Four loops: child agent (one parent, one direction, stop at first correct), stateless LLM controller per problem over an external append-only SQLite archive, lead agents fixing the harness at state-preserving warm restarts, humans choosing sends and slot allocation. No official scores in the reward. LLM controller beat a UCB tree on 35/38 problems by making 2.4x more correct attempts; one restart fix raised evaluations/hour 3.6x; mandatory references added nothing; slower kernels as stepping stones; 81% of gain from the first 2% of candidates. Five classes of external checks caught reward hacks during the run.",
+   "file": "entries/compoundingkernel-gpu-kernel-search.html"
+  },
+  {
+   "id": "R130",
+   "slug": "claude-certified-developer-professional",
+   "title": "Claude Certified Developer Professional: what the new exam and the updated guides test",
+   "by": "Matthew Purcell's post, 2026-11-17; second source Matthew Hartman's post the same day",
+   "source": "https://www.linkedin.com/feed/update/urn:li:share:7528567591100039168/",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/Hvm1M3SiMpnX9chdmRgreX",
+   "tags": [
+    "certification",
+    "learning-paths",
+    "evals",
+    "production-operations"
+   ],
+   "summary": "New CCDV-P exam (live now): 70 scenario questions (60 scored), 120 min, pass 720, $175, 8 domains/25 skills; about operating Claude systems: reliability and grounding (20%), observability and incident response, eval engineering (CI gates, judge calibration and drift), guardrails, cost, and a new coding-agent-fleets domain. CCAO-F, CCDV-F and CCAR-P rewritten to 70 questions each, effective 7 December 2026: more eval and Claude Code weight, framework content removed, deployment surface and model migration added to CCAR-P.",
+   "file": "entries/claude-certified-developer-professional.html"
+  },
+  {
+   "id": "R131",
+   "slug": "self-improvement-memory",
+   "title": "Self-Improvement Memory: carry the edit log, not just the evolved harness",
+   "by": "Hao Hoang's post on Yu, Xia, Pan et al., Google Cloud AI/DeepMind, arXiv 2611.18856",
+   "source": "https://arxiv.org/abs/2611.18856",
+   "published": "2026-11-17",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/D4BpV4Uo4iggpRyFWDfX9m",
+   "tags": [
+    "self-improvement",
+    "agent-harness",
+    "memory",
+    "model-migration",
+    "evals"
+   ],
+   "summary": "Continual recursive self-improvement: an Opus 5.5-evolved harness scored below the seed harness on Gemini 3.8 Flash in all 4 domains, and harness-only continuation stayed behind a cold start in 3. SIM is a record for the optimizer: edits grouped by root-cause problem, each with rationale, pre-registered predicted fixes, observed outcome (including regressions) and provenance; proposer and selector read all of it, untruncated. Full SIM won all 6 dataset shifts (+2.43 to +4.35 over harness-only) and all 4 cross-model settings (+3.60 to +11.33; workspace 73.42 to 84.75); 9 of 10 paired coding runs, +2.36 (p = 0.003). Root causes without outcomes ranged -1.82 to +2.40. Lost 0.8 to a fresh run on the newest Gemini generation.",
+   "file": "entries/self-improvement-memory.html"
+  },
+  {
+   "id": "R132",
+   "slug": "fold-subagents-into-main-loop",
+   "title": "Fold subagents into the main loop: one agent, progressive disclosure, fewer handoffs",
+   "by": "Ethan Mollick's post, 2026-11-17, on Anthropic's article by Diane Sarkis, 2026-10-22",
+   "source": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+   "published": "2026-11-18",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/1cRLVKGkBmudRdjHYkSmJ1",
+   "tags": [
+    "multi-agent",
+    "subagents",
+    "agent-harness",
+    "skills",
+    "context-engineering"
+   ],
+   "summary": "Anthropic's Applied AI team found a single agent with skills often beat both one-giant-prompt and orchestrator-plus-subagents designs on quality, cost and latency (one customer ~2x faster). Org-chart architectures cause context loss in handoffs, subagent sprawl, the \"Frankenprompt\" and localized evals. Recommended: one model and window in an open tool loop with harness budgets and write gates, parallel tool batches, plan in context, progressive disclosure via skills and tool search, procedures in skills and hard limits in tools, one small team owning prompt and evals. Keep subagents for measured context bloat, parallel fresh-context work or tool-selection failures, and split by context not problem type. Vendor-written.",
+   "file": "entries/fold-subagents-into-main-loop.html"
+  },
+  {
+   "id": "R133",
+   "slug": "vharness-vision-as-a-tool",
+   "title": "VHarness: vision as a callable tool for coding agents",
+   "by": "Pascal Biese's post on Yang, Wu, Jiang et al., Peking University and Microsoft Research, arXiv 2611.17797",
+   "source": "https://arxiv.org/abs/2611.17797",
+   "published": "2026-11-18",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/TES8jhum84fazBxzmAs3pp",
+   "tags": [
+    "verification",
+    "multimodal",
+    "coding-agents",
+    "mcp",
+    "agent-harness"
+   ],
+   "summary": "Vision-as-a-Tool: an external multimodal model exposed over MCP in Claude Code as five atomic actions (transcribe, grep, inspect, align, diff), called on demand to check rendered output against the target. Improved every multimodal coder tested on Image-to-HTML, SVG and 3D (Opus 4.8 DINOv2 0.72 to 0.87 on HTML); text-only GLM-5.2 with a Gemini judge matched the GPT-5.5 baseline (50 cases per task, static targets only). Stop decisions come from the external check.",
+   "file": "entries/vharness-vision-as-a-tool.html"
+  },
+  {
+   "id": "R134",
+   "slug": "codegraph-local-code-graph-mcp",
+   "title": "CodeGraph: a local code graph agents query over MCP, and what its benchmark does and doesn't show",
+   "by": "Mayank A.'s post on github.com/colbymchenry/codegraph, MIT",
+   "source": "https://github.com/colbymchenry/codegraph",
+   "published": "2026-11-18",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/1QjypmRJ1uU9fXFxnoiJoE",
+   "tags": [
+    "code-knowledge-graph",
+    "mcp",
+    "coding-agents",
+    "benchmarks",
+    "context-economics"
+   ],
+   "summary": "Rust and tree-sitter code graph in local SQLite (symbols, calls, imports, routes for 20+ frameworks, cross-language mobile bridging), queried over MCP by ~25 agents; watcher re-sync, per-file staleness banner and connect-time reconciliation keep it fresh. Maintainer benchmark (7 repos, Opus 4.8, median of 4): 88% fewer tool calls, 53% faster, 62% fewer tokens, 44% cheaper on architecture questions, but savings near zero on Gin and 13% on Django, and ~80% more retrieval context left resident in long sessions. The control arm reached the CLI through bash in 26 of 28 runs until blocked; earlier figures lacked that block. Anonymous telemetry.",
+   "file": "entries/codegraph-local-code-graph-mcp.html"
+  },
+  {
+   "id": "R135",
+   "slug": "ha-mcp-home-assistant",
+   "title": "ha-mcp: an MCP server that lets an assistant edit a live smart home, and its safety defaults",
+   "by": "André Lindenberg's post on github.com/homeassistant-ai/ha-mcp, MIT, ~7.9k stars",
+   "source": "https://github.com/homeassistant-ai/ha-mcp",
+   "published": "2026-11-18",
+   "added": "2026-11-17",
+   "artifact": "https://claude.ai/artifact/T8AYQepMczCVcJ3KEJzs5q",
+   "tags": [
+    "mcp",
+    "physical-systems",
+    "agent-permissions",
+    "open-source"
+   ],
+   "summary": "About 86 Home Assistant tools over MCP: search, control, automations, dashboards, traces, backup and restore; flagship use is reading an automation's trace to fix the failing step. In-process integration via HACS or Marketplace, or add-on, Docker, PyPI. Safety: snapshot before each edit, read-only mode, per-tool switches, approval policies (off by default), file and YAML tools opt-in; acts as an admin account, secret URL as default remote credential, optional HA or OIDC auth.",
+   "file": "entries/ha-mcp-home-assistant.html"
+  },
+  {
+   "id": "R136",
+   "slug": "linkedin-funnel-second-brain-template",
+   "title": "LinkedIn Funnel: Tim Scheuer's second-brain template and 50 content skills",
+   "by": "timscheuerai/linkedin-funnel, an MIT GitHub template that OXYGEN gives away as a lead magnet",
+   "source": "https://github.com/timscheuerai/linkedin-funnel",
+   "published": "2026-09-17 (updated 2026-10-20)",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/JtDNYdq3YPzWyUUygiLADX",
+   "tags": [
+    "knowledge-management",
+    "agent-skills",
+    "context-engineering",
+    "human-oversight",
+    "docs-as-code"
+   ],
+   "summary": "The \"second brain\" is a blank Karpathy-style LLM wiki for one author's personal brand: append-only raw/ with manifests, 17 stub pages (identity, audience, strategy, voice, brand, inspiration) with frontmatter, Source Notes and wikilinks, index.md + log.md, a structural lint. Best ideas: empty means unknown; proof.md as a claims ledger with source and public-use clearance; source text is data not instructions; authorization scoped per verb; a draft-vs-what-the-human-posted feedback loop that promotes a pattern seen twice into a rule. Weak: none of Tim's content is in it, lint checks structure not claims, no staleness model, 50 unevaluated skills, bottom half (Profile Watcher, AI qualification, DMs) locked to OXYGEN credits.",
+   "file": "entries/linkedin-funnel-second-brain-template.html"
   }
  ],
  "edges": [
@@ -5668,6 +5870,66 @@
    "b": "R022",
    "strength": "strong",
    "why": "Generator-evaluator loops; R022 sets hard thresholds, R128 adds the stopping rule (ship on the first clean review) that keeps self-review from burning latency."
+  },
+  {
+   "a": "R129",
+   "b": "R066",
+   "strength": "strong",
+   "why": "Acceptance gates for self-improvement; TRUST is statistical, CompoundingKernel uses twelve deterministic send checks plus a human go."
+  },
+  {
+   "a": "R130",
+   "b": "R087",
+   "strength": "strong",
+   "why": "A university course and a vendor certification converging on the same syllabus: evals, observability, agent fleets."
+  },
+  {
+   "a": "R131",
+   "b": "R126",
+   "strength": "strong",
+   "why": "Two answers to model-harness fit; R126 tunes the model to one harness, R131 keeps the harness-edit log so the harness can be re-fit when the model changes."
+  },
+  {
+   "a": "R131",
+   "b": "R121",
+   "strength": "strong",
+   "why": "Both continue harness optimization across settings; Harness² reuses an improvement library, SIM adds pre-registered predictions and observed outcomes per edit."
+  },
+  {
+   "a": "R136",
+   "b": "R005",
+   "strength": "strong",
+   "why": "The same LLM-wiki shape (raw, linked pages, index, log, lint); R005 keeps contradictory facts side by side, R136 has no contradiction or staleness rule."
+  },
+  {
+   "a": "R136",
+   "b": "R064",
+   "strength": "strong",
+   "why": "R136 ships 50 skills with no per-skill test; R064 is the with/without benchmark it lacks."
+  },
+  {
+   "a": "R132",
+   "b": "R017",
+   "strength": "strong",
+   "why": "R132 folds most subagents into one loop but keeps black-box verification as a good reason to split; R017 is that fresh-context reviewer."
+  },
+  {
+   "a": "R133",
+   "b": "R128",
+   "strength": "strong",
+   "why": "Both render and check output; R128 self-reviews with its own vision and needs a stop rule, R133 hands checking and the stop decision to an external judge."
+  },
+  {
+   "a": "R134",
+   "b": "R076",
+   "strength": "strong",
+   "why": "Two tree-sitter code graphs queried over MCP; R134 adds a staleness banner, a contaminated-control finding and a resident-context caveat."
+  },
+  {
+   "a": "R135",
+   "b": "R117",
+   "strength": "strong",
+   "why": "The same problem from two sides; R117 is one person's agent with house rules, R135 the MCP server many such agents use, with its safety defaults."
   }
  ]
 }

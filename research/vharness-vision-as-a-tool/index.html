@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VHarness: vision as a callable tool for coding agents · Research</title>
+<meta name="description" content="Vision-as-a-Tool: an external multimodal model exposed over MCP in Claude Code as five atomic actions (transcribe, grep, inspect, align, diff), called on demand to check rendered output against the target. Improved every multimodal coder tested on Image-to-HTML, SVG and 3D (Opus 4.8 DINOv2 0.72 to 0.87 on HTML); text-only GLM-5.2 with a Gemini judge matched the GPT-5.5 baseline (50 cases per task, static targets only). Stop decisions come from the external check.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R133 · AI-built software and its verification › Test oracles for agent-written code</span>
+  <h1>VHarness: vision as a callable tool for coding agents</h1>
+  <div class="entry-meta"><span>Pascal Biese&#x27;s post on Yang, Wu, Jiang et al., Peking University and Microsoft Research, arXiv 2611.17797</span><span>Published 2026-11-18</span><span>Summarized 2026-11-17</span></div>
+  <p><a href="https://arxiv.org/abs/2611.17797" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">verification</span><span class="tag">multimodal</span><span class="tag">coding-agents</span><span class="tag">mcp</span><span class="tag">agent-harness</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Yang, Wu, Jiang et al. (Peking University, Microsoft Research, University of Edinburgh, Nanjing University), "Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding", arXiv 2611.17797, November 2026; project page vision-as-a-tool.github.io. Highlighted by Pascal Biese on LinkedIn (2026-11-17).</p>
+<h2 id="the-idea">The idea</h2>
+<p>When a coding agent turns an image into code (a webpage, an SVG, a 3D model), it has to check its rendered output against the target. Today it usually does that with its own built-in vision, sometimes with crop and zoom tools. That ties output quality to the agent's own perception, and it leaves text-only models out entirely.</p>
+<p><strong>Vision-as-a-Tool (VaaT)</strong> decouples the two. A separate multimodal model is exposed as a set of callable visual utilities. A text-only agent can offload all perception to it. A multimodal agent can call it when its own vision isn't enough.</p>
+<h2 id="the-interface">The interface</h2>
+<p>VHarness exposes five atomic actions, modelled on developer tools, over MCP inside Claude Code:</p>
+<ul><li><p><strong>transcribe:</strong> extract a global layout description or structural draft of the target to bootstrap code.</p></li><li><p><strong>grep:</strong> given an image and a description, locate matching elements and return bounding boxes.</p></li><li><p><strong>inspect:</strong> detailed observation of a region: appearance, typography, geometry.</p></li><li><p><strong>align:</strong> a Boolean check that an image or region matches a textual specification.</p></li><li><p><strong>diff:</strong> compare target and rendered images, and localize the mismatches.</p></li></ul>
+<p>There is no fixed workflow. The agent decides when to call each action, interleaving code edits, rendering and checks. Neither the baseline nor VHarness has a minimum iteration count or token budget. Both stop when the artifact is judged complete, but with VHarness that judgment comes from the external utilities rather than the agent's own eyes.</p>
+<h2 id="results">Results</h2>
+<p>Tested on Image-to-HTML, Image-to-SVG and Image-to-3D, 100 cases each, with perceptual and structural metrics (SigLIP2, DINOv2, LPIPS, SSIM, pixel MSE, edge F1, and geometric metrics for 3D):</p>
+<ul><li><p>VHarness improved every multimodal coding agent tested (GPT-5.5, GPT-5.6-sol, Claude Opus 4.8, GLM-5.3-Flash) across the tasks.</p></li><li><p>The largest gains went to agents with weaker native vision. On Image-to-HTML, Claude Opus 4.8's DINOv2 similarity rose from 0.72 to 0.87 and LPIPS fell from 0.46 to 0.30.</p></li><li><p>A <strong>text-only</strong> model, GLM-5.2, with a Gemini model behind the visual utilities, reached scores competitive with the native multimodal baseline GPT-5.5, and above Opus 4.8 using its own vision.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<ul><li><p>The text-only GLM-5.2 runs used a random 50 cases per task, not 100, for budget reasons.</p></li><li><p>All targets are static: a page, a graphic or a single object. Nothing interactive or stateful was tested.</p></li><li><p>The utility model's own quality caps the result. The paradigm moves the perceptual bottleneck rather than removing it.</p></li><li><p>Each call costs a second model's inference; the paper reports quality, not cost or latency per task.</p></li></ul>
+<h2 id="why-it-matters-beyond-image-to-code">Why it matters beyond image-to-code</h2>
+<p>The design generalizes a pattern: when an agent's own judgment is the limit, expose a better judge as a small set of composable, typed tools (grep, inspect, assert, diff) rather than a fixed pipeline. It is the visual analogue of letting a coding agent run tests instead of reading its own code. It also lets teams pick the best coder and the best perceiver separately.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Modularity vs latency and cost.</strong> Every visual check is an extra model call.</p></li><li><p><strong>External judge vs self-check.</strong> An external checker is more independent than self-assessment, but agent and judge can still share blind spots if both come from similar models.</p></li><li><p><strong>Atomic actions vs task-specific pipelines.</strong> Five generic actions transfer across tasks; a tuned pipeline might do better on one task.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Does the agent verify output with something other than its own perception?</p></li><li><p>Are verification tools small, typed and composable (locate, inspect, assert, diff), or one opaque "check" call?</p></li><li><p>Is the stop decision driven by an independent check?</p></li><li><p>Have you measured the cost and latency of the extra judge calls?</p></li><li><p>Have you tested interactive or stateful targets, not just static ones?</p></li></ul>
+<h2 id="related">Related</h2>
+<ul><li><p>R128: render-and-self-review loops and the need for a stop rule.</p></li><li><p>R022: generator-evaluator separation with hard thresholds.</p></li><li><p>R017: fresh-context subagents as reviewers.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/langchain-gtm-agent-sales-artifacts/">Sales artifacts from an agent: context, templates and a stop rule</a><span class="label">R128 · Agent principles and patterns</span><span class="why">Both render and check output; R128 self-reviews with its own vision and needs a stop rule, R133 hands checking and the stop decision to an external judge.</span></li></ul><p><a href="/research/map/#R133">See R133 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

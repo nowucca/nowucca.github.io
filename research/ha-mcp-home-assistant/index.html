@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ha-mcp: an MCP server that lets an assistant edit a live smart home, and its safety defaults · Research</title>
+<meta name="description" content="About 86 Home Assistant tools over MCP: search, control, automations, dashboards, traces, backup and restore; flagship use is reading an automation&#x27;s trace to fix the failing step. In-process integration via HACS or Marketplace, or add-on, Docker, PyPI. Safety: snapshot before each edit, read-only mode, per-tool switches, approval policies (off by default), file and YAML tools opt-in; acts as an admin account, secret URL as default remote credential, optional HA or OIDC auth.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R135 · Agent principles and patterns › Agent interaction protocols</span>
+  <h1>ha-mcp: an MCP server that lets an assistant edit a live smart home, and its safety defaults</h1>
+  <div class="entry-meta"><span>André Lindenberg&#x27;s post on github.com/homeassistant-ai/ha-mcp, MIT, ~7.9k stars</span><span>Published 2026-11-18</span><span>Summarized 2026-11-17</span></div>
+  <p><a href="https://github.com/homeassistant-ai/ha-mcp" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">mcp</span><span class="tag">physical-systems</span><span class="tag">agent-permissions</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> github.com/homeassistant-ai/ha-mcp (MIT, about 7.9k stars as of 2026-11-18); highlighted by André Lindenberg on LinkedIn (2026-11-17).</p>
+<h2 id="what-it-does">What it does</h2>
+<p>ha-mcp is an MCP server that gives Claude, ChatGPT and other MCP clients about 86 tools across Home Assistant: fuzzy entity search and config search, service calls and bulk device control, real-time states, automations, scripts, helpers, dashboards, areas, zones, calendars and blueprints, history and statistics, camera snapshots, automation traces, and backup, restore and updates. The flagship example is debugging: tell the assistant a motion-sensor automation isn't working and it reads the automation's execution trace, finds the failing step and edits it.</p>
+<h2 id="deployment-options">Deployment options</h2>
+<ul><li><p><strong>Recommended:</strong> an in-process integration installed through HACS, or the Marketplace on Home Assistant 2026.11+, running the full server inside Home Assistant on any install type.</p></li><li><p><strong>Alternatives:</strong> a Home Assistant app (add-on) with no token to manage, Docker or PyPI over streamable HTTP, and local stdio (discouraged; it has known transport issues).</p></li><li><p><strong>Remote access</strong> goes through a Home Assistant webhook URL (via Nabu Casa or an existing reverse proxy), or stays local-only with no webhook registered.</p></li><li><p><strong>Authentication:</strong> by default the secret URL itself is the credential. Optional modes require a Home Assistant sign-in or an external OIDC provider; with OIDC, all authenticated users share the server's Home Assistant credentials.</p></li><li><p>The server acts as a chosen administrator account, either through a long-lived access token or a dedicated account it creates.</p></li></ul>
+<h2 id="safety-model">Safety model</h2>
+<ul><li><p><strong>Automatic edit backups:</strong> a snapshot before each edit, which the assistant can restore.</p></li><li><p><strong>Read-only mode</strong> toggle and per-tool enable or disable.</p></li><li><p><strong>Tool security policies</strong> that require user approval, but these start switched off.</p></li><li><p><strong>File and YAML editing tools</strong> are opt-in feature flags, off by default.</p></li></ul>
+<p>The defaults lean toward capability: an admin-level credential, approvals off, and a secret URL as the default credential for remote access. That suits a hobbyist's own home. A shared or critical deployment needs to tighten them.</p>
+<h2 id="why-it-is-interesting-beyond-smart-homes">Why it is interesting beyond smart homes</h2>
+<p>It is a mature, heavily used example of an agent with write access to a physical system, and it shows which controls a real project converged on: snapshots before edits, read-only and per-tool switches, opt-in for the most dangerous file-level tools, and traces as the debugging substrate. Reading execution traces before editing is the same diagnose-then-change discipline that works for agents on any production system.</p>
+<h2 id="risks-and-failure-modes">Risks and failure modes</h2>
+<ul><li><p>An admin token in the server means any compromised client or leaked URL has full control of the home, including locks and alarms where those are integrated.</p></li><li><p>Approvals off by default means a bad plan executes without a human check.</p></li><li><p>A snapshot restores configuration, not physical side effects (a door unlocked, a heater left on).</p></li><li><p>Running more than one install method for the same client causes conflicts; the README warns to pick exactly one.</p></li><li><p>Prompt injection through entity names, calendar entries or other data the assistant reads could steer actions.</p></li></ul>
+<h2 id="review-checklist-for-an-agent-with-write-access-to-physical-systems">Review checklist for an agent with write access to physical systems</h2>
+<ul><li><p>Is the credential scoped to what the agent needs, rather than administrator?</p></li><li><p>Are approval policies on for actions with physical or security effects?</p></li><li><p>Is there a read-only mode for exploration and debugging?</p></li><li><p>Do backups cover configuration, and is there a plan for actions that can't be undone?</p></li><li><p>Is remote access behind real authentication, not just a secret URL?</p></li><li><p>Are the agent's inputs (device names, notes, calendars) treated as untrusted?</p></li></ul>
+<h2 id="related">Related</h2>
+<ul><li><p>R117: an agent with write access to a smart home: plan doc, house rules, results.</p></li><li><p>R091: FastMCP serving agent skills from the MCP server.</p></li><li><p>R030: kernel-enforced sandboxes and verified policy for agents.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t4)"><a class="to" href="/research/agent-smart-home-write-access/">An agent with write access to a smart home: plan doc, house rules, results</a><span class="label">R117 · Knowledge for agents</span><span class="why">The same problem from two sides; R117 is one person&#x27;s agent with house rules, R135 the MCP server many such agents use, with its safety defaults.</span></li></ul><p><a href="/research/map/#R135">See R135 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
