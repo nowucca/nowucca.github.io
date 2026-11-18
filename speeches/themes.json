@@ -1,0 +1,14 @@
+{
+  "_how": "Themes for the weekly pep talk. Each run takes the first theme in 'queue' that no edition has used yet (match on 'theme'); when the queue runs out it picks a fresh self-help theme that no edition has covered. Steven adds, removes or reorders themes here. This file is public on the site, so keep private notes out of it.",
+  "standards": "Original writing only: never quote, paraphrase closely or reuse the structure or step list of any video, book or speech a theme came from, and never name the creator. About 300-400 words, written to be read aloud: second person, short sentences, concrete images, one clear idea. End with one specific action for the coming week. Grounded and kind: no hustle-culture shaming, no promises of guaranteed results, no manifestation or pseudoscience claims, no medical, financial or mental-health advice. Don't repeat a title, opening image or takeaway from any earlier edition.",
+  "queue": [
+    {"theme": "Make it inevitable", "angle": "Stop chasing the dream life; build the identity, environment and small daily systems that make it the default outcome."},
+    {"theme": "Start before you're ready", "angle": "Readiness is a feeling that arrives after the first attempt, not before it."},
+    {"theme": "Protect the morning", "angle": "The first hour sets the tone; give it to your priority before the world gets it."},
+    {"theme": "Finish things", "angle": "Done and imperfect beats perfect and abandoned; momentum compounds from completion."},
+    {"theme": "Bad days count", "angle": "Showing up at 40 percent keeps the streak and the identity alive."},
+    {"theme": "Choose your rooms", "angle": "The people and inputs around you quietly set your ceiling."},
+    {"theme": "Rest is part of the work", "angle": "Recovery is training, not quitting."},
+    {"theme": "Courage is a skill", "angle": "Practise small brave acts until the big ones feel familiar."}
+  ]
+}

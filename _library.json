@@ -158,6 +158,14 @@
       "external": true,
       "href": "/news/",
       "updated": "2026-11-17"
+    },
+    "speeches": {
+      "title": "Weekly pep talk",
+      "lede": "A short motivational speech each week, about two minutes read aloud, with one thing to do this week.",
+      "items": [],
+      "external": true,
+      "href": "/speeches/",
+      "updated": "2026-11-17"
     }
   }
 }

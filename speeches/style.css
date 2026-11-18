@@ -1,0 +1,14 @@
+/* nowucca.com weekly pep talk: layered on /library/style.css */
+.crumbs { display: flex; gap: 1.25rem; }
+.crumbs a { text-decoration: none; }
+.masthead .lede { font-size: 1.15rem; color: var(--fg); }
+.masthead .meta a { text-decoration: none; }
+.speech { display: flex; flex-direction: column; gap: 1.1rem; font-size: 1.15rem; line-height: 1.7; }
+.speech p { margin: 0; }
+.speech p:first-child::first-letter { font-family: var(--display); font-weight: 700; font-size: 3.2em; float: left; line-height: 0.85; padding: 0.08em 0.1em 0 0; color: var(--accent); }
+.takeaway { background: var(--accent-soft); border-left: 4px solid var(--accent); padding: 1rem 1.25rem; border-radius: 3px; display: flex; flex-direction: column; gap: 0.35rem; }
+.takeaway p { margin: 0; font-weight: 600; }
+.takeaway .label { color: var(--accent); }
+.foot { display: flex; flex-direction: column; gap: 1.25rem; color: var(--muted); font-size: 0.95rem; border-top: 2px solid var(--fg); padding-top: 1.25rem; }
+.prevnext { display: flex; justify-content: space-between; gap: 1rem; }
+.prevnext a { text-decoration: none; }
