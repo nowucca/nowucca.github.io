@@ -96,7 +96,8 @@
       "R121",
       "R126",
       "R129",
-      "R131"
+      "R131",
+      "R138"
      ],
      "also": [
       {
@@ -259,6 +260,10 @@
       {
        "id": "R132",
        "why": "progressive disclosure of skills and tools instead of one long prompt; Claude Code's system prompt cut by over 80%). R134 (a code graph cuts tokens processed per answer but leaves more context resident in long sessions"
+      },
+      {
+       "id": "R138",
+       "why": "RL rollouts for long multi-round agent episodes offload the KV prefix cache to CPU and cap concurrency to keep hit rates high"
       }
      ]
     },
@@ -304,6 +309,10 @@
       {
        "id": "R129",
        "why": "a thousand stateless child agents coordinated only through an external append-only archive and one controller per problem; evaluation throughput, not agent count, set the scale limit"
+      },
+      {
+       "id": "R139",
+       "why": "a coordinator on a judging model dispatches threads on a doing model and sends back unfinished work; accept on checks passing, not self-report"
       }
      ]
     }
@@ -520,6 +529,10 @@
       {
        "id": "R124",
        "why": "multi-session agent port with claimed units in MAP.md, HANDOFF.md at each checkpoint, ADRs from an up-front question round, and a cutover script for human-only steps"
+      },
+      {
+       "id": "R139",
+       "why": "Anthropic's flow: pass/fail checkpoints, hooks on edit, task and stop, CI autofix, Claude reviews every PR first, then 0, 1 or 2 human reviewers by risk"
       }
      ]
     },
@@ -679,7 +692,8 @@
       "R004",
       "R018",
       "R036",
-      "R068"
+      "R068",
+      "R139"
      ],
      "also": [
       {
@@ -717,6 +731,10 @@
       {
        "id": "R131",
        "why": "a harness tuned for one model can underperform the seed on another; keep the edit log with the harness and re-run a cold-start control when the model changes"
+      },
+      {
+       "id": "R140",
+       "why": "a beginner's ladder of Claude Code features, checked against current docs; R139 is the advanced companion on what to keep and delete"
       }
      ]
     }
@@ -853,6 +871,10 @@
       {
        "id": "R132",
        "why": "one model, one window, an open tool loop with harness budgets and write gates; procedures in skills, hard limits in tools; split into subagents by context, not by team"
+      },
+      {
+       "id": "R138",
+       "why": "counter-case to harnesses: RL removes the perception tools and motion menu entirely, widening the action space at the cost of speed"
       }
      ]
     },
@@ -1085,6 +1107,10 @@
       {
        "id": "R135",
        "why": "snapshot before every edit, read-only mode, per-tool switches, approval policies off by default, opt-in file tools, admin-scoped credential"
+      },
+      {
+       "id": "R139",
+       "why": "deny rules gate the tool call before the classifier; the OS sandbox gates what a running command and its children can read and reach; hooks and MCP servers run outside it"
       }
      ]
     }
@@ -1280,7 +1306,8 @@
      "title": "Teaching materials and glossaries",
      "primary": [
       "R056",
-      "R079"
+      "R079",
+      "R140"
      ],
      "also": [
       {
@@ -3806,6 +3833,68 @@
    ],
    "summary": "A 250k x 256 token table with mean pooling (64M params, no transformer at inference): MMTEB mean 51.60 vs 48.37 for bekko and 47.67 for potion-multilingual-128M at 256d, a clear lead on bitext and STS but a tie with bekko on retrieval. Six-step recipe: full-script WordPiece, bge-m3 init with PCA and SIF, Tokenlearn distillation, bekko-style contrastive MNRL, 0.8/0.2 weight averaging, and baked-in language codes. Best used as a cheap first stage behind a re-ranker.",
    "file": "entries/blink-multilingual-64m-static-embeddings.html"
+  },
+  {
+   "id": "R138",
+   "slug": "rurl-robot-use-rl",
+   "title": "RURL: training an open model to use a real robot the way agents use a computer",
+   "by": "Pascal Biese's post on Tang, Zhang, Guo et al. with Song Han, MIT/NVIDIA/Inco AI, arXiv 2611.18562; code mit-han-lab/pear",
+   "source": "https://arxiv.org/abs/2611.18562",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/UnnUVEz2dQcu4fUQXK9R7o",
+   "tags": [
+    "reinforcement-learning",
+    "computer-use",
+    "open-models",
+    "robotics",
+    "harness",
+    "benchmarks"
+   ],
+   "summary": "Qwen3.8-27B trained with RL alone in simulation, no demonstrations and no harness: observe camera frames, reason, emit the next end-effector pose. LIBERO 1.6% to 74.4% (near GPT-6 Astra), 18 of 30 on an unseen real dual-arm robot, no loss on nine general benchmarks. Recipe lessons: binary reward needs a curriculum of tasks that already give signal, drop all-pass/all-fail groups, correct async rollout lag, keep prefix-cache hits high. Slow: about 4.3 s of reasoning per move.",
+   "file": "entries/rurl-robot-use-rl.html"
+  },
+  {
+   "id": "R139",
+   "slug": "rethinking-claude-code-best-practices",
+   "title": "Rethinking Claude Code best practices: the five jobs that moved off your plate",
+   "by": "Lydia Hallie's AI Engineer talk, about 2026-11-12, via Nate Herk's LinkedIn post and video, 2026-11-17",
+   "source": "https://www.youtube.com/watch?v=vlfCjWuv4es",
+   "published": "2026-11-17",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/U4G258KYdpee2i2RpaiR8Q",
+   "tags": [
+    "harness-config",
+    "agent-harness",
+    "sandboxing",
+    "human-oversight",
+    "agent-reliability",
+    "multi-agent",
+    "code-review",
+    "sdlc"
+   ],
+   "summary": "Steering, approving, saying no, checking and starting sessions have moved to the model, the harness or the environment; only the harness and environment give guarantees. CLAUDE.md keeps only what the code can't show (`/doctor prompt-audit`); auto mode's classifier blocked 89% of dangerous commands, so irreversible actions need `permissions.deny` (checked before the classifier) plus a sandbox or a secret-free cloud session for side effects; verification points with hooks that exit 2 (exit 1 fails open); Claude reviews every PR first, human review by risk; a Fable 5.2 coordinator dispatches Opus 5.5 threads in Projects.",
+   "file": "entries/rethinking-claude-code-best-practices.html"
+  },
+  {
+   "id": "R140",
+   "slug": "claude-code-in-10-levels",
+   "title": "Claude Code in 10 levels: the technical steps, checked for teaching",
+   "by": "Shirin Khosravi Jam's LinkedIn post and 17-minute YouTube video, 2026-11-18",
+   "source": "https://www.youtube.com/watch?v=h_U-7ci4aF0",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/3VYcSt4a4CHyJ5s72v7Biu",
+   "tags": [
+    "teaching",
+    "harness-config",
+    "agent-harness",
+    "agent-skills",
+    "context-engineering",
+    "learning-resources"
+   ],
+   "summary": "One empty repo, ten levels, each adding one mechanism: install plus `claude doctor` and a Copier template that pre-seeds CLAUDE.md, `.claude/` and `.mcp.json`; three CLAUDE.md scopes and settings vs settings.local; memory import and the rules / auto memory / docs split; an ask-first prompt; worktrees, nested CLAUDE.md, `/context`, `/compact`, `/clear`, `/rewind`, pick the model up front (cache); `claude mcp add` scopes, connectors, prefer a CLI plus allow list, Chrome vs Playwright; artifacts, HTML reports, status line, mods; skills, hooks (guarantee what CLAUDE.md only makes likely), plugins and marketplaces, workflows; `/goal`, `claude -p` in CI, subagents, agent teams; `/insights`, `/btw`, `/voice`; `/loop`, cloud scheduled tasks, Dispatch, Remote Control, channels. Eight corrections against current docs: MCP tools are deferred by default (smaller per-server cost), `/agents` no longer creates, ultrareview's real name, routines renamed, `/goal`'s evaluator only reads the transcript, CLAUDE.local.md does not follow you across worktrees, agent teams and channels are gated. Missing for staff: permissions and sandbox, measuring skills, subtraction, MCP trust, CI scoping, cost and tracing. Adds a two-session lab plan.",
+   "file": "entries/claude-code-in-10-levels.html"
   }
  ],
  "edges": [
@@ -5974,6 +6063,84 @@
    "b": "R054",
    "strength": "strong",
    "why": "Where embeddings help (multilingual prose search) versus where coding harnesses skip them (finding code)."
+  },
+  {
+   "a": "R138",
+   "b": "R126",
+   "strength": "strong",
+   "why": "Both RL-train an open model for agent work; R126 fits the model to one harness, R138 removes the harness."
+  },
+  {
+   "a": "R138",
+   "b": "R133",
+   "strength": "strong",
+   "why": "Two answers to giving a model eyes; VHarness adds vision as a tool, RURL trains perception into the policy."
+  },
+  {
+   "a": "R138",
+   "b": "R118",
+   "strength": "strong",
+   "why": "Prefix-cache economics dominate both long coding sessions and long RL rollouts."
+  },
+  {
+   "a": "R138",
+   "b": "R060",
+   "strength": "strong",
+   "why": "Open-weight robot use closing in on frontier closed robotics models."
+  },
+  {
+   "a": "R139",
+   "b": "R004",
+   "strength": "strong",
+   "why": "Both say harness config rots across model versions; R139 adds the test for what to keep (can Claude learn it from the code?)."
+  },
+  {
+   "a": "R139",
+   "b": "R064",
+   "strength": "strong",
+   "why": "`/doctor prompt-audit` flags stale instructions; SkillEvaluator measures whether each skill still helps."
+  },
+  {
+   "a": "R139",
+   "b": "R068",
+   "strength": "strong",
+   "why": "The same judge/doer split (Fable 5.2 plans and judges, Opus 5.5 executes), by hand in R068 and built into Projects in R139."
+  },
+  {
+   "a": "R139",
+   "b": "R058",
+   "strength": "strong",
+   "why": "Anthropic's delivery playbook at org level (R058) and per session (R139)."
+  },
+  {
+   "a": "R139",
+   "b": "R132",
+   "strength": "strong",
+   "why": "Orchestrated threads vs folding subagents into one loop."
+  },
+  {
+   "a": "R139",
+   "b": "R112",
+   "strength": "strong",
+   "why": "Secret-free cloud sessions and OS sandboxing answer leaks that need no attacker."
+  },
+  {
+   "a": "R140",
+   "b": "R139",
+   "strength": "strong",
+   "why": "The same tool from both ends: R140 adds mechanisms level by level, R139 says which ones give guarantees and which to delete."
+  },
+  {
+   "a": "R140",
+   "b": "R004",
+   "strength": "strong",
+   "why": "R140's \"install two or three skills\" vs R004's \"no setup\"; teach them as a pair."
+  },
+  {
+   "a": "R140",
+   "b": "R064",
+   "strength": "strong",
+   "why": "R140 rations skills by count; SkillEvaluator rations them by measured effect."
   }
  ]
 }
