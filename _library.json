@@ -98,6 +98,17 @@
             "edtech",
             "ruby"
           ]
+        },
+        {
+          "slug": "infosys",
+          "title": "Infosys",
+          "summary": "Indian IT services giant (NYSE: INFY), ~332.5K staff; profitable but growth stalled at 1-2% and stock hit by AI-disruption fears",
+          "date": "2026-11-19",
+          "tags": [
+            "public",
+            "it services",
+            "ai"
+          ]
         }
       ],
       "noindex": true
