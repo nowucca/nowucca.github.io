@@ -117,7 +117,9 @@
       "R155",
       "R157",
       "R158",
-      "R164"
+      "R164",
+      "R174",
+      "R175"
      ],
      "also": [
       {
@@ -210,6 +212,10 @@
       {
        "id": "R159",
        "why": "bitemporal agent memory: newer facts retire older ones without deletion, and the graph can be read as it was known on a date"
+      },
+      {
+       "id": "R175",
+       "why": "adoption gate for self-proposed instruction edits; hard controls stay outside the prompt and the gate is compared against a handwritten rule"
       }
      ]
     },
@@ -396,6 +402,10 @@
       {
        "id": "R163",
        "why": "CI runners and build agents as Java4Shell exposure; per-node, not per-image, risk"
+      },
+      {
+       "id": "R176",
+       "why": "serving layer for RL rollouts: cache-affinity vs tail latency, versioned weight deltas, recovery without pausing healthy workers"
       }
      ]
     },
@@ -481,7 +491,8 @@
       "R148",
       "R153",
       "R162",
-      "R166"
+      "R166",
+      "R176"
      ],
      "also": [
       {
@@ -499,6 +510,10 @@
       {
        "id": "R160",
        "why": "knowledge as attention KVs kept mostly in CPU RAM and paged to GPU per step; same residency tradeoff as R153"
+      },
+      {
+       "id": "R174",
+       "why": "agent-designed quantization recipes; NVFP4 GLM-5.3-Flash recovers 98.3% of FP8 accuracy vs 96.9% for the best vendor checkpoint"
       }
      ]
     },
@@ -551,6 +566,10 @@
       {
        "id": "R155",
        "why": "a 27B open-base model RL-tuned for one domain edges Opus 5.5 and Fable 5.2 on pass rate at a fraction of the cost; internal evals, no weights"
+      },
+      {
+       "id": "R171",
+       "why": "the small end: retrieval encoders under 1M parameters"
       }
      ]
     }
@@ -631,6 +650,10 @@
       {
        "id": "R145",
        "why": "the layer above delivery: an agentic product funnel with a decision-record gate before build and an outcome-review gate after release"
+      },
+      {
+       "id": "R173",
+       "why": "migration workflows as TypeScript programs: skip projects, pick files per rule group, pause for approval before rewrites; resume reuses cached step results"
       }
      ]
     },
@@ -694,7 +717,8 @@
      "title": "Security scanning for AI-written code",
      "primary": [
       "R073",
-      "R163"
+      "R163",
+      "R172"
      ],
      "also": [
       {
@@ -781,7 +805,8 @@
       "R106",
       "R127",
       "R137",
-      "R160"
+      "R160",
+      "R171"
      ],
      "also": [
       {
@@ -1035,7 +1060,8 @@
      "title": "Workflows over agents",
      "primary": [
       "R015",
-      "R109"
+      "R109",
+      "R173"
      ],
      "also": [
       {
@@ -1426,7 +1452,12 @@
       "R152",
       "R161"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R172",
+       "why": "a non-AI supply-chain incident: trusted third-party code turned hostile on every customer at once"
+      }
+     ]
     },
     {
      "n": "7.5",
@@ -4656,6 +4687,113 @@
    ],
    "summary": "Sub-quadratic in-context architecture: 10M x 500 table in 38 min on one GPU versus extrapolated 65 h for its predecessor; ~300 Elo ahead of tuned baselines on 100k+ row tables; biggest gains on temporal and grouped data; trails one baseline on TabArena raw Elo. Vendor benchmarks, not yet released.",
    "file": "entries/tabpfn-4-tabular-foundation-model.html"
+  },
+  {
+   "id": "R171",
+   "slug": "atto-tiny-retrieval-embeddings",
+   "title": "Atto: retrieval embeddings from 840 parameters to 28 million",
+   "by": "David Mezzetti, NeuML, Hugging Face article, 2026-11-19",
+   "source": "https://huggingface.co/blog/NeuML/introducing-atto",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/DHwHk59nL7w5xvQPyARJMT",
+   "tags": [
+    "retrieval",
+    "rag",
+    "open-models",
+    "open-source"
+   ],
+   "summary": "30+ dense, sparse and ColBERT encoders on a conv-plus-attention mixer with hash embeddings, distilled from 110M teachers. An 840-parameter ColBERT scores 0.31 nDCG@10 on three BEIR sets; 950K matches 4M; a 14M dense model edges a 23M MiniLM. Watch output dimensions (up to 8,192) and narrow benchmarks.",
+   "file": "entries/atto-tiny-retrieval-embeddings.html"
+  },
+  {
+   "id": "R172",
+   "slug": "optimizely-script-vendor-injection",
+   "title": "The Optimizely injection: a trusted script vendor serving malware to 178 organizations",
+   "by": "F5 blog on the 2026-11-16 Optimizely Web Experimentation compromise; shared by Ismael G.",
+   "source": "https://www.f5.com/company/blog/how-f5-caught-malicious-javascript-in-the-optimizely-attack",
+   "published": "2026-11-16 (incident); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/P2XDtHkDRj2scs7myNxvzv",
+   "tags": [
+    "security",
+    "incident-response",
+    "vendor"
+   ],
+   "summary": "A signup-flow flaw let attackers inject JavaScript that Optimizely's integration served to 178 organizations' visitors for ~16 hours: card skimming, wallet swapping, cookie theft. Allowlists, CSP and WAFs passed it because the source was trusted; behaviour monitoring plus field-level restrictions caught it.",
+   "file": "entries/optimizely-script-vendor-injection.html"
+  },
+  {
+   "id": "R173",
+   "slug": "codemod-workflow-v2-typescript",
+   "title": "Codemod Workflow v2: the migration workflow becomes a TypeScript program",
+   "by": "Dev Agrawal, codemod.com blog, 2026-11-18; reshared by Alex Bit",
+   "source": "https://codemod.com/blog/migration-workflows-as-code",
+   "published": "2026-11-18 (blog); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/DoYBC78U6mYJ45MrbF9RWm",
+   "tags": [
+    "workflows",
+    "code-migration",
+    "durable-execution",
+    "vendor"
+   ],
+   "summary": "Claim: in agent-driven code migrations the hard part is deciding when rules run, so dependency checks, per-stage file selection and approval gates move into a TypeScript workflow; resume reuses completed step results; transforms return findings instead of writing shared state. Vendor alpha.",
+   "file": "entries/codemod-workflow-v2-typescript.html"
+  },
+  {
+   "id": "R174",
+   "slug": "qda-agent-designed-quantization",
+   "title": "QDA: an agent designs the quantization recipe, scored by KL in minutes",
+   "by": "Li, Zhao, Han et al., MIT and NVIDIA, arXiv 2611.23388; shared by Elvis Saravia",
+   "source": "https://arxiv.org/abs/2611.23388",
+   "published": "2026-11-17 (paper); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/1acReAYd8ASw9G3eYbv7ni",
+   "tags": [
+    "self-improvement",
+    "quantization",
+    "evals",
+    "inference"
+   ],
+   "summary": "Claim: a coding agent searching PTQ recipes beats the strongest public recipes by 0.9 to 2.2 points at 64 GPU-hours per search, because each candidate is scored in minutes by KL to the original model on hidden reasoning traces, with long-generation checks for loops and an evaluator kept outside the agent's sandbox.",
+   "file": "entries/qda-agent-designed-quantization.html"
+  },
+  {
+   "id": "R175",
+   "slug": "safe-personal-rsi-update-gate",
+   "title": "Safe Personal RSI: an update gate for a self-improving personal assistant",
+   "by": "arXiv 2611.23651 (CMU, UC San Diego, HKU, McGill, UC Berkeley and others); shared by DAIR.AI",
+   "source": "https://arxiv.org/abs/2611.23651",
+   "published": "2026-11 (paper); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/JJXCC5w5gBXWaMS9FCzTYa",
+   "tags": [
+    "self-improvement",
+    "safety",
+    "evals",
+    "personal-agents"
+   ],
+   "summary": "Claim: a six-step gate (test, replay, undo-to-isolate, repair, decide, keep-current-on-failure) for prompt-only self-improvement rejected 20 of 21 risky updates; one repair cut attack violations from 10.7% to 0%, but a broad handwritten authority rule matched it.",
+   "file": "entries/safe-personal-rsi-update-gate.html"
+  },
+  {
+   "id": "R176",
+   "slug": "nvidia-dynamo-rl-rollouts",
+   "title": "NVIDIA Dynamo for RL rollouts: routing, weight deltas and recovery",
+   "by": "Elmeleegy, Kim and Kranen, NVIDIA Technical Blog, 2026-11-19",
+   "source": "https://developer.nvidia.com/blog/reducing-rollout-bottlenecks-in-reinforcement-learning-with-nvidia-dynamo/",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/JCH8u8vLTjXFhHJB7uyyQV",
+   "tags": [
+    "inference",
+    "reinforcement-learning",
+    "serving",
+    "vendor"
+   ],
+   "summary": "Claim: RL post-training is gated by straggler rollouts, recomputed shared prefixes and weight refresh; Dynamo adds KV-aware routing that balances cache reuse against load, ModelExpress GPU-to-GPU and delta weight transfer, and worker recovery, while the RL framework keeps sample acceptance. Vendor; customer figures without baselines.",
+   "file": "entries/nvidia-dynamo-rl-rollouts.html"
   }
  ],
  "edges": [

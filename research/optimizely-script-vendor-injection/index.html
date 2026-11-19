@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Optimizely injection: a trusted script vendor serving malware to 178 organizations · Research</title>
+<meta name="description" content="A signup-flow flaw let attackers inject JavaScript that Optimizely&#x27;s integration served to 178 organizations&#x27; visitors for ~16 hours: card skimming, wallet swapping, cookie theft. Allowlists, CSP and WAFs passed it because the source was trusted; behaviour monitoring plus field-level restrictions caught it.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R172 · AI-built software and its verification › Security scanning for AI-written code</span>
+  <h1>The Optimizely injection: a trusted script vendor serving malware to 178 organizations</h1>
+  <div class="entry-meta"><span>F5 blog on the 2026-11-16 Optimizely Web Experimentation compromise; shared by Ismael G.</span><span>Published 2026-11-16 (incident); 2026-11-19 (post)</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://www.f5.com/company/blog/how-f5-caught-malicious-javascript-in-the-optimizely-attack" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">security</span><span class="tag">incident-response</span><span class="tag">vendor</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://www.f5.com/company/blog/how-f5-caught-malicious-javascript-in-the-optimizely-attack">How F5 caught malicious JavaScript in the Optimizely attack</a> (F5 blog; Blücher, Ambastha, Sun, Han), shared by Ismael G. on 2026-11-19. Vendor write-up; incident figures attributed to industry research.</p>
+<h2 id="what-happened">What happened</h2>
+<p>On 2026-11-16 attackers exploited a flaw in the account signup flow of Optimizely Web Experimentation and injected JavaScript into customer projects. Optimizely's own integration then delivered that code to visitors of every site using it. Industry research counted 188 infected snippets across 178 organizations, with about 16 hours before cleanup began. The same actor had used at least three other script vendors in the preceding weeks. Optimizely confirmed the incident, fixed the flaw and removed the code.</p>
+<p>The payload (track.js) could swap cryptocurrency wallet addresses, skim payment card fields in the Magecart pattern, collect cookies and page content, and push a second stage to iPhone and iPad users. None of the affected companies' servers were breached.</p>
+<h2 id="why-the-usual-controls-missed-it">Why the usual controls missed it</h2>
+<ul><li><p><strong>Allowlists and Content Security Policy</strong> check where a script comes from. The malicious code came from an already approved source. Only about 15% of affected sites checked had a policy that stopped it.</p></li><li><p><strong>Web application firewalls</strong> inspect traffic to your servers. This code went from the vendor straight to the visitor's browser.</p></li><li><p>The gap: trusting a vendor and monitoring what its code does are separate jobs, and most teams only do the first.</p></li></ul>
+<h2 id="what-worked">What worked</h2>
+<p>Browser-side behaviour monitoring flagged the script on a protected site by what it did: reading sensitive form fields, opening network connections to attacker infrastructure, mutating the page, touching cookies and storage. The customer rejected the script, recorded why, blocked the attacker's domains, and restricted the script's access to payment fields.</p>
+<p>Blocking the domain alone is not enough: code already loaded can keep executing after the destination disappears. Restricting field access keeps the data out of reach even while bad code runs. The two controls cover each other's gaps.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Client-side monitoring</strong> adds a script of its own to every page and a console to staff.</p></li><li><p><strong>Field-level restrictions</strong> can break legitimate vendor features that read forms.</p></li><li><p><strong>Vendor reliance</strong> moves from trusting the script vendor to trusting the monitoring vendor.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p><strong>Approved does not mean safe:</strong> every third-party script can read everything on the page, including checkout.</p></li><li><p><strong>Simultaneous blast radius:</strong> one compromised vendor goes live on all its customers at once, without anyone at those companies changing anything.</p></li><li><p><strong>Learning from the news:</strong> without your own telemetry, "did it touch us" depends on someone else's disclosure.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Inventory third-party scripts on checkout and login pages, and what each one can read.</p></li><li><p>Do you detect script behaviour, not just script source?</p></li><li><p>Can you restrict a script's access to sensitive fields without removing it?</p></li><li><p>If a script vendor were compromised tonight, how would you find out?</p></li><li><p>Do vendor contracts require incident notification with timelines?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R163 Java4Shell: another week-of exposure where the inventory question comes first.</p></li><li><p>R112 Unprompted: agents that leak data with no attacker, F5 Labs' earlier analysis of assumed boundaries.</p></li><li><p>R161 Inside an AI-run AWS intrusion: correlating behaviour rather than trusting a source.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
