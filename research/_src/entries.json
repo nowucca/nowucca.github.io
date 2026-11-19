@@ -90,6 +90,10 @@
       {
        "id": "R164",
        "why": "measuring memory pollution and removing superseded rules during harness self-edits"
+      },
+      {
+       "id": "R166",
+       "why": "nightly wiki memory from mail, chat and meetings; decision rules rewritten from implicit feedback"
       }
      ]
     },
@@ -424,7 +428,9 @@
       "R090",
       "R093",
       "R122",
-      "R146"
+      "R146",
+      "R168",
+      "R169"
      ],
      "also": [
       {
@@ -454,6 +460,10 @@
       {
        "id": "R154",
        "why": "isolation choices for agent code: Firecracker, Kata, gVisor, E2B; tradeoffs in startup latency and KVM needs"
+      },
+      {
+       "id": "R165",
+       "why": "a cloud vendor's agent CLI and skill as the on-ramp to its hosted agent service"
       }
      ]
     },
@@ -470,7 +480,8 @@
       "R116",
       "R148",
       "R153",
-      "R162"
+      "R162",
+      "R166"
      ],
      "also": [
       {
@@ -517,7 +528,8 @@
       "R067",
       "R111",
       "R125",
-      "R149"
+      "R149",
+      "R170"
      ],
      "also": [
       {
@@ -648,6 +660,10 @@
       {
        "id": "R129",
        "why": "all correctness verdicts outside the model in five check classes, including robustness on unshipped shapes and reward-hack detection; the search found hacks on its own"
+      },
+      {
+       "id": "R167",
+       "why": "proof-of-done per task type: real artifact, runtime evidence, before/after baselines"
       }
      ]
     },
@@ -811,7 +827,8 @@
       "R036",
       "R068",
       "R139",
-      "R151"
+      "R151",
+      "R167"
      ],
      "also": [
       {
@@ -871,7 +888,8 @@
       "R054",
       "R092",
       "R103",
-      "R128"
+      "R128",
+      "R165"
      ],
      "also": [
       {
@@ -1212,6 +1230,10 @@
       {
        "id": "R128",
        "why": "scheduled pre-meeting briefs that offer the artifact a deal stage is missing; tasks assigned when a stage gate lacks its document"
+      },
+      {
+       "id": "R169",
+       "why": "handler replay on recovery means side effects must be idempotent; zero-compute human approvals"
       }
      ]
     },
@@ -1255,6 +1277,10 @@
       {
        "id": "R139",
        "why": "deny rules gate the tool call before the classifier; the OS sandbox gates what a running command and its children can read and reach; hooks and MCP servers run outside it"
+      },
+      {
+       "id": "R168",
+       "why": "deny and approval policies enforced at a tool gateway); R169 (egress rules enforced outside the agent's sandbox"
       }
      ]
     },
@@ -4518,6 +4544,118 @@
    ],
    "summary": "Frozen model, self-edited harness; a pre-execution checklist per task, paired regret that ranks newly broken criteria first and pins mastered ones, group-relative scoring of parallel candidate edits, and a gate that promotes only net-positive edits. 80.8% on 43 SDK tasks (+8.89 over start, +6.28 over Meta-Harness, 54.5% fewer tokens); zero procedural memory pollution where aggressive rewriters tripled it.",
    "file": "entries/guard-regret-guided-self-improvement.html"
+  },
+  {
+   "id": "R165",
+   "slug": "foundry-skill-portable-vendor-skill",
+   "title": "Microsoft's Foundry Skill: a vendor ships its platform knowledge to rival coding agents",
+   "by": "Microsoft Foundry Blog, Foundry Dev Pack GA at Ignite, 2026-11-18; analysis by Rick Hightower",
+   "source": "https://devblogs.microsoft.com/foundry/the-foundry-dev-pack-is-here-build-foundry-agents-your-way/",
+   "published": "2026-11-18 (GA); 2026-11-19 (article)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/YcFWRExUW7yvQmrPvcFsFc",
+   "tags": [
+    "agent-skills",
+    "coding-agents",
+    "vendor",
+    "harness-config",
+    "security"
+   ],
+   "summary": "One install brings the azd ai CLI and a Foundry Skill that Microsoft lists for GitHub Copilot, Claude Code, Cursor and other hosts: platform know-how and deterministic CLI workflows as one portable skill. Token savings claimed, not measured; a skill that issues commands runs them on your subscription, so read, pin and scope it.",
+   "file": "entries/foundry-skill-portable-vendor-skill.html"
+  },
+  {
+   "id": "R166",
+   "slug": "linger-polystrata-tiered-moe-experts",
+   "title": "Linger and PolyStrata: a local personal agent on MoE experts tiered across GPU, RAM and SSD",
+   "by": "simplexai-labs/linger and PolyStrata (Apache-based custom license); shared by Charly Wargnier",
+   "source": "https://github.com/simplexai-labs/linger",
+   "published": "2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/7jkJjsRZP5HGzdYzzcPiUU",
+   "tags": [
+    "inference",
+    "open-models",
+    "open-source",
+    "agent-memory"
+   ],
+   "summary": "PolyStrata keeps hot MoE experts on the GPU, warm ones in RAM, cold ones on SSD, promoting on use; claims a 125B 2-bit MoE at ~45 tok/s on a 12 GB RTX 3060 with 64 GB RAM. Linger adds nightly wiki memory, approval-gated proactive actions and nightly rule rewriting from user reactions. Many speeds are from simulated tiers; cloud-model parity claims are marketing-grade.",
+   "file": "entries/linger-polystrata-tiered-moe-experts.html"
+  },
+  {
+   "id": "R167",
+   "slug": "pstack-rigor-playbooks-for-coding-agents",
+   "title": "pstack: a Cursor engineer's rigor playbooks for coding agents",
+   "by": "Lauren Tan, pstack in cursor/plugins (MIT); shared by André Lindenberg",
+   "source": "https://github.com/cursor/plugins/tree/main/pstack",
+   "published": "2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/8zN8iURYCz73eXYupP7qrF",
+   "tags": [
+    "agent-skills",
+    "coding-agents",
+    "harness-config",
+    "open-source",
+    "code-review"
+   ],
+   "summary": "One entry skill routes each task to one of 22 playbooks with verbatim steps; rules reject 'it compiles' or a self-report as proof, require citing the principles that shaped each decision, and push bulk work to subagents. Adversarial multi-model review, a committed decision log, and deliberately no planning skill ('the best spec is code').",
+   "file": "entries/pstack-rigor-playbooks-for-coding-agents.html"
+  },
+  {
+   "id": "R168",
+   "slug": "langsmith-tool-gateway",
+   "title": "LangSmith Tool Gateway: identity, access and audit for every agent tool call",
+   "by": "LangChain blog, Karthic Subramanian, 2026-11-19 (public beta)",
+   "source": "https://www.langchain.com/blog/langsmith-tool-gateway",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/UR1KuAf6ZPkpQZAWJULG7y",
+   "tags": [
+    "mcp",
+    "security",
+    "human-oversight",
+    "vendor",
+    "agents-at-scale"
+   ],
+   "summary": "One URL in front of all MCP tools: curated tool kits per agent, search mode for large kits, per-call identity as the user (IdP, connect once, sign-in link mid-run) or as the agent (shared profile), deny and approval policies, and call metadata in the agent trace without payloads.",
+   "file": "entries/langsmith-tool-gateway.html"
+  },
+  {
+   "id": "R169",
+   "slug": "microsoft-agent-365-external-agents",
+   "title": "Microsoft Agent 365: identities and traces for agents Microsoft doesn't host",
+   "by": "Microsoft Agent 365 and Azure Monitor Ignite 2026 posts; analysis by Rick Hightower",
+   "source": "https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-microsoft-agent-365-ignite-2026/4571753",
+   "published": "2026-11-18 (Ignite); 2026-11-19 (article)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/5mU1rJhKjDLsEfpkdkWVp3",
+   "tags": [
+    "agents-at-scale",
+    "security",
+    "observability",
+    "vendor",
+    "human-oversight"
+   ],
+   "summary": "Entra Agent IDs for agents on eleven other platforms (preview, December), GA cross-cloud agent observability on OpenTelemetry GenAI conventions, and Foundry runtime controls outside the agent: egress allow/deny with audit mode, replaying handlers that need idempotent side effects, toolboxes holding downstream auth. Some items announcement-only; check status lines.",
+   "file": "entries/microsoft-agent-365-external-agents.html"
+  },
+  {
+   "id": "R170",
+   "slug": "tabpfn-4-tabular-foundation-model",
+   "title": "TabPFN-4: a tabular foundation model that scales in-context prediction to 10 million rows",
+   "by": "Prior Labs technical report preview, 2026-11-19; announced by Frank Hutter",
+   "source": "https://priorlabs.ai/technical-reports/tabpfn-4-preview",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/Gera9vvh98HWD3V5Pn3UQR",
+   "tags": [
+    "open-models",
+    "benchmarks",
+    "inference",
+    "vendor"
+   ],
+   "summary": "Sub-quadratic in-context architecture: 10M x 500 table in 38 min on one GPU versus extrapolated 65 h for its predecessor; ~300 Elo ahead of tuned baselines on 100k+ row tables; biggest gains on temporal and grouped data; trails one baseline on TabArena raw Elo. Vendor benchmarks, not yet released.",
+   "file": "entries/tabpfn-4-tabular-foundation-model.html"
   }
  ],
  "edges": [

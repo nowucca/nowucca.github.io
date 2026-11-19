@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LangSmith Tool Gateway: identity, access and audit for every agent tool call · Research</title>
+<meta name="description" content="One URL in front of all MCP tools: curated tool kits per agent, search mode for large kits, per-call identity as the user (IdP, connect once, sign-in link mid-run) or as the agent (shared profile), deny and approval policies, and call metadata in the agent trace without payloads.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R168 · Infrastructure for agents at scale › Agent session hosting and control planes</span>
+  <h1>LangSmith Tool Gateway: identity, access and audit for every agent tool call</h1>
+  <div class="entry-meta"><span>LangChain blog, Karthic Subramanian, 2026-11-19 (public beta)</span><span>Published 2026-11-19</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://www.langchain.com/blog/langsmith-tool-gateway" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">mcp</span><span class="tag">security</span><span class="tag">human-oversight</span><span class="tag">vendor</span><span class="tag">agents-at-scale</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://www.langchain.com/blog/langsmith-tool-gateway">LangSmith Tool Gateway: Secure, governed tool use for agents</a> (LangChain blog, Karthic Subramanian, 2026-11-19). Public beta.</p>
+<h2 id="the-problem-it-targets">The problem it targets</h2>
+<p>Agents are moving from chat to scheduled and event-triggered work, running long tasks without a person checking each step. Tool use then becomes a governance problem with three parts: which tools an agent may call and with whose credentials (access), what each user may do with it and when a human must approve (control), and a record of what was called as whom (visibility).</p>
+<p>The usual shortcut is to hard-code all three per agent: an OAuth flow per provider, tokens stored next to the agent, routing added for each new tool. The post's customer example shows why that breaks: a retailer with 50+ MCP servers exposing over a thousand tools, a store assistant acting with each associate's credentials, and a 3 a.m. inventory agent acting with its own. Handing either agent a whole tool server leaves no deterministic check against the wrong credential or an unapproved tool, and no audit trail.</p>
+<h2 id="architecture">Architecture</h2>
+<p>Agents, coding agents and backends call one URL. For each call the gateway resolves identity, applies access and policy, and logs a trace.</p>
+<ul><li><p><strong>Register once.</strong> Add any MCP server by URL, or enable a built-in hosted server (Google, Microsoft, Salesforce, GitHub, Linear and others; some use LangSmith-managed OAuth, some an API key).</p></li><li><p><strong>Tool kits.</strong> A curated subset of tools published at its own URL, shared to a workspace or kept personal. An agent connected to a kit sees only that kit's tools.</p></li><li><p><strong>Search mode.</strong> For large kits the agent queries the kit and loads only relevant tool definitions, instead of every definition up front.</p></li><li><p><strong>Two identities per call.</strong> <em>As the user</em>: the identity provider (Okta, Entra ID) identifies them, they connect an account once, and later calls use their access; if not yet connected, the call returns a sign-in link and resumes after auth. <em>As the agent</em>: agent auth or a shared-credential profile an admin connects once, for background agents.</p></li><li><p><strong>Policies.</strong> Deny rules by user, service key or combination, at org or workspace level, with exceptions. Approval rules require the user to confirm a sensitive call (for example a data-warehouse write) in their MCP client before it runs.</p></li><li><p><strong>Visibility.</strong> Each call's tool, server, user, outcome and duration is recorded inside the agent's own trace; call payloads are not stored. Enterprise plans add an audit log of which tool ran as whom.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Central choke point.</strong> One gateway makes policy consistent and auditable, and also becomes a dependency on every tool call: latency, availability and blast radius all concentrate there.</p></li><li><p><strong>Managed OAuth</strong> removes per-provider plumbing but places long-lived user grants with a third party.</p></li><li><p><strong>Payloads not stored</strong> protects sensitive data but limits forensics to metadata.</p></li><li><p><strong>Kit scoping</strong> is only as good as the kit design; a broad kit recreates the original problem.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p><strong>Shared profiles</strong> for background agents drift toward over-privileged service accounts.</p></li><li><p><strong>Approval fatigue</strong> if too many tools require confirmation; users start approving blindly.</p></li><li><p><strong>Sign-in links returned mid-run</strong> can stall unattended agents or invite phishing-style prompts if links are surfaced carelessly.</p></li><li><p><strong>Search mode</strong> can hide a needed tool or surface a risky one, depending on the query.</p></li><li><p><strong>Beta status:</strong> behaviour and limits may change.</p></li></ul>
+<h2 id="review-checklist-for-a-tool-gateway">Review checklist for a tool gateway</h2>
+<ul><li><p>Does each agent see a minimal kit, not a whole server?</p></li><li><p>Is every call attributed to a specific human or a named agent identity?</p></li><li><p>Which writes require approval, and is the approval recorded?</p></li><li><p>Can you answer "what did this agent call at 3 a.m., as whom" from one record?</p></li><li><p>What happens to agents when the gateway is down?</p></li><li><p>How are shared credentials rotated and scoped?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R062 MCP authorization: OAuth 2.1 for remote tool servers, the protocol layer under a gateway like this.</p></li><li><p>R141 Auto-approving agent PRs: policy-gated approval as a server-side control.</p></li><li><p>R112 Unprompted: agents that leak data with no attacker, the failure class scoped credentials are meant to prevent.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

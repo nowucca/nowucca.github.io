@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TabPFN-4: a tabular foundation model that scales in-context prediction to 10 million rows · Research</title>
+<meta name="description" content="Sub-quadratic in-context architecture: 10M x 500 table in 38 min on one GPU versus extrapolated 65 h for its predecessor; ~300 Elo ahead of tuned baselines on 100k+ row tables; biggest gains on temporal and grouped data; trails one baseline on TabArena raw Elo. Vendor benchmarks, not yet released.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R170 · Infrastructure for agents at scale › Frontier model releases</span>
+  <h1>TabPFN-4: a tabular foundation model that scales in-context prediction to 10 million rows</h1>
+  <div class="entry-meta"><span>Prior Labs technical report preview, 2026-11-19; announced by Frank Hutter</span><span>Published 2026-11-19</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://priorlabs.ai/technical-reports/tabpfn-4-preview" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">open-models</span><span class="tag">benchmarks</span><span class="tag">inference</span><span class="tag">vendor</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> <a href="https://priorlabs.ai/technical-reports/tabpfn-4-preview">TabPFN-4: The next step for predictive intelligence</a> (Prior Labs technical report preview, 2026-11-19); announcement by Frank Hutter, Prior Labs co-founder. Model announced as finished training; availability via waitlist.</p>
+<h2 id="what-a-tabular-foundation-model-does">What a tabular foundation model does</h2>
+<p>Instead of training a model per dataset, a tabular foundation model is pretrained once and predicts by attending over the whole training table in context, in a single forward pass. That is why it needs no tuning, and also why it was hard to scale: attention over rows grows quadratically. The previous generation (TabPFN v2, published in Nature) was limited to about 10,000 rows.</p>
+<h2 id="what-changed">What changed</h2>
+<p>TabPFN-4 uses a new sub-quadratic architecture. The report's scaling claim: a 10 million row by 500 column table predicted in 38 minutes on a single RTX PRO 6000, against extrapolated estimates of about 65 hours for TabPFN-3.5 and 127 hours for Kumo-Tabular L (which ran out of GPU memory above 262k rows). Speed-ups grow with table size.</p>
+<h2 id="reported-results-elo-higher-is-better">Reported results (Elo; higher is better)</h2>
+<div class="table-scroll"><table><thead><tr><th>Benchmark</th><th>TabPFN-4</th><th>Best other</th><th>Note</th></tr></thead><tbody><tr><td>BeyondArena</td><td>1,521</td><td>1,427 (Kumo-Tabular)</td><td></td></tr><tr><td>BeyondArena, tables over 100k rows</td><td>1,560</td><td>1,268 (RealMLP)</td><td>largest gap, about 300 Elo</td></tr><tr><td>TabArena</td><td>1,984</td><td>1,994 (LimiX-2)</td><td>not first on raw Elo; leads on accuracy-for-speed</td></tr><tr><td>RelArena-α (relational)</td><td>2,055</td><td>1,914 (TabPFN-Rel API 3.5)</td><td>swapped into an existing harness</td></tr><tr><td>TabBench-Bio (high-dimensional)</td><td>1,270</td><td>1,210</td><td></td></tr><tr><td>MulTaBench text / image</td><td>1,843 / 1,874</td><td>1,813 / 1,856</td><td>a "Plus" variant with built-in text handling scores higher</td></tr></tbody></table></div>
+<p>Gains are largest on temporal and grouped data, where rows are not independent draws; classical models handle that only through feature engineering. On 38 historical Kaggle competitions with default settings, it would have tied or beaten the original winner in 14, including 7 of 13 prize-money competitions.</p>
+<h2 id="how-to-read-the-claims">How to read the claims</h2>
+<ul><li><p><strong>Vendor report on vendor-chosen benchmarks,</strong> several of them recent; independent replication is not yet available.</p></li><li><p><strong>"Moves the Pareto frontier"</strong> means accuracy versus inference time, not top Elo everywhere: on TabArena it trails one baseline on raw score.</p></li><li><p><strong>Extrapolated baselines.</strong> The 65 h and 127 h figures are extrapolations, not measurements.</p></li><li><p><strong>Kaggle comparisons</strong> are retrospective against private leaderboards, without the time pressure or leakage dynamics of live competitions.</p></li><li><p><strong>Not yet available,</strong> so latency, cost and licensing terms for production use are unknown.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>No-tuning baseline vs. control.</strong> A single forward pass replaces feature engineering and hyperparameter search, at the cost of interpretability and a large GPU at inference.</p></li><li><p><strong>Inference-heavy.</strong> Every prediction re-reads the training table; cost moves from training time to prediction time.</p></li><li><p><strong>Data residency.</strong> An API default means sending tables to a provider unless a local option exists.</p></li></ul>
+<h2 id="review-checklist-before-adopting">Review checklist before adopting</h2>
+<ul><li><p>Benchmark against your tuned gradient-boosting baseline on your own temporal splits.</p></li><li><p>Measure prediction latency and GPU cost at your table size, not the report's.</p></li><li><p>Check behaviour under distribution shift and with grouped entities.</p></li><li><p>Confirm licensing and whether a local deployment exists for sensitive data.</p></li><li><p>Keep a simple baseline in production for comparison and fallback.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>No closely related entries yet; this is the index's first tabular-model entry.</p>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
