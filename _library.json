@@ -166,6 +166,24 @@
       "external": true,
       "href": "/speeches/",
       "updated": "2026-11-17"
+    },
+    "getaways": {
+      "title": "Getaways",
+      "lede": "Weekend and overnight trips from Austin, checked against real availability.",
+      "items": [
+        {
+          "slug": "dec-19-couples-getaway",
+          "title": "Couples getaway near Austin — Dec 19, 2026",
+          "summary": "11 Hill Country stays ranked: one-night bookings first, then by amenities. Photos, prices, minimum stays, links.",
+          "date": "2026-11-18",
+          "tags": [
+            "austin",
+            "hill country",
+            "cabins",
+            "hot tub"
+          ]
+        }
+      ]
     }
   }
 }
