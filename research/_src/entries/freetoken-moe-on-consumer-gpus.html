@@ -1,0 +1,33 @@
+<p>Sources: FreeToken: Efficient Edge-Native MoE Serving with Bandwidth-Adaptive Execution (Yang, Fan, Pan, Xi, Wang, Sun, Keutzer, Han, Zaharia, Xu, Stoica; arXiv 2608.16157, August 2026) and the FlashML-org/FreeToken repository (Apache 2.0), as shared by Pallavi Ahuja on LinkedIn, 2026-11-19. Numbers are the authors'.</p>
+<h2 id="the-claim">The claim</h2>
+<p>A Mixture-of-Experts model routes each token through only k of E experts per layer, so one decode step touches a small fraction of the weights. FreeToken treats a personal machine (GPU, CPU, host RAM, PCIe) as one elastic inference platform and schedules expert weights and agent state across it at runtime, instead of committing to a fixed offloading split. The result is that serving a large open-weight model locally becomes a memory-management and scheduling problem rather than a question of whether every weight fits in VRAM.</p>
+<p>Reported results, against llama.cpp, Ollama, KTransformers and MoE-Infinity on six machines (8 GB RTX 4060 laptop to a single RTX PRO 6000) with four real agentic workloads:</p>
+<ul><li><p>RTX 5090: 77 to 83 tok/s on Qwen3.6-35B-A3B and 22 to 25 tok/s on DeepSeek-V4-Flash, 1.5 to 2.3x the decode throughput of the best edge baseline.</p></li><li><p>Decode rate stays within 12% of single-turn as workloads become more agentic; baselines degrade substantially.</p></li><li><p>Worst-case time to first token under 44 s on every workload; each baseline exceeds 150 s somewhere, long enough to time out real agent clients.</p></li><li><p>8 GB laptop GPU: a 35B model at 39.3 tok/s, above the 33 tok/s median decode speed the authors cite for a production coding agent.</p></li><li><p>32 GB gaming desktop: a 284B model interactively. Single workstation GPU: the 753B GLM-5.2 at twice llama.cpp's throughput.</p></li></ul>
+<h2 id="architecture">Architecture</h2>
+<pre><code class="language-text">                 agent client (Anthropic/OpenAI-compatible API)
+                                  |
+        +-------------------------+--------------------------+
+        |  semantic-aware cache: recurrent-state / KV        |
+        |  checkpoints anchored at thinking / tool-call /    |
+        |  turn boundaries -&gt; harness edits reuse, not redo  |
+        +-------------------------+--------------------------+
+                                  |
+  PREFILL: double-buffered          |        DECODE: per-step cache misses
+  layer streaming (next layer's     |        split by q* policy between
+  experts cross PCIe while the GPU  |        (a) fill GPU expert cache over PCIe
+  computes the current layer)       |        (b) run expert directly on CPU
+                                  |
+        shared LRU expert cache in VRAM (inter-token routing locality)
+                                  |
+        elastic memory manager: at scheduler safe points, move VRAM
+        between expert cache and KV memory without restart or reload</code></pre>
+<p>The key observation in decode is that PCIe transfer and direct CPU expert execution both draw on the same host-memory bandwidth, so the policy that splits misses between them has to be tuned to the bandwidth the specific machine sustains. The custom FTW weight format and graph-compatible execution keep the fast path compilable.</p>
+<p>The semantic-anchor idea is the most agent-specific part. Harnesses routinely rewrite context at predictable boundaries: stripping old thinking blocks, replacing tool outputs, truncating turns. Checkpointing state at exactly those token boundaries means an edited context resumes from the nearest anchor instead of recomputing from the start, which matters most for hybrid models with recurrent state where prefix caching alone does not help.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Adaptivity vs predictability.</strong> A runtime that remaps work as conditions change gives better averages but makes per-request latency harder to reason about than a static split; the paper's tail-latency numbers are the reassurance, and they should be re-measured on your hardware.</p></li><li><p><strong>Host bandwidth is the real budget.</strong> Gains depend on PCIe generation and RAM bandwidth as much as on the GPU. A fast GPU in a bandwidth-starved desktop will not reproduce the headline figures.</p></li><li><p><strong>Custom weight format.</strong> FTW speeds loading but adds a conversion step and a format-specific failure surface (the repo already carries checkpoint repair and diagnosis docs).</p></li><li><p><strong>Breadth vs depth.</strong> More than 20 MoE models and several quantization formats (MXFP4, NVFP4, FP8, BF16, GGUF) is wide coverage for a young engine; expect per-model rough edges compared with llama.cpp's maturity.</p></li><li><p><strong>NVIDIA-first.</strong> Native support is RTX 30/40/50; Apple silicon and AMD are not in scope today.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p>Routing locality collapses on workloads that hop topics or languages, raising LRU miss rates and pushing decode onto the CPU path.</p></li><li><p>Memory contention with the rest of the desktop (browser, IDE, games) shifts the bandwidth the policy was tuned for.</p></li><li><p>Anchor reuse that is wrong: if a harness edits context somewhere other than the boundaries the engine expects, the cache must detect it and fall back, or outputs drift.</p></li><li><p>Timeouts in agent clients during long cold prefills on very large models, even when steady-state decode is fine.</p></li><li><p>Quantization-format mismatches between the model card and what the engine actually loads.</p></li></ul>
+<h2 id="review-checklist-before-adopting-for-local-agents">Review checklist before adopting for local agents</h2>
+<ul><li><p>Benchmark on your exact machine with your harness's real traces, including multi-turn tool use, not single prompts.</p></li><li><p>Record decode tok/s, worst-case TTFT and LRU hit rate together; any one alone misleads.</p></li><li><p>Check the harness's context-editing behaviour against the engine's anchor boundaries.</p></li><li><p>Keep llama.cpp or Ollama as a fallback path and compare output quality at the same quantization.</p></li><li><p>Pin engine and FTW checkpoint versions together.</p></li><li><p>Confirm the API compatibility layer covers the tool-calling features your client uses.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R118 Prefix caching for coding agents: what the harness and the engine must each get right.</p></li><li><p>R072 llama.cpp 1.0: a semver promise for local inference.</p></li><li><p>R067 Inkling 2 Small: an open-weight 594B MoE built for agent loops.</p></li><li><p>R148 Nemotron-Labs-Sigma.</p></li></ul>

@@ -279,6 +279,10 @@
       {
        "id": "R147",
        "why": "the memory hierarchy as a cost map: injected context is paid every call and must stay small and stable; notes and transcripts are paid only when retrieved"
+      },
+      {
+       "id": "R153",
+       "why": "engine-side state checkpoints anchored at thinking, tool-call and turn boundaries, so harness context edits reuse recurrent/KV state instead of recomputing"
       }
      ]
     },
@@ -426,7 +430,8 @@
       "R096",
       "R115",
       "R116",
-      "R148"
+      "R148",
+      "R153"
      ],
      "also": [
       {
@@ -4202,6 +4207,25 @@
    ],
    "summary": "286 published reports since 2023 graded Confirmed 145 / Strong 109 / Suspected 32 (graders agreed blind on 71.7%); reports of AI running attack steps itself rose 0/27 (2024), 13/80 (2025), 78/174 (2026). 21% first disclosed by the model's maker; closed models named 108 vs open-weight 23 (a provider-visibility artifact); ~70% single-source. Counts reports, not attacks. Engineering takeaways: agent-driven secret hunting in public repos, AI-provider keys as crown jewels, detection tuned to machine pace. JSON/CSV downloadable.",
    "file": "entries/ai-hacking-incidents-ledger.html"
+  },
+  {
+   "id": "R153",
+   "slug": "freetoken-moe-on-consumer-gpus",
+   "title": "FreeToken: serving frontier MoE models on consumer GPUs",
+   "by": "Yang et al. with Keutzer, Han, Zaharia, Stoica, arXiv 2608.16157, and the FlashML-org/FreeToken repo, shared by Pallavi Ahuja",
+   "source": "https://arxiv.org/abs/2608.16157",
+   "published": "2026-08-17 (paper); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/LWMRn7K91LTLFaTbqGtGKh",
+   "tags": [
+    "inference",
+    "open-models",
+    "prompt-caching",
+    "benchmarks",
+    "inference-cost"
+   ],
+   "summary": "Edge-native MoE engine that treats GPU, CPU, host RAM and PCIe as one pool: double-buffered layer streaming in prefill, a q* policy splitting decode cache misses between GPU cache fill and direct CPU execution by measured host bandwidth, shared LRU expert cache, VRAM moved between experts and KV at runtime, and state checkpoints anchored at thinking/tool-call boundaries so harness context edits resume instead of recompute. Reported: 1.5-2.3x decode over llama.cpp/Ollama/KTransformers on an RTX 5090, worst TTFT under 44 s vs 150 s+ baselines, 35B at 39 tok/s on an 8 GB laptop, 284B on a gaming desktop, 753B GLM-5.2 on one workstation GPU.",
+   "file": "entries/freetoken-moe-on-consumer-gpus.html"
   }
  ],
  "edges": [
