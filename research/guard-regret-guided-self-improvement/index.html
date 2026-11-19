@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GUARD: self-improving harnesses that only keep edits that don&#x27;t break things · Research</title>
+<meta name="description" content="Frozen model, self-edited harness; a pre-execution checklist per task, paired regret that ranks newly broken criteria first and pins mastered ones, group-relative scoring of parallel candidate edits, and a gate that promotes only net-positive edits. 80.8% on 43 SDK tasks (+8.89 over start, +6.28 over Meta-Harness, 54.5% fewer tokens); zero procedural memory pollution where aggressive rewriters tripled it.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R164 · Agent architecture › Self-improvement and learning loops</span>
+  <h1>GUARD: self-improving harnesses that only keep edits that don&#x27;t break things</h1>
+  <div class="entry-meta"><span>Zhang, Kang et al., Google Cloud, arXiv 2611.23476, 2026-11-17; shared by Elvis Saravia</span><span>Published 2026-11-17 (paper); 2026-11-19 (post)</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://arxiv.org/abs/2611.23476" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-harness</span><span class="tag">agent-memory</span><span class="tag">evals</span><span class="tag">benchmarks</span><span class="tag">harness-config</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Zhang, Kang, Ming, Chen, Yu, Zhuang and Lee (Google Cloud), <a href="https://arxiv.org/abs/2611.23476">GUARD: Stabilizing Recursive Self-Improvement with Regret Guidance</a>, arXiv 2611.23476, 2026-11-17. Surfaced by Elvis Saravia on 2026-11-19.</p>
+<h2 id="the-problem">The problem</h2>
+<p>An agent is a frozen model plus an editable harness: prompts, skills, tool rules and memory. Recursive self-improvement (RSI) lets the agent rewrite that harness from experience, with no weight updates. Without an external grader this tends to backfire in three ways:</p>
+<ul><li><p><strong>Local overfitting.</strong> An edit fixes the failure in front of it and quietly breaks something else.</p></li><li><p><strong>Forgetting.</strong> Rules the agent had mastered get rewritten away.</p></li><li><p><strong>Memory pollution.</strong> Stale or superseded clauses pile up, or aggressive rewriting adds wrong ones.</p></li></ul>
+<p>The root cause, per the authors, is that reflection and a single scalar score mix up two different things: what an edit <em>newly broke</em> and what was <em>never solved</em>. GUARD separates them.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>During adaptation GUARD runs a four-stage loop. At test time the loop is switched off and one frozen harness runs each task in a single pass.</p>
+<ol><li><p><strong>Self-review via a pre-execution checklist.</strong> Before the solver acts, a reviewer reads only the task prompt, tool declarations and schema, and writes a fixed checklist of atomic yes/no predicates. Two classes: execution-verifiable ones (clean sandbox run, valid IDs and columns, idempotent mutations), checked deterministically on a throwaway sandbox copy; and semantic ones (every constraint, recipient, format and safety rule honoured, no superseded rules applied), graded one by one from the prompt, output and tool trace. Writing the checklist up front exploits the gap between generating a long answer and verifying one small claim.</p></li><li><p><strong>Analyze: paired regret.</strong> Compare the two most recent incumbent harnesses on the same tasks. Criteria that went from passing to failing are "hurt" and ranked first; criteria the agent already handles are pinned so later edits cannot drop them.</p></li><li><p><strong>Propose: group-relative candidates.</strong> Generate several candidate edits in parallel and score them on the same tasks, standardizing within the group (the GRPO idea, without a learned critic), so batch difficulty cancels out. The best and worst candidates are contrasted to steer the next proposal.</p></li><li><p><strong>Gate: Soft-HURT.</strong> Promote an edit only when its gains outweigh its regressions beyond a noise floor, scoping specialized fixes so they don't over-trigger. The authors prove non-regression on the gated buffer for their self-review objective.</p></li></ol>
+<h2 id="results-reported">Results reported</h2>
+<ul><li><p>On 43 hosted SDK tasks: 80.8% accuracy, 8.89 points above the starting harness (p = 0.008), 6.28 points above Meta-Harness, with 54.5% fewer tokens per task.</p></li><li><p>On a cross-session memory benchmark, unscoped accumulators kept stale clauses on updates, and aggressive rewriters matched GUARD's update correctness (about 0.90) while tripling pollution. GUARD led procedural update correctness at 90.1% with zero procedural pollution.</p></li><li><p>Under hidden drift in continual task streams, pass@1 rose monotonically with no forgetting after each block.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Adaptation cost moves offline.</strong> Parallel candidates, replicates and two-layer grading make each improvement round expensive; the token saving is at deployment, from a tighter frozen harness.</p></li><li><p><strong>Guarantees are relative to the checklist.</strong> Non-regression is proven against the self-review objective, not ground truth. A checklist that misses a requirement cannot protect it.</p></li><li><p><strong>Frozen at test time.</strong> Good for predictability and audit; the harness only improves in explicit adaptation phases.</p></li><li><p><strong>Needs a sandbox.</strong> Layer-1 execution checks assume you can replay tool calls safely on a copy of state.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p><strong>Checklist blind spots.</strong> If the reviewer derives the wrong predicates, the whole loop optimizes toward them confidently.</p></li><li><p><strong>Grader drift.</strong> Layer-2 semantic grading is an LLM judge; an unparseable verdict counts as failed, which is conservative but can stall promotion.</p></li><li><p><strong>Pinning stale rules.</strong> Pinned criteria protect mastered behaviour, but if requirements change, pins need an explicit retirement path.</p></li><li><p><strong>Benchmark scope.</strong> Results are on SDK tool tasks, memory write paths and domain reasoning; long open-ended software tasks are not tested.</p></li></ul>
+<h2 id="review-checklist-for-self-improving-harnesses">Review checklist for self-improving harnesses</h2>
+<ul><li><p>Do you score what an edit broke separately from what it fixed?</p></li><li><p>Are mastered behaviours pinned so edits cannot silently remove them?</p></li><li><p>Is each candidate edit compared against others on the same task batch?</p></li><li><p>Is there a promotion gate with a noise floor, and does it log rejected edits?</p></li><li><p>Can memory updates remove superseded rules, and do you measure pollution, not just accuracy?</p></li><li><p>Is the harness frozen in production, with improvement confined to explicit rounds?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R121 Harness²: self-improving harnesses without a ground-truth verifier.</p></li><li><p>R108 OO-Harness: another Google Cloud challenger to Meta-Harness, evolving a class hierarchy of harnesses.</p></li><li><p>R080 AWS Emulator: grading a replica against the real service, a different way to get an external check.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

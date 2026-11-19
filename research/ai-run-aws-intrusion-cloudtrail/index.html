@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inside an AI-run AWS intrusion: 56 API calls in 141 ms and 78 alerts nobody escalated · Research</title>
+<meta name="description" content="A CyberStrikeAI-driven intrusion across 8 identities in 4 AWS accounts, Sep 30 to Oct 16, 2026: machine-speed enumeration (56 userData calls in 141 ms), SSM parameter read then SendCommand 29 s later, and 78 medium/low alerts across 6 rules that were only linkable by source IP. Lesson: per-alert severity misses agent-speed campaigns; correlate on tempo and shared infrastructure.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R161 · AI&#x27;s effect on people › AI incidents and policy response</span>
+  <h1>Inside an AI-run AWS intrusion: 56 API calls in 141 ms and 78 alerts nobody escalated</h1>
+  <div class="entry-meta"><span>Boussaden, Porras Blanch and DeJesus, Elastic Security Labs, 13 Nov 2026</span><span>Published 2026-11-13 (article); 2026-11-19 (post)</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://www.elastic.co/security-labs/threat-command/cyberstrikeai-aws-cloudtrail-intrusion" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">security</span><span class="tag">incident-response</span><span class="tag">agents-at-scale</span><span class="tag">observability</span><span class="tag">vendor</span></div>
+</header>
+<article class="article"><p>Sources: Elastic Security Labs, "56 AWS API calls in 141 milliseconds: Inside an AI-run intrusion" (Bousseaden, Porras Blanch and DeJesus, 13 Nov 2026), shared by Elastic on LinkedIn, 2026-11-19.</p>
+<h2 id="what-happened">What happened</h2>
+<p>Between 30 September and 16 October 2026, one server running the CyberStrikeAI attack interface used stolen credentials for eight AWS identities in four accounts. Five were IAM users and three were EC2 instance roles. The researchers attributed the IP from internet-scan data: the server presented a self-signed "CyberStrikeAI" certificate on port 8080 a day before the first alert. Two sibling IPs share the same certificate.</p>
+<p>The phases, from CloudTrail:</p>
+<pre><code class="language-text">Sep 30   validate stolen keys          GetCallerIdentity / GetSessionToken
+         harvest secrets               Secrets Manager reads
+         harvest EC2 user data         56 DescribeInstanceAttribute(userData) calls in 141 ms
+Oct 2    read encrypted SSM parameter  -&gt; SSM SendCommand 29 s later
+         (CloudTrail shows neither the command nor whether it succeeded)
+...      14 quiet days, sporadic reuse
+Oct 16   last activity</code></pre>
+<p>It produced 78 alerts, 65 of them on day one, across six detection rules that between them covered every phase. Every alert was medium or low severity, and each looked routine alone: a first-time GetCallerIdentity, a GetSessionToken, a SendCommand from a rare user. Only correlating by shared source IP showed one intrusion.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<ul><li><p><strong>Machine speed is the tell.</strong> Fifty-six user-data reads in 141 milliseconds is not a human with a console. AI-driven tooling pursues objectives and enumerates everything it can, so it is noisy, but the noise is spread across many low-severity signals.</p></li><li><p><strong>Severity-based triage fails.</strong> If the SOC escalates only high-severity alerts, this intrusion never surfaces. The fix is correlation, not more rules.</p></li><li><p><strong>Credentials are the entry, user data is the prize.</strong> Secrets left in EC2 user data and readable SSM parameters turned one stolen role into lateral movement.</p></li><li><p><strong>Audit gaps.</strong> CloudTrail records that SendCommand ran but not what it ran, so SSM command history has to be checked separately.</p></li></ul>
+<h2 id="detection-lessons-from-the-write-up">Detection lessons from the write-up</h2>
+<ul><li><p>Add high-signal, low-false-positive behaviour rules that justify acting at once. Two examples are bulk EC2 user-data enumeration, and three or more distinct non-role identities calling GetCallerIdentity from one external IP and ASN within 10 minutes.</p></li><li><p>Correlate medium and low alerts by source IP and ASN, with flexible matching, since attackers rotate within a range.</p></li><li><p>Automate containment of compromised IAM identities once a high-signal rule fires.</p></li></ul>
+<h2 id="response-checklist-from-the-write-up-condensed">Response checklist (from the write-up, condensed)</h2>
+<ul><li><p>Assume anything an affected role could read is compromised, and work outward from the credentials.</p></li><li><p>Rotate every identity that touched the indicator IPs and revoke active sessions, including temporary credentials.</p></li><li><p>For instance roles, replace the instance profile or the instance. Stolen role credentials expire, but a compromised host can reissue them.</p></li><li><p>Treat all secrets in EC2 user data as exposed and move them to Secrets Manager or Parameter Store.</p></li><li><p>Review SSM command history for any unexpected SendCommand, including abuse of the AWS-RunShellScript and AWS-RunPowerShellScript documents.</p></li><li><p>Restrict <code>ec2:DescribeInstanceAttribute</code> for userData to the roles that need it, through IAM or a service control policy.</p></li><li><p>Enable GuardDuty and alert on credentials used from outside expected IP ranges.</p></li><li><p>Hunt for how the credentials leaked: exposed web apps, SSRF, code repositories, IMDS.</p></li></ul>
+<h2 id="tradeoffs-and-caveats">Tradeoffs and caveats</h2>
+<ul><li><p><strong>One vendor's telemetry.</strong> The analysis is from Elastic's own detections and shows its product's workflows. The lessons generalise to any SIEM, but the rule names are Elastic's.</p></li><li><p><strong>Attribution is infrastructure-level.</strong> The link to CyberStrikeAI rests on certificate and page-title matches. That is strong for linking the servers, but it says less about who operated them.</p></li><li><p><strong>Unknown outcome.</strong> The SendCommand payload and result are not in the logs, so the full impact is unknown.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R152 AI Hacking Incidents: a graded ledger of AI-assisted cyberattacks.</p></li><li><p>R112 Unprompted: agents that leak data with no attacker.</p></li><li><p>R073 Twelve open-source repos for securing AI-written code.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

@@ -86,6 +86,10 @@
       {
        "id": "R158",
        "why": "procedural memory mined from cross-harness session traces, approved by a human, and shipped as Agent Skills; recall through MCP"
+      },
+      {
+       "id": "R164",
+       "why": "measuring memory pollution and removing superseded rules during harness self-edits"
       }
      ]
     },
@@ -108,7 +112,8 @@
       "R150",
       "R155",
       "R157",
-      "R158"
+      "R158",
+      "R164"
      ],
      "also": [
       {
@@ -383,6 +388,10 @@
       {
        "id": "R105",
        "why": "survey data: review now exceeds writing for most teams; AI-specific merge gates are rare"
+      },
+      {
+       "id": "R163",
+       "why": "CI runners and build agents as Java4Shell exposure; per-node, not per-image, risk"
       }
      ]
     },
@@ -460,7 +469,8 @@
       "R115",
       "R116",
       "R148",
-      "R153"
+      "R153",
+      "R162"
      ],
      "also": [
       {
@@ -667,7 +677,8 @@
      "n": "3.6",
      "title": "Security scanning for AI-written code",
      "primary": [
-      "R073"
+      "R073",
+      "R163"
      ],
      "also": [
       {
@@ -685,6 +696,10 @@
       {
        "id": "R154",
        "why": "build-time half of a 20-tool agent security stack: Trivy, Semgrep, ModelScan; LLM Guard archived"
+      },
+      {
+       "id": "R161",
+       "why": "detecting an AI-run cloud intrusion from CloudTrail timing rather than alert severity"
       }
      ]
     },
@@ -990,6 +1005,10 @@
       {
        "id": "R156",
        "why": "on GPT-6.2 the system prompt must go in a leading developer message, not the Responses instructions field, or it is billed uncached every step"
+      },
+      {
+       "id": "R162",
+       "why": "deterministic calculator plus server-enforced human checkpoints around a local agent team"
       }
      ]
     },
@@ -1378,7 +1397,8 @@
      "primary": [
       "R048",
       "R112",
-      "R152"
+      "R152",
+      "R161"
      ],
      "also": []
     },
@@ -4425,6 +4445,79 @@
    ],
    "summary": "Parametric alternative to RAG in the KBLaM line: KG2KV encodes triples as key-value pairs injected into self-attention; HiKVP prunes a knowledge hierarchy so ~1B triples fit in under 20 GB VRAM, most KVs in CPU RAM. No retriever, no retrieved text in context, no retraining for new facts. Limits: flattened triples weaken multi-hop, top-k precision vs scale, CPU-GPU transfer latency; needs open weights, loses citation provenance. The 'RAG is dead' framing overstates a year-old result.",
    "file": "entries/atlaskv-knowledge-graphs-in-attention.html"
+  },
+  {
+   "id": "R161",
+   "slug": "ai-run-aws-intrusion-cloudtrail",
+   "title": "Inside an AI-run AWS intrusion: 56 API calls in 141 ms and 78 alerts nobody escalated",
+   "by": "Boussaden, Porras Blanch and DeJesus, Elastic Security Labs, 13 Nov 2026",
+   "source": "https://www.elastic.co/security-labs/threat-command/cyberstrikeai-aws-cloudtrail-intrusion",
+   "published": "2026-11-13 (article); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/X3sz8mvyRWZYeRhhSzQv9T",
+   "tags": [
+    "security",
+    "incident-response",
+    "agents-at-scale",
+    "observability",
+    "vendor"
+   ],
+   "summary": "A CyberStrikeAI-driven intrusion across 8 identities in 4 AWS accounts, Sep 30 to Oct 16, 2026: machine-speed enumeration (56 userData calls in 141 ms), SSM parameter read then SendCommand 29 s later, and 78 medium/low alerts across 6 rules that were only linkable by source IP. Lesson: per-alert severity misses agent-speed campaigns; correlate on tempo and shared infrastructure.",
+   "file": "entries/ai-run-aws-intrusion-cloudtrail.html"
+  },
+  {
+   "id": "R162",
+   "slug": "mlx-model-scout-local-agent-team",
+   "title": "MLX Model Scout: a local agent team that never does the arithmetic",
+   "by": "michaelhannecke/mlx-model-scout (MIT), an agent-engineering course capstone; shared by Paul Iusztin",
+   "source": "https://github.com/michaelhannecke/mlx-model-scout",
+   "published": "2026-10-28 (README validation); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/FdZqtD7n1Fr36hehfTwo2z",
+   "tags": [
+    "inference",
+    "open-models",
+    "mcp",
+    "open-source",
+    "human-oversight"
+   ],
+   "summary": "An MCP server whose planner, scout, analyst and advisor agents run on a local LLM, while a deterministic calculator produces every memory and tok/s figure (within a few percent of measured on an M5 Pro) and two server-enforced checkpoints gate the report. Useful pattern: numbers in code, LLM output validated against its inputs, flat schemas for small models.",
+   "file": "entries/mlx-model-scout-local-agent-team.html"
+  },
+  {
+   "id": "R163",
+   "slug": "java4shell-cpu-decides-exposure",
+   "title": "Java4Shell (CVE-2026-114938): when the CPU, not the image, decides exposure",
+   "by": "Oracle November 2026 CPU advisory and Horizon3 summary, via a platform write-up by Deepak Kumar",
+   "source": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-114938/",
+   "published": "2026-11-17 (advisory); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/QVJ1976m6AaNB8S8rHMXTC",
+   "tags": [
+    "security",
+    "incident-response"
+   ],
+   "summary": "A HotSpot AVX-512 Base64 intrinsic writes 62-63 bytes past a heap array on malformed padding; reported pre-auth RCE in Keycloak, Jira, Jenkins and others. Exposure depends on the host CPU (AVX-512 VBMI), so one container image can be vulnerable on some node pools only; October-patched builds are still affected; pods must restart.",
+   "file": "entries/java4shell-cpu-decides-exposure.html"
+  },
+  {
+   "id": "R164",
+   "slug": "guard-regret-guided-self-improvement",
+   "title": "GUARD: self-improving harnesses that only keep edits that don't break things",
+   "by": "Zhang, Kang et al., Google Cloud, arXiv 2611.23476, 2026-11-17; shared by Elvis Saravia",
+   "source": "https://arxiv.org/abs/2611.23476",
+   "published": "2026-11-17 (paper); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/EMzpA4rLUg1Wr3as3M8zY9",
+   "tags": [
+    "agent-harness",
+    "agent-memory",
+    "evals",
+    "benchmarks",
+    "harness-config"
+   ],
+   "summary": "Frozen model, self-edited harness; a pre-execution checklist per task, paired regret that ranks newly broken criteria first and pins mastered ones, group-relative scoring of parallel candidate edits, and a gate that promotes only net-positive edits. 80.8% on 43 SDK tasks (+8.89 over start, +6.28 over Meta-Harness, 54.5% fewer tokens); zero procedural memory pollution where aggressive rewriters tripled it.",
+   "file": "entries/guard-regret-guided-self-improvement.html"
   }
  ],
  "edges": [
