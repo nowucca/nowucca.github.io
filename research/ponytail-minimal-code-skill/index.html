@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ponytail: a minimal-code skill for coding agents, with its own benchmark · Research</title>
+<meta name="description" content="One MIT prompt for ~20 agent hosts: read the touched code and list every place the change must reach, then take the first rung that works (does it need to exist, already in repo, stdlib/platform, installed dep, one line, minimum code plus a small test for logic); never cut validation, security, accessibility; end every reply with what was skipped. Maintainer&#x27;s Claude Code/Opus 5.5 benchmark (39 tasks x5): -53% code, -41% time, -26% cost, risky logic with a test 98% vs 68%; security tasks level at 30/30, reply quality no better than no skill. Self-benchmark: reproduce on your repo; watch over-reuse and silent scope cuts.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R151 · Harness tips › Harness tips</span>
+  <h1>Ponytail: a minimal-code skill for coding agents, with its own benchmark</h1>
+  <div class="entry-meta"><span>DietrichGebert/ponytail repo, SKILL.md and 2026-10-07 agentic benchmark, shared by Mayank A.</span><span>Published 2026-11-19</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://github.com/DietrichGebert/ponytail" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-skills</span><span class="tag">coding-agents</span><span class="tag">harness-config</span><span class="tag">benchmarks</span><span class="tag">code-review</span></div>
+</header>
+<article class="article"><p>Sources: the DietrichGebert/ponytail repository (README, skills/ponytail/SKILL.md, benchmarks/results/2026-10-07-agentic.md), as shared by Mayank A. on LinkedIn, 2026-11-19. MIT licensed. All numbers are the maintainer's own.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>Ponytail is one prompt, packaged as a skill (and a compact AGENTS.md for agents that read a rules file), that pushes a coding agent toward the smallest complete change. The rest of the repo is installers for about 20 agent hosts (Claude Code and Codex plugins, Cursor hooks, plain copy-in for others) plus commands: <code>/ponytail-review</code> (diff review), <code>/ponytail-audit</code> (whole-repo review, ranked), <code>/ponytail-debt</code> (collects deliberate <code>shortcut:</code> comments into a ledger) and, in Claude Code, a status band showing per-task cost, tokens, agent time, reuse rate and last test result, stored locally.</p>
+<h2 id="the-mechanism-a-reuse-ladder-after-reading">The mechanism: a reuse ladder after reading</h2>
+<p>The skill tells the agent to first read the task and the code it touches, list every place the change must reach (callers, tests, fixtures, config, exports), and only then pick the first rung that fully works:</p>
+<pre><code class="language-text">1. Does it need to exist?          -&gt; skip unrequested features, name them
+2. Already in this codebase?        -&gt; use the helper/component as neighbours do
+3. Standard library / platform?     -&gt; use it (house component beats native widget)
+4. Installed dependency?            -&gt; use it; never add a dep for a few lines
+5. One readable line?               -&gt; one line
+6. Otherwise                        -&gt; minimum code that works
+   + one small test if it has a branch, loop, parser, money or security</code></pre>
+<p>Hard floor: never cut trust-boundary validation, data-loss error handling, security, accessibility, or anything the user asked for. Every reply ends with what was skipped or not checked. Deferred shortcuts get a structured comment (<code>shortcut: &lt;limit&gt;, &lt;when to upgrade&gt;</code>). Three levels: lite (build what was asked, name the smaller option), full (default), ultra (push back on the request itself).</p>
+<p>The canonical example: asked for a date picker, an unprompted agent wrote about 335 lines (library or hand-built calendar); with the skill it combined the repo's existing <code>Input</code> component with the browser's native date input in about 10.</p>
+<h2 id="the-benchmark-and-how-much-to-trust-it">The benchmark, and how much to trust it</h2>
+<p>Same agent (Claude Code on Opus 5.5) with and without the skill, 39 tasks including a real FastAPI + React repo, 5 runs each. Reported deltas for v5: 53% less code, 41% less time, 26% lower cost, 45% fewer tokens, and 98% of risky logic shipped with a test versus 68% without. Task mix includes reuse tasks, six security tasks (SQL injection, path traversal, forged tokens, rate limiting, malformed CSV rows, caching), a privacy task, rename/format changes that must reach every caller, and open-scope "build me an app" requests.</p>
+<p>What the results file itself concedes, which is to its credit:</p>
+<ul><li><p>On the security tasks all arms passed 30 of 30. Less code did not cost safety, but it did not add any either.</p></li><li><p>The privacy task was hard for every arm (2 of 5).</p></li><li><p>Completeness was scored by a blind LLM judge (0 stub to 3 full); one run was manually re-scored because the judge only saw the diff.</p></li><li><p>In a blind reply-quality comparison against no skill there was no significant difference (slight lean to the longer no-skill replies); the clear win was over the previous Ponytail version, mainly for the closing "what I skipped" line.</p></li></ul>
+<p>Staff-level read: this is a well-run self-benchmark, not an independent one. The maintainer chose the tasks, the hidden checks and the judges, and many tasks reward reuse by construction. The cost and code-size wins are plausible and mechanically explained; the test-coverage delta is the most interesting number and the one most worth reproducing on your own repo.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Reuse vs coupling.</strong> Rung 2 (use what the codebase already has) is right most of the time, but reusing a helper that is subtly wrong for the new caller spreads a bug. The skill's "grep every caller, fix the root cause once in shared code" rule cuts both ways: a shared-code fix has a larger blast radius.</p></li><li><p><strong>Native platform vs product consistency.</strong> Native widgets (date input) are small and accessible but look and behave differently across browsers. The skill already says a house component beats a native one; check that your design system is discoverable enough for the agent to find it.</p></li><li><p><strong>Smaller diffs vs hidden scope.</strong> "Skip what nobody asked for" is good against gold-plating, but under-specified prompts can yield an MVP when a fuller feature was implied. The lite level, which names the smaller option and lets the human choose, is the safer default for vague tickets.</p></li><li><p><strong>One prompt, many hosts.</strong> Behaviour depends on how each host loads and prioritises skills; numbers from Claude Code need not transfer to Cursor or Codex.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p>Over-reuse: the agent bends an existing abstraction to fit, adding flags to a shared function instead of writing ten clear lines.</p></li><li><p>Golfing despite the rule: dense one-liners that are short but slow to review.</p></li><li><p>Silent scope cuts: features dropped and only mentioned in the closing line, which busy reviewers skim.</p></li><li><p>Shortcut ledger rot: <code>shortcut:</code> comments accumulate if nobody runs the debt harvest.</p></li><li><p>Supply chain: the README warns that only the named GitHub repo and npm package are genuine; plugin marketplaces make typo-squats easy.</p></li></ul>
+<h2 id="review-checklist-for-adopting-a-minimal-code-skill">Review checklist for adopting a minimal-code skill</h2>
+<ul><li><p>Run it on your own repo with and without the skill on 10 to 20 real tickets; compare diff size, review time, defects found later and test presence, not just tokens.</p></li><li><p>Check that reused code was actually fit for the new caller (read the reused function, not just the diff).</p></li><li><p>Make the "skipped / not checked" line a required PR-description field so it is not lost in chat.</p></li><li><p>Decide the default level per repo: lite for product work with vague specs, full for internal tooling.</p></li><li><p>Pin the plugin version and source; review the prompt diff on upgrade like any dependency.</p></li><li><p>Wire <code>shortcut:</code> comments into your existing tech-debt tracking or turn them off.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R064 SkillEvaluator: measuring whether a skill helps, and deleting the ones that don't.</p></li><li><p>R110 harness-profiler for Claude Code skill and agent factories.</p></li><li><p>R052 Open Code Review, a hybrid AI code reviewer.</p></li><li><p>R140 Claude Code in 10 levels, a teaching ladder of harness features.</p></li><li><p>R073 Twelve open-source repos for securing AI-written code.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

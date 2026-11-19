@@ -614,6 +614,10 @@
       {
        "id": "R073",
        "why": "security-specialized reviewers: Claude Code Security Review on each PR, Codex Security and Cloudflare's audit skill on whole repos"
+      },
+      {
+       "id": "R151",
+       "why": "a minimal-code skill whose review command reads code outside the diff; its own benchmark found 100% of planted problems vs 87% without, a self-benchmark"
       }
      ]
     },
@@ -631,6 +635,10 @@
       {
        "id": "R112",
        "why": "GitSpawn: coding agents run repo-controlled git config before the trust prompt; PixelLeak: agents publishing screenshots to public repos"
+      },
+      {
+       "id": "R152",
+       "why": "a graded public ledger of AI-assisted attacks; 2026 reports include agents hunting OAuth secrets in public GitHub repos"
       }
      ]
     },
@@ -740,7 +748,8 @@
       "R018",
       "R036",
       "R068",
-      "R139"
+      "R139",
+      "R151"
      ],
      "also": [
       {
@@ -1308,7 +1317,8 @@
      "title": "AI incidents and policy response",
      "primary": [
       "R048",
-      "R112"
+      "R112",
+      "R152"
      ],
      "also": []
     },
@@ -4154,6 +4164,44 @@
    ],
    "summary": "GPT-6 Astra, no gradients: names a policy's game from weights (4/4), finds induction heads in middle blocks, one-shot edits 3.5% of a stuck PPO car policy to 100% success, writes a Breakout net (517 vs PPO 25 at 500M steps; loses or ties on Seaquest/Asterix), and with a Python kernel plus 50 forward passes projects a looping direction out of 0.016% of Qwen3.5-0.8B (MATH-500 7.9 to 48.1, IFEval 21.0 to 62.3). Fails on Gemma 3 270M math (no single removable cause) and on weight-only sycophancy detection. Replication: writing reproduces but amounts to compiling hand-designed programs (digits 50% vs 82%); reading is mostly the input layer; weight-only audits flag poisoned models (10/10, 7/10, 23/32 adapters) but never the trigger.",
    "file": "entries/weight-space-programming.html"
+  },
+  {
+   "id": "R151",
+   "slug": "ponytail-minimal-code-skill",
+   "title": "Ponytail: a minimal-code skill for coding agents, with its own benchmark",
+   "by": "DietrichGebert/ponytail repo, SKILL.md and 2026-10-07 agentic benchmark, shared by Mayank A.",
+   "source": "https://github.com/DietrichGebert/ponytail",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/2xKsDfqvyuzsQQQ1Z8Ho15",
+   "tags": [
+    "agent-skills",
+    "coding-agents",
+    "harness-config",
+    "benchmarks",
+    "code-review"
+   ],
+   "summary": "One MIT prompt for ~20 agent hosts: read the touched code and list every place the change must reach, then take the first rung that works (does it need to exist, already in repo, stdlib/platform, installed dep, one line, minimum code plus a small test for logic); never cut validation, security, accessibility; end every reply with what was skipped. Maintainer's Claude Code/Opus 5.5 benchmark (39 tasks x5): -53% code, -41% time, -26% cost, risky logic with a test 98% vs 68%; security tasks level at 30/30, reply quality no better than no skill. Self-benchmark: reproduce on your repo; watch over-reuse and silent scope cuts.",
+   "file": "entries/ponytail-minimal-code-skill.html"
+  },
+  {
+   "id": "R152",
+   "slug": "ai-hacking-incidents-ledger",
+   "title": "AI Hacking Incidents: a graded ledger of AI-assisted cyberattacks",
+   "by": "Daniel Miessler's hackingincidents.ai, data to 2026-11-17, shared by Josh Kamdjou",
+   "source": "https://hackingincidents.ai/",
+   "published": "2026-11-17",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/8yyvipkgonRZCXEfEQfMiY",
+   "tags": [
+    "security",
+    "incident-response",
+    "ai-policy",
+    "agents-at-scale",
+    "open-models"
+   ],
+   "summary": "286 published reports since 2023 graded Confirmed 145 / Strong 109 / Suspected 32 (graders agreed blind on 71.7%); reports of AI running attack steps itself rose 0/27 (2024), 13/80 (2025), 78/174 (2026). 21% first disclosed by the model's maker; closed models named 108 vs open-weight 23 (a provider-visibility artifact); ~70% single-source. Counts reports, not attacks. Engineering takeaways: agent-driven secret hunting in public repos, AI-provider keys as crown jewels, detection tuned to machine pace. JSON/CSV downloadable.",
+   "file": "entries/ai-hacking-incidents-ledger.html"
   }
  ],
  "edges": [
