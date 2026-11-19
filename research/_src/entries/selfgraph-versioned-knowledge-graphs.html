@@ -1,0 +1,28 @@
+<p>Sources: the hydra-db/selfgraph repository README (Apache-2.0, early stage), as shared by André Lindenberg on LinkedIn, 2026-11-19.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>SelfGraph is a Python and TypeScript SDK, with a CLI and an MCP server, that turns text or structured facts into a knowledge graph an agent can query. It sits over several graph databases behind one API: Neo4j, Memgraph and other Bolt engines, FalkorDB, HydraDB, and embedded Kuzu. Its pitch is three things most agent memory stores leave out:</p>
+<ul><li><p><strong>Time.</strong> Every change is versioned. A newer fact retires an older one, and nothing is deleted.</p></li><li><p><strong>Ontology.</strong> Types, synonyms and certified definitions give the graph a vocabulary.</p></li><li><p><strong>Answerability.</strong> An LLM-free check tells the agent which terms in a question the graph cannot ground, before it answers.</p></li></ul>
+<p>Retrieval needs no vector store. It seeds from keyword matches (BM25 plus schema synonyms), walks the graph, and returns the source passages. Embeddings are optional.</p>
+<h2 id="architecture">Architecture</h2>
+<pre><code class="language-text">text / facts --&gt; extraction (regex | spaCy | LLM)
+             --&gt; entity resolution (ids | name+alias | LLM-confirmed)
+             --&gt; contradiction rules (schema | LLM-judged)
+             --&gt; versioned store (Neo4j, Memgraph, FalkorDB, HydraDB, Kuzu)
+
+question --&gt; check_answerable: ground terms via types, synonyms, definitions
+               -&gt; report.missing lists ungroundable terms
+         --&gt; retrieve: BM25 + synonyms seeds -&gt; BFS / PageRank walk
+               -&gt; source passages, as_of (event time) or as known then</code></pre>
+<p>Every capability is a ladder of tiers set by one <code>level</code> option:</p>
+<ul><li><p><code>light</code> uses regex and BFS.</p></li><li><p><code>balanced</code>, the default, is the strongest free and deterministic tier (spaCy, alias matching).</p></li><li><p><code>max</code> turns on LLM extraction, resolution and contradiction judging, plus embeddings and PageRank.</p></li></ul>
+<p>Higher tiers run the lower ones first and only escalate undecided cases, so LLM cost follows the hard cases. Every tier writes the same ids, so changing tier needs no migration. Each result reports which tiers produced it.</p>
+<h2 id="the-temporal-model">The temporal model</h2>
+<p>There are two time axes. <code>as_of</code> asks what was true at a date: Ann worked at Acme in 2021 even though she now works at Globex. The LinkedIn summary describes a second, as-known-then view: the graph as it stood on a date, so a correction recorded today with a backdated event time does not rewrite an answer the agent already gave. This is bitemporal modelling, familiar from finance and audit systems, applied to agent memory. Retired relations keep their history and record what replaced them, and <code>diff(since, until)</code> lists what changed.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Deterministic by default vs extraction quality.</strong> Regex and spaCy extraction are free and reproducible but miss what an LLM would catch. The tier ladder makes that a per-capability choice rather than all-or-nothing.</p></li><li><p><strong>No vector store vs fuzzy recall.</strong> Keyword seeds plus synonyms are explainable and cheap. Paraphrased questions with no shared terms will miss unless embeddings are turned on.</p></li><li><p><strong>Schema-first answerability vs schema maintenance.</strong> The answerability check is only as good as the synonyms and definitions someone curates. <code>Schema.from_tables</code> drafts one from table metadata, which helps for structured sources.</p></li><li><p><strong>Many backends vs lowest common denominator.</strong> One API over five stores means backend-specific features (indexes, algorithms) may not be reachable through it.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p>Entity resolution merges two different people or splits one, and every later fact inherits the error.</p></li><li><p>Contradiction rules retire a fact that was actually still true (two jobs at once), silently changing answers.</p></li><li><p>The answerability check passes because a term matched a synonym, but the data for it is thin or stale.</p></li><li><p>Agents ignore <code>report.missing</code> and answer anyway. The check only helps if the harness enforces it.</p></li><li><p>Early-stage repo: API and storage encoding may change.</p></li></ul>
+<h2 id="review-checklist-before-using-it-for-agent-memory">Review checklist before using it for agent memory</h2>
+<ul><li><p>Decide which questions must be answerable "as known then" (audit, support history) and test that path explicitly.</p></li><li><p>Make the harness refuse or ask when <code>check_answerable</code> reports missing terms.</p></li><li><p>Review contradiction rules per relation type. Default to keeping both facts where exclusivity isn't real.</p></li><li><p>Log <code>result.tiers</code> so you know when LLM tiers fired and what they cost.</p></li><li><p>Pin the version, and keep the source passages so the graph can be rebuilt if extraction improves.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R106 txtai: vectors, SQL and a graph in one local index.</p></li><li><p>R127 GraphRAG Zero: graph-guided retrieval with no LLM calls at index time.</p></li><li><p>R147 Anthropic's components of agent memory.</p></li><li><p>R057 SoMem: agents organizing their own memory as linked documents.</p></li><li><p>R134 CodeGraph: a local code graph agents query over MCP.</p></li></ul>

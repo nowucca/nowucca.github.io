@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AtlasKV: billion-triple knowledge graphs inside attention, not in the prompt · Research</title>
+<meta name="description" content="Parametric alternative to RAG in the KBLaM line: KG2KV encodes triples as key-value pairs injected into self-attention; HiKVP prunes a knowledge hierarchy so ~1B triples fit in under 20 GB VRAM, most KVs in CPU RAM. No retriever, no retrieved text in context, no retraining for new facts. Limits: flattened triples weaken multi-hop, top-k precision vs scale, CPU-GPU transfer latency; needs open weights, loses citation provenance. The &#x27;RAG is dead&#x27; framing overstates a year-old result.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R160 · Knowledge for agents › Retrieval over long documents</span>
+  <h1>AtlasKV: billion-triple knowledge graphs inside attention, not in the prompt</h1>
+  <div class="entry-meta"><span>Huang et al., HKUST and Huawei, arXiv 2510.17934, v1 Oct 2025, v2 Apr 2026; resurfaced by Charly Wargnier</span><span>Published 2025-10-20 (paper v1); 2026-04-13 (v2); 2026-11-19 (post)</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://arxiv.org/abs/2510.17934" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">retrieval</span><span class="tag">rag</span><span class="tag">graph-database</span><span class="tag">inference</span><span class="tag">open-models</span></div>
+</header>
+<article class="article"><p>Sources: Huang, Tsang, Bai, Peng, Zhang and Song, "AtlasKV: Augmenting LLMs with Billion-Scale Knowledge Graphs in 20GB VRAM" (HKUST and Huawei Theory Lab, arXiv 2510.17934). Version 1 is from October 2025 and version 2 from April 2026. Resurfaced by Charly Wargnier on LinkedIn, 2026-11-19. This is a year-old paper, not a new result.</p>
+<h2 id="the-idea">The idea</h2>
+<p>RAG adds knowledge non-parametrically. It runs a search, then pastes retrieved text into the prompt. At very large scale that costs search latency and long contexts.</p>
+<p>AtlasKV follows the parametric line of KBLaM (2024). Knowledge is encoded as key-value representations and injected straight into the model's self-attention layers. The model then attends over facts as if they were extra tokens, without a retriever, without retrieved text in the context window, and without retraining when facts are added.</p>
+<p>What AtlasKV adds is scale: about one billion knowledge-graph triples in under 20 GB of GPU memory, with sub-linear time and memory cost.</p>
+<h2 id="how-it-works">How it works</h2>
+<pre><code class="language-text">knowledge graph (head, relation, tail) triples
+      |
+   KG2KV: each triple -&gt; a key/value pair the attention layer can read
+      |
+   HiKVP: hierarchical key-value pruning
+      coarse clusters -&gt; finer clusters -&gt; top-k leaf facts
+      (most KVs stay in CPU memory; selected ones move to GPU per step)
+      |
+   LLM self-attention attends over prompt tokens + selected knowledge KVs</code></pre>
+<p>Because selection happens inside attention at each generation step, the model can pull different facts as reasoning proceeds, rather than relying on one retrieval up front.</p>
+<h2 id="limitations-the-authors-state">Limitations the authors state</h2>
+<ul><li><p><strong>Flattened graph.</strong> KG2KV treats each triple as an independent fact. Graph structure is lost, which limits multi-hop reasoning over the graph.</p></li><li><p><strong>Precision vs scale.</strong> HiKVP's top-k settings trade retrieval accuracy for memory and speed.</p></li><li><p><strong>CPU-GPU transfer cost.</strong> Moving selected KVs onto the GPU adds latency, and the authors suggest scheduling work to hide it.</p></li></ul>
+<h2 id="reading-the-rag-is-dead-framing">Reading the "RAG is dead" framing</h2>
+<p>The social-media framing (no more vector databases) overstates it. Some caveats for practitioners:</p>
+<ul><li><p>It works on knowledge graphs of triples, not on the unstructured documents most RAG stacks serve.</p></li><li><p>It needs access to the model's attention layers and a trained adapter, so it applies to open-weight models you serve yourself, not to hosted APIs.</p></li><li><p>Answers lose the provenance RAG gives for free: there is no retrieved passage to cite.</p></li><li><p>A year on, it has not displaced retrieval in production stacks. Treat it as a research direction for very large structured knowledge on self-hosted models.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Context budget vs provenance.</strong> Knowledge in attention leaves the context window free, but citation and audit get harder.</p></li><li><p><strong>No retriever vs model coupling.</strong> Removing the retrieval service ties the knowledge store to a model and adapter version, so upgrading the model means re-encoding.</p></li><li><p><strong>Sub-linear memory vs transfer latency.</strong> Keeping most knowledge in CPU RAM is what makes 20 GB possible, and it is also what adds per-step latency.</p></li></ul>
+<h2 id="review-checklist-before-evaluating-it">Review checklist before evaluating it</h2>
+<ul><li><p>Is your knowledge already triples, or would you need extraction (with its own error rate) first?</p></li><li><p>Do you serve an open-weight model where you can modify attention?</p></li><li><p>Do you need citations or audit trails? If so, plan a provenance layer.</p></li><li><p>Measure multi-hop questions specifically, since flattening is the known weak point.</p></li><li><p>Compare against a well-tuned graph or keyword retriever at equal latency, not against naive RAG.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R127 GraphRAG Zero: graph-guided retrieval with no LLM calls at index time.</p></li><li><p>R106 txtai: vectors, SQL and a graph in one local index.</p></li><li><p>R153 FreeToken: serving frontier MoE models on consumer GPUs (the same CPU-GPU residency tradeoff, applied to experts).</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

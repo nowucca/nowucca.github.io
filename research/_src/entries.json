@@ -19,7 +19,8 @@
       "R059",
       "R083",
       "R088",
-      "R147"
+      "R147",
+      "R159"
      ],
      "also": [
       {
@@ -81,6 +82,10 @@
       {
        "id": "R131",
        "why": "memory for the optimizer, not the agent: problem, rationale, predicted vs observed outcome and provenance per harness edit; diagnoses without outcomes do not help"
+      },
+      {
+       "id": "R158",
+       "why": "procedural memory mined from cross-harness session traces, approved by a human, and shipped as Agent Skills; recall through MCP"
       }
      ]
     },
@@ -101,7 +106,9 @@
       "R138",
       "R144",
       "R150",
-      "R155"
+      "R155",
+      "R157",
+      "R158"
      ],
      "also": [
       {
@@ -186,6 +193,14 @@
       {
        "id": "R144",
        "why": "a capable agent with Bash and file write builds its own practice-and-evaluate loop even when none is provided; cap edits and rollouts, keep a held-out eval it never sees, review the learned text"
+      },
+      {
+       "id": "R158",
+       "why": "an approved lesson is a standing rule with no scope or expiry; record what it may influence, link it to its source trace, review on a schedule"
+      },
+      {
+       "id": "R159",
+       "why": "bitemporal agent memory: newer facts retire older ones without deletion, and the graph can be read as it was known on a date"
       }
      ]
     },
@@ -204,6 +219,10 @@
       {
        "id": "R006",
        "why": "six harness concepts as a production vocabulary; overlaps R005's loop, gate and harness layers"
+      },
+      {
+       "id": "R158",
+       "why": "one OpenTelemetry-shaped event model for sessions, prompts, tools, commands, files, approvals, MCP and tokens across 25+ harnesses, also forwarded to SIEMs"
       }
      ]
     },
@@ -455,6 +474,10 @@
       {
        "id": "R118",
        "why": "engine-side cache routing, CPU offload of idle agent caches, prefill/decode disaggregation"
+      },
+      {
+       "id": "R160",
+       "why": "knowledge as attention KVs kept mostly in CPU RAM and paged to GPU per step; same residency tradeoff as R153"
       }
      ]
     },
@@ -726,7 +749,8 @@
       "R025",
       "R106",
       "R127",
-      "R137"
+      "R137",
+      "R160"
      ],
      "also": [
       {
@@ -1320,6 +1344,10 @@
       {
        "id": "R128",
        "why": "render-and-review loops need a stop rule: ship on the first clean review; flag fields a human must fill; owners' taste as the quality signal"
+      },
+      {
+       "id": "R157",
+       "why": "pushback is an unreliable check: models cave to wrong challenges, and a trained fix also makes them accept correct corrections less often"
       }
      ]
     },
@@ -4319,6 +4347,84 @@
    ],
    "summary": "GPT-6.2 Sol/Astra place top-level `instructions` at the end of the input and never cache it (OpenAI reportedly confirmed it is deliberate); the same text as a leading developer message caches from step 2. Measured: 10.1k-token prompt 0 cached vs 10,113 cached; review sessions 2.85x the cost of GPT-6.1; both API-key and ChatGPT auth affected; OpenAI cache diagnostics report cache_hit while usage shows 0. OpenCode now sends a leading developer message on every Responses route (OpenAI, Copilot, Azure, OpenRouter). Lesson: request shape is a cost control; alert on cached-token share after model or SDK changes.",
    "file": "entries/gpt-6-2-instructions-not-cached.html"
+  },
+  {
+   "id": "R157",
+   "slug": "self-disagreement-hold-under-pushback",
+   "title": "Self-Disagreement: training models to hold a correct answer under pushback",
+   "by": "Abbasloo and Cheng, Microsoft Research, arXiv 2611.17563, 2026-11-12; shared by Pascal Biese",
+   "source": "https://arxiv.org/abs/2611.17563",
+   "published": "2026-11-12 (paper); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/4ngVvrFkgbMwuErffFmcdA",
+   "tags": [
+    "reinforcement-learning",
+    "evals",
+    "benchmarks",
+    "ai-safety",
+    "human-oversight"
+   ],
+   "summary": "Models give up correct answers under wrong counter-arguments, and accuracy training, self-reflection, voting and SCoRe don't fix it: holding vs yielding is a separate 'dialectical competence'. The model states an answer, writes the strongest case against it without the reference, rules on it, and is rewarded with RLVR, the same exact-match check scoring the ruling (no second model, reward model or labels). Capitulation falls 25.3 pp (Qwen3-8B) and 36.1 pp (Gemma-2 9B) vs eleven frontier challengers; Gemma 3 12B from 20.2% to 2.6%; first-answer accuracy holds. Limits: checkable answers only, single-round, and acceptance of correct challenges drops too.",
+   "file": "entries/self-disagreement-hold-under-pushback.html"
+  },
+  {
+   "id": "R158",
+   "slug": "beacon-cross-harness-agent-memory",
+   "title": "Beacon: cross-harness session capture distilled into reviewed agent memory",
+   "by": "Asymptote Labs, agent-beacon, MIT, Go; shared by the AI Engineering LinkedIn page",
+   "source": "https://github.com/Asymptote-Labs/agent-beacon",
+   "published": "~2026-11-15 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/Bpbrc6SZMHH1xTG3yXXwDE",
+   "tags": [
+    "agent-memory",
+    "self-improving-agents",
+    "observability",
+    "agent-skills",
+    "agent-governance",
+    "data-privacy",
+    "agent-harness"
+   ],
+   "summary": "An endpoint agent records sessions from 25+ harnesses (plus claude.ai/ChatGPT browser chat, cloud agents, CI) into one OpenTelemetry-shaped JSONL log. The \"self-improving\" loop is assisted curation: a hosted evaluator scores traces (candidate at task_success >= 0.50, mean >= 0.60), the running agent drafts the lesson from the trace, a human approves, and it is promoted to a plain Agent Skill any harness loads. Gaps: lessons carry no scope, expiry or evidence link; the installer preselects Beacon Cloud.",
+   "file": "entries/beacon-cross-harness-agent-memory.html"
+  },
+  {
+   "id": "R159",
+   "slug": "selfgraph-versioned-knowledge-graphs",
+   "title": "SelfGraph: versioned knowledge graphs that tell an agent what they can't answer",
+   "by": "hydra-db/selfgraph README, Apache-2.0, early repo; surfaced by André Lindenberg",
+   "source": "https://github.com/hydra-db/selfgraph",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/1xUCEkCZ2DxdfYh5e1TGJ1",
+   "tags": [
+    "agent-memory",
+    "graph-database",
+    "knowledge-management",
+    "mcp",
+    "open-source"
+   ],
+   "summary": "Python/TS SDK, CLI and MCP server over Neo4j, Memgraph, FalkorDB, HydraDB or embedded Kuzu: text or facts in, versioned graph out. Newer facts retire older ones without deletion; query as_of a date or as known then, so a backdated correction does not rewrite past answers (bitemporal). Ontology types, synonyms and certified definitions feed an LLM-free check_answerable that lists ungroundable terms before the agent answers. No vector store by default (BM25 + synonyms, BFS/PageRank walk). One level option ladders every capability from free/deterministic to LLM-backed, escalating only undecided cases.",
+   "file": "entries/selfgraph-versioned-knowledge-graphs.html"
+  },
+  {
+   "id": "R160",
+   "slug": "atlaskv-knowledge-graphs-in-attention",
+   "title": "AtlasKV: billion-triple knowledge graphs inside attention, not in the prompt",
+   "by": "Huang et al., HKUST and Huawei, arXiv 2510.17934, v1 Oct 2025, v2 Apr 2026; resurfaced by Charly Wargnier",
+   "source": "https://arxiv.org/abs/2510.17934",
+   "published": "2025-10-20 (paper v1); 2026-04-13 (v2); 2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/8BfrgvyXb5ZNzPtkPuAcY1",
+   "tags": [
+    "retrieval",
+    "rag",
+    "graph-database",
+    "inference",
+    "open-models"
+   ],
+   "summary": "Parametric alternative to RAG in the KBLaM line: KG2KV encodes triples as key-value pairs injected into self-attention; HiKVP prunes a knowledge hierarchy so ~1B triples fit in under 20 GB VRAM, most KVs in CPU RAM. No retriever, no retrieved text in context, no retraining for new facts. Limits: flattened triples weaken multi-hop, top-k precision vs scale, CPU-GPU transfer latency; needs open weights, loses citation provenance. The 'RAG is dead' framing overstates a year-old result.",
+   "file": "entries/atlaskv-knowledge-graphs-in-attention.html"
   }
  ],
  "edges": [
@@ -6727,6 +6833,36 @@
    "b": "R111",
    "strength": "strong",
    "why": "A narrow-domain counterpoint to \"no Fable-class open model\": a 27B open-base model matches Fable 5.2 on one task once RL-tuned, without closing the general gap."
+  },
+  {
+   "a": "R158",
+   "b": "R040",
+   "strength": "strong",
+   "why": "WikiTrace keeps the run behind each lesson so it can be re-checked; Beacon's distill step reads the source trace but the promoted SKILL.md drops the link, which is the piece to add."
+  },
+  {
+   "a": "R158",
+   "b": "R090",
+   "strength": "strong",
+   "why": "Both treat the session transcript as portable across harnesses; Atuin moves and resumes it, Beacon normalizes it into OpenTelemetry events and mines it for lessons (and has its own session-handoff skill)."
+  },
+  {
+   "a": "R158",
+   "b": "R110",
+   "strength": "strong",
+   "why": "Both capture Claude Code activity through hooks; harness-profiler profiles one harness's skill and agent cost, Beacon does capture-and-replay across 25+ harnesses with itemized token lenses."
+  },
+  {
+   "a": "R158",
+   "b": "R059",
+   "strength": "strong",
+   "why": "Beacon makes promoting lessons cheap; Memory Tax and R036 show that a bigger memory layer can lose to searching raw history, which Beacon also keeps, so cap promoted skills."
+  },
+  {
+   "a": "R158",
+   "b": "R123",
+   "strength": "strong",
+   "why": "Beacon's approved lessons have no salience or expiry; R123's scheduled dreaming rewrite is the missing maintenance step."
   }
  ]
 }
