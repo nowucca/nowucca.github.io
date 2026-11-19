@@ -99,7 +99,8 @@
       "R129",
       "R131",
       "R138",
-      "R144"
+      "R144",
+      "R150"
      ],
      "also": [
       {
@@ -453,6 +454,10 @@
       {
        "id": "R073",
        "why": "SkillSpector extends supply-chain scanning from weights to agent skills"
+      },
+      {
+       "id": "R150",
+       "why": "a frontier model flags poisoned small models and malicious adapters from weights alone, but never the trigger: triage, not clearance"
       }
      ]
     },
@@ -463,7 +468,8 @@
       "R060",
       "R067",
       "R111",
-      "R125"
+      "R125",
+      "R149"
      ],
      "also": [
       {
@@ -920,6 +926,10 @@
       {
        "id": "R146",
        "why": "an agent runtime shipped as an SDK: explicit-tools mode, per-session identity and state, three hosting modes from in-process to a shared server"
+      },
+      {
+       "id": "R149",
+       "why": "same model, 12.8% vs 39.0% on SWE-sweep depending on harness; Google names the harness affordances: fewer redundant reads, progress updates, reliable compaction, orchestrator over parallel subagents"
       }
      ]
     },
@@ -4106,6 +4116,44 @@
    ],
    "summary": "Tokens become learned points on a 16-D unit sphere; the model denoises Gaussian-corrupted 32-token blocks on a KV-cached prefix, warm-started from a 1T-token AR checkpoint (+300B tokens). Embedding-space CFG and score temperature steer quality vs diversity; distribution-matching distillation gives 4 (code) to 8 (math) tokens per forward pass with diversity kept; one backbone carries diffusion and AR streams, so the distilled diffusion stream drafts 32 tokens and the AR stream verifies: lossless greedy output, 3.46x avg over AR at 8B on one GB200 (NLD 3.04x; spec-tuned up to 4.20x). Accuracy about on par with NVIDIA's masked-diffusion NLD (8B base 71.2 vs 70.2; instruct diffusion ~59 vs 59.9), AR-mode instruct trails. Caveats: batch-size-1 speedups, low-step code bugs, sampler tuning, serving-stack support.",
    "file": "entries/nemotron-labs-sigma-continuous-diffusion.html"
+  },
+  {
+   "id": "R149",
+   "slug": "gemini-4-neon",
+   "title": "Gemini 4 Neon: the middle tier, and a harness that triples a coding score",
+   "by": "Google DeepMind launch post, 2026-11-18",
+   "source": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/VomLemyVZq7UfZmZgTerUR",
+   "tags": [
+    "model-releases",
+    "benchmarks",
+    "pricing",
+    "agent-harness",
+    "ai-safety"
+   ],
+   "summary": "Third Gemini 4 tier between Carbon (deep) and Hydrogen (fast); four thinking levels; $3/$0.15 cached/$15 per M tokens, 1M context. Vendor-quoted ranks: AA Intelligence Index #3 (61 at xhigh), AA Coding Agent Index #1 (58.6), Vals #2 (70.9%), Agent Arena #2 (1336); Terminal-Bench 4.1 65.2%. SWE-sweep 12.8% on mini-SWE vs 39.0% in Antigravity: the harness triples the score. Orchestrates parallel Hydrogen subagents. Behaviour claims: 0.0% cheating on TB 4.0, 0.09% misaligned actions, under-service down 43-56% and overreach down 15-35% vs Carbon; CoT/action monitor deployed. Gated cyber variant. Caveats: vendor numbers, new benchmarks, harness lock-in, routing across 12 operating points, cached-prefix pricing.",
+   "file": "entries/gemini-4-neon.html"
+  },
+  {
+   "id": "R150",
+   "slug": "weight-space-programming",
+   "title": "Weight-space programming: frontier LLMs that read and edit neural network weights",
+   "by": "DeepLearning.AI's post on The Batch's write-up of Takehi, Teoh, Zhang and Khattab, MIT CSAIL blog, 2026-11-02/12, with independent replication arXiv 2611.21449",
+   "source": "https://rikiyat.github.io/blog/weight-space-programming/",
+   "published": "2026-11-18",
+   "added": "2026-11-18",
+   "artifact": "https://claude.ai/artifact/8XpL61DCGnYhMeqsG8LbMo",
+   "tags": [
+    "self-improvement",
+    "safety",
+    "evals",
+    "model-supply-chain",
+    "open-models"
+   ],
+   "summary": "GPT-6 Astra, no gradients: names a policy's game from weights (4/4), finds induction heads in middle blocks, one-shot edits 3.5% of a stuck PPO car policy to 100% success, writes a Breakout net (517 vs PPO 25 at 500M steps; loses or ties on Seaquest/Asterix), and with a Python kernel plus 50 forward passes projects a looping direction out of 0.016% of Qwen3.5-0.8B (MATH-500 7.9 to 48.1, IFEval 21.0 to 62.3). Fails on Gemma 3 270M math (no single removable cause) and on weight-only sycophancy detection. Replication: writing reproduces but amounts to compiling hand-designed programs (digits 50% vs 82%); reading is mostly the input layer; weight-only audits flag poisoned models (10/10, 7/10, 23/32 adapters) but never the trigger.",
+   "file": "entries/weight-space-programming.html"
   }
  ],
  "edges": [
