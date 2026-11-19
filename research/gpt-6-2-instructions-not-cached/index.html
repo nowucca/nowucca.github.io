@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GPT-6.2 stops caching the Responses instructions field: where harnesses put the system prompt · Research</title>
+<meta name="description" content="GPT-6.2 Sol/Astra place top-level `instructions` at the end of the input and never cache it (OpenAI reportedly confirmed it is deliberate); the same text as a leading developer message caches from step 2. Measured: 10.1k-token prompt 0 cached vs 10,113 cached; review sessions 2.85x the cost of GPT-6.1; both API-key and ChatGPT auth affected; OpenAI cache diagnostics report cache_hit while usage shows 0. OpenCode now sends a leading developer message on every Responses route (OpenAI, Copilot, Azure, OpenRouter). Lesson: request shape is a cost control; alert on cached-token share after model or SDK changes.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R156 · Agent architecture › Context economics and caching</span>
+  <h1>GPT-6.2 stops caching the Responses instructions field: where harnesses put the system prompt</h1>
+  <div class="entry-meta"><span>OpenCode v2.3.2 changelog, opencode issue #64550 and openai/codex issue #62312; surfaced by André Lindenberg</span><span>Published 2026-11-18</span><span>Summarized 2026-11-19</span></div>
+  <p><a href="https://github.com/anomalyco/opencode/issues/64550" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">prompt-caching</span><span class="tag">inference-cost</span><span class="tag">agent-harness</span><span class="tag">coding-agents</span><span class="tag">vendor</span></div>
+</header>
+<article class="article"><p>Sources: OpenCode v2.3.2 changelog (2026-11-18); anomalyco/opencode issue #64550 and the fixes in #64542 and #64544; openai/codex issue #62312, which has an independent reproduction. Surfaced by André Lindenberg on LinkedIn, 2026-11-19. Behaviour as reported by these sources.</p>
+<h2 id="what-changed">What changed</h2>
+<p>On the Responses API, a request can carry a system prompt in two ways: in the top-level <code>instructions</code> field, or as a leading <code>developer</code> message at the start of <code>input</code>. With GPT-6.1 both are cached once the prefix repeats. With the GPT-6.2 family (Sol and Astra), the reports say the API now places top-level <code>instructions</code> at the end of the model's input and never caches it. OpenAI reportedly confirmed to OpenCode maintainers that this is deliberate. Its recommendation is to put static, reusable text in the first developer message of <code>input</code>, ahead of the user turn.</p>
+<p>Any harness that sends its system prompt as <code>instructions</code> therefore pays the full input rate for it on every agent step.</p>
+<h2 id="the-measurements">The measurements</h2>
+<p>From the OpenCode issue, with each request sent twice, a 10.1k-token text and a unique prefix per pair:</p>
+<pre><code class="language-text">model         text sent as        1st request       2nd request
+gpt-6.2-sol   instructions        written 0         cached 0
+gpt-6.2-sol   developer message   written 10,113    cached 10,113
+gpt-6.1-sol   instructions        written 10,114    cached 10,114
+gpt-6.1-sol   developer message   written 10,113    cached 10,113</code></pre>
+<p>In the reporter's code-review sessions, the uncached system prompt was about 12.9k tokens per request. That made GPT-6.2 Sol reviews 2.85 times the cost of identical GPT-6.1 Sol reviews. The LinkedIn post cites about 14k uncached tokens per step in a Copilot-routed session, falling to 3 after the fix.</p>
+<p>The Codex issue reproduces the same pattern with streaming requests, a ~9.2k-token system prompt and five tools:</p>
+<ul><li><p>It holds for both API-key and ChatGPT sign-in auth, and for both 6.2 Sol and 6.2 Astra.</p></li><li><p>Cached tokens stay at 0 every step with <code>instructions</code>.</p></li><li><p>With a leading developer message, nearly the whole prefix is cached from step 2.</p></li></ul>
+<p>That issue also reports a diagnostics mismatch. OpenAI's cache-comparison diagnostics said <code>cache_hit</code> for the 6.2 <code>instructions</code> runs, while the usage fields showed zero cached and zero cache-write tokens.</p>
+<h2 id="the-fix-in-opencode">The fix in OpenCode</h2>
+<p>Version 2.3.2 sends the system prompt as a leading developer message on every Responses route: OpenAI (API key and ChatGPT sign-in), GitHub Copilot, Zen, Azure and OpenRouter. The system prompt is then cached from the second step on. On the dev branch the change applies to all models, not only 6.2 and later, so there is one request shape rather than a per-model branch.</p>
+<h2 id="why-it-matters-beyond-one-harness">Why it matters beyond one harness</h2>
+<ul><li><p><strong>The request shape is now a cost control.</strong> Two semantically identical requests can differ by close to 3x in billed input, depending only on which field holds the static text.</p></li><li><p><strong>Model upgrades can silently change cache economics.</strong> Nothing errored. The only signal was the cached-token count in usage data, and one diagnostics endpoint said the opposite.</p></li><li><p><strong>Routers and gateways inherit the problem.</strong> Copilot, Azure and OpenRouter routes were all affected through the same harness code. A gateway that rewrites requests could reintroduce it.</p></li></ul>
+<h2 id="tradeoffs-of-the-fix">Tradeoffs of the fix</h2>
+<ul><li><p><strong>Developer message vs instructions semantics.</strong> Moving text from <code>instructions</code> into <code>input</code> can change instruction priority or how the model treats it across turns. OpenCode applied it uniformly, and it is worth an eval pass on your own prompts.</p></li><li><p><strong>Uniform shape vs per-model branches.</strong> One shape for all models is simpler and avoids the next model-specific surprise. It does assume older models cache developer messages equally well, which the measurements support for 6.1.</p></li><li><p><strong>Stateless requests.</strong> The tests used <code>store: false</code>. Harnesses that use server-side conversation state should verify separately.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p>A model upgrade raises cost per task with no change in output, and nobody notices until the monthly bill.</p></li><li><p>Cache dashboards built on diagnostics rather than usage fields show hits that are not billed as hits.</p></li><li><p>A gateway or SDK upgrade moves the system prompt back into <code>instructions</code>.</p></li><li><p>Per-session dynamic content (dates, IDs) placed before the static prompt breaks the prefix even after the move.</p></li></ul>
+<h2 id="review-checklist-for-any-harness-on-the-responses-api">Review checklist for any harness on the Responses API</h2>
+<ul><li><p>Log <code>cached_tokens</code> and <code>input_tokens</code> per step, and alert when the cached share drops after a model or SDK change.</p></li><li><p>Check where your system prompt is sent. For GPT-6.2 and later, it should be a leading developer message, not <code>instructions</code>.</p></li><li><p>Keep static text first and byte-identical across steps, with dynamic content after it.</p></li><li><p>Re-run a two-request cache probe whenever you change model, route or gateway.</p></li><li><p>Trust billed usage over diagnostics when they disagree.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R118 Prefix caching for coding agents: what the harness and the engine must each get right.</p></li><li><p>R125 GPT-6.2 Astra and Sol launch.</p></li><li><p>R054 Harness engineering: a source-code study of eleven coding agents.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

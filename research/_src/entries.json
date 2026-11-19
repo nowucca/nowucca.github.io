@@ -100,7 +100,8 @@
       "R131",
       "R138",
       "R144",
-      "R150"
+      "R150",
+      "R155"
      ],
      "also": [
       {
@@ -213,7 +214,8 @@
       "R026",
       "R032",
       "R113",
-      "R118"
+      "R118",
+      "R156"
      ],
      "also": [
       {
@@ -332,6 +334,10 @@
       {
        "id": "R139",
        "why": "a coordinator on a judging model dispatches threads on a doing model and sends back unfinished work; accept on checks passing, not self-report"
+      },
+      {
+       "id": "R155",
+       "why": "Resolve's own follow-up to R031: a single RL-trained agent reaches frontier ensemble quality; the multi-agent system survives as the audited reference-chain labeler"
       }
      ]
     }
@@ -416,6 +422,10 @@
       {
        "id": "R084",
        "why": "a per-user event inbox, single-worker lease, timer store and outbox around the agent loop; runs resume sessions on reply events"
+      },
+      {
+       "id": "R154",
+       "why": "isolation choices for agent code: Firecracker, Kata, gVisor, E2B; tradeoffs in startup latency and KVM needs"
       }
      ]
     },
@@ -492,6 +502,10 @@
       {
        "id": "R148",
        "why": "open 3B/8B continuous diffusion LMs from NVIDIA; a research release whose value is self-speculative decoding and few-step generation, not frontier accuracy"
+      },
+      {
+       "id": "R155",
+       "why": "a 27B open-base model RL-tuned for one domain edges Opus 5.5 and Fable 5.2 on pass rate at a fraction of the cost; internal evals, no weights"
       }
      ]
     }
@@ -644,6 +658,10 @@
       {
        "id": "R152",
        "why": "a graded public ledger of AI-assisted attacks; 2026 reports include agents hunting OAuth secrets in public GitHub repos"
+      },
+      {
+       "id": "R154",
+       "why": "build-time half of a 20-tool agent security stack: Trivy, Semgrep, ModelScan; LLM Guard archived"
       }
      ]
     },
@@ -944,6 +962,10 @@
       {
        "id": "R149",
        "why": "same model, 12.8% vs 39.0% on SWE-sweep depending on harness; Google names the harness affordances: fewer redundant reads, progress updates, reliable compaction, orchestrator over parallel subagents"
+      },
+      {
+       "id": "R156",
+       "why": "on GPT-6.2 the system prompt must go in a leading developer message, not the Responses instructions field, or it is billed uncached every step"
       }
      ]
     },
@@ -1068,6 +1090,10 @@
       {
        "id": "R147",
        "why": "agent-memory evals: CL-Bench 1.0, Pokemon Red, Stainless corpus wiki, Harvey LAB briefs"
+      },
+      {
+       "id": "R155",
+       "why": "time-pinned live tools, leakage and decontamination counts, random judge from 13, agent-built references checked against experts, a measured 0.008 eval noise floor"
       }
      ]
     },
@@ -1151,7 +1177,8 @@
      "title": "Formal constraints on agent actions",
      "primary": [
       "R041",
-      "R044"
+      "R044",
+      "R154"
      ],
      "also": [
       {
@@ -1382,7 +1409,12 @@
       "R120",
       "R130"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R154",
+       "why": "a checked 20-tool agent security map with corrections, useful as a reading list"
+      }
+     ]
     },
     {
      "n": "8.3",
@@ -4226,6 +4258,67 @@
    ],
    "summary": "Edge-native MoE engine that treats GPU, CPU, host RAM and PCIe as one pool: double-buffered layer streaming in prefill, a q* policy splitting decode cache misses between GPU cache fill and direct CPU execution by measured host bandwidth, shared LRU expert cache, VRAM moved between experts and KV at runtime, and state checkpoints anchored at thinking/tool-call boundaries so harness context edits resume instead of recompute. Reported: 1.5-2.3x decode over llama.cpp/Ollama/KTransformers on an RTX 5090, worst TTFT under 44 s vs 150 s+ baselines, 35B at 39 tok/s on an 8 GB laptop, 284B on a gaming desktop, 753B GLM-5.2 on one workstation GPU.",
    "file": "entries/freetoken-moe-on-consumer-gpus.html"
+  },
+  {
+   "id": "R154",
+   "slug": "twenty-agent-security-tools-checked",
+   "title": "20 open-source tools for AI agent security, checked",
+   "by": "Maryam Miradi's LinkedIn post, 2026-11-06: 20 tools in five groups of four",
+   "source": "https://www.linkedin.com/posts/maryammiradi_i-went-down-the-ai-agent-security-rabbit-share-7524560189346217984-S0O-/",
+   "published": "2026-11-06",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/6HSEKAzxnrurxrsEGGC9w6",
+   "tags": [
+    "security",
+    "agent-auth",
+    "sandboxing",
+    "appsec",
+    "learning-resources",
+    "library-catalogs"
+   ],
+   "summary": "Guardrails (NeMo Guardrails, LLM Guard, AgentGuard, Guardian), red teaming (Promptfoo, garak, PyRIT, Giskard), authorization (OPA, OpenFGA, Cedar, Casbin), isolation (Firecracker, E2B, Kata, gVisor), data and supply chain (Presidio, Trivy, Semgrep, ModelScan). 16 of 20 healthy; LLM Guard is archived (as are Azure/PyRIT and Rebuff; PyRIT lives on at microsoft/PyRIT); AgentGuard and Guardian are ambiguous low-traction names; Trivy, Semgrep and ModelScan are build-time, not runtime. The summary orders the groups along one tool call's path and argues the deterministic layers (policy at the tool boundary, failing closed, and VM-grade isolation) must hold when the model is compromised; guardrail classifiers are noise reduction. Missing: credential brokering outside the sandbox, default-deny egress, audit trail, MCP tool-poisoning scans (snyk/agent-scan), PurpleLlama.",
+   "file": "entries/twenty-agent-security-tools-checked.html"
+  },
+  {
+   "id": "R155",
+   "slug": "sre-1-rl-incident-investigation",
+   "title": "SRE-1: an RL-trained 27B model for production incident investigation",
+   "by": "ResolveAI Labs paper, 2026-11-18; lead researchers Sean Bell and Dhruv Mahajan",
+   "source": "https://resolve.ai/papers/sre-1/index.html",
+   "published": "2026-11-18",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/VkyFS4EEbdnZrBKLoVVtzV",
+   "tags": [
+    "reinforcement-learning",
+    "open-models",
+    "incident-response",
+    "observability",
+    "agent-harness",
+    "evals",
+    "inference-cost",
+    "benchmarks"
+   ],
+   "summary": "Qwen3.8-27B RL-trained for 200 steps (modified CISPO, no KL, ratio mask [0.2, 5]) on 1,503 real incidents plus replays, synthetic and vendor environments, through 400+ live tools across about 60 integrations, every call pinned to alert time (they still caught an agent fetching its own fix). Output is a cited causal chain scored by one of 13 frontier judges against a reference built by an audited multi-agent labeler (as good as experts on 26 of 27). Live test, 49 cases: 6.9% base to 38.8% for one investigation; a five-run ensemble hits 71%, matching Fable 5.2 at 37% less cost; Opus 5.5 five-run 65% at 4.5x cost. Offline, 73 problems: pass 51.7% vs Opus 5.5 44.5% and Fable 5.2 39.0%, but mean scores nearly tie (0.749/0.743/0.731). The ablations are the real lesson: a 25k tool-output cap (+0.16), reserving room for the final answer (+0.14) and temperature 1 (+0.12) beat every reward tweak, and a bf16 gradient-accumulation bug beat twenty reward changes. Caveats: internal evals only, test pool skewed toward cases the frontier-backed product missed, judge-defined success, uneven baseline rollout counts in SRE-1's own harness, 1,503 vs 1,549 incident count unexplained. Walks back R031's multi-agent claim: the shipped model is a single agent; the swarm became the labeler.",
+   "file": "entries/sre-1-rl-incident-investigation.html"
+  },
+  {
+   "id": "R156",
+   "slug": "gpt-6-2-instructions-not-cached",
+   "title": "GPT-6.2 stops caching the Responses instructions field: where harnesses put the system prompt",
+   "by": "OpenCode v2.3.2 changelog, opencode issue #64550 and openai/codex issue #62312; surfaced by André Lindenberg",
+   "source": "https://github.com/anomalyco/opencode/issues/64550",
+   "published": "2026-11-18",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/PesveKMJzHRNrDMZWUBgHz",
+   "tags": [
+    "prompt-caching",
+    "inference-cost",
+    "agent-harness",
+    "coding-agents",
+    "vendor"
+   ],
+   "summary": "GPT-6.2 Sol/Astra place top-level `instructions` at the end of the input and never cache it (OpenAI reportedly confirmed it is deliberate); the same text as a leading developer message caches from step 2. Measured: 10.1k-token prompt 0 cached vs 10,113 cached; review sessions 2.85x the cost of GPT-6.1; both API-key and ChatGPT auth affected; OpenAI cache diagnostics report cache_hit while usage shows 0. OpenCode now sends a leading developer message on every Responses route (OpenAI, Copilot, Azure, OpenRouter). Lesson: request shape is a cost control; alert on cached-token share after model or SDK changes.",
+   "file": "entries/gpt-6-2-instructions-not-cached.html"
   }
  ],
  "edges": [
@@ -6586,6 +6679,54 @@
    "b": "R057",
    "strength": "strong",
    "why": "SoMem's self-organized linked Markdown is Anthropic's dreamed wiki; Anthropic adds that a wiki can outgrow its corpus (1.77x) and abstract nothing."
+  },
+  {
+   "a": "R154",
+   "b": "R073",
+   "strength": "strong",
+   "why": "R073 secures the code agents write; R154 secures the running agent. They share Semgrep, Trivy and PyRIT, which R154 places at build time."
+  },
+  {
+   "a": "R154",
+   "b": "R030",
+   "strength": "strong",
+   "why": "R154's list detects leaked secrets but never brokers them; OpenShell's egress proxy injecting credentials outside the sandbox is the missing layer."
+  },
+  {
+   "a": "R154",
+   "b": "R112",
+   "strength": "strong",
+   "why": "F5's no-attacker leaks are what R154's authorization and egress layers would stop and its guardrail layer would not."
+  },
+  {
+   "a": "R154",
+   "b": "R062",
+   "strength": "strong",
+   "why": "OpenFGA/OPA/Cedar decide per tool call; MCP's OAuth 2.1 establishes who is calling. Both sit at the same tool boundary."
+  },
+  {
+   "a": "R154",
+   "b": "R119",
+   "strength": "strong",
+   "why": "Same author's earlier 19-repo list; both are category maps whose individual repos need a health check before adoption."
+  },
+  {
+   "a": "R155",
+   "b": "R031",
+   "strength": "strong",
+   "why": "R031 argued production debugging needs an orchestrator over parallel specialists; SRE-1, a year later from the same company, is one RL-trained agent with a 1M window, and the multi-agent system moved offline to build the reference labels."
+  },
+  {
+   "a": "R155",
+   "b": "R126",
+   "strength": "strong",
+   "why": "Same base model (Qwen3.8-27B) and the same lesson from opposite ends: harness fit drives results, so R126 tunes to one harness while SRE-1 randomizes about 70 harness attributes in half of training to avoid overfitting one."
+  },
+  {
+   "a": "R155",
+   "b": "R111",
+   "strength": "strong",
+   "why": "A narrow-domain counterpoint to \"no Fable-class open model\": a 27B open-base model matches Fable 5.2 on one task once RL-tuned, without closing the general gap."
   }
  ]
 }
