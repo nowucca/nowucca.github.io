@@ -327,6 +327,10 @@
       {
        "id": "R191",
        "why": "compressing a RoPE model's KV cache safely: keep compressed slots at in-range positions and average keys before rotation, not after"
+      },
+      {
+       "id": "R198",
+       "why": "why long agent contexts stay expensive under sparse attention: the indexer still scores every key, so its design sets the bill"
       }
      ]
     },
@@ -398,7 +402,8 @@
       "R001",
       "R047",
       "R101",
-      "R178"
+      "R178",
+      "R193"
      ],
      "also": [
       {
@@ -504,7 +509,8 @@
       "R162",
       "R166",
       "R176",
-      "R192"
+      "R192",
+      "R198"
      ],
      "also": [
       {
@@ -530,6 +536,10 @@
       {
        "id": "R180",
        "why": "interactive simulator for continuous batching, chunked prefill and paged KV; for teaching, not benchmarking"
+      },
+      {
+       "id": "R197",
+       "why": "local serving of a looped MoE: memory falls, compute per token does not; quantization error repeats across passes"
       }
      ]
     },
@@ -548,6 +558,14 @@
       {
        "id": "R150",
        "why": "a frontier model flags poisoned small models and malicious adapters from weights alone, but never the trigger: triage, not clearance"
+      },
+      {
+       "id": "R193",
+       "why": "distributing weights at exabyte scale: machine clients fetch unattended, so client-side hash checks are the last line"
+      },
+      {
+       "id": "R195",
+       "why": "a marketplace cache served tampered builds of a real extension; signatures must survive caches, not only the upstream registry"
       }
      ]
     },
@@ -561,7 +579,9 @@
       "R125",
       "R149",
       "R170",
-      "R179"
+      "R179",
+      "R196",
+      "R197"
      ],
      "also": [
       {
@@ -780,6 +800,10 @@
       {
        "id": "R161",
        "why": "detecting an AI-run cloud intrusion from CloudTrail timing rather than alert severity"
+      },
+      {
+       "id": "R195",
+       "why": "secret scanning has to cover agent traces and support tickets, not only repositories; traces kept for training held live credentials"
       }
      ]
     },
@@ -1166,7 +1190,8 @@
       "R105",
       "R107",
       "R185",
-      "R188"
+      "R188",
+      "R194"
      ],
      "also": [
       {
@@ -1491,6 +1516,10 @@
       {
        "id": "R189",
        "why": "a proof whose only full form is machine-checked Lean: trust moves to the statement, the axioms and the kernel, because no human will read it"
+      },
+      {
+       "id": "R194",
+       "why": "models lag most on judgment tasks such as designing evaluations, so human review stays concentrated there"
       }
      ]
     },
@@ -1522,12 +1551,17 @@
       "R048",
       "R112",
       "R152",
-      "R161"
+      "R161",
+      "R195"
      ],
      "also": [
       {
        "id": "R172",
        "why": "a non-AI supply-chain incident: trusted third-party code turned hostile on every customer at once"
+      },
+      {
+       "id": "R196",
+       "why": "OpenAI ties anti-distillation defences to cyber risk and national security, naming DeepSeek and Moonshot-linked campaigns and backing export-control bills"
       }
      ]
     },
@@ -5156,6 +5190,114 @@
    ],
    "summary": "Reverse-KL distillation collapses to the teacher's dominant modes; PMD instead matches exponentially tilted posterior means, each one frozen-teacher call at a shifted input, and proves this identifies the full posterior. No auxiliary score network; one student serves any step budget on its grid. Best 4-step FID on SDXL and FLUX.2 [klein] 4B per the paper; preprint.",
    "file": "entries/posterior-matching-distillation.html"
+  },
+  {
+   "id": "R193",
+   "slug": "hugging-face-cdn-model-downloads",
+   "title": "Hugging Face's own CDN: why model downloads break the web CDN model",
+   "by": "Thomas Wolf (Hugging Face), 2026-11-20, with the public CDN live-traffic page",
+   "source": "https://huggingface-cdn-live.static.hf.space/index.html",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/FJK8jYG6ZnqLcc2yj7kxxx",
+   "tags": [
+    "infrastructure",
+    "cdn",
+    "open-weights",
+    "distribution"
+   ],
+   "summary": "Self-run since mid-2026: nearly 1 EB a month, ~80k req/s; snapshot 3.72 Tbps, 74.8% cache hit ratio, edge sites in AWS and GCP regions, not cities. Few huge objects pulled by GPU clusters, and launch-day floods on one model, invert web-CDN assumptions about placement, caching and capacity.",
+   "file": "entries/hugging-face-cdn-model-downloads.html"
+  },
+  {
+   "id": "R194",
+   "slug": "metr-time-horizon-update",
+   "title": "METR's updated time-horizon report: fast progress on verifiable work, a gap on judgment",
+   "by": "MIT Technology Review (Grace Huckins), 2026-11-20, on METR's updated report",
+   "source": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/F5HUEHGQLJbkMyPQronLK2",
+   "tags": [
+    "evals",
+    "benchmarks",
+    "capabilities",
+    "research"
+   ],
+   "summary": "Adds longer and open-ended tasks with mostly estimated human times. Verifiable tasks keep improving exponentially; on judgment tasks (designing evals METR would use, scoring arguments) models still fall short, though the newest now reach borderline. Few such tasks, so trends there are uncertain.",
+   "file": "entries/metr-time-horizon-update.html"
+  },
+  {
+   "id": "R195",
+   "slug": "cursor-incident-vendor-key-extension-cache",
+   "title": "Cursor's incident: a read-only vendor key, credentials in agent traces, and a poisoned extension cache",
+   "by": "Cursor incident update, 2026-11-13; analysis by Steve Zenone",
+   "source": "https://cursor.com/blog/security-incident-update",
+   "published": "2026-11-13 (Cursor); 2026-11-17 (write-up)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/Vgxsm6xGp9GDnUK7QvtSQg",
+   "tags": [
+    "security",
+    "supply-chain",
+    "incident",
+    "coding-agents"
+   ],
+   "summary": "A read-only key held by the inference vendor exposed old coding-agent traces; unredacted credentials in a few traces led to SaaS tools, then to a credential that wrote malicious Claude Code extension builds onto Cursor's marketplace cache (about 11 hours, at most 5,000 users). Lesson: a read-only key is as safe as the data it reads; redact traces at capture, bind credentials to location, sign artifacts end to end.",
+   "file": "entries/cursor-incident-vendor-key-extension-cache.html"
+  },
+  {
+   "id": "R196",
+   "slug": "openai-adversarial-distillation",
+   "title": "Adversarial distillation: how OpenAI protects reasoning traces, and what it may mean for open weights",
+   "by": "OpenAI, 2026-11-20; shared by Ethan Mollick",
+   "source": "https://openai.com/index/combatting-adversarial-distillation/",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/QmfxrUFtvSYuGH9QKfHPzr",
+   "tags": [
+    "security",
+    "distillation",
+    "open-weights",
+    "policy"
+   ],
+   "summary": "Students trained on exact reasoning traces gain more cyber capability than on summaries. Defences per request (adversarial training, input and output classifiers including tool-call arguments, reasoning bound to its conversation) and per campaign (account-network enforcement, shared indicators). Extraction success on Astra fell from 54.0% to 0.2%. Mollick's hypothesis that this slows open weights is unproven.",
+   "file": "entries/openai-adversarial-distillation.html"
+  },
+  {
+   "id": "R197",
+   "slug": "inkling-2-mini-looped-moe",
+   "title": "Inkling 2 Mini: a looped 26B MoE built to run locally",
+   "by": "Thinking Machines Lab release, Hugging Face blog, 2026-11-20; shared by Merve Noyan",
+   "source": "https://huggingface.co/blog/inkling2mini",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/X1tQGfo225YrQSCqsU2Zu5",
+   "tags": [
+    "open-weights",
+    "local-models",
+    "moe",
+    "models"
+   ],
+   "summary": "26B stored, 3B active, multimodal, 1M context, NVFP4/MXFP8 experts plus a DSpark drafter. 24 physical layers, middle 12 looped three times with gated cross-pass messages, giving 48 layer visits from half the weights. Claims class-leading AAv5 and 32 of 48 benchmarks; a variable-loop research checkpoint trades passes for speed. Licence not stated in the blog.",
+   "file": "entries/inkling-2-mini-looped-moe.html"
+  },
+  {
+   "id": "R198",
+   "slug": "sparse-attention-indexer-codesign",
+   "title": "Sparse attention that pays off: eight hardware co-design guidelines for the indexer",
+   "by": "NVIDIA Technical Blog, 2026-11-17; shared by NVIDIA AI",
+   "source": "https://developer.nvidia.com/blog/co-designing-sparse-attention-for-efficient-long-context-inference/",
+   "published": "2026-11-17",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/GARei7hw7Fw7vM2vqywX8M",
+   "tags": [
+    "inference-cost",
+    "attention",
+    "long-context",
+    "gpu"
+   ],
+   "summary": "Sparse attention moves cost into the indexer that scores every key (47% of a DeepSeek V3.2 prefill layer at 128K). Compares DSA, GLM, Qwen QSA, MiniMax MSA, NSA, MoBA and others; guidelines: tile-sized head grouping, FP16 epilogue, one key head, head dim 128, score fewer keys, fuse and reuse top-k, large blocks, large core-attention groups.",
+   "file": "entries/sparse-attention-indexer-codesign.html"
   }
  ],
  "edges": [
@@ -8224,6 +8366,114 @@
    "b": "R182",
    "strength": "strong",
    "why": "The paper's one working remedy, read back the stored state before reporting, is the Claude Code team's rule that verification means running the change."
+  },
+  {
+   "a": "R193",
+   "b": "R001",
+   "strength": "strong",
+   "why": "both are hosting layers rebuilt because machine clients broke the stock design: agent fan-out for Git at OpenAI, GPU-cluster pulls of terabyte models for Hugging Face's CDN."
+  },
+  {
+   "a": "R193",
+   "b": "R176",
+   "strength": "strong",
+   "why": "the RL rollout serving layer ships versioned weight deltas to avoid full pulls; a CDN for whole models is the same problem at internet scale."
+  },
+  {
+   "a": "R193",
+   "b": "R033",
+   "strength": "strong",
+   "why": "unattended weight downloads at exabyte scale make integrity the weak point; Lazarus shows how few edited weights it takes to plant a backdoor."
+  },
+  {
+   "a": "R194",
+   "b": "R078",
+   "strength": "strong",
+   "why": "both read benchmark trends critically: SatBench on how fast and how honestly scores saturate, METR on how far verifiable-task progress carries to judgment tasks."
+  },
+  {
+   "a": "R194",
+   "b": "R181",
+   "strength": "strong",
+   "why": "the AI-scientists study and METR's eval-design task point the same way: models produce research artifacts quickly, but judging which are good is where they fall short."
+  },
+  {
+   "a": "R194",
+   "b": "R185",
+   "strength": "strong",
+   "why": "METR finds models weak at designing evaluations; Benchmark Factory sidesteps that by building evals from a team's own merged changes."
+  },
+  {
+   "a": "R195",
+   "b": "R161",
+   "strength": "strong",
+   "why": "both are credential-driven intrusions: the AWS case shows how fast an automated attacker moves once keys work, Cursor's shows where the keys came from (agent traces kept for training)."
+  },
+  {
+   "a": "R195",
+   "b": "R073",
+   "strength": "strong",
+   "why": "the open-source secret scanners in R073 target repositories; Cursor's incident is the argument for running them over agent traces, exports and support tickets too."
+  },
+  {
+   "a": "R195",
+   "b": "R033",
+   "strength": "strong",
+   "why": "two supply-chain attacks on AI tooling at different layers: edited weights in a model, a tampered extension build in a marketplace cache."
+  },
+  {
+   "a": "R196",
+   "b": "R125",
+   "strength": "strong",
+   "why": "the GPT-6.2 Astra and Sol launch is where these anti-distillation safeguards ship; extraction success on Astra fell from 54.0% to 0.2%."
+  },
+  {
+   "a": "R196",
+   "b": "R111",
+   "strength": "strong",
+   "why": "Mollick reads tighter distillation defences as a possible cause of the open-weights gap that R111 measured; the OpenAI post shows defences work, not how much open models relied on extraction."
+  },
+  {
+   "a": "R196",
+   "b": "R192",
+   "strength": "strong",
+   "why": "the same technique seen as engineering and as threat: PMD distills one's own teacher legitimately, adversarial distillation extracts someone else's."
+  },
+  {
+   "a": "R197",
+   "b": "R067",
+   "strength": "strong",
+   "why": "the same lab's two Inkling 2 sizes: Small stores 594B for datacenter agent loops, Mini reaches the same 48 layer visits by looping shared weights so it fits a local machine."
+  },
+  {
+   "a": "R197",
+   "b": "R111",
+   "strength": "strong",
+   "why": "a strong small open model in the week the open-weights gap was measured at the frontier; competition at the local end stays fierce even where the top tier lags."
+  },
+  {
+   "a": "R197",
+   "b": "R148",
+   "strength": "strong",
+   "why": "both ship a drafter for speculative decoding with the model, making fast decode part of the release rather than a serving add-on."
+  },
+  {
+   "a": "R198",
+   "b": "R191",
+   "strength": "strong",
+   "why": "two ways to tame long-context attention: WorldTrace compresses what the cache holds, sparse attention limits which keys each query reads, and both must keep the right tokens findable."
+  },
+  {
+   "a": "R198",
+   "b": "R180",
+   "strength": "strong",
+   "why": "the serving simulator models KV-cache memory and batching; the sparse-attention guidelines set how much of that cache each query actually touches."
+  },
+  {
+   "a": "R198",
+   "b": "R174",
+   "strength": "strong",
+   "why": "two inference-cost levers that compound: QDA lowers bytes per weight, sparse attention lowers keys per query."
   }
  ]
 }

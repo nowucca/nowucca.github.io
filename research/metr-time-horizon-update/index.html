@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>METR&#x27;s updated time-horizon report: fast progress on verifiable work, a gap on judgment · Research</title>
+<meta name="description" content="Adds longer and open-ended tasks with mostly estimated human times. Verifiable tasks keep improving exponentially; on judgment tasks (designing evals METR would use, scoring arguments) models still fall short, though the newest now reach borderline. Few such tasks, so trends there are uncertain.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R194 · Agent principles and patterns › Evaluation data for agents</span>
+  <h1>METR&#x27;s updated time-horizon report: fast progress on verifiable work, a gap on judgment</h1>
+  <div class="entry-meta"><span>MIT Technology Review (Grace Huckins), 2026-11-20, on METR&#x27;s updated report</span><span>Published 2026-11-20</span><span>Summarized 2026-11-20</span></div>
+  <p><a href="https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">evals</span><span class="tag">benchmarks</span><span class="tag">capabilities</span><span class="tag">research</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> MIT Technology Review, Grace Huckins, <em>The most misunderstood graph in AI just got a major update</em>, 2026-11-20, reporting on METR's new time-horizon report. Surfaced by MIT Technology Review's post.</p>
+<h2 id="what-the-time-horizon-measure-is">What the time-horizon measure is</h2>
+<p>METR scores AI systems by the length of tasks they can complete, where length means how long the same task takes a skilled human. The original plot showed the task length frontier models could finish doubling about every four months. It was widely shared and widely misread: it measures task length at a given success rate, not hours of autonomous work or the share of jobs automated.</p>
+<h2 id="what-changed-in-the-update">What changed in the update</h2>
+<ul><li><p><strong>Longer tasks.</strong> The suite adds tasks estimated to take humans much longer than the original set.</p></li><li><p><strong>Open-ended, judgment-heavy tasks.</strong> Some tasks are hard to verify automatically. One asks models to design new AI evaluations that METR staff then judge for research use. Another asks models to score philosophical arguments.</p></li><li><p><strong>Estimated human times.</strong> For the longest tasks, completion times are mostly estimates or surveys, not timed human runs, because paying people for hundreds of hours per task is impractical.</p></li></ul>
+<h2 id="findings-as-reported">Findings, as reported</h2>
+<ul><li><p>Progress on verifiable tasks (coding and math, where success can be checked automatically) continues on an exponential trend.</p></li><li><p>On the judgment tasks, models still fall short. None of the AI-designed evaluations was judged useful enough for METR's own research.</p></li><li><p>There is movement: the newest models, Opus 5.5 among them, now often reach "borderline above the bar" on evaluation design. A year ago every model was "clearly below the bar".</p></li><li><p>Outside researchers welcome the broader suite but caution against extrapolating. Few judgment tasks are included, and METR staff themselves expect trends on such tasks to be less clean.</p></li></ul>
+<h2 id="why-it-matters-for-engineering-teams">Why it matters for engineering teams</h2>
+<ol><li><p><strong>Verification drives capability.</strong> Models improve fastest where an automatic checker exists, because reinforcement learning needs one. Work you can wrap in tests, types or proofs is the work agents will take over first. That argues for investing in oracles before delegating.</p></li><li><p><strong>Judgment is the human bottleneck that remains.</strong> Choosing what to build, designing the evaluation and deciding whether a result is good are where models lag. Those are review and design tasks, so staffing should shift toward them.</p></li><li><p><strong>Read the plot correctly.</strong> A long time horizon at 50% success is not reliability. For production use, ask for the horizon at the success rate you actually need.</p></li></ol>
+<h2 id="caveats-and-failure-modes-in-using-the-result">Caveats and failure modes in using the result</h2>
+<ul><li><p><strong>Estimated, not measured, human times</strong> for long tasks add uncertainty to the newest points.</p></li><li><p><strong>Small judgment sample.</strong> Few hard-to-score tasks means wide error bars on exactly the part that matters most for automating research.</p></li><li><p><strong>Grader dependence.</strong> Human judges score the open-ended tasks, so the results depend on their standards and on how much they agree with each other.</p></li><li><p><strong>Context.</strong> The update lands after a separate, heavily redacted METR report claiming AI may be doubling Anthropic's research speed. The two should not be conflated.</p></li></ul>
+<h2 id="checklist-when-citing-time-horizon-numbers">Checklist when citing time-horizon numbers</h2>
+<ul><li><p>Which success rate does the horizon refer to?</p></li><li><p>Measured or estimated human times?</p></li><li><p>Verifiable or judgment-heavy tasks?</p></li><li><p>Which models, at which date, under which agent scaffold?</p></li><li><p>Does your own workload look like the task suite?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R078 SatBench: how fast benchmarks saturate, and how few launch-day scores hold up.</p></li><li><p>R086 Agents doing AI engineering: four November 2026 benchmarks.</p></li><li><p>R181 A Society of AI Scientists: why review must execute the work.</p></li><li><p>R185 Benchmark Factory: building evals from your own merged changes.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/satbench-benchmark-saturation/">SatBench: how fast AI benchmarks saturate</a><span class="label">R078 · Agent principles and patterns</span><span class="why">both read benchmark trends critically: SatBench on how fast and how honestly scores saturate, METR on how far verifiable-task progress carries to judgment tasks.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/society-of-ai-scientists/">A Society of AI Scientists: 936 agents, 35 labs, and why review must execute code</a><span class="label">R181 · Agent architecture</span><span class="why">the AI-scientists study and METR&#x27;s eval-design task point the same way: models produce research artifacts quickly, but judging which are good is where they fall short.</span></li><li style="--c:var(--t6)"><a class="to" href="/research/benchmark-factory-evals-from-merged-changes/">Benchmark Factory: coding evals built from your own merged changes</a><span class="label">R185 · Agent principles and patterns</span><span class="why">METR finds models weak at designing evaluations; Benchmark Factory sidesteps that by building evals from a team&#x27;s own merged changes.</span></li></ul><p><a href="/research/map/#R194">See R194 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
