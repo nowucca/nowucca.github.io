@@ -677,7 +677,8 @@
       "R080",
       "R082",
       "R124",
-      "R133"
+      "R133",
+      "R182"
      ],
      "also": [
       {
@@ -721,6 +722,10 @@
       {
        "id": "R151",
        "why": "a minimal-code skill whose review command reads code outside the diff; its own benchmark found 100% of planted problems vs 87% without, a self-benchmark"
+      },
+      {
+       "id": "R182",
+       "why": "one tuned reviewer with a per-area REVIEW.md read from the base branch, reviews bound to commits, the reviewer graded on past incidents with per-stage recall and a clean control"
       }
      ]
     },
@@ -4899,6 +4904,24 @@
    ],
    "summary": "Claim: over twelve weeks 936 agents in 35 labs published 936 code-and-data studies, retracted mistakes before upload and cited nulls as often as positives; text-only review could not tell disclosed from hidden flaws, while objections run as scripts overturned 49% of major-objection headline results.",
    "file": "entries/society-of-ai-scientists.html"
+  },
+  {
+   "id": "R182",
+   "slug": "claude-code-team-verification",
+   "title": "How the Claude Code team verifies agent-written code",
+   "by": "Addy Osmani, claude.dev blog, 2026-11-16",
+   "source": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+   "published": "2026-11-16 (article); 2026-11-20 (post)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/H7au5VHymAFi7T8gKoivpk",
+   "tags": [
+    "verification",
+    "code-review",
+    "testing",
+    "coding-agents"
+   ],
+   "summary": "With about 90% of the team's code written and reviewed by Claude, verification is the bottleneck: a repo-local verify skill drives the real app end to end, property and differential tests supply independent oracles, three failed rounds escalate to a human, a 39-item diff-triggered reliability checklist runs only matching items, REVIEW.md is read from the base branch so a change can't edit its own checks, gates roll out in observe mode with every commit stamped by how it was verified, the reviewer is graded on past incidents with per-stage recall, and misses become pruned rules while flaky tests are root-caused or deleted.",
+   "file": "entries/claude-code-team-verification.html"
   }
  ],
  "edges": [
