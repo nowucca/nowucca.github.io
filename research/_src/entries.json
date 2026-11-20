@@ -669,6 +669,10 @@
       {
        "id": "R177",
        "why": "agent stays with its PR through a board thread: reproduce first, fix, merge on human approval plus green checks"
+      },
+      {
+       "id": "R187",
+       "why": "interview-first planning into specs and tracer-bullet tickets with blocking edges, then TDD and architecture surveys, as small composable skills"
       }
      ]
     },
@@ -703,6 +707,10 @@
       {
        "id": "R167",
        "why": "proof-of-done per task type: real artifact, runtime evidence, before/after baselines"
+      },
+      {
+       "id": "R185",
+       "why": "label-free quality anchors for in-house coding benchmarks: capability ordering, difficulty band, low variance; stress-tested with broken graders and shuffled labels"
       }
      ]
     },
@@ -738,7 +746,8 @@
      "primary": [
       "R073",
       "R163",
-      "R172"
+      "R172",
+      "R186"
      ],
      "also": [
       {
@@ -877,7 +886,8 @@
       "R068",
       "R139",
       "R151",
-      "R167"
+      "R167",
+      "R187"
      ],
      "also": [
       {
@@ -919,6 +929,10 @@
       {
        "id": "R140",
        "why": "a beginner's ladder of Claude Code features, checked against current docs; R139 is the advanced companion on what to keep and delete"
+      },
+      {
+       "id": "R188",
+       "why": "rerun a fixed eval set before and after every skill, agent or tool-description change; vendor harness comparisons are hypotheses to test on your own repo"
       }
      ]
     }
@@ -1135,7 +1149,9 @@
       "R099",
       "R102",
       "R105",
-      "R107"
+      "R107",
+      "R185",
+      "R188"
      ],
      "also": [
       {
@@ -1451,6 +1467,10 @@
       {
        "id": "R181",
        "why": "executable review beats text review for agent-written research; number-matching audits miss target leakage"
+      },
+      {
+       "id": "R186",
+       "why": "funded human triage between an AI scanner and maintainers: about one actionable report per hundred raw findings, each with a proof of concept and fix"
       }
      ]
     },
@@ -4972,6 +4992,78 @@
    ],
    "summary": "After a silent MCP-style tool change, agents that had done the task before copied their earlier call, even when the tool definition showed the change, and reported success (347 of 348 failures). Complete docs: 88-100% success with no experience vs 26-49% with stale experience; incomplete docs: about 23% stale vs 42% none. Worse with more experience (46% to 26% over 1 to 10 earlier tasks); every memory form affected; version notices and a system-prompt \"check the docs\" rule didn't help; reading back stored state before reporting raised success to 91%/69%. Hand-written histories hide the problem.",
    "file": "entries/experience-rot-stale-tool-memory.html"
+  },
+  {
+   "id": "R185",
+   "slug": "benchmark-factory-evals-from-merged-changes",
+   "title": "Benchmark Factory: coding evals built from your own merged changes",
+   "by": "Shahidi, Poon, Xie et al. (Meta), arXiv 2611.18890, 2026-11-13; shared by Elvis Saravia",
+   "source": "https://arxiv.org/abs/2611.18890",
+   "published": "2026-11-13 (paper); 2026-11-20 (post)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/8w885VDAAxoM9BPVMyXEWu",
+   "tags": [
+    "evals",
+    "coding-agents",
+    "benchmarks",
+    "research"
+   ],
+   "summary": "An agent loop sources tasks from landed production changes, runs models of known relative strength, diagnoses and repairs the sourcing query, prompt and grader until the benchmark clears label-free anchors (expected capability ordering within a margin, an informative difficulty band, low run-to-run variance), with a hash-split holdout that never drives repairs and human checkpoints for what it can't fix. Five cohorts; held-out configurations ranked as expected (60.6% vs 54.4%; 65.8% vs 60.5%), 9 of 10 per-cohort comparisons agreed; trivial benchmarks and five broken graders rejected; shuffled labels passed at most 1.4%.",
+   "file": "entries/benchmark-factory-evals-from-merged-changes.html"
+  },
+  {
+   "id": "R186",
+   "slug": "mdash-ai-findings-to-fixes",
+   "title": "Codename MDASH: 9,791 AI findings filtered to 99 reports with fixes",
+   "by": "GitHub Blog (Ashley Wolf and Gregg Cochran), 2026-11-17; analysis by Rick Hightower",
+   "source": "https://github.blog/open-source/maintainers/maintainers-dont-need-more-ai-bug-reports-they-need-fixes/",
+   "published": "2026-11-17 (blog); 2026-11-20 (article)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/GiscUh1MXv8P3sBYYvV1Bu",
+   "tags": [
+    "security",
+    "open-source",
+    "vulnerability-research",
+    "triage"
+   ],
+   "summary": "An agentic scanner flagged 9,791 possible issues in AutoGPT, Caddy, Express, FastMCP, ImageMagick and Netty; a Copilot-skills triage agent and then seven human researchers (about two days per project) cut them to 99 private reports with proofs of concept and suggested patches; 55 fixed and 14 released within days. The lesson is the ratio and who pays for the filter: ship fixes, not findings, and budget triage.",
+   "file": "entries/mdash-ai-findings-to-fixes.html"
+  },
+  {
+   "id": "R187",
+   "slug": "mattpocock-skills-for-real-engineers",
+   "title": "Skills for Real Engineers: small, composable skills for coding agents",
+   "by": "mattpocock/skills (Matt Pocock, MIT); shared by Artem Kukharenko",
+   "source": "https://github.com/mattpocock/skills",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/GghQ3qTdd7oXi8xVsfPR96",
+   "tags": [
+    "skills",
+    "coding-agents",
+    "tdd",
+    "engineering-practice"
+   ],
+   "summary": "Skills that encode classic practice for four agent failure modes: grilling interviews before code (misalignment), a shared domain glossary with ADRs (verbosity, naming drift), red-green-refactor TDD and gated debugging (broken code), and module-deepening architecture surveys (ball of mud); /to-spec and /to-tickets feed the issue tracker. User-invoked orchestrators may call model-invoked skills but never each other. Popularity, not measured outcomes.",
+   "file": "entries/mattpocock-skills-for-real-engineers.html"
+  },
+  {
+   "id": "R188",
+   "slug": "copilot-evals-harnesses-view",
+   "title": "Copilot Evals and the Harnesses view: measuring the layer you change",
+   "by": "GitHub Changelog, 2026-11-17; analysis by Rick Hightower",
+   "source": "https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview",
+   "published": "2026-11-17 (changelog); 2026-11-20 (article)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/FDdHwKvf1hrDfkbFhXYs7Z",
+   "tags": [
+    "evals",
+    "skills",
+    "coding-agents",
+    "benchmarks"
+   ],
+   "summary": "Copilot Evals (/eval, Vally engine) runs repeatable evals of skills, custom agents and MCP tools, checking result and path, with before-and-after run comparison and per-run approval. The benchmarks site's Harnesses view compares Copilot CLI, Claude Code and Codex CLI on exact model pairs at medium effort, plotting resolution against cost with variance and bootstrap intervals; sound method, but GitHub measures its own product. Eval cases, not the runner, are the hard part.",
+   "file": "entries/copilot-evals-harnesses-view.html"
   }
  ],
  "edges": [
@@ -7410,6 +7502,84 @@
    "b": "R123",
    "strength": "strong",
    "why": "Beacon's approved lessons have no salience or expiry; R123's scheduled dreaming rewrite is the missing maintenance step."
+  },
+  {
+   "a": "R167",
+   "b": "R187",
+   "strength": "strong",
+   "why": "both encode senior-engineer habits as skills; pstack deliberately has no planning skill, while mattpocock/skills puts an interview and a spec first."
+  },
+  {
+   "a": "R185",
+   "b": "R182",
+   "strength": "strong",
+   "why": "both grade the graders: Benchmark Factory stress-tests its quality anchors with broken graders and shuffled labels, Claude Code evaluates its reviewer against past incidents with a clean control."
+  },
+  {
+   "a": "R185",
+   "b": "R086",
+   "strength": "strong",
+   "why": "Benchmark Factory is a way to build the in-house version of the public AI-engineering benchmarks, from a team's own merged changes."
+  },
+  {
+   "a": "R185",
+   "b": "R151",
+   "strength": "strong",
+   "why": "Ponytail grades itself on its own benchmark; Benchmark Factory's label-free anchors are a check that a self-built benchmark actually separates models."
+  },
+  {
+   "a": "R186",
+   "b": "R073",
+   "strength": "strong",
+   "why": "the repos in R073 are the find step; MDASH shows the filter and verify steps that turn their output into reports maintainers will act on."
+  },
+  {
+   "a": "R186",
+   "b": "R152",
+   "strength": "strong",
+   "why": "the same AI capability on both sides: the ledger grades AI-assisted attacks, MDASH points it at defense and pays for human triage first."
+  },
+  {
+   "a": "R186",
+   "b": "R052",
+   "strength": "strong",
+   "why": "Open Code Review and MDASH both bundle findings with context before a human sees them; MDASH goes further and attaches a proof of concept and patch."
+  },
+  {
+   "a": "R187",
+   "b": "R151",
+   "strength": "strong",
+   "why": "both are popular prompt-level skills for coding agents with no independent outcome data; Ponytail at least ships a self-run benchmark."
+  },
+  {
+   "a": "R187",
+   "b": "R058",
+   "strength": "strong",
+   "why": "mattpocock/skills is a lightweight, composable take on the delivery lifecycle in Anthropic's AI-native SDLC playbook: interview, spec, tickets, TDD, review."
+  },
+  {
+   "a": "R187",
+   "b": "R139",
+   "strength": "strong",
+   "why": "Lydia Hallie's point that steering and checking moved off the human's plate fits the interview-first design here, which spends human time up front instead."
+  },
+  {
+   "a": "R188",
+   "b": "R185",
+   "strength": "strong",
+   "why": "two halves of in-house agent evaluation: Benchmark Factory builds and validates the case set, Copilot Evals runs it before and after each customization change."
+  },
+  {
+   "a": "R188",
+   "b": "R099",
+   "strength": "strong",
+   "why": "Amazon's three-layer framework evaluates whole agents with traces and humans; Copilot Evals narrows the target to the customization layer (skills, agents, MCP tools) and grades both result and path."
+  },
+  {
+   "a": "R188",
+   "b": "R151",
+   "strength": "strong",
+   "why": "both are self-measurement: Ponytail grades itself on its own benchmark, GitHub ranks its own CLI on its own site; a controlled design helps, but independent reproduction is still missing."
   }
  ]
 }
