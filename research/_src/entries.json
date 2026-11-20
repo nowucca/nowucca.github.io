@@ -330,7 +330,8 @@
       "R031",
       "R077",
       "R100",
-      "R132"
+      "R132",
+      "R181"
      ],
      "also": [
       {
@@ -516,6 +517,10 @@
       {
        "id": "R174",
        "why": "agent-designed quantization recipes; NVFP4 GLM-5.3-Flash recovers 98.3% of FP8 accuracy vs 96.9% for the best vendor checkpoint"
+      },
+      {
+       "id": "R180",
+       "why": "interactive simulator for continuous batching, chunked prefill and paged KV; for teaching, not benchmarking"
       }
      ]
     },
@@ -1426,6 +1431,10 @@
       {
        "id": "R157",
        "why": "pushback is an unreliable check: models cave to wrong challenges, and a trained fix also makes them accept correct corrections less often"
+      },
+      {
+       "id": "R181",
+       "why": "executable review beats text review for agent-written research; number-matching audits miss target leakage"
       }
      ]
     },
@@ -1534,7 +1543,8 @@
      "primary": [
       "R056",
       "R079",
-      "R140"
+      "R140",
+      "R180"
      ],
      "also": [
       {
@@ -4854,6 +4864,41 @@
    ],
    "summary": "Claim: a sliced variance floor instead of stop-gradient lets a next-frame JEPA learn smooth latent maps of mazes and city blocks with no position labels, but it can drop slow factors like object pose; Slow SVReg (slowness term plus gated residual predictor) keeps them and plans best on five control tasks.",
    "file": "entries/svreg-jepa-latent-maps.html"
+  },
+  {
+   "id": "R180",
+   "slug": "serving-trace-lab-llm-batching",
+   "title": "Serving Trace Lab: an interactive simulator for LLM batching and KV-cache memory",
+   "by": "Pallavi Ahuja, Serving Trace Lab (interactive simulator), 2026-11-20",
+   "source": "https://serving-trace-lab.base44.app/",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/4FT53wXnBwqA2MjRvyhjan",
+   "tags": [
+    "teaching",
+    "inference",
+    "serving"
+   ],
+   "summary": "Teaching tool: step an LLM server iteration by iteration to see prefill vs decode, static vs continuous batching, whole vs chunked prefill, and reserved vs paged KV allocation under memory pressure. Teach it by predicting finish times on one workload, then switching each policy.",
+   "file": "entries/serving-trace-lab-llm-batching.html"
+  },
+  {
+   "id": "R181",
+   "slug": "society-of-ai-scientists",
+   "title": "A Society of AI Scientists: 936 agents, 35 labs, and why review must execute code",
+   "by": "A Society of AI Scientists (MIT, Stanford and others), alphaXiv, 2026-11-19; shared by Ethan Mollick",
+   "source": "https://www.alphaxiv.org/abs/2611.society-ai-scientists",
+   "published": "2026-11-19 (paper); 2026-11-20 (post)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/9EzdzkRZydn67baovshrcc",
+   "tags": [
+    "multi-agent",
+    "evals",
+    "research",
+    "verification"
+   ],
+   "summary": "Claim: over twelve weeks 936 agents in 35 labs published 936 code-and-data studies, retracted mistakes before upload and cited nulls as often as positives; text-only review could not tell disclosed from hidden flaws, while objections run as scripts overturned 49% of major-objection headline results.",
+   "file": "entries/society-of-ai-scientists.html"
   }
  ],
  "edges": [

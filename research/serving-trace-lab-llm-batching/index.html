@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Serving Trace Lab: an interactive simulator for LLM batching and KV-cache memory · Research</title>
+<meta name="description" content="Teaching tool: step an LLM server iteration by iteration to see prefill vs decode, static vs continuous batching, whole vs chunked prefill, and reserved vs paged KV allocation under memory pressure. Teach it by predicting finish times on one workload, then switching each policy.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R180 · AI education › Teaching materials and glossaries</span>
+  <h1>Serving Trace Lab: an interactive simulator for LLM batching and KV-cache memory</h1>
+  <div class="entry-meta"><span>Pallavi Ahuja, Serving Trace Lab (interactive simulator), 2026-11-20</span><span>Published 2026-11-20</span><span>Summarized 2026-11-20</span></div>
+  <p><a href="https://serving-trace-lab.base44.app/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">teaching</span><span class="tag">inference</span><span class="tag">serving</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> Pallavi Ahuja's LinkedIn post announcing the tool; the simulator itself at serving-trace-lab.base44.app. It is an explainer, not a benchmark; the author says so explicitly.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>A browser simulator that steps an LLM server through its scheduling loop one iteration at a time. Requests with different prompt and output lengths arrive, go through prefill (reading the prompt) and decode (emitting tokens), and occupy KV-cache blocks. You can follow one request, pause and step, and compare policies side by side. The modes cover static versus continuous batching, whole versus chunked prefill, and reserved versus paged KV allocation, including what happens when KV memory runs short.</p>
+<h2 id="the-concepts-it-makes-visible">The concepts it makes visible</h2>
+<ul><li><p><strong>Prefill versus decode.</strong> Prefill processes many prompt tokens per step and is compute-bound; decode emits one token per request per step and is memory-bandwidth-bound. A single iteration can mix both, as the default example does: two requests emit one token each while a third reads six more prompt tokens.</p></li><li><p><strong>Static versus continuous batching.</strong> In static batching the whole batch waits for its longest request. In continuous batching a finished request's slot is refilled immediately, so throughput rises and short requests are not held hostage by long ones.</p></li><li><p><strong>Chunked prefill.</strong> A long prompt is read in chunks across several iterations so it does not stall streaming answers for everyone else. The cost is a slower time-to-first-token for the long request.</p></li><li><p><strong>Reserved versus paged KV allocation.</strong> Reserving the maximum KV space per request wastes memory on outputs that end early. Paged allocation hands out fixed-size blocks on demand, which packs more requests in but needs a plan for when memory runs out (preemption, swapping or recomputation).</p></li></ul>
+<h2 id="how-to-use-it-for-teaching">How to use it for teaching</h2>
+<ol><li><p>Start with static batching and one long request among short ones; ask learners to predict when the short ones finish.</p></li><li><p>Switch to continuous batching on the same workload and compare the arrival timeline.</p></li><li><p>Add a long document prompt with whole prefill, watch streaming answers stall, then switch to chunked prefill.</p></li><li><p>Shrink KV memory and compare reserved with paged allocation to show why paging became standard.</p></li></ol>
+<h2 id="limits">Limits</h2>
+<ul><li><p>Units are abstract tokens per iteration, not measured GPU time; it shows ordering and memory logic, not real latency.</p></li><li><p>No prefix caching, speculative decoding, or multi-GPU parallelism.</p></li><li><p>Built on a hosted no-code app platform; availability depends on that host.</p></li></ul>
+<h2 id="review-checklist-when-reasoning-about-a-real-serving-setup">Review checklist when reasoning about a real serving setup</h2>
+<ol><li><p>Is the workload prefill-heavy (long prompts, RAG, agents) or decode-heavy (long outputs)?</p></li><li><p>Is continuous batching on, and what is the maximum concurrent batch size?</p></li><li><p>Is chunked prefill enabled, and what chunk size trades time-to-first-token against stream smoothness?</p></li><li><p>Is KV allocation paged, and what happens on memory pressure: preempt, swap or recompute?</p></li><li><p>Are latency targets stated separately for time-to-first-token and inter-token latency?</p></li></ol>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R176: Dynamo's KV-aware routing for RL rollouts, the cluster-level version of the same cache-reuse versus load tradeoff.</p></li><li><p>R027: the same open model behaving differently by provider, partly because of serving choices.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
