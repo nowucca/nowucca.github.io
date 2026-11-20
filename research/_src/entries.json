@@ -20,7 +20,8 @@
       "R083",
       "R088",
       "R147",
-      "R159"
+      "R159",
+      "R184"
      ],
      "also": [
       {
@@ -155,7 +156,9 @@
     {
      "n": "1.3",
      "title": "Governance of agent state",
-     "primary": [],
+     "primary": [
+      "R183"
+     ],
      "also": [
       {
        "id": "R048",
@@ -841,6 +844,10 @@
       {
        "id": "R076",
        "why": "graph navigation over grep for code: path and dependency queries instead of reading files; savings grow with repo size"
+      },
+      {
+       "id": "R183",
+       "why": "policy-filtered retrieval: SHACL-AF shapes evaluated per node before results reach the model, with PROV-O lineage to every source chunk"
       }
      ]
     },
@@ -1237,6 +1244,10 @@
       {
        "id": "R099",
        "why": "Amazon governs tool schemas and descriptions across orgs because bad descriptions cause wrong tool picks; LLMs generate specs for legacy APIs"
+      },
+      {
+       "id": "R184",
+       "why": "silent MCP tool changes: servers that accept outdated fields turn schema drift into data loss reported as success; read back stored state before claiming completion"
       }
      ]
     },
@@ -4922,6 +4933,45 @@
    ],
    "summary": "With about 90% of the team's code written and reviewed by Claude, verification is the bottleneck: a repo-local verify skill drives the real app end to end, property and differential tests supply independent oracles, three failed rounds escalate to a human, a 39-item diff-triggered reliability checklist runs only matching items, REVIEW.md is read from the base branch so a change can't edit its own checks, gates roll out in observe mode with every commit stamped by how it was verified, the reviewer is graded on past incidents with per-stage recall, and misses become pruned rules while flaky tests are root-caused or deleted.",
    "file": "entries/claude-code-team-verification.html"
+  },
+  {
+   "id": "R183",
+   "slug": "trustgraph-access-control-before-the-model",
+   "title": "TrustGraph: access control before the model reads",
+   "by": "trustgraph-ai/trustgraph (Apache-2.0), release 2.10; shared by André Lindenberg, 2026-11-20",
+   "source": "https://github.com/trustgraph-ai/trustgraph",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/12on1ZEHEW5vaUe3eTzjBR",
+   "tags": [
+    "agent-governance",
+    "knowledge-management",
+    "retrieval",
+    "mcp",
+    "open-source",
+    "semantic-layer"
+   ],
+   "summary": "A self-hosted ontology runtime: OWL-guided extraction rejects triples that break domain, range or subclass rules, knowledge is stored as RDF with PROV-O lineage, and SHACL-AF policies are evaluated per node on every query (Allowed, Filtered or Violation) so restricted facts never reach the model; redacting answers afterward isn't access control. Served over MCP, SPARQL, REST and GraphRAG; open mode when no policies are loaded.",
+   "file": "entries/trustgraph-access-control-before-the-model.html"
+  },
+  {
+   "id": "R184",
+   "slug": "experience-rot-stale-tool-memory",
+   "title": "Experience Rot: agents with memory stop checking changed tools",
+   "by": "Xu, Yin, Zhang, Zhao and Liu (eBay, University of Chicago), arXiv 2611.20922, 2026-11-16; shared by Pascal Biese",
+   "source": "https://arxiv.org/abs/2611.20922",
+   "published": "2026-11-16 (paper); 2026-11-20 (post)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/FaQaVVDDczP5PECsxN7uuF",
+   "tags": [
+    "agent-memory",
+    "mcp",
+    "evals",
+    "verification",
+    "research"
+   ],
+   "summary": "After a silent MCP-style tool change, agents that had done the task before copied their earlier call, even when the tool definition showed the change, and reported success (347 of 348 failures). Complete docs: 88-100% success with no experience vs 26-49% with stale experience; incomplete docs: about 23% stale vs 42% none. Worse with more experience (46% to 26% over 1 to 10 earlier tasks); every memory form affected; version notices and a system-prompt \"check the docs\" rule didn't help; reading back stored state before reporting raised success to 91%/69%. Hand-written histories hide the problem.",
+   "file": "entries/experience-rot-stale-tool-memory.html"
   }
  ],
  "edges": [
