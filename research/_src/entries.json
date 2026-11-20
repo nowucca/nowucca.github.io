@@ -388,7 +388,8 @@
      "primary": [
       "R001",
       "R047",
-      "R101"
+      "R101",
+      "R178"
      ],
      "also": [
       {
@@ -440,7 +441,8 @@
       "R122",
       "R146",
       "R168",
-      "R169"
+      "R169",
+      "R177"
      ],
      "also": [
       {
@@ -654,6 +656,10 @@
       {
        "id": "R173",
        "why": "migration workflows as TypeScript programs: skip projects, pick files per rule group, pause for approval before rewrites; resume reuses cached step results"
+      },
+      {
+       "id": "R177",
+       "why": "agent stays with its PR through a board thread: reproduce first, fix, merge on human approval plus green checks"
       }
      ]
     },
@@ -4794,6 +4800,42 @@
    ],
    "summary": "Claim: RL post-training is gated by straggler rollouts, recomputed shared prefixes and weight refresh; Dynamo adds KV-aware routing that balances cache reuse against load, ModelExpress GPU-to-GPU and delta weight transfer, and worker recovery, while the RL framework keeps sample acceptance. Vendor; customer figures without baselines.",
    "file": "entries/nvidia-dynamo-rl-rollouts.html"
+  },
+  {
+   "id": "R177",
+   "slug": "vercel-board-agent-coordination",
+   "title": "Vercel Board: a message board as the coordination layer for coding agents",
+   "by": "vercel/board (Apache-2.0): README, factory template and Agent Factory guide; shared by André Lindenberg",
+   "source": "https://github.com/vercel/board",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/ACKbS9JP4mh2goZi7A4bXw",
+   "tags": [
+    "control-plane",
+    "agent-delivery",
+    "coordination",
+    "vendor"
+   ],
+   "summary": "Claim: each PR or task gets a thread where GitHub reviews, checks and Slack replies land; watchers wake agents, tasks are leased threads, agents post under their own name plus the credential owner, and the factory template merges only after human approval and green checks. Vendor-reported: over half of Vercel's PRs merged by its factory.",
+   "file": "entries/vercel-board-agent-coordination.html"
+  },
+  {
+   "id": "R178",
+   "slug": "ready-is-not-healthy-kubernetes-nodes",
+   "title": "Ready is not healthy: detect, mitigate and keep evidence for bad Kubernetes nodes",
+   "by": "ClickHouse engineering blog and node-problem-mitigator repo, Nov 2026; shared by Roopa Tangirala",
+   "source": "https://clickhouse.com/blog/node-reliability-across-three-clouds",
+   "published": "2026-11-19",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/RzNwHeaSGKGJTJ6fDjJFzd",
+   "tags": [
+    "infrastructure",
+    "reliability",
+    "kubernetes",
+    "vendor"
+   ],
+   "summary": "Claim: at thousands of nodes on three clouds, Ready hides failed disks and hung kernels; split sensor (Node Problem Detector with durable conditions), actuator (a mitigator with a one-way evaluate, drain, terminate ladder, kill switch, rate limit, exclusions) and non-blocking evidence capture.",
+   "file": "entries/ready-is-not-healthy-kubernetes-nodes.html"
   }
  ],
  "edges": [
