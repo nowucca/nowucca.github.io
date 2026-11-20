@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Posterior Matching Distillation: few-step image generation that keeps the teacher&#x27;s diversity · Research</title>
+<meta name="description" content="Reverse-KL distillation collapses to the teacher&#x27;s dominant modes; PMD instead matches exponentially tilted posterior means, each one frozen-teacher call at a shifted input, and proves this identifies the full posterior. No auxiliary score network; one student serves any step budget on its grid. Best 4-step FID on SDXL and FLUX.2 [klein] 4B per the paper; preprint.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R192 · Infrastructure for agents at scale › Inference providers and serving reliability</span>
+  <h1>Posterior Matching Distillation: few-step image generation that keeps the teacher&#x27;s diversity</h1>
+  <div class="entry-meta"><span>Yesiltepe, Berner, Vahdat and Yanardag (Virginia Tech, NVIDIA), arXiv 2611.26629, 2026-11-19</span><span>Published 2026-11-19</span><span>Summarized 2026-11-20</span></div>
+  <p><a href="https://arxiv.org/abs/2611.26629" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">diffusion</span><span class="tag">distillation</span><span class="tag">inference-cost</span><span class="tag">research</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> Yesiltepe, Berner, Vahdat and Yanardag, <em>Posterior Matching Distillation</em>, arXiv 2611.26629 (submitted 19 Nov 2026). Authors from Virginia Tech and NVIDIA. Surfaced by the first author's post.</p>
+<h2 id="what-problem-it-solves">What problem it solves</h2>
+<p>Diffusion models generate images or video by running a network many times, step by step. Distillation trains a student that produces comparable output in a handful of steps, which is where most of the serving-cost savings in image and video generation come from.</p>
+<p>The popular distribution-matching methods push the student's outputs toward the teacher's using a reverse-KL objective. Reverse KL is mode-seeking: the student learns the teacher's most likely outputs well and drops the rest, so the same prompt with different seeds gives near-identical images. That is a product problem (users re-roll for variety) and an evaluation problem (diversity loss hides behind good per-image quality scores).</p>
+<h2 id="how-pmd-works">How PMD works</h2>
+<ul><li><p><strong>Target the posterior, not one mode.</strong> At each noise level the student is trained to reproduce the teacher's full distribution of clean images given that noisy input, which is mode-covering by construction.</p></li><li><p><strong>Cheap supervision.</strong> Under Gaussian noise, an exponentially tilted version of the teacher's posterior mean equals one teacher evaluation at a shifted input. So each training signal costs a single frozen-teacher call.</p></li><li><p><strong>Identifiability result.</strong> The authors prove that matching these tilted means over an open neighbourhood of tilt directions pins down the whole posterior. That is the theoretical case that the student cannot quietly collapse modes.</p></li><li><p><strong>No auxiliary score network.</strong> Many distribution-matching methods train a second network to estimate the student's score; PMD avoids it, which removes a moving part from training.</p></li><li><p><strong>Any-step sampling.</strong> The stochastic student can run with any step budget on the trained timestep grid without retraining, so one model serves several latency targets.</p></li></ul>
+<h2 id="evidence">Evidence</h2>
+<p>On SDXL and FLUX.2 [klein] 4B, the paper reports the best FID among 4-step methods on both models, with prompt-alignment and perceptual-quality scores competitive or better. The post highlights much higher diversity across seeds for the same prompt.</p>
+<h2 id="why-an-engineer-serving-models-should-care">Why an engineer serving models should care</h2>
+<ul><li><p>Few-step students are how image and video generation becomes affordable; the step count is roughly linear in GPU cost per request.</p></li><li><p>Any-step models let a serving layer trade quality for latency per request (draft previews at 1 to 2 steps, finals at 4) with one set of weights.</p></li><li><p>Mode collapse in a distilled model is a silent regression: per-image metrics look fine, users see sameness. A method that targets diversity changes what you should test.</p></li></ul>
+<h2 id="tradeoffs-and-failure-modes">Tradeoffs and failure modes</h2>
+<ul><li><p><strong>Theory at zero loss.</strong> The recovery guarantee holds at zero population loss; real training stops short, so how much diversity survives in practice is an empirical question.</p></li><li><p><strong>FID is a population metric</strong> and is known to be sensitive to feature extractor and sample count; check the paper's protocol before comparing numbers across papers.</p></li><li><p><strong>More diversity can mean less prompt fidelity.</strong> Watch alignment metrics alongside diversity when adopting.</p></li><li><p><strong>Trained grid only.</strong> Any-step sampling is limited to timesteps the student saw.</p></li><li><p><strong>Fresh preprint.</strong> Not yet peer-reviewed; code availability not confirmed at filing.</p></li></ul>
+<h2 id="review-checklist-for-adopting-a-distilled-generator">Review checklist for adopting a distilled generator</h2>
+<ul><li><p>Measure seed diversity for fixed prompts (pairwise perceptual distance), not only FID and alignment.</p></li><li><p>Compare at equal step counts and equal teacher.</p></li><li><p>Test the step budgets you will serve, not just the headline one.</p></li><li><p>Check licence terms of both the teacher and the distilled weights.</p></li><li><p>Re-run safety filters: a more diverse student can surface outputs the teacher's dominant mode never did.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R148 Nemotron-Labs-Sigma: continuous diffusion language models with a built-in drafter (few-step generation on the text side).</p></li><li><p>R174 QDA: an agent designs the quantization recipe, the other main route to cheaper inference.</p></li><li><p>R078 How often launch-post benchmark scores hold up on independent runs.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/nemotron-labs-sigma-continuous-diffusion/">Nemotron-Labs-Sigma: continuous diffusion language models with a built-in drafter</a><span class="label">R148 · Infrastructure for agents at scale</span><span class="why">few-step generation on both sides of the modality line: Sigma drafts text with a continuous diffusion LM, PMD distills an image diffusion teacher to four steps without losing diversity.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/qda-agent-designed-quantization/">QDA: an agent designs the quantization recipe, scored by KL in minutes</a><span class="label">R174 · Agent architecture</span><span class="why">the two main levers on generation cost: QDA shrinks each network call by quantization, PMD cuts the number of calls by distillation.</span></li><li style="--c:var(--t6)"><a class="to" href="/research/satbench-benchmark-saturation/">SatBench: how fast AI benchmarks saturate</a><span class="label">R078 · Agent principles and patterns</span><span class="why">PMD&#x27;s headline is a paper-reported FID win; the launch-score study is the reminder to wait for independent runs before treating it as settled.</span></li></ul><p><a href="/research/map/#R192">See R192 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

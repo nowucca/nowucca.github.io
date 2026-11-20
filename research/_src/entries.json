@@ -21,7 +21,8 @@
       "R088",
       "R147",
       "R159",
-      "R184"
+      "R184",
+      "R191"
      ],
      "also": [
       {
@@ -322,6 +323,10 @@
       {
        "id": "R153",
        "why": "engine-side state checkpoints anchored at thinking, tool-call and turn boundaries, so harness context edits reuse recurrent/KV state instead of recomputing"
+      },
+      {
+       "id": "R191",
+       "why": "compressing a RoPE model's KV cache safely: keep compressed slots at in-range positions and average keys before rotation, not after"
       }
      ]
     },
@@ -498,7 +503,8 @@
       "R153",
       "R162",
       "R166",
-      "R176"
+      "R176",
+      "R192"
      ],
      "also": [
       {
@@ -581,6 +587,10 @@
       {
        "id": "R171",
        "why": "the small end: retrieval encoders under 1M parameters"
+      },
+      {
+       "id": "R192",
+       "why": "diffusion distillation that keeps seed diversity: what makes few-step image and video models cheap to serve"
       }
      ]
     }
@@ -617,7 +627,8 @@
       "R038",
       "R042",
       "R043",
-      "R045"
+      "R045",
+      "R189"
      ],
      "also": [
       {
@@ -933,6 +944,10 @@
       {
        "id": "R188",
        "why": "rerun a fixed eval set before and after every skill, agent or tool-description change; vendor harness comparisons are hypotheses to test on your own repo"
+      },
+      {
+       "id": "R190",
+       "why": "install a generated `cli-anything-<app>` harness and let the agent learn it from `--help` and SKILL.md instead of driving the GUI"
       }
      ]
     }
@@ -1234,7 +1249,8 @@
       "R071",
       "R091",
       "R135",
-      "R143"
+      "R143",
+      "R190"
      ],
      "also": [
       {
@@ -1471,6 +1487,10 @@
       {
        "id": "R186",
        "why": "funded human triage between an AI scanner and maintainers: about one actionable report per hundred raw findings, each with a proof of concept and fix"
+      },
+      {
+       "id": "R189",
+       "why": "a proof whose only full form is machine-checked Lean: trust moves to the statement, the axioms and the kernel, because no human will read it"
       }
      ]
     },
@@ -5064,6 +5084,78 @@
    ],
    "summary": "Copilot Evals (/eval, Vally engine) runs repeatable evals of skills, custom agents and MCP tools, checking result and path, with before-and-after run comparison and per-run approval. The benchmarks site's Harnesses view compares Copilot CLI, Claude Code and Codex CLI on exact model pairs at medium effort, plotting resolution against cost with variance and bootstrap intervals; sound method, but GitHub measures its own product. Eval cases, not the runner, are the hard part.",
    "file": "entries/copilot-evals-harnesses-view.html"
+  },
+  {
+   "id": "R189",
+   "slug": "riemann-hypothesis-lean-claim",
+   "title": "An unverified Lean-checked claim of the Riemann Hypothesis, and how to evaluate it",
+   "by": "Levent Alpöge, remark and Lean development, 2026-11-20; coverage by Scientific American; shared by Ethan Mollick and Elvis Saravia",
+   "source": "https://alpo.ge/remark.pdf",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/UNqL9SweaQTvMJdxWJLqxi",
+   "tags": [
+    "formal-verification",
+    "lean",
+    "mathematics",
+    "ai-for-science"
+   ],
+   "summary": "Claims RH and GRH proved with Claude and formalized in Lean without extra axioms; only the Lean is released. Method sketched as a theta-lift analogue of Stepanov's multiplicity method. Unverified as of filing: the checklist covers statement fidelity, `#print axioms`, independent kernel checks and reproducible builds.",
+   "file": "entries/riemann-hypothesis-lean-claim.html"
+  },
+  {
+   "id": "R190",
+   "slug": "cli-anything-agent-clis",
+   "title": "CLI-Anything: generating a tested CLI for any app so agents skip the GUI",
+   "by": "HKUDS/CLI-Anything (HKU Data Intelligence Lab, Apache-2.0), arXiv 2606.03854; shared by André Lindenberg",
+   "source": "https://github.com/HKUDS/CLI-Anything",
+   "published": "2026-11-20 (post)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/4ZLvmxbKZLn8ffN2m6EFCr",
+   "tags": [
+    "tools",
+    "cli",
+    "skills",
+    "coding-agents"
+   ],
+   "summary": "A coding-agent plugin runs a seven-phase pipeline from source analysis to a Click CLI with `--json` on every command, a REPL, layered tests that call the real app, and a generated SKILL.md; community registry CLI-Hub. Tradeoffs: coverage limited to what the agent understood, upstream drift, generated tests checking generated code, registry supply chain.",
+   "file": "entries/cli-anything-agent-clis.html"
+  },
+  {
+   "id": "R191",
+   "slug": "worldtrace-addressable-kv-memory",
+   "title": "WorldTrace: keeping a world model's compressed KV cache addressable past its training horizon",
+   "by": "Wu, Elflein, Lucas et al. (NVIDIA, Princeton), NeurIPS 2026, arXiv 2608.07408; shared by NVIDIA AI",
+   "source": "https://research.nvidia.com/labs/sil/projects/WorldTrace/",
+   "published": "2026-11-20 (post); NeurIPS 2026",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/QJ3ujHiCYeS1wiYxAKL3oh",
+   "tags": [
+    "world-models",
+    "kv-cache",
+    "agent-memory",
+    "research"
+   ],
+   "summary": "Past the training horizon, RoPE offsets leave stored frames unreachable and averaging rotated keys blurs them. Fix, training-free: a verbatim recent window plus summary slots at fixed in-range virtual positions, keys merged in un-rotated space, the model's attention choosing what to keep. +32.6% revisit similarity on the authors' LoopBench over a sliding window at equal budget, one 1.3B model.",
+   "file": "entries/worldtrace-addressable-kv-memory.html"
+  },
+  {
+   "id": "R192",
+   "slug": "posterior-matching-distillation",
+   "title": "Posterior Matching Distillation: few-step image generation that keeps the teacher's diversity",
+   "by": "Yesiltepe, Berner, Vahdat and Yanardag (Virginia Tech, NVIDIA), arXiv 2611.26629, 2026-11-19",
+   "source": "https://arxiv.org/abs/2611.26629",
+   "published": "2026-11-19",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/7Kd7XvWjU2nyF5k6Sy3cE3",
+   "tags": [
+    "diffusion",
+    "distillation",
+    "inference-cost",
+    "research"
+   ],
+   "summary": "Reverse-KL distillation collapses to the teacher's dominant modes; PMD instead matches exponentially tilted posterior means, each one frozen-teacher call at a shifted input, and proves this identifies the full posterior. No auxiliary score network; one student serves any step budget on its grid. Best 4-step FID on SDXL and FLUX.2 [klein] 4B per the paper; preprint.",
+   "file": "entries/posterior-matching-distillation.html"
   }
  ],
  "edges": [
@@ -7580,6 +7672,78 @@
    "b": "R151",
    "strength": "strong",
    "why": "both are self-measurement: Ponytail grades itself on its own benchmark, GitHub ranks its own CLI on its own site; a controlled design helps, but independent reproduction is still missing."
+  },
+  {
+   "a": "R189",
+   "b": "R038",
+   "strength": "strong",
+   "why": "both rest on Lean as the arbiter; AlphaProof Code checks a protocol implementation against a spec, this claim checks a theorem, and both stand or fall on whether the formal statement says what people mean."
+  },
+  {
+   "a": "R189",
+   "b": "R181",
+   "strength": "strong",
+   "why": "the AI-scientists study argues review must execute the work; a Lean-only proof is the extreme case, where checking means building the development and auditing axioms, not reading prose."
+  },
+  {
+   "a": "R189",
+   "b": "R042",
+   "strength": "strong",
+   "why": "prover compute routed on checker signals is the engineering behind month-scale formal output like this; the checker is both the guide and the final judge."
+  },
+  {
+   "a": "R190",
+   "b": "R082",
+   "strength": "strong",
+   "why": "both expose software to agents as CLI commands with structured output; R082 serves one engine as CLI and MCP from the same definitions, CLI-Anything generates the CLI from an app's source."
+  },
+  {
+   "a": "R190",
+   "b": "R143",
+   "strength": "strong",
+   "why": "an MCP server is an adapter in front of existing endpoints; a generated CLI is the same adapter idea for apps with no API at all, minus auth and remote transport."
+  },
+  {
+   "a": "R190",
+   "b": "R138",
+   "strength": "strong",
+   "why": "opposite answers to agents using software built for humans: train the model to act through the GUI or body, or generate a command interface so it never has to."
+  },
+  {
+   "a": "R191",
+   "b": "R179",
+   "strength": "strong",
+   "why": "two views of world-model memory: SVReg asks what a latent map retains after training, WorldTrace keeps a generator's cache retrievable at inference without retraining."
+  },
+  {
+   "a": "R191",
+   "b": "R180",
+   "strength": "strong",
+   "why": "the same fixed KV budget from two sides: the serving simulator shows what cache memory costs, WorldTrace decides what to compress into it so old content stays reachable."
+  },
+  {
+   "a": "R191",
+   "b": "R025",
+   "strength": "strong",
+   "why": "both extend useful context without long-context training; LongCapHarness writes a harness around the model, WorldTrace rearranges positions and merges inside the cache."
+  },
+  {
+   "a": "R192",
+   "b": "R148",
+   "strength": "strong",
+   "why": "few-step generation on both sides of the modality line: Sigma drafts text with a continuous diffusion LM, PMD distills an image diffusion teacher to four steps without losing diversity."
+  },
+  {
+   "a": "R192",
+   "b": "R174",
+   "strength": "strong",
+   "why": "the two main levers on generation cost: QDA shrinks each network call by quantization, PMD cuts the number of calls by distillation."
+  },
+  {
+   "a": "R192",
+   "b": "R078",
+   "strength": "strong",
+   "why": "PMD's headline is a paper-reported FID win; the launch-score study is the reminder to wait for independent runs before treating it as settled."
   }
  ]
 }
