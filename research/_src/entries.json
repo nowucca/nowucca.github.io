@@ -546,7 +546,8 @@
       "R111",
       "R125",
       "R149",
-      "R170"
+      "R170",
+      "R179"
      ],
      "also": [
       {
@@ -4836,6 +4837,23 @@
    ],
    "summary": "Claim: at thousands of nodes on three clouds, Ready hides failed disks and hung kernels; split sensor (Node Problem Detector with durable conditions), actuator (a mitigator with a one-way evaluate, drain, terminate ladder, kill switch, rate limit, exclusions) and non-blocking evidence capture.",
    "file": "entries/ready-is-not-healthy-kubernetes-nodes.html"
+  },
+  {
+   "id": "R179",
+   "slug": "svreg-jepa-latent-maps",
+   "title": "SVReg: when a JEPA world model learns a latent map, and what it forgets",
+   "by": "Ren, Wang, Hoang, Kuang and LeCun (NYU, AMI Labs), technical report, Nov 2026; shared by Yann LeCun",
+   "source": "https://agenticlearning.ai/content-geometry-tradeoff/",
+   "published": "2026-11-19 (post)",
+   "added": "2026-11-19",
+   "artifact": "https://claude.ai/artifact/TzbqKwtx4bPHZS7ARUm3Xs",
+   "tags": [
+    "world-models",
+    "research",
+    "planning"
+   ],
+   "summary": "Claim: a sliced variance floor instead of stop-gradient lets a next-frame JEPA learn smooth latent maps of mazes and city blocks with no position labels, but it can drop slow factors like object pose; Slow SVReg (slowness term plus gated residual predictor) keeps them and plans best on five control tasks.",
+   "file": "entries/svreg-jepa-latent-maps.html"
   }
  ],
  "edges": [
