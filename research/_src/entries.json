@@ -7744,6 +7744,90 @@
    "b": "R078",
    "strength": "strong",
    "why": "PMD's headline is a paper-reported FID win; the launch-score study is the reminder to wait for independent runs before treating it as settled."
+  },
+  {
+   "a": "R146",
+   "b": "R093",
+   "why": "Opposite isolation defaults for multi-session agents: kagent gives every conversation its own sandbox, while the Copilot SDK shares one runtime across sessions and adds a sandbox only when a shell is needed.",
+   "strength": "strong"
+  },
+  {
+   "a": "R146",
+   "b": "R122",
+   "why": "Two ways to pack many agent sessions onto little compute: Substrate snapshots idle actors and resumes them on a warm pool of gVisor/microVM Pods, the Copilot SDK runs them in one shared process with per-session state.",
+   "strength": "strong"
+  },
+  {
+   "a": "R146",
+   "b": "R030",
+   "why": "OpenShell enforces isolation in the kernel (Landlock, seccomp, supervisor-only egress); the Copilot SDK's default in-process hosting is explicitly not a sandbox and has no crash isolation, so tool-only sessions rely on allowlists instead.",
+   "strength": "weak"
+  },
+  {
+   "a": "R149",
+   "b": "R060",
+   "why": "Same Gemini 4 family: Neon is the middle tier between Carbon and Hydrogen, and it orchestrates parallel Hydrogen subagents, the planner/executor split R060 describes.",
+   "strength": "strong"
+  },
+  {
+   "a": "R149",
+   "b": "R126",
+   "why": "Both show the harness moving coding scores as much as the model: Neon scores 12.8% on mini-SWE vs 39.0% in Antigravity, and one harness-specific LoRA lifts Qwen3.8-27B from 39.5% to 55.8% on Terminal-Bench 2.1.",
+   "strength": "strong"
+  },
+  {
+   "a": "R149",
+   "b": "R078",
+   "why": "Neon's launch ranks are vendor-quoted on agent and coding indexes; SatBench shows public benchmarks saturate in about a year, so those ranks age fast.",
+   "strength": "weak"
+  },
+  {
+   "a": "R149",
+   "b": "R125",
+   "why": "Same launch week (2026-11-17/18): GPT-6.2 Sol and Gemini 4 Neon both pitch an efficient tier at a fraction of the frontier model's cost.",
+   "strength": "weak"
+  },
+  {
+   "a": "R150",
+   "b": "R033",
+   "why": "Both edit a tiny fraction of weights without gradient training: Lazarus plants a backdoor by rewiring fewer than ten neurons, and GPT-6 Astra removes a looping direction from 0.016% of Qwen3.5-0.8B.",
+   "strength": "strong"
+  },
+  {
+   "a": "R150",
+   "b": "R053",
+   "why": "Weight integrity from two sides: R053 plants a backdoor through pretraining data that survives clean post-training; R150 shows a frontier model can read and edit weights directly, which makes inspecting them for such changes plausible and tampering cheaper.",
+   "strength": "weak"
+  },
+  {
+   "a": "R150",
+   "b": "R144",
+   "why": "Two forms of model-driven self-modification: frozen agents in R144 rewrite a player's prompts and skills, while R150's frontier model edits another network's weights directly.",
+   "strength": "weak"
+  },
+  {
+   "a": "R156",
+   "b": "R118",
+   "why": "R118 says a prefix cache matches only up to the first changed token, so the system prompt must lead and stay byte-identical; GPT-6.2 moving the instructions field to the end of the input breaks exactly that (0 vs 10,113 cached tokens).",
+   "strength": "strong"
+  },
+  {
+   "a": "R156",
+   "b": "R125",
+   "why": "R125 is the GPT-6.2 launch; R156 is a cost regression it shipped with, review sessions costing 2.85x GPT-6.1 until harnesses moved the system prompt into a developer message.",
+   "strength": "strong"
+  },
+  {
+   "a": "R157",
+   "b": "R100",
+   "why": "Anthropic's multiagent study finds agents conform and believe peers too easily; Self-Disagreement trains a model to hold a correct answer under wrong pushback, a direct fix for that credulity.",
+   "strength": "strong"
+  },
+  {
+   "a": "R157",
+   "b": "R181",
+   "why": "The Society of AI Scientists relies on review where objections overturn results; that only helps if agents yield to correct objections and hold against wrong ones, the competence R157 trains.",
+   "strength": "weak"
   }
  ]
 }
