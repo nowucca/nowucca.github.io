@@ -7828,6 +7828,402 @@
    "b": "R181",
    "why": "The Society of AI Scientists relies on review where objections overturn results; that only helps if agents yield to correct objections and hold against wrong ones, the competence R157 trains.",
    "strength": "weak"
+  },
+  {
+   "a": "R021",
+   "b": "R016",
+   "strength": "strong",
+   "why": "The person becomes the adjudicator of structured questions and the PR reviewer (R016's auditor role); AI-DLC's deterministic stage gates are the delivery-side checks the Super-agent leaves to CI and reviewers."
+  },
+  {
+   "a": "R159",
+   "b": "R106",
+   "strength": "strong",
+   "why": "Both put a graph beside vectors in one store for agents; txtai unifies the indexes, SelfGraph adds bitemporal versioning so a correction retires a fact without rewriting past answers."
+  },
+  {
+   "a": "R159",
+   "b": "R127",
+   "strength": "strong",
+   "why": "GraphRAG Zero makes graph retrieval cheap at index time; SelfGraph makes it honest at query time by reporting which questions the graph can't answer."
+  },
+  {
+   "a": "R159",
+   "b": "R147",
+   "strength": "strong",
+   "why": "SelfGraph's versioned facts are a concrete store for the wiki layer in Anthropic's memory model, with as-of queries the wiki lacks."
+  },
+  {
+   "a": "R160",
+   "b": "R127",
+   "strength": "strong",
+   "why": "Two answers to graph knowledge for LLMs: GraphRAG Zero retrieves text cheaply into the prompt; AtlasKV skips retrieval and injects triples as key-value pairs inside attention."
+  },
+  {
+   "a": "R160",
+   "b": "R171",
+   "strength": "strong",
+   "why": "Opposite ends of retrieval cost: Atto shrinks the retriever to almost nothing, AtlasKV removes the retriever and moves the knowledge into memory-tiered attention."
+  },
+  {
+   "a": "R160",
+   "b": "R153",
+   "strength": "strong",
+   "why": "Both rely on parking most of the working set in CPU RAM and keeping only the hot part on the GPU; FreeToken does it for MoE experts, AtlasKV for knowledge key-values."
+  },
+  {
+   "a": "R161",
+   "b": "R152",
+   "strength": "strong",
+   "why": "The Elastic intrusion is one of the confirmed AI-assisted attacks the hackingincidents.ai ledger grades; it shows what the ledger's \"machine-speed\" label looks like in telemetry."
+  },
+  {
+   "a": "R161",
+   "b": "R112",
+   "strength": "strong",
+   "why": "Both are failures of assumed boundaries; F5's agents leaked data with no attacker, while here 78 low-severity alerts went unescalated because no rule linked them."
+  },
+  {
+   "a": "R161",
+   "b": "R172",
+   "strength": "strong",
+   "why": "Two November 2026 incidents where per-event controls passed: alerts too low to escalate here, a trusted script source in the Optimizely case; both were caught only by correlating behavior."
+  },
+  {
+   "a": "R162",
+   "b": "R166",
+   "strength": "strong",
+   "why": "Two local-first agent stacks; MLX Model Scout keeps every number in a deterministic calculator, PolyStrata's own speed claims rest partly on simulated tiers, which is the gap Scout's design closes."
+  },
+  {
+   "a": "R162",
+   "b": "R091",
+   "strength": "strong",
+   "why": "Scout ships as an MCP server with server-enforced checkpoints; FastMCP 4.2 is the framework layer that would let it also serve its skills as resources."
+  },
+  {
+   "a": "R162",
+   "b": "R141",
+   "strength": "strong",
+   "why": "Both gate agent output on checks outside the model: Scout's two checkpoints before the report, Qodo's policy guards before a PR is approved."
+  },
+  {
+   "a": "R163",
+   "b": "R073",
+   "strength": "strong",
+   "why": "A reminder that code scanning can't see this class: Java4Shell is a JVM intrinsic bug whose exposure depends on the host CPU, not on the image the scanners inspect."
+  },
+  {
+   "a": "R163",
+   "b": "R172",
+   "strength": "strong",
+   "why": "Both break the assumption that an approved artifact is safe everywhere; one image is vulnerable only on AVX-512 nodes, one trusted vendor script turned malicious for 16 hours."
+  },
+  {
+   "a": "R164",
+   "b": "R121",
+   "strength": "strong",
+   "why": "Both evolve a harness around a frozen model; Harness² works without a ground-truth verifier, GUARD adds a promotion gate that keeps only net-positive edits."
+  },
+  {
+   "a": "R164",
+   "b": "R108",
+   "strength": "strong",
+   "why": "OO-Harness organizes evolved harnesses as a class hierarchy; GUARD's paired regret and pinned mastered criteria are the regression control that hierarchy needs."
+  },
+  {
+   "a": "R164",
+   "b": "R175",
+   "strength": "strong",
+   "why": "Same rule at two scales: keep an edit only if it doesn't break what already works; GUARD for an SDK harness, Safe Personal RSI for a personal assistant's prompts."
+  },
+  {
+   "a": "R165",
+   "b": "R092",
+   "strength": "strong",
+   "why": "Both are vendors shipping platform knowledge as a portable skill for rival agents: browser vendors for web code, Microsoft for Foundry."
+  },
+  {
+   "a": "R165",
+   "b": "R091",
+   "strength": "strong",
+   "why": "FastMCP 4.2 serves skills from an MCP server; Foundry's skill ships as an installable package, which is why pinning and review matter more for it."
+  },
+  {
+   "a": "R165",
+   "b": "R169",
+   "strength": "strong",
+   "why": "Two halves of Microsoft's Ignite agent story: the Foundry skill helps other vendors' agents build on Azure, Agent 365 gives those agents identities and traces."
+  },
+  {
+   "a": "R166",
+   "b": "R153",
+   "strength": "strong",
+   "why": "Both serve large MoE models on consumer GPUs by tiering experts out of VRAM; FreeToken is a measured paper, PolyStrata's speeds are partly simulated."
+  },
+  {
+   "a": "R166",
+   "b": "R123",
+   "strength": "strong",
+   "why": "Linger's nightly wiki memory and approval-gated proactive actions are the same design problem as LangChain's proactive agents: what's worth interrupting the user for."
+  },
+  {
+   "a": "R167",
+   "b": "R151",
+   "strength": "strong",
+   "why": "Two rigor skills for coding agents; Ponytail minimizes code with a single prompt, pstack routes each task to one of 22 playbooks and rejects self-reports as proof."
+  },
+  {
+   "a": "R167",
+   "b": "R144",
+   "strength": "strong",
+   "why": "Pstack hand-writes the playbooks; self-organized self-improvement lets the agent design its own loop, the opposite bet on who should author the process."
+  },
+  {
+   "a": "R168",
+   "b": "R062",
+   "strength": "strong",
+   "why": "MCP authorization defines how one server checks a token; LangSmith Tool Gateway puts one URL in front of all servers to hold per-user identity, policy and audit."
+  },
+  {
+   "a": "R168",
+   "b": "R169",
+   "strength": "strong",
+   "why": "Two gateways for agent identity: LangSmith per tool call with user or agent identity, Microsoft Agent 365 per agent with Entra IDs and OpenTelemetry traces."
+  },
+  {
+   "a": "R168",
+   "b": "R141",
+   "strength": "strong",
+   "why": "The gateway's deny and approval policies are the tool-call version of policy-gated PR approval."
+  },
+  {
+   "a": "R169",
+   "b": "R099",
+   "strength": "strong",
+   "why": "Agent 365's cross-cloud traces on OpenTelemetry GenAI conventions are the data source Amazon's three-layer agent evaluation assumes you already have."
+  },
+  {
+   "a": "R169",
+   "b": "R062",
+   "strength": "strong",
+   "why": "Agent 365's toolboxes hold downstream auth outside the agent, which is where the MCP OAuth flow's tokens should live."
+  },
+  {
+   "a": "R171",
+   "b": "R106",
+   "strength": "strong",
+   "why": "Atto's tiny encoders are a drop-in for txtai's local index, where a smaller embedding model directly cuts memory and latency."
+  },
+  {
+   "a": "R171",
+   "b": "R166",
+   "strength": "strong",
+   "why": "Both target fully local agents on modest hardware; Atto shrinks retrieval, PolyStrata tiers the model itself."
+  },
+  {
+   "a": "R172",
+   "b": "R112",
+   "strength": "strong",
+   "why": "Both are F5 Labs' themes: trust placed in an integration that nobody enforces; here a vendor script, there agents with assumed data boundaries."
+  },
+  {
+   "a": "R173",
+   "b": "R079",
+   "strength": "strong",
+   "why": "Codemod's move from an agent loop to a TypeScript workflow program is the \"workflow over agent\" pattern in the 15-pattern catalog, applied to migrations."
+  },
+  {
+   "a": "R173",
+   "b": "R124",
+   "strength": "strong",
+   "why": "Both run large migrations as gated, resumable steps; rust-anything gates each unit on recorded behavior, Codemod gates stages on dependency checks and approvals."
+  },
+  {
+   "a": "R173",
+   "b": "R035",
+   "strength": "strong",
+   "why": "Resume that reuses completed step results is durable execution; Codemod builds it into the workflow rather than a separate runtime."
+  },
+  {
+   "a": "R174",
+   "b": "R024",
+   "strength": "strong",
+   "why": "Both lock the evaluator outside the agent's reach while it searches configurations; InfraRSI for training throughput, QDA for quantization recipes scored by KL."
+  },
+  {
+   "a": "R174",
+   "b": "R129",
+   "strength": "strong",
+   "why": "Both find that the evaluation rate limits the search; QDA's minutes-long KL scoring is what makes 64 GPU-hours per search enough."
+  },
+  {
+   "a": "R174",
+   "b": "R086",
+   "strength": "strong",
+   "why": "QDA is another data point for the November benchmarks of agents doing AI engineering, with the added control of hidden reasoning traces."
+  },
+  {
+   "a": "R175",
+   "b": "R131",
+   "strength": "strong",
+   "why": "Self-Improvement Memory keeps the edit log so a regression can be traced; Safe Personal RSI's undo-to-isolate step needs exactly that log."
+  },
+  {
+   "a": "R175",
+   "b": "R141",
+   "strength": "strong",
+   "why": "The update gate's keep-current-on-failure default is the same conservative default as policy-gated PR approval: when in doubt, don't promote."
+  },
+  {
+   "a": "R176",
+   "b": "R096",
+   "strength": "strong",
+   "why": "Two pieces of NVIDIA's serving stack: Snapshot restores GPU pods in seconds, Dynamo's worker recovery and delta weight transfer keep RL rollouts moving."
+  },
+  {
+   "a": "R176",
+   "b": "R126",
+   "strength": "strong",
+   "why": "Harness adapters are RL-tuned on rollouts; Dynamo is the serving layer that keeps those rollouts from being gated by stragglers and weight refresh."
+  },
+  {
+   "a": "R176",
+   "b": "R180",
+   "strength": "strong",
+   "why": "Serving Trace Lab teaches the prefix-cache and batching tradeoffs that Dynamo's KV-aware routing balances in production."
+  },
+  {
+   "a": "R177",
+   "b": "R084",
+   "strength": "strong",
+   "why": "Vercel Board's watchers wake agents on new thread activity, one concrete design for the sleep-and-wake primitive in Anthropic's always-on agents guide."
+  },
+  {
+   "a": "R177",
+   "b": "R122",
+   "strength": "strong",
+   "why": "Both manage many mostly idle agents; Agent Substrate suspends and resumes them on a warm pool, Board leases tasks as threads and wakes agents on events."
+  },
+  {
+   "a": "R177",
+   "b": "R141",
+   "strength": "strong",
+   "why": "Board's factory template merges only after human approval and green checks, a stricter version of the auto-approval policies Qodo describes."
+  },
+  {
+   "a": "R178",
+   "b": "R155",
+   "strength": "strong",
+   "why": "SRE-1 investigates incidents after they happen; ClickHouse's mitigator acts on bad nodes before they become incidents, with evidence captured for whoever investigates."
+  },
+  {
+   "a": "R178",
+   "b": "R176",
+   "strength": "strong",
+   "why": "Both treat a worker that reports Ready but isn't healthy as the core failure; Dynamo recovers RL workers, the mitigator drains and terminates bad nodes."
+  },
+  {
+   "a": "R179",
+   "b": "R026",
+   "strength": "strong",
+   "why": "Both question what an agent's latent space keeps; HybridAgent reasons in it, SVReg shows a JEPA latent map can drop slow factors like pose unless trained to keep them."
+  },
+  {
+   "a": "R179",
+   "b": "R138",
+   "strength": "strong",
+   "why": "RURL trains an open model to act on a real robot; SVReg's latent maps are the kind of world model such a policy would plan over."
+  },
+  {
+   "a": "R180",
+   "b": "R027",
+   "strength": "strong",
+   "why": "Both make serving behavior visible; the Tool-call index measures provider error rates, Serving Trace Lab lets you step a server and see why latency and memory behave as they do."
+  },
+  {
+   "a": "R181",
+   "b": "R019",
+   "strength": "strong",
+   "why": "S3 swarms learn coordination without roles; the society of AI scientists shows what that looks like at 936 agents with journals, retractions and cheating detection."
+  },
+  {
+   "a": "R181",
+   "b": "R077",
+   "strength": "strong",
+   "why": "PaperOrchestra writes papers from logs; the society shows that review has to run the code, because text-only review missed hidden flaws as often as it flagged honest disclosures."
+  },
+  {
+   "a": "R181",
+   "b": "R129",
+   "strength": "strong",
+   "why": "Both find that agent-scale research needs verdicts outside the model; CompoundingKernel keeps correctness checks in code, the society's executable objections overturned half the challenged results."
+  },
+  {
+   "a": "R182",
+   "b": "R181",
+   "strength": "strong",
+   "why": "The same lesson from industry and research: verification must execute; Claude Code runs the app end to end, the society's reviewers ran objections as scripts."
+  },
+  {
+   "a": "R182",
+   "b": "R058",
+   "strength": "strong",
+   "why": "R058 protects the oracle by blocking test edits during a fix; the Claude Code team goes further and reads REVIEW.md from the base branch so a change can't edit its own checks."
+  },
+  {
+   "a": "R182",
+   "b": "R052",
+   "strength": "strong",
+   "why": "Open Code Review adds a dedicated reviewer; the Claude Code team argues for tuning one reviewer with a per-area REVIEW.md and grading it on past incidents."
+  },
+  {
+   "a": "R182",
+   "b": "R141",
+   "strength": "strong",
+   "why": "Both route only some changes to humans; Qodo by policy on the PR, Claude Code by escalating after three failed check rounds."
+  },
+  {
+   "a": "R183",
+   "b": "R028",
+   "strength": "strong",
+   "why": "Both use an ontology to check what agents extract; auto-ontology-mcp is a typed semantic layer, TrustGraph adds per-query access policies in SHACL."
+  },
+  {
+   "a": "R183",
+   "b": "R071",
+   "strength": "strong",
+   "why": "Uber's MCP gateway enforces policy on which tools an agent may call; TrustGraph enforces it on which facts an agent may read."
+  },
+  {
+   "a": "R183",
+   "b": "R159",
+   "strength": "strong",
+   "why": "Two knowledge graphs for agents with different guarantees: SelfGraph versions facts over time, TrustGraph filters them by who is asking."
+  },
+  {
+   "a": "R184",
+   "b": "R147",
+   "strength": "strong",
+   "why": "Experience Rot is the failure mode of every layer in Anthropic's memory model: notes and wikis that encode an interface stop being re-checked after the tool changes."
+  },
+  {
+   "a": "R184",
+   "b": "R158",
+   "strength": "strong",
+   "why": "Beacon promotes session lessons into reviewed memory; Experience Rot shows those lessons need the tool version they were learned against, or they rot silently."
+  },
+  {
+   "a": "R184",
+   "b": "R088",
+   "strength": "strong",
+   "why": "MemCredit ranks memories by how much they help decisions; Experience Rot shows a highly useful memory becomes harmful after a silent tool change, so utility needs an expiry."
+  },
+  {
+   "a": "R184",
+   "b": "R182",
+   "strength": "strong",
+   "why": "The paper's one working remedy, read back the stored state before reporting, is the Claude Code team's rule that verification means running the change."
   }
  ]
 }
