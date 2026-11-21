@@ -96,6 +96,10 @@
       {
        "id": "R166",
        "why": "nightly wiki memory from mail, chat and meetings; decision rules rewritten from implicit feedback"
+      },
+      {
+       "id": "R212",
+       "why": "working state as typed claims with provenance and dependencies instead of prose"
       }
      ]
     },
@@ -159,7 +163,8 @@
      "n": "1.3",
      "title": "Governance of agent state",
      "primary": [
-      "R183"
+      "R183",
+      "R212"
      ],
      "also": [
       {
@@ -458,7 +463,8 @@
       "R146",
       "R168",
       "R169",
-      "R177"
+      "R177",
+      "R209"
      ],
      "also": [
       {
@@ -661,7 +667,8 @@
       "R043",
       "R045",
       "R189",
-      "R208"
+      "R208",
+      "R210"
      ],
      "also": [
       {
@@ -717,6 +724,10 @@
       {
        "id": "R187",
        "why": "interview-first planning into specs and tracer-bullet tickets with blocking edges, then TDD and architecture surveys, as small composable skills"
+      },
+      {
+       "id": "R209",
+       "why": "a coding agent run inside the team's chat thread, steerable by anyone in it at tool-call boundaries, ending in a PR"
       }
      ]
     },
@@ -908,6 +919,10 @@
       {
        "id": "R183",
        "why": "policy-filtered retrieval: SHACL-AF shapes evaluated per node before results reach the model, with PROV-O lineage to every source chunk"
+      },
+      {
+       "id": "R211",
+       "why": "agents tuning a RAG pipeline per dataset beat published designs, at 1.4 to 5.8x the retrieval latency"
       }
      ]
     },
@@ -1158,6 +1173,10 @@
       {
        "id": "R162",
        "why": "deterministic calculator plus server-enforced human checkpoints around a local agent team"
+      },
+      {
+       "id": "R212",
+       "why": "mid-task user input as a typed relation: supplement, correction, independent, cancel or progress, each with its own git action"
       }
      ]
     },
@@ -1221,7 +1240,8 @@
       "R185",
       "R188",
       "R194",
-      "R207"
+      "R207",
+      "R211"
      ],
      "also": [
       {
@@ -1383,6 +1403,10 @@
       {
        "id": "R206",
        "why": "queued off-peak model calls for batch agent runs; timeouts forfeit paid work, so host long waits on a runtime that does not hold a connection open"
+      },
+      {
+       "id": "R212",
+       "why": "a running task steered by later messages: per-request branches, redo only the claims a change invalidates, merge by claim type"
       }
      ]
     },
@@ -1563,6 +1587,10 @@
       {
        "id": "R194",
        "why": "models lag most on judgment tasks such as designing evaluations, so human review stays concentrated there"
+      },
+      {
+       "id": "R210",
+       "why": "an AI-found Lean proof of an open physics question: humans check the statement and interpret the argument, the kernel checks the steps"
       }
      ]
     },
@@ -5530,6 +5558,80 @@
    ],
    "summary": "Lean 4 libraries encoding W3C RDF 1.2, RDFS, OWL 2 RL/EL, SPARQL 1.1 and SHACL Core semantics. Elpi (or a SQLite SPARQL store) searches and emits certificates; a checker proven sound turns accepted ones into theorems, so search bugs can only cause rejections. SPARQL and SHACL engines proven exact; no sorry, no extra axioms; W3C suites largely pass (SHACL 98/98, RDFC 86/86). Sound not complete (\"not derived\" is not \"false\"); thousands of triples, not millions; early single-maintainer repo.",
    "file": "entries/leanrdf-proven-knowledge-graph-checker.html"
+  },
+  {
+   "id": "R209",
+   "slug": "opencomputer-steerable-agent-in-slack-thread",
+   "title": "OpenComputer: a steerable cloud coding agent that lives in the Slack thread",
+   "by": "diggerhq/opencomputer (Apache-2.0); shared by André Lindenberg",
+   "source": "https://github.com/diggerhq/opencomputer",
+   "published": "2026-10-30",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/NH6Fg8knTCedxndFt4qZ2J",
+   "tags": [
+    "agent-hosting",
+    "coding-agents",
+    "sandboxing",
+    "human-in-the-loop",
+    "open-source",
+    "vendor"
+   ],
+   "summary": "An open-source cloud coding agent that runs in a Slack thread: one outbound-only VM per install, one Claude Code, Codex or OpenCode session per thread under rootless Podman, and teammates can steer it mid-task (messages land after the current tool call); results arrive as PRs. The vendor's latency benchmark on a trivial dependency bump shows low overhead but says nothing about hard tasks. Risks: prompt injection via the thread, secrets in the shared view, path-dependent runs.",
+   "file": "entries/opencomputer-steerable-agent-in-slack-thread.html"
+  },
+  {
+   "id": "R210",
+   "slug": "alphaproof-nexus-photonics-no-go",
+   "title": "AlphaProof Nexus settles a 2017 photonics question with a Lean-checked no-go proof",
+   "by": "Krenn, Firsching, Tsoukalas, Gajjala, Gu and Chaudhuri (Tübingen, Google DeepMind); shared by DAIR.AI",
+   "source": "https://arxiv.org/abs/2611.26300",
+   "published": "2026-11-19",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/LH6x46Depx6R1Z7h2FTzzM",
+   "tags": [
+    "formal-verification",
+    "lean",
+    "ai-for-science"
+   ],
+   "summary": "AlphaProof Nexus (frontier LLMs plus Lean compiler feedback) found a proof that no linear-optics setup with photon-pair sources can produce high-dimensional GHZ states for even N ≥ 4 and D ≥ N, settling a 2017 question; humans then gave it a physical reading. The trust boundary is the formal statement: a faithful encoding makes it as solid as Lean's kernel, a subtly off one makes a correct proof of the wrong claim.",
+   "file": "entries/alphaproof-nexus-photonics-no-go.html"
+  },
+  {
+   "id": "R211",
+   "slug": "autoragbench-agents-build-rag",
+   "title": "AutoRAGBench: coding agents build RAG systems from scratch and beat published designs",
+   "by": "Zhang, Pan, Zhong et al. (Tsinghua, Sina Weibo); shared by Elvis Saravia",
+   "source": "https://arxiv.org/abs/2611.25582",
+   "published": "2026-11-19",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/7HPniqZe2bfrZeJhW9SQEJ",
+   "tags": [
+    "evals",
+    "rag",
+    "coding-agents",
+    "benchmarks"
+   ],
+   "summary": "Coding agents get six hours and one H800 to build a RAG system from scratch on nine tasks, with the test set outside the container, an audit gate before scoring and five answering models grading retrieval. The best agent (GPT-6.1 Sol with Codex CLI) averaged 56.1 against 44.4 for the best published method per task, but every agent-built system retrieved 1.4 to 5.8x slower, and a quarter submitted a version worse than their own peak.",
+   "file": "entries/autoragbench-agents-build-rag.html"
+  },
+  {
+   "id": "R212",
+   "slug": "git-ontology-agent-request-branches",
+   "title": "Git Ontology Agent: steering a running agent with request branches and typed claims",
+   "by": "gogoymh/git-ontology-agent (MIT); shared by Minhyeong Yu",
+   "source": "https://github.com/gogoymh/git-ontology-agent",
+   "published": "2026-11-21",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/HwtVuxb7W5NibdMT1vRf7b",
+   "tags": [
+    "agent-architecture",
+    "agent-harness",
+    "git",
+    "agent-governance",
+    "agent-workflows"
+   ],
+   "summary": "A same-day prototype that keeps agent work state as typed claims with dependencies in a git repo, one branch per user request. A decision model classifies each mid-task message as supplement, correction, independent, cancel or progress; only dependent claims are redone, and branches merge claim by claim with per-type rules. Answers are worded from claim status and replayable from commits. Open gaps: who writes the dependency edges, and side effects already taken.",
+   "file": "entries/git-ontology-agent-request-branches.html"
   }
  ],
  "edges": [
@@ -8862,6 +8964,96 @@
    "b": "R183",
    "strength": "strong",
    "why": "both put SHACL between data and the model; R183 filters retrieval by shapes, R208 proves that SHACL validation results are exactly right."
+  },
+  {
+   "a": "R209",
+   "b": "R093",
+   "strength": "strong",
+   "why": "both host one coding-agent session per unit of work on an isolated machine; R209 makes the team chat thread the unit and the steering surface."
+  },
+  {
+   "a": "R209",
+   "b": "R122",
+   "strength": "strong",
+   "why": "R209 is one VM per install; R122 suspends idle agents onto a warm pool and R146 shares one runtime across sessions, the two routes past a single machine."
+  },
+  {
+   "a": "R209",
+   "b": "R146",
+   "strength": "strong",
+   "why": "R209 is one VM per install; R122 suspends idle agents onto a warm pool and R146 shares one runtime across sessions, the two routes past a single machine."
+  },
+  {
+   "a": "R209",
+   "b": "R177",
+   "strength": "strong",
+   "why": "both move agent coordination into a shared message surface; R177 lets agents post to a board, R209 lets humans interject in the agent's thread."
+  },
+  {
+   "a": "R210",
+   "b": "R189",
+   "strength": "strong",
+   "why": "both are Lean-checked AI-assisted results; R210 is a narrow, published no-go with named authors and a stated model, R189 an unverified headline claim, and the same statement-first review applies to both."
+  },
+  {
+   "a": "R210",
+   "b": "R208",
+   "strength": "strong",
+   "why": "untrusted search proposes, a small trusted checker certifies; R210 applies the pattern to physics, R208 to knowledge-graph reasoning, R038 to protocol code."
+  },
+  {
+   "a": "R210",
+   "b": "R038",
+   "strength": "strong",
+   "why": "untrusted search proposes, a small trusted checker certifies; R210 applies the pattern to physics, R208 to knowledge-graph reasoning, R038 to protocol code."
+  },
+  {
+   "a": "R211",
+   "b": "R204",
+   "strength": "strong",
+   "why": "R204 says chunking is the last knob a human tunes; in R211 agents tuned whole pipelines per dataset and mostly kept classic sparse, dense and reranker parts."
+  },
+  {
+   "a": "R211",
+   "b": "R086",
+   "strength": "strong",
+   "why": "benchmarks of agents doing engineering work; R211 adds an audit gate before scoring and several answering models so the retrieval, not the generator, is graded."
+  },
+  {
+   "a": "R211",
+   "b": "R185",
+   "strength": "strong",
+   "why": "benchmarks of agents doing engineering work; R211 adds an audit gate before scoring and several answering models so the retrieval, not the generator, is graded."
+  },
+  {
+   "a": "R211",
+   "b": "R174",
+   "strength": "strong",
+   "why": "an agent iterating against an evaluator kept outside its sandbox; R211 shows what it trades away (latency) when the score omits it."
+  },
+  {
+   "a": "R211",
+   "b": "R129",
+   "strength": "strong",
+   "why": "an agent iterating against an evaluator kept outside its sandbox; R211 shows what it trades away (latency) when the score omits it."
+  },
+  {
+   "a": "R212",
+   "b": "R209",
+   "strength": "strong",
+   "why": "both let a person steer an agent mid-task; OpenComputer delivers the message after the current tool call, Git Ontology Agent first classifies what the message changes and redoes only the affected work."
+  },
+  {
+   "a": "R212",
+   "b": "R069",
+   "strength": "strong",
+   "why": "R069 finds decision models (typed choices with probabilities) better as judges than actors; Git Ontology Agent uses one exactly that way, to judge how a new message relates to the task in progress."
+  },
+  {
+   "a": "R212",
+   "b": "R074",
+   "strength": "strong",
+   "why": "a typed ontology plus Git-style branches as agent state, Omnigraph as a database with policy on every write, Git Ontology Agent as per-request branches merged claim by claim."
   }
  ]
 }
