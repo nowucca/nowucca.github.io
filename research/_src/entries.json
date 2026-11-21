@@ -338,6 +338,10 @@
       {
        "id": "R198",
        "why": "why long agent contexts stay expensive under sparse attention: the indexer still scores every key, so its design sets the bill"
+      },
+      {
+       "id": "R214",
+       "why": "filter tool output in code before it reaches context instead of reading every raw result"
       }
      ]
     },
@@ -519,7 +523,8 @@
       "R176",
       "R192",
       "R198",
-      "R206"
+      "R206",
+      "R215"
      ],
      "also": [
       {
@@ -629,6 +634,10 @@
       {
        "id": "R207",
        "why": "first independent number for Gemini 4 Neon: 98.1% vs 78.8% recall for Opus 5.5 and Sol 6.2 on an SRE agent's stretch evals; unusable without caching"
+      },
+      {
+       "id": "R215",
+       "why": "Gemma 4 drafting head: fast decode shipped as part of the model family"
       }
      ]
     }
@@ -728,6 +737,10 @@
       {
        "id": "R209",
        "why": "a coding agent run inside the team's chat thread, steerable by anyone in it at tool-call boundaries, ending in a PR"
+      },
+      {
+       "id": "R213",
+       "why": "threads replace PRs: idea, implementation, review and landing in one versioned agent thread"
       }
      ]
     },
@@ -774,7 +787,8 @@
      "title": "AI code review",
      "primary": [
       "R052",
-      "R141"
+      "R141",
+      "R213"
      ],
      "also": [
       {
@@ -883,6 +897,10 @@
       {
        "id": "R147",
        "why": "project memory kept as files: a bounded MEMORY.md index on top, detail pushed down with links, wikis checked against sources"
+      },
+      {
+       "id": "R213",
+       "why": "the rationale behind code kept as versioned history next to it: edits between commits stored with the messages that caused them"
       }
      ]
     },
@@ -962,7 +980,8 @@
       "R139",
       "R151",
       "R167",
-      "R187"
+      "R187",
+      "R214"
      ],
      "also": [
       {
@@ -1177,6 +1196,10 @@
       {
        "id": "R212",
        "why": "mid-task user input as a typed relation: supplement, correction, independent, cancel or progress, each with its own git action"
+      },
+      {
+       "id": "R214",
+       "why": "code as the action space: one generated program makes many tool calls, with per-call permission checks kept"
       }
      ]
     },
@@ -5632,6 +5655,62 @@
    ],
    "summary": "A same-day prototype that keeps agent work state as typed claims with dependencies in a git repo, one branch per user request. A decision model classifies each mid-task message as supplement, correction, independent, cancel or progress; only dependent claims are redone, and branches merge claim by claim with per-type rules. Answers are worded from claim status and replayable from commits. Open gaps: who writes the dependency edges, and side effects already taken.",
    "file": "entries/git-ontology-agent-request-branches.html"
+  },
+  {
+   "id": "R213",
+   "slug": "zed-delta-review-the-agent-thread",
+   "title": "Zed Delta: review the agent thread, not the pull request",
+   "by": "Zed Industries; shared by Sam Keen",
+   "source": "https://zed.dev/blog/delta-public-beta",
+   "published": "2026-09-16",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/P323hNi59aTf7zQiP3jzWx",
+   "tags": [
+    "code-review",
+    "coding-agents",
+    "project-memory",
+    "version-control",
+    "vendor"
+   ],
+   "summary": "Zed's Delta (public beta) makes the agent conversation thread the unit of collaboration and review instead of the pull request. Teammates join a thread, ask the same agent why it chose something, and review in subthreads with isolated worktree copies whose fixes fold back before landing. DeltaDB records edits between commits beside the messages that caused them, while staying Git-compatible. Tradeoffs: longer narratives to read, lock-in of the narrative, and review gates to re-express without PRs.",
+   "file": "entries/zed-delta-review-the-agent-thread.html"
+  },
+  {
+   "id": "R214",
+   "slug": "claude-code-code-mode",
+   "title": "Claude Code Code Mode: the agent writes a script instead of calling tools one at a time",
+   "by": "Claude Code documentation; shared by Addy Osmani",
+   "source": "https://code.claude.com/docs/en/code-mode",
+   "published": "2026-11-21",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/Cp4vhjK9vf7z1nXKnNbEWa",
+   "tags": [
+    "claude-code",
+    "harness",
+    "context-engineering",
+    "permissions",
+    "vendor"
+   ],
+   "summary": "An experimental Claude Code mode where the model writes a short JavaScript program, run through a REPL tool, that makes many tool calls itself: in parallel, chained, and filtered so only what matters reaches context. Per-call deny/ask rules and PreToolUse hooks still apply, but the auto-mode classifier sees the program, not runtime values, so hard limits belong in rules, hooks or a sandbox. The JavaScript and its file, web and MCP calls run outside the shell sandbox.",
+   "file": "entries/claude-code-code-mode.html"
+  },
+  {
+   "id": "R215",
+   "slug": "g-mtp-gemma-4-multi-token-drafter",
+   "title": "G-MTP: a built-in multi-token drafter speeds Gemma 4 decoding up to 3.1x",
+   "by": "Galgani, Ji, Homburger, Jawahar et al. (Google); shared by DAIR.AI",
+   "source": "https://arxiv.org/abs/2611.25813",
+   "published": "2026-11-19",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/8PC9fKwo82mbaW5hRvYr5v",
+   "tags": [
+    "inference-serving",
+    "llm-serving",
+    "speculative-decoding",
+    "on-device"
+   ],
+   "summary": "A multi-token-prediction drafting head built into Gemma 4: one shared head reads the target's own activations, cross-attends to the target's KV cache with zero copy (no second prefill or cache), and scores clustered vocabulary instead of a full softmax. Reported speedups up to 3.1x on large models, 2.3x for small models on H100 and 2.2x on a phone GPU; recipes keep the drafter aligned after domain fine-tuning. Gains depend on acceptance rate, batch size and sampling settings.",
+   "file": "entries/g-mtp-gemma-4-multi-token-drafter.html"
   }
  ],
  "edges": [
@@ -9054,6 +9133,66 @@
    "b": "R074",
    "strength": "strong",
    "why": "a typed ontology plus Git-style branches as agent state, Omnigraph as a database with policy on every write, Git Ontology Agent as per-request branches merged claim by claim."
+  },
+  {
+   "a": "R213",
+   "b": "R141",
+   "strength": "strong",
+   "why": "both rethink review of agent work; R141 keeps PRs and gates auto-approval on policy plus session review, R213 drops PRs and reviews the session thread itself."
+  },
+  {
+   "a": "R213",
+   "b": "R209",
+   "strength": "strong",
+   "why": "shared surfaces for agent work; R209 puts the agent in the team chat thread, R177 on a board, R213 makes the agent thread versioned and reviewable."
+  },
+  {
+   "a": "R213",
+   "b": "R177",
+   "strength": "strong",
+   "why": "shared surfaces for agent work; R209 puts the agent in the team chat thread, R177 on a board, R213 makes the agent thread versioned and reviewable."
+  },
+  {
+   "a": "R213",
+   "b": "R090",
+   "strength": "strong",
+   "why": "both treat the agent session as a durable, portable artifact; R090 moves it between machines and harnesses, R213 stores it beside the code history."
+  },
+  {
+   "a": "R214",
+   "b": "R132",
+   "strength": "strong",
+   "why": "both cut model turns in the agent loop; R132 folds subagents into one agent, R214 folds many tool calls into one program."
+  },
+  {
+   "a": "R214",
+   "b": "R201",
+   "strength": "strong",
+   "why": "R201 says agent cost is mostly tool-call and reasoning tokens; R214 attacks the tool-output part by filtering in code before results reach context."
+  },
+  {
+   "a": "R214",
+   "b": "R139",
+   "strength": "strong",
+   "why": "another job moving into the harness: sequencing and filtering tool calls, with permissions enforced per call underneath."
+  },
+  {
+   "a": "R215",
+   "b": "R197",
+   "strength": "strong",
+   "why": "drafters shipped with the model; R215 shares the target's KV cache and activations so there is no second model to prefill or keep in sync."
+  },
+  {
+   "a": "R215",
+   "b": "R148",
+   "strength": "strong",
+   "why": "drafters shipped with the model; R215 shares the target's KV cache and activations so there is no second model to prefill or keep in sync."
+  },
+  {
+   "a": "R215",
+   "b": "R051",
+   "strength": "strong",
+   "why": "R051 lists speculative decoding as a serving technique; R215 shows the drafter moving inside the model and the fine-tuning cost of keeping it aligned."
   }
  ]
 }
