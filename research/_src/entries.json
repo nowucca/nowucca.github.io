@@ -512,7 +512,8 @@
       "R166",
       "R176",
       "R192",
-      "R198"
+      "R198",
+      "R206"
      ],
      "also": [
       {
@@ -618,6 +619,10 @@
       {
        "id": "R192",
        "why": "diffusion distillation that keeps seed diversity: what makes few-step image and video models cheap to serve"
+      },
+      {
+       "id": "R207",
+       "why": "first independent number for Gemini 4 Neon: 98.1% vs 78.8% recall for Opus 5.5 and Sol 6.2 on an SRE agent's stretch evals; unusable without caching"
       }
      ]
     }
@@ -1210,7 +1215,8 @@
       "R107",
       "R185",
       "R188",
-      "R194"
+      "R194",
+      "R207"
      ],
      "also": [
       {
@@ -1368,6 +1374,10 @@
       {
        "id": "R200",
        "why": "a long-running research agent whose durable state is an explicit, versioned list of hypotheses and evidence, not just code and scores"
+      },
+      {
+       "id": "R206",
+       "why": "queued off-peak model calls for batch agent runs; timeouts forfeit paid work, so host long waits on a runtime that does not hold a connection open"
       }
      ]
     },
@@ -5461,6 +5471,42 @@
    ],
    "summary": "A plain-PyTorch Transformer (no trl, peft or transformers) carried through pretraining, SFT with assistant-only loss masks, a Bradley-Terry reward model, DPO/ORPO/KTO/IPO/SimPO, PPO with a value head and GAE, and GRPO with Dr. GRPO, DAPO and GSPO flags, all on one backbone via a single forward_hidden method. A --arch modern flag swaps in RoPE, RMSNorm, SwiGLU, GQA/MLA, MoE and a KV cache; Muon, LoRA, speculative decoding and int8 are hand-written too. A 369K-param TinyStories model trains on a laptop CPU in about 5 minutes. Strongest evidence: its base eval matches lm-evaluation-harness on GPT-2 to 0.0006 per log-likelihood. Weakest: reward model and DPO both at 0.574 accuracy and no published GSM8K numbers for post-training stages, so the RL stages teach mechanics, not gains. Widest objective coverage of the three from-scratch repos (R097, R120).",
    "file": "entries/train-llm-from-scratch-post-training.html"
+  },
+  {
+   "id": "R206",
+   "slug": "adk-deferred-scheduling",
+   "title": "Deferred scheduling for agent runs: off-peak model capacity in Google ADK",
+   "by": "Google ADK docs (Python 2.10.0); shared by Shubham Saboo",
+   "source": "https://adk.dev/agents/models/google-gemini/deferred-schedule/",
+   "published": "2026-11-21",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/XiWaP3xuPk1jb2dvwi1tC8",
+   "tags": [
+    "inference-cost",
+    "agent-sdk",
+    "scheduling",
+    "gemini"
+   ],
+   "summary": "`RunConfig(service_tier=DEFERRED)` queues every model call in a run for discounted off-peak Gemini capacity (tiers: deferred, flex, standard, priority); the tier is per run, so one agent serves live and batch traffic. ADK polls the queued interaction for you. Sharp edges: each tool-using turn queues separately (latency multiplies by turn count); no client deadline by default; a timeout or disconnect stops polling but the backend still runs and bills; unsupported models silently fall back to standard with one log warning; no streaming.",
+   "file": "entries/adk-deferred-scheduling.html"
+  },
+  {
+   "id": "R207",
+   "slug": "stretch-evals-incident-investigation",
+   "title": "Stretch evals: a practitioner's Gemini 4 Neon result on incident-investigation tasks",
+   "by": "Shahram Anver (Cleric), LinkedIn, 2026-11-20",
+   "source": "https://lnkd.in/p/gmjQudgk",
+   "published": "2026-11-20",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/LTb5R8Bg67tEAG7GQhNz33",
+   "tags": [
+    "evals",
+    "model-selection",
+    "sre",
+    "benchmarks"
+   ],
+   "summary": "Cleric keeps a \"stretch\" tier of eval cases its incident-investigation agent fails today and makes it harder as models catch up. On it Opus 5.5 and GPT-6.2 Sol both score 78.8% recall (Sol about 1.5x faster and 30% cheaper); Gemini 4 Neon scores 98.1%, but is too slow and costly without its in-memory cache, which the team is tuning. A production shadow run is next. Caveats: set built from incumbent failures (selection bias favours any new model), size and run counts not given, recall only, uncached numbers. Practices: keep a stretch tier beside the main suite, promote cases once they pass, compare at equal harness and caching, gate model switches on a shadow run.",
+   "file": "entries/stretch-evals-incident-investigation.html"
   }
  ],
  "edges": [
@@ -8751,6 +8797,36 @@
    "b": "R147",
    "strength": "strong",
    "why": "the article's context-as-cache idea (keep hot items inline, spill the rest behind stable ids, recall one hop at a time) is the retrieval half of Anthropic's memory layers; R147 covers what gets written down, R021's second source covers how it is paged back in."
+  },
+  {
+   "a": "R206",
+   "b": "R085",
+   "strength": "strong",
+   "why": "both pick model capacity per call; Switchyard routes turns between model tiers by signal, ADK picks a price/latency tier per run."
+  },
+  {
+   "a": "R206",
+   "b": "R201",
+   "strength": "strong",
+   "why": "both are about agent cost; R201 says cut reasoning and tool-call tokens, R206 cuts the price of the same tokens for work that can wait, at the cost of a queue wait per turn."
+  },
+  {
+   "a": "R207",
+   "b": "R149",
+   "strength": "strong",
+   "why": "the vendor launch quotes leaderboard ranks; R207 is an outside team's domain eval (98.1% vs 78.8% recall on incident-investigation stretch cases), and both flag cost that depends on cached-prefix pricing."
+  },
+  {
+   "a": "R207",
+   "b": "R155",
+   "strength": "strong",
+   "why": "two incident-investigation agents evaluated on curated incidents; SRE-1 publishes a measured noise floor and decontamination, R207 gives no set size or run count."
+  },
+  {
+   "a": "R207",
+   "b": "R078",
+   "strength": "strong",
+   "why": "SatBench shows public benchmarks saturate in about a year; a stretch tier is a private set deliberately kept unsaturated by making it harder as models improve."
   }
  ]
 }

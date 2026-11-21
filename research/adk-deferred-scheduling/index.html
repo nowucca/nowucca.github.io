@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deferred scheduling for agent runs: off-peak model capacity in Google ADK · Research</title>
+<meta name="description" content="`RunConfig(service_tier=DEFERRED)` queues every model call in a run for discounted off-peak Gemini capacity (tiers: deferred, flex, standard, priority); the tier is per run, so one agent serves live and batch traffic. ADK polls the queued interaction for you. Sharp edges: each tool-using turn queues separately (latency multiplies by turn count); no client deadline by default; a timeout or disconnect stops polling but the backend still runs and bills; unsupported models silently fall back to standard with one log warning; no streaming.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R206 · Infrastructure for agents at scale › Inference providers and serving reliability</span>
+  <h1>Deferred scheduling for agent runs: off-peak model capacity in Google ADK</h1>
+  <div class="entry-meta"><span>Google ADK docs (Python 2.10.0); shared by Shubham Saboo</span><span>Published 2026-11-21</span><span>Summarized 2026-11-21</span></div>
+  <p><a href="https://adk.dev/agents/models/google-gemini/deferred-schedule/" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">inference-cost</span><span class="tag">agent-sdk</span><span class="tag">scheduling</span><span class="tag">gemini</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://adk.dev/agents/models/google-gemini/deferred-schedule/">ADK docs: Deferred scheduling with Gemini models</a> (ADK Python 2.10.0), announced in Shubham Saboo's <a href="https://lnkd.in/p/g4iSsTXt">LinkedIn post</a>, 2026-11-21.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>Many agent workloads don't need an immediate answer: summarisation jobs, bulk eval runs, document pipelines. Google's Agent Development Kit (ADK) now lets a run ask for <strong>off-peak model capacity at a discount</strong>. When capacity is tight, the call waits in a queue instead of failing.</p>
+<p>The setting is <code>RunConfig(service_tier=ServiceTier.DEFERRED)</code>. It sits on the <strong>run</strong>, not the model or agent, so one agent definition can serve live users at standard tier and overnight batches at deferred tier.</p>
+<p>Tiers: <code>DEFERRED</code> (queued off-peak), <code>FLEX</code> (best-effort, cheaper, no latency guarantee), <code>STANDARD</code> (default), <code>PRIORITY</code> (reserved capacity for latency-sensitive calls). The enum is a string, so new backend tiers can be passed before ADK names them.</p>
+<h2 id="how-it-works">How it works</h2>
+<ul><li><p>The model must be a Gemini model with <code>use_interactions_api=True</code>.</p></li><li><p>On a deferred call the backend queues the request and returns an interaction ID at once. ADK polls it internally with exponential backoff, tolerates transient read failures (it gives up after 5 consecutive failures) and turns the final result into a normal response event. Application code reads events exactly as in a standard run.</p></li><li><p>Polling adds a few seconds on top of the queue wait, so it is wrong for short interactive calls.</p></li><li><p>Over HTTP, <code>adk api_server</code> accepts <code>service_tier</code> in the body of <code>/run</code> and <code>/run_sse</code>; deferred with streaming returns HTTP 422.</p></li><li><p>For long waits, the docs recommend Agent Runtime on Google Cloud rather than holding an HTTP connection open.</p></li></ul>
+<h2 id="the-sharp-edges">The sharp edges</h2>
+<ul><li><p><strong>Per-turn queuing.</strong> Every model turn in a tool-using agent is its own interaction and queues separately. Total latency is the sum of every turn's wait, so a 20-turn agent waits 20 times.</p></li><li><p><strong>No client deadline by default.</strong> The backend's completion timeout is the only bound.</p></li><li><p><strong>Timeouts don't cancel.</strong> An <code>asyncio.timeout()</code> or a client disconnect stops ADK polling, but the backend still runs the request, bills it, and the output can't be retrieved. A timed-out turn is paid for and lost.</p></li><li><p><strong>Silent fallback.</strong> If the model isn't on the Interactions API, ADK drops the tier, logs one warning per run, and runs at standard price. The run succeeds, so the log line is the only signal. This is deliberate for mixed multi-agent runs.</p></li><li><p><strong>Not everywhere.</strong> Custom model classes ignore the tier, streaming is incompatible, and some agent classes run their own loop and ignore it.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<div class="table-scroll"><table><thead><tr><th>Choice</th><th>Gain</th><th>Cost</th></tr></thead><tbody><tr><td>Deferred for batch agents</td><td>lower price, no capacity errors</td><td>unbounded latency, multiplied by turn count</td></tr><tr><td>Tier on the run, not the agent</td><td>one agent definition for both workloads</td><td>easy to misconfigure a live path as deferred</td></tr><tr><td>Warn instead of fail on unsupported models</td><td>mixed multi-agent runs keep working</td><td>silent full-price runs</td></tr><tr><td>Client timeout</td><td>bounded wall-clock</td><td>paid, unrecoverable work</td></tr></tbody></table></div>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Is deferred used only for runs with no user waiting?</p></li><li><p>Are agents in deferred runs designed for few model turns (batched tool calls, larger steps)?</p></li><li><p>Is there an alert on the "has no effect for agent" warning, so fallback to standard pricing is visible?</p></li><li><p>Are client timeouts treated as cost, not as a spending cap?</p></li><li><p>Are long deferred runs hosted somewhere that doesn't hold an HTTP connection open?</p></li><li><p>Is the batch path tested end to end with the tier actually applied?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R201 Why caching model outputs doesn't pay off: where agent token cost really goes.</p></li><li><p>R051 Six LLM serving techniques that leave the model alone.</p></li><li><p>R085 NeMo Switchyard: routing coding-agent turns between model tiers.</p></li><li><p>R093 kagent 1.0: sandboxed agent sessions on Kubernetes.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/nemo-switchyard-model-routing/">NeMo Switchyard: route coding-agent turns on tool-result signals</a><span class="label">R085 · Infrastructure for agents at scale</span><span class="why">both pick model capacity per call; Switchyard routes turns between model tiers by signal, ADK picks a price/latency tier per run.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/why-output-caching-doesnt-pay-off/">Why caching model outputs doesn&#x27;t pay off</a><span class="label">R201 · Agent architecture</span><span class="why">both are about agent cost; R201 says cut reasoning and tool-call tokens, R206 cuts the price of the same tokens for work that can wait, at the cost of a queue wait per turn.</span></li></ul><p><a href="/research/map/#R206">See R206 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
