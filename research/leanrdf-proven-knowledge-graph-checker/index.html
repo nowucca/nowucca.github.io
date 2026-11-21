@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LeanRDF: untrusted search finds, a proven checker certifies knowledge-graph reasoning · Research</title>
+<meta name="description" content="Lean 4 libraries encoding W3C RDF 1.2, RDFS, OWL 2 RL/EL, SPARQL 1.1 and SHACL Core semantics. Elpi (or a SQLite SPARQL store) searches and emits certificates; a checker proven sound turns accepted ones into theorems, so search bugs can only cause rejections. SPARQL and SHACL engines proven exact; no sorry, no extra axioms; W3C suites largely pass (SHACL 98/98, RDFC 86/86). Sound not complete (&quot;not derived&quot; is not &quot;false&quot;); thousands of triples, not millions; early single-maintainer repo.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R208 · AI-built software and its verification › Formal methods for AI-written code</span>
+  <h1>LeanRDF: untrusted search finds, a proven checker certifies knowledge-graph reasoning</h1>
+  <div class="entry-meta"><span>Volland/rdf-lean (Apache-2.0); shared by André Lindenberg</span><span>Published 2026-11-21</span><span>Summarized 2026-11-21</span></div>
+  <p><a href="https://github.com/Volland/rdf-lean" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">formal-verification</span><span class="tag">lean</span><span class="tag">knowledge-graphs</span><span class="tag">verification</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://github.com/Volland/rdf-lean">Volland/rdf-lean</a> (Apache-2.0; site and book at volland.github.io/rdf-lean), surfaced by André Lindenberg's <a href="https://lnkd.in/p/gQHtGbmU">LinkedIn post</a>, 2026-11-21. Early-stage project; the claims below are from its README.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>LeanRDF is a set of Lean 4 libraries that writes the W3C semantics of RDF 1.2, RDFS, OWL 2 RL and EL, SPARQL 1.1 and SHACL Core as Lean definitions. The design splits reasoning into two parts:</p>
+<ul><li><p><strong>Untrusted engines find answers.</strong> Elpi (a λProlog) saturates a graph and emits a proof certificate. A SQLite-based SPARQL store (oxilite) can also answer queries and materialise OWL closures.</p></li><li><p><strong>A verified checker certifies them.</strong> The checker is proven sound against the semantics, so an accepted certificate becomes a theorem such as "graph g RDFS-entails query q". A bug in the search can only produce a rejected certificate, never a wrong accepted answer.</p></li><li><p><strong>Where a certificate can't cover it, the engine itself is proven.</strong> A certificate shows something follows, not that nothing is missing, so the SPARQL evaluator and SHACL validator are proven to compute their semantics exactly.</p></li></ul>
+<h2 id="what-is-claimed-proven">What is claimed proven</h2>
+<ul><li><p>Soundness of 80 RDFS rules, 60 OWL 2 RL rules, 10 EL rules and 12 OWL 2 RL clash rules (a checked clash certificate proves the data has no model).</p></li><li><p>RDF canonicalisation that never merges blank nodes; checked countermodels that prove non-entailment.</p></li><li><p>SPARQL evaluation equal to the SPARQL 1.1 semantics up to order; SHACL "conforms" exactly when the data conforms.</p></li><li><p>No <code>sorry</code>, no new axioms beyond Lean's standard three, no Mathlib dependency; tests pin the axioms of each main theorem.</p></li><li><p>W3C suites: RDF syntax suites pass, RDFC-1.0 86/86, SHACL Core 98/98, SPARQL 97 syntax and 257 evaluation tests; OWL 2 inconsistency tests 27 decided, 91 listed as not decided.</p></li></ul>
+<p>A standalone <code>leanrdf-check</code> tool verifies a certificate someone else produced, with the certificate bound to digests of its data, query and rules.</p>
+<h2 id="why-it-matters-for-engineers">Why it matters for engineers</h2>
+<p>This is the same pattern as proof assistants checking AI-written proofs, applied to knowledge-graph reasoning: let a fast, fallible component (a solver, a database, or a model) propose, and accept only what a small verified kernel checks. For agents that answer from ontologies or policy graphs, it gives a way to say "this conclusion is proven from this data under these rules" rather than "the reasoner said so". Exit codes separate "proven", "not derived" (never a claim of falsehood, because the rules are sound but not complete), "certificate rejected" (a bug upstream) and input errors.</p>
+<h2 id="tradeoffs-and-limits">Tradeoffs and limits</h2>
+<ul><li><p><strong>Scale.</strong> Aimed at thousands of triples, not millions; certificate checking and proof terms are not built for warehouse-scale graphs.</p></li><li><p><strong>Soundness, not completeness.</strong> "Not derived" means not found, not false. Many OWL tests are undecided.</p></li><li><p><strong>Profile coverage.</strong> OWL 2 RL and EL fragments only; datatypes outside the supported set are not handled.</p></li><li><p><strong>Toolchain cost.</strong> Lean 4 (pinned version), Elpi and a build step; a heavy dependency for teams without Lean experience.</p></li><li><p><strong>Early project.</strong> Single-maintainer repo; README claims, not independent review.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p>Trusting the RDF/OWL encoding: the theorems are only as good as the Lean definitions matching the W3C specs.</p></li><li><p>Treating "not derived" as "false" in downstream logic.</p></li><li><p>Certificates checked against the wrong data or rules if digests aren't verified.</p></li><li><p>Performance cliffs when graphs grow past the intended size.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Is the fast reasoner's output accepted only after an independent check?</p></li><li><p>Does the system distinguish "proven", "not found" and "checker rejected"?</p></li><li><p>Are certificates bound to the exact data, query and rule set they were made for?</p></li><li><p>Is the graph size within what the checker handles?</p></li><li><p>Who reviewed the formal definitions against the specs?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R189 An unverified Lean-checked claim of the Riemann Hypothesis: the same find-then-check split, for mathematics.</p></li><li><p>R183 Policy-filtered retrieval with SHACL shapes and PROV-O lineage.</p></li><li><p>R044 Formal Skill: skills as state machines and guards.</p></li><li><p>R159 SelfGraph: graphs that mark what they can't answer.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t3)"><a class="to" href="/research/riemann-hypothesis-lean-claim/">An unverified Lean-checked claim of the Riemann Hypothesis, and how to evaluate it</a><span class="label">R189 · AI-built software and its verification</span><span class="why">the same split between an untrusted proposer and a small trusted checker; Lean checks a model-written proof in R189, and checks a reasoner&#x27;s certificate in R208.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/trustgraph-access-control-before-the-model/">TrustGraph: access control before the model reads</a><span class="label">R183 · Agent architecture</span><span class="why">both put SHACL between data and the model; R183 filters retrieval by shapes, R208 proves that SHACL validation results are exactly right.</span></li></ul><p><a href="/research/map/#R208">See R208 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

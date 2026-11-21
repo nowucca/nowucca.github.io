@@ -660,7 +660,8 @@
       "R042",
       "R043",
       "R045",
-      "R189"
+      "R189",
+      "R208"
      ],
      "also": [
       {
@@ -921,6 +922,10 @@
       {
        "id": "R199",
        "why": "a tree-sitter code map pushed into each prompt with blast radius after edits; on-demand retrieval scored better correctness than injection"
+      },
+      {
+       "id": "R208",
+       "why": "certified reasoning over small knowledge graphs: accept an ontology inference only if a proven checker validates its certificate"
       }
      ]
     }
@@ -5507,6 +5512,24 @@
    ],
    "summary": "Cleric keeps a \"stretch\" tier of eval cases its incident-investigation agent fails today and makes it harder as models catch up. On it Opus 5.5 and GPT-6.2 Sol both score 78.8% recall (Sol about 1.5x faster and 30% cheaper); Gemini 4 Neon scores 98.1%, but is too slow and costly without its in-memory cache, which the team is tuning. A production shadow run is next. Caveats: set built from incumbent failures (selection bias favours any new model), size and run counts not given, recall only, uncached numbers. Practices: keep a stretch tier beside the main suite, promote cases once they pass, compare at equal harness and caching, gate model switches on a shadow run.",
    "file": "entries/stretch-evals-incident-investigation.html"
+  },
+  {
+   "id": "R208",
+   "slug": "leanrdf-proven-knowledge-graph-checker",
+   "title": "LeanRDF: untrusted search finds, a proven checker certifies knowledge-graph reasoning",
+   "by": "Volland/rdf-lean (Apache-2.0); shared by André Lindenberg",
+   "source": "https://github.com/Volland/rdf-lean",
+   "published": "2026-11-21",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/BXAkmKwX3Y2LBSQbtZUxBU",
+   "tags": [
+    "formal-verification",
+    "lean",
+    "knowledge-graphs",
+    "verification"
+   ],
+   "summary": "Lean 4 libraries encoding W3C RDF 1.2, RDFS, OWL 2 RL/EL, SPARQL 1.1 and SHACL Core semantics. Elpi (or a SQLite SPARQL store) searches and emits certificates; a checker proven sound turns accepted ones into theorems, so search bugs can only cause rejections. SPARQL and SHACL engines proven exact; no sorry, no extra axioms; W3C suites largely pass (SHACL 98/98, RDFC 86/86). Sound not complete (\"not derived\" is not \"false\"); thousands of triples, not millions; early single-maintainer repo.",
+   "file": "entries/leanrdf-proven-knowledge-graph-checker.html"
   }
  ],
  "edges": [
@@ -8827,6 +8850,18 @@
    "b": "R078",
    "strength": "strong",
    "why": "SatBench shows public benchmarks saturate in about a year; a stretch tier is a private set deliberately kept unsaturated by making it harder as models improve."
+  },
+  {
+   "a": "R208",
+   "b": "R189",
+   "strength": "strong",
+   "why": "the same split between an untrusted proposer and a small trusted checker; Lean checks a model-written proof in R189, and checks a reasoner's certificate in R208."
+  },
+  {
+   "a": "R208",
+   "b": "R183",
+   "strength": "strong",
+   "why": "both put SHACL between data and the model; R183 filters retrieval by shapes, R208 proves that SHACL validation results are exactly right."
   }
  ]
 }
