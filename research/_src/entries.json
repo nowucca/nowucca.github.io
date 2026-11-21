@@ -587,7 +587,8 @@
       "R170",
       "R179",
       "R196",
-      "R197"
+      "R197",
+      "R202"
      ],
      "also": [
       {
@@ -834,7 +835,8 @@
      "primary": [
       "R117",
       "R136",
-      "R199"
+      "R199",
+      "R203"
      ],
      "also": [
       {
@@ -877,7 +879,8 @@
       "R127",
       "R137",
       "R160",
-      "R171"
+      "R171",
+      "R204"
      ],
      "also": [
       {
@@ -984,6 +987,10 @@
       {
        "id": "R190",
        "why": "install a generated `cli-anything-<app>` harness and let the agent learn it from `--help` and SKILL.md instead of driving the GUI"
+      },
+      {
+       "id": "R203",
+       "why": "re-inject rules through lifecycle hooks instead of stating them once; make the agent consult a condensed repo index before grep or glob"
       }
      ]
     }
@@ -1417,7 +1424,12 @@
      "primary": [
       "R142"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R202",
+       "why": "a constant activation shift explains most RL post-training gains in diffusion transformers; fit one to a tuned checkpoint to see what the tuning really changed"
+      }
+     ]
     }
    ]
   },
@@ -1634,7 +1646,8 @@
       "R098",
       "R119",
       "R120",
-      "R130"
+      "R130",
+      "R205"
      ],
      "also": [
       {
@@ -1684,6 +1697,14 @@
       {
        "id": "R143",
        "why": "an MCP vs API whiteboard for newcomers, with a corrections table: no hub, configured servers, authored descriptions, auth on both paths"
+      },
+      {
+       "id": "R204",
+       "why": "whiteboard exercise: chunk one document at three sizes, find which queries fail and why, then add contextual notes and watch the failures change without changing size"
+      },
+      {
+       "id": "R205",
+       "why": "one backbone, every objective: hold the SFT checkpoint and data fixed and swap --loss_type dpo/orpo/kto/simpo for a side-by-side lesson; start on the three-command laptop track"
       }
      ]
     }
@@ -5368,6 +5389,78 @@
    ],
    "summary": "Output tokens cost more than input, and agents repeat code and evidence back, so teaching models to emit references the harness expands looks attractive. But in his agent histories only about 6% of output is visible text (50% reasoning, 44% tool calls), so even cutting two-thirds of it saves about 4% (Amdahl). Real savings come from smarter models needing fewer reasoning tokens and tool calls (pricier per token, cheaper per task); providers likely already exploit repeats via n-gram speculative decoding. Anecdotal split; measure your own.",
    "file": "entries/why-output-caching-doesnt-pay-off.html"
+  },
+  {
+   "id": "R202",
+   "slug": "rl-post-training-as-activation-steering",
+   "title": "RL post-training in diffusion transformers is mostly a constant steering shift",
+   "by": "Meral, Oktay, Helbling, Kara, Chau and Yanardag (Virginia Tech, Georgia Tech), arXiv 2611.26627; shared by Tuna Meral",
+   "source": "https://arxiv.org/abs/2611.26627",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/FYtBJfy5e85BNASNR5gHgz",
+   "tags": [
+    "diffusion",
+    "reinforcement-learning",
+    "steering",
+    "research"
+   ],
+   "summary": "One fixed set of steering vectors added to a frozen base model's block outputs, the same for every prompt, token and seed (0.29M params vs an 18.8M RL LoRA on SD3.5-M), fitted to match public RL-tuned checkpoints with no reward, recovers 90.0-96.3% of six image models' reward gains and 89.8%/111.9% on two video models; trained directly with online RL it beats weight-based RL on OCR and PickScore. Reading: RL mostly steers toward what the model could already do. Useful as a cheap baseline and a reward-hacking check; diffusion only.",
+   "file": "entries/rl-post-training-as-activation-steering.html"
+  },
+  {
+   "id": "R203",
+   "slug": "spec-driven-development-gaps",
+   "title": "Spec-driven development gaps: rules that drift, expensive search, and lost intent",
+   "by": "Oscar Benedek (IBM), oscarbenedek.com, November 2026",
+   "source": "https://www.oscarbenedek.com/sdd-gaps-and-solutions.html",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/K5jLJr1yZ3rbZc5dYpm68M",
+   "tags": [
+    "spec-driven-development",
+    "coding-agents",
+    "hooks",
+    "context"
+   ],
+   "summary": "An internal SDD framework for IBM Bob beyond Spec Kit/OpenSpec: stacked org/repo/folder RULES.md (higher wins); lifecycle hooks re-inject rules and run checks after tool use and at stop (the main gain); a condensed \"yellow pages\" index with a navigation skill and a prompt-submit reminder to use it before grep/glob (cost -17 to -45%, tool calls -33 to -58% on 3-7 self-run questions; no correctness measure); cross-repo context via a dependency map and GitHub Enterprise MCP; plans compacted into change history after review.",
+   "file": "entries/spec-driven-development-gaps.html"
+  },
+  {
+   "id": "R204",
+   "slug": "rag-chunk-size-last-knob",
+   "title": "RAG chunk size is the last knob: measure, fix boundaries, restore context",
+   "by": "Hao Hoang, LinkedIn, 2026-11-21 (interview-question series)",
+   "source": "https://lnkd.in/p/gmaGeMZt",
+   "published": "2026-11-21",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/HLNJBj7yEscBrMvnnHn6Nq",
+   "tags": [
+    "rag",
+    "retrieval",
+    "evals",
+    "teaching"
+   ],
+   "summary": "Loosely relevant results come from chunks that lost their subject (too small) or mix topics (too large), so changing size only swaps failures. Order: a labelled retrieval eval with recall@k first; structure-aware splitting with 10-20% overlap; contextual notes prepended before embedding (one model call per chunk); match small, send the parent section; tune size last against the eval. Practitioner advice, no new data.",
+   "file": "entries/rag-chunk-size-last-knob.html"
+  },
+  {
+   "id": "R205",
+   "slug": "train-llm-from-scratch-post-training",
+   "title": "Train LLM From Scratch: every post-training objective on one hand-written Transformer",
+   "by": "FareedKhan-dev/train-llm-from-scratch (Fareed Khan, MIT); shared by Mayank A.",
+   "source": "https://github.com/FareedKhan-dev/train-llm-from-scratch",
+   "published": "2026-10-27",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/Xf1mTdb9yMJar4xNEdXqj9",
+   "tags": [
+    "training",
+    "post-training",
+    "teaching",
+    "open-source"
+   ],
+   "summary": "A plain-PyTorch Transformer (no trl, peft or transformers) carried through pretraining, SFT with assistant-only loss masks, a Bradley-Terry reward model, DPO/ORPO/KTO/IPO/SimPO, PPO with a value head and GAE, and GRPO with Dr. GRPO, DAPO and GSPO flags, all on one backbone via a single forward_hidden method. A --arch modern flag swaps in RoPE, RMSNorm, SwiGLU, GQA/MLA, MoE and a KV cache; Muon, LoRA, speculative decoding and int8 are hand-written too. A 369K-param TinyStories model trains on a laptop CPU in about 5 minutes. Strongest evidence: its base eval matches lm-evaluation-harness on GPT-2 to 0.0006 per log-likelihood. Weakest: reward model and DPO both at 0.574 accuracy and no published GSM8K numbers for post-training stages, so the RL stages teach mechanics, not gains. Widest objective coverage of the three from-scratch repos (R097, R120).",
+   "file": "entries/train-llm-from-scratch-post-training.html"
   }
  ],
  "edges": [
@@ -8592,6 +8685,72 @@
    "b": "R113",
    "strength": "strong",
    "why": "TokenEconomizer cut cost by removing repeated tool calls, which is consistent with R201's finding that tool calls, not visible text, hold most output tokens."
+  },
+  {
+   "a": "R202",
+   "b": "R126",
+   "strength": "strong",
+   "why": "both ask what RL tuning really changes; harness adapters fit a model to one agent, while R202 finds most diffusion RL gains are a constant shift a tiny vector set can reproduce."
+  },
+  {
+   "a": "R202",
+   "b": "R196",
+   "strength": "strong",
+   "why": "both concern what transfers from a tuned model; distillation copies behaviour into new weights, R202 copies most of it into a few steering vectors."
+  },
+  {
+   "a": "R203",
+   "b": "R199",
+   "strength": "strong",
+   "why": "two answers to the same problem, keeping a team's decisions and rules in front of a coding agent: Trail-code checks diffs against committed decisions, IBM's framework re-injects rules through hooks."
+  },
+  {
+   "a": "R203",
+   "b": "R076",
+   "strength": "strong",
+   "why": "both stop agents grepping; Graphify builds a code graph, IBM's yellow pages condense the spec docs into one index the agent must read first."
+  },
+  {
+   "a": "R204",
+   "b": "R010",
+   "strength": "strong",
+   "why": "two answers to chunk-and-embed failures: PageIndex drops chunking for a section tree; R204 keeps chunking but restores each chunk's context and sends the parent section."
+  },
+  {
+   "a": "R204",
+   "b": "R127",
+   "strength": "strong",
+   "why": "both move work to index time or away from it deliberately; contextual notes cost one model call per chunk at indexing, GraphRAG Zero avoids model calls at indexing entirely."
+  },
+  {
+   "a": "R205",
+   "b": "R097",
+   "strength": "strong",
+   "why": "three from-scratch training repos; R205 is widest on post-training objectives (DPO family, PPO, GRPO family on one backbone), MiniMind gives a model that works after post-training, nanochat goes deepest on pretraining speed."
+  },
+  {
+   "a": "R205",
+   "b": "R120",
+   "strength": "strong",
+   "why": "three from-scratch training repos; R205 is widest on post-training objectives (DPO family, PPO, GRPO family on one backbone), MiniMind gives a model that works after post-training, nanochat goes deepest on pretraining speed."
+  },
+  {
+   "a": "R205",
+   "b": "R098",
+   "strength": "strong",
+   "why": "CS329A covers the verification and GRPO theory; R205 implements GRPO and its 2025 fixes (Dr. GRPO, DAPO, GSPO) as flags on one trainer."
+  },
+  {
+   "a": "R205",
+   "b": "R126",
+   "strength": "strong",
+   "why": "async GRPO at 27B scale for a real coding harness vs. GRPO by hand on a tiny model; same objective, opposite ends of the scale."
+  },
+  {
+   "a": "R021",
+   "b": "R147",
+   "strength": "strong",
+   "why": "the article's context-as-cache idea (keep hot items inline, spill the rest behind stable ids, recall one hop at a time) is the retrieval half of Anthropic's memory layers; R147 covers what gets written down, R021's second source covers how it is paged back in."
   }
  ]
 }

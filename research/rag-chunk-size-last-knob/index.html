@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RAG chunk size is the last knob: measure, fix boundaries, restore context · Research</title>
+<meta name="description" content="Loosely relevant results come from chunks that lost their subject (too small) or mix topics (too large), so changing size only swaps failures. Order: a labelled retrieval eval with recall@k first; structure-aware splitting with 10-20% overlap; contextual notes prepended before embedding (one model call per chunk); match small, send the parent section; tune size last against the eval. Practitioner advice, no new data.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R204 · Knowledge for agents › Retrieval over long documents</span>
+  <h1>RAG chunk size is the last knob: measure, fix boundaries, restore context</h1>
+  <div class="entry-meta"><span>Hao Hoang, LinkedIn, 2026-11-21 (interview-question series)</span><span>Published 2026-11-21</span><span>Summarized 2026-11-20</span></div>
+  <p><a href="https://lnkd.in/p/gmaGeMZt" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">rag</span><span class="tag">retrieval</span><span class="tag">evals</span><span class="tag">teaching</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Hao Hoang's <a href="https://lnkd.in/p/gmaGeMZt">LinkedIn post</a>, 2026-11-21, part of his AI Agent Engineering Interview Questions series. Framed as an interview question; useful as a debugging order for any team whose RAG returns "sort-of-relevant" results.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>A RAG system returns chunks that are loosely on-topic. One engineer wants smaller chunks (100 tokens instead of 500), another wants bigger ones (1,500). The post's point is that both proposals trade one failure for another, and that size should be tuned last.</p>
+<ul><li><p><strong>Too small:</strong> a chunk loses its subject. Phrases like "the policy" or "this quarter" no longer say which policy or quarter, so the embedding has too little to match on.</p></li><li><p><strong>Too large:</strong> one vector averages several topics, so it matches many queries weakly. That is exactly the loosely-relevant symptom.</p></li></ul>
+<h2 id="the-recommended-order">The recommended order</h2>
+<ol><li><p><strong>Measure retrieval on its own.</strong> Label real queries with the passages that answer them and track recall@k (how often the right passage is in the top k). Without this, every change is a guess, and end-to-end answer quality mixes retrieval errors with generation errors.</p></li><li><p><strong>Fix boundaries before size.</strong> Split on document structure (headings, paragraphs, sentences) with roughly 10-20% overlap so no chunk starts mid-thought.</p></li><li><p><strong>Put the missing context back.</strong> Contextual retrieval prepends a short model-written note about where the chunk sits in its document before embedding it. Cost: one model call per chunk at index time.</p></li><li><p><strong>Search small, send big.</strong> Match on small chunks, then hand the model the parent section. Cost: more prompt tokens per answer.</p></li><li><p><strong>Only then tune size</strong>, against the retrieval eval from step 1.</p></li></ol>
+<p>The summary claim: most chunk-size debates are really missing-context problems.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<div class="table-scroll"><table><thead><tr><th>Technique</th><th>Helps with</th><th>Costs</th></tr></thead><tbody><tr><td>Structure-aware splitting</td><td>chunks that start or end mid-thought</td><td>per-format parsers; messy sources (PDFs, chat logs) have weak structure</td></tr><tr><td>Overlap</td><td>answers split across a boundary</td><td>index size, near-duplicate hits</td></tr><tr><td>Contextual notes</td><td>chunks that lost their subject</td><td>one model call per chunk; re-index when the prompt or model changes</td></tr><tr><td>Small-to-big</td><td>precise matching plus enough context to answer</td><td>prompt tokens; parent sections can be long</td></tr></tbody></table></div>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p><strong>An eval set built from synthetic questions</strong> that mirror chunk wording overstates recall; use real user queries.</p></li><li><p><strong>Contextual notes that hallucinate</strong> or repeat the document title on every chunk, which makes all chunks look alike to the embedder.</p></li><li><p><strong>Parent sections that blow the context budget</strong> when several hits come from long sections.</p></li><li><p><strong>Fixing retrieval when the problem is ranking.</strong> If the right passage is in the top 50 but not the top 5, add a reranker before re-chunking.</p></li><li><p><strong>Re-chunking without re-running the eval</strong>, so a regression on one query type goes unnoticed.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Is there a labelled retrieval eval (real queries, gold passages, recall@k) separate from answer quality?</p></li><li><p>Are chunk boundaries aligned with document structure?</p></li><li><p>Does each chunk carry enough context to be understood alone (title, section path, or a generated note)?</p></li><li><p>Is what you match on separated from what you send to the model?</p></li><li><p>Is chunk size tuned against the eval rather than argued about?</p></li><li><p>Is a reranker considered before re-chunking?</p></li></ul>
+<h2 id="teaching-notes">Teaching notes</h2>
+<p>Good as a whiteboard exercise: give students one document and two queries, chunk it at three sizes, and have them find which queries fail at each size and why. Then add contextual notes and show the failures change without changing size.</p>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R010 PageIndex: reasoning-based retrieval over a section tree instead of chunk-and-embed.</p></li><li><p>R127 GraphRAG Zero: graph-guided retrieval with no model calls at index time.</p></li><li><p>R183 Policy-filtered retrieval with lineage to every source chunk.</p></li><li><p>R087 Stanford CS329Z course map (same author).</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t4)"><a class="to" href="/research/pageindex/">PageIndex: reasoning-based retrieval for long documents</a><span class="label">R010 · Knowledge for agents</span><span class="why">two answers to chunk-and-embed failures: PageIndex drops chunking for a section tree; R204 keeps chunking but restores each chunk&#x27;s context and sends the parent section.</span></li><li style="--c:var(--t4)"><a class="to" href="/research/graphrag-zero/">GraphRAG Zero: graph-guided retrieval with no LLM calls at index time</a><span class="label">R127 · Knowledge for agents</span><span class="why">both move work to index time or away from it deliberately; contextual notes cost one model call per chunk at indexing, GraphRAG Zero avoids model calls at indexing entirely.</span></li></ul><p><a href="/research/map/#R204">See R204 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

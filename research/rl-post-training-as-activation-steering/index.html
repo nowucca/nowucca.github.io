@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RL post-training in diffusion transformers is mostly a constant steering shift · Research</title>
+<meta name="description" content="One fixed set of steering vectors added to a frozen base model&#x27;s block outputs, the same for every prompt, token and seed (0.29M params vs an 18.8M RL LoRA on SD3.5-M), fitted to match public RL-tuned checkpoints with no reward, recovers 90.0-96.3% of six image models&#x27; reward gains and 89.8%/111.9% on two video models; trained directly with online RL it beats weight-based RL on OCR and PickScore. Reading: RL mostly steers toward what the model could already do. Useful as a cheap baseline and a reward-hacking check; diffusion only.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R202 · Infrastructure for agents at scale › Frontier model releases</span>
+  <h1>RL post-training in diffusion transformers is mostly a constant steering shift</h1>
+  <div class="entry-meta"><span>Meral, Oktay, Helbling, Kara, Chau and Yanardag (Virginia Tech, Georgia Tech), arXiv 2611.26627; shared by Tuna Meral</span><span>Published 2026-11-20</span><span>Summarized 2026-11-20</span></div>
+  <p><a href="https://arxiv.org/abs/2611.26627" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">diffusion</span><span class="tag">reinforcement-learning</span><span class="tag">steering</span><span class="tag">research</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Meral, Oktay, Helbling, Kara, Chau and Yanardag (Virginia Tech and Georgia Tech), <em>RL Post-Training in Diffusion Transformers Is Activation Steering</em>, <a href="https://arxiv.org/abs/2611.26627">arXiv 2611.26627</a>. Surfaced by the first author's <a href="https://lnkd.in/p/g4HjBr27">LinkedIn post</a>.</p>
+<h2 id="what-it-claims">What it claims</h2>
+<p>RL post-training (policy-gradient tuning against rewards such as OCR accuracy, compositional correctness or human-preference scores) clearly improves image and video diffusion transformers. Because those skills look prompt-dependent, the natural assumption is that RL teaches the model new input-dependent transformations.</p>
+<p>The paper tests how much of the gain a deliberately crude intervention explains: one fixed set of <strong>steering vectors added to the block outputs of the frozen base model</strong>, the same for every prompt, token and sampling seed.</p>
+<ul><li><p>On SD3.5-M the vectors have about 0.29M parameters, roughly 65x fewer than the RL-tuned LoRA (18.8M).</p></li><li><p>Fitted only to match the velocity predictions of public RL-tuned checkpoints (no reward in the objective), they recover 90.0-96.3% of the reward gains of six RL-tuned image models, and 89.8% and 111.9% on two RL-tuned video models.</p></li><li><p>Trained from zero directly with online RL, the vectors alone beat weight-based RL on text rendering (OCR) and on PickScore for SD3.5-M.</p></li></ul>
+<p>The authors' reading: most of what RL post-training does here is push the pretrained generator toward outputs it could already compute, not add new capability.</p>
+<h2 id="why-it-matters-for-engineers">Why it matters for engineers</h2>
+<ul><li><p><strong>Cheaper post-training artifacts.</strong> If a sub-megabyte vector set captures most of a reward gain, you can ship, swap and A/B many "tunings" against one frozen base, the way adapters are used today but much smaller.</p></li><li><p><strong>A diagnostic for any RL claim.</strong> Fitting a constant shift to a tuned checkpoint is a cheap test of how much the tuning actually changed. If a constant shift recovers it, the reward probably rewarded a style or bias, not a skill.</p></li><li><p><strong>Reward-hacking lens.</strong> Constant shifts are exactly what you would expect a reward model to exploit (global sharpness, contrast, text-like textures). Treat high recovery as a prompt to check reward quality, not only as an efficiency win.</p></li></ul>
+<h2 id="tradeoffs-and-limits">Tradeoffs and limits</h2>
+<ul><li><p>Evidence is for diffusion transformers on image and video rewards; it says nothing directly about RL on language models or agents.</p></li><li><p>Recovery is measured on the rewards used for tuning. Held-out human evaluation and diversity effects need separate checks.</p></li><li><p>One 111.9% recovery on video means the vectors exceeded the tuned model on that reward, which may also signal over-optimisation.</p></li><li><p>A constant shift cannot represent genuinely prompt-dependent behaviour; the remaining 4-10% gap may be where the real skill learning is.</p></li></ul>
+<h2 id="failure-modes-to-watch">Failure modes to watch</h2>
+<ul><li><p><strong>Mode collapse in disguise.</strong> A global shift that raises average reward can cut sample diversity.</p></li><li><p><strong>Stacking.</strong> Combining several steering sets on one base can interfere in ways adapters already do.</p></li><li><p><strong>Benchmarked against public checkpoints.</strong> Results depend on how well those checkpoints were tuned.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Before adopting a fine-tune, has a constant-shift or small-adapter baseline been tried?</p></li><li><p>Is the reward gain checked on held-out prompts and human preference, not only the training reward?</p></li><li><p>Is diversity measured alongside reward?</p></li><li><p>If shipping steering vectors, are they versioned against the exact base checkpoint?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R126 Harness adapters: RL-tuning an open model for one coding agent.</p></li><li><p>R196 Adversarial distillation.</p></li><li><p>R192 Posterior Matching Distillation.</p></li><li><p>R176 NVIDIA Dynamo for RL rollouts.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t1)"><a class="to" href="/research/harness-adapters-rl-tuned-qwen-pi/">Harness adapters: RL-tuning an open model for one coding agent</a><span class="label">R126 · Agent architecture</span><span class="why">both ask what RL tuning really changes; harness adapters fit a model to one agent, while R202 finds most diffusion RL gains are a constant shift a tiny vector set can reproduce.</span></li><li style="--c:var(--t2)"><a class="to" href="/research/openai-adversarial-distillation/">Adversarial distillation: how OpenAI protects reasoning traces, and what it may mean for open weights</a><span class="label">R196 · Infrastructure for agents at scale</span><span class="why">both concern what transfers from a tuned model; distillation copies behaviour into new weights, R202 copies most of it into a few steering vectors.</span></li></ul><p><a href="/research/map/#R202">See R202 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
