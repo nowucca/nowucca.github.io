@@ -121,7 +121,8 @@
       "R158",
       "R164",
       "R174",
-      "R175"
+      "R175",
+      "R200"
      ],
      "also": [
       {
@@ -253,7 +254,8 @@
       "R032",
       "R113",
       "R118",
-      "R156"
+      "R156",
+      "R201"
      ],
      "also": [
       {
@@ -540,6 +542,10 @@
       {
        "id": "R197",
        "why": "local serving of a looped MoE: memory falls, compute per token does not; quantization error repeats across passes"
+      },
+      {
+       "id": "R201",
+       "why": "output tokens are decoded serially and cost more, but visible text is about 6% of agent output; reasoning and tool calls dominate"
       }
      ]
     },
@@ -827,7 +833,8 @@
      "title": "Docs-as-code and project memory",
      "primary": [
       "R117",
-      "R136"
+      "R136",
+      "R199"
      ],
      "also": [
       {
@@ -902,7 +909,12 @@
       "R076",
       "R134"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R199",
+       "why": "a tree-sitter code map pushed into each prompt with blast radius after edits; on-demand retrieval scored better correctness than injection"
+      }
+     ]
     }
    ]
   },
@@ -1345,6 +1357,10 @@
       {
        "id": "R169",
        "why": "handler replay on recovery means side effects must be idempotent; zero-compute human approvals"
+      },
+      {
+       "id": "R200",
+       "why": "a long-running research agent whose durable state is an explicit, versioned list of hypotheses and evidence, not just code and scores"
       }
      ]
     },
@@ -5298,6 +5314,60 @@
    ],
    "summary": "Sparse attention moves cost into the indexer that scores every key (47% of a DeepSeek V3.2 prefill layer at 128K). Compares DSA, GLM, Qwen QSA, MiniMax MSA, NSA, MoBA and others; guidelines: tile-sized head grouping, FP16 epilogue, one key head, head dim 128, score fewer keys, fuse and reuse top-k, large blocks, large core-attention groups.",
    "file": "entries/sparse-attention-indexer-codesign.html"
+  },
+  {
+   "id": "R199",
+   "slug": "trail-code-team-decisions-in-repo",
+   "title": "Trail-code: team decisions as files in the repo, checked before every commit",
+   "by": "trailhq/Trail-Code (MIT); shared by André Lindenberg",
+   "source": "https://github.com/trailhq/Trail-Code",
+   "published": "2026-11-20 (post)",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/NV4Sk6BCHTVYYhULuTUSHx",
+   "tags": [
+    "agent-memory",
+    "coding-agents",
+    "code-graph",
+    "team-practice"
+   ],
+   "summary": "A tree-sitter code map injected into prompts, plus Markdown learnings under .trail/learnings (Decided, Tried and ruled out, Watch out; touches list) committed with the code. trail check flags diffs that contradict a learning before commit; seeding mines past sessions and repeated PR review comments. Vendor-run results: 33 vs 27 of 50 SWE-bench Verified, 46% fewer tool calls in its own harness.",
+   "file": "entries/trail-code-team-decisions-in-repo.html"
+  },
+  {
+   "id": "R200",
+   "slug": "pro2-agent-problem-state",
+   "title": "Pro² Agent: research agents that track problems, not just code",
+   "by": "Chen, Peng, Tan et al. (Google, Johns Hopkins), arXiv 2611.25357, 2026-11-19; shared by DAIR.AI",
+   "source": "https://arxiv.org/abs/2611.25357",
+   "published": "2026-11-19",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/Bp96MhqFBhSTMYCRQQi4rK",
+   "tags": [
+    "research-agents",
+    "ml-engineering",
+    "benchmarks",
+    "research"
+   ],
+   "summary": "The agent's primary state is a git-versioned Problem State, not the codebase: blocking problems with profiling evidence, each with candidate fixes carrying a [0,1] belief score and evidence; experiments are controlled tests that update importance and belief. Stronger PI model (Gemini 3.1 Pro) diagnoses, Gemini 3.5 Flash implements. Complete MLE-Bench: 70.7% medals at 24h (ties prior best), 76.0% at 48h; competitive on PostTrainBench; per-task research notes. Self-reported; belief updates deliberately simple.",
+   "file": "entries/pro2-agent-problem-state.html"
+  },
+  {
+   "id": "R201",
+   "slug": "why-output-caching-doesnt-pay-off",
+   "title": "Why caching model outputs doesn't pay off",
+   "by": "Sean Goedecke, seangoedecke.com, 2026-11-20",
+   "source": "https://www.seangoedecke.com/why-output-caching-doesnt-work/",
+   "published": "2026-11-20",
+   "added": "2026-11-20",
+   "artifact": "https://claude.ai/artifact/RqcH3V3iFtq7YhKZTw5mTJ",
+   "tags": [
+    "inference-cost",
+    "caching",
+    "tokens",
+    "harness"
+   ],
+   "summary": "Output tokens cost more than input, and agents repeat code and evidence back, so teaching models to emit references the harness expands looks attractive. But in his agent histories only about 6% of output is visible text (50% reasoning, 44% tool calls), so even cutting two-thirds of it saves about 4% (Amdahl). Real savings come from smarter models needing fewer reasoning tokens and tool calls (pricier per token, cheaper per task); providers likely already exploit repeats via n-gram speculative decoding. Anecdotal split; measure your own.",
+   "file": "entries/why-output-caching-doesnt-pay-off.html"
   }
  ],
  "edges": [
@@ -8474,6 +8544,54 @@
    "b": "R174",
    "strength": "strong",
    "why": "two inference-cost levers that compound: QDA lowers bytes per weight, sparse attention lowers keys per query."
+  },
+  {
+   "a": "R199",
+   "b": "R076",
+   "strength": "strong",
+   "why": "both build a tree-sitter code graph locally so agents stop grepping; Trail-code adds committed decision files and a pre-commit contradiction check on top."
+  },
+  {
+   "a": "R199",
+   "b": "R134",
+   "strength": "strong",
+   "why": "two local code-map tools with vendor-run benchmarks; Trail-code's own data shows on-demand retrieval beating up-front injection on correctness, a useful check on either tool's claims."
+  },
+  {
+   "a": "R199",
+   "b": "R159",
+   "strength": "strong",
+   "why": "both make an agent's knowledge explicit and versioned: SelfGraph marks what a graph can't answer, Trail-code records what was decided and ruled out."
+  },
+  {
+   "a": "R200",
+   "b": "R181",
+   "strength": "strong",
+   "why": "both treat AI research as hypothesis testing that must be checked by execution; the society does it with many agents reviewing each other, Pro² with one agent's explicit problem list and belief scores."
+  },
+  {
+   "a": "R200",
+   "b": "R094",
+   "strength": "strong",
+   "why": "the unattended loop repeated a rejected attempt because it had no memory of failures; Pro²'s Problem State is that memory, with evidence attached."
+  },
+  {
+   "a": "R200",
+   "b": "R107",
+   "strength": "strong",
+   "why": "Pro² reports results on PostTrainBench, the benchmark built to catch self-improvement loops training on test data or downloading models."
+  },
+  {
+   "a": "R201",
+   "b": "R118",
+   "strength": "strong",
+   "why": "input caching is the lever that works; R201 explains why the output-side equivalent barely matters."
+  },
+  {
+   "a": "R201",
+   "b": "R113",
+   "strength": "strong",
+   "why": "TokenEconomizer cut cost by removing repeated tool calls, which is consistent with R201's finding that tool calls, not visible text, hold most output tokens."
   }
  ]
 }
