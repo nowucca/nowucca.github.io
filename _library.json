@@ -195,6 +195,34 @@
           ]
         }
       ]
+    },
+    "cooking": {
+      "title": "Cooking",
+      "lede": "Recipes I cook, written up so I can make them again.",
+      "items": [
+        {
+          "slug": "smoky-sweet-baked-chicken",
+          "title": "Baked chicken with smoky-sweet rub",
+          "summary": "Boneless skinless breasts with a smoked paprika and brown sugar rub, 425°F for 20–25 min; doubles easily for two trays.",
+          "date": "2026-11-21",
+          "tags": [
+            "chicken",
+            "main",
+            "crowd"
+          ]
+        },
+        {
+          "slug": "big-batch-green-bean-casserole",
+          "title": "Big-batch green bean casserole",
+          "summary": "The classic casserole scaled ~20% for a large 13×11 foil pan, with a scaling table for two trays.",
+          "date": "2026-11-21",
+          "tags": [
+            "side",
+            "holiday",
+            "crowd"
+          ]
+        }
+      ]
     }
   }
 }
