@@ -126,7 +126,8 @@
       "R164",
       "R174",
       "R175",
-      "R200"
+      "R200",
+      "R221"
      ],
      "also": [
       {
@@ -342,6 +343,10 @@
       {
        "id": "R214",
        "why": "filter tool output in code before it reaches context instead of reading every raw result"
+      },
+      {
+       "id": "R221",
+       "why": "prune a learned skill under an accuracy floor and move reusable code into zero-prompt-cost utilities; up to 80% fewer output tokens"
       }
      ]
     },
@@ -759,7 +764,8 @@
       "R133",
       "R182",
       "R216",
-      "R217"
+      "R217",
+      "R220"
      ],
      "also": [
       {
@@ -812,6 +818,10 @@
       {
        "id": "R182",
        "why": "one tuned reviewer with a per-area REVIEW.md read from the base branch, reviews bound to commits, the reviewer graded on past incidents with per-stage recall and a clean control"
+      },
+      {
+       "id": "R220",
+       "why": "line-by-line review as the exception: risk-based triggers, with acceptance resting on fail-without-change evidence and required checks"
       }
      ]
     },
@@ -5813,6 +5823,44 @@
    ],
    "summary": "LogT (NeurIPS 2026) argues the bottleneck for VLMs that zoom into images is poor fine-tuning traces, not RL. An automated engine writes questions about small objects in SA-1B images, filters them with a separate judge, and builds traces following three strategies: answer directly, multi-hop via an anchor, or exhaustive regional search. A 7B model fine-tuned on these beats prior SFT+RL methods on seven benchmarks with 3.1x less data and over 120x fewer GPU hours; part of the gain is distillation from 72B and 106B teachers.",
    "file": "entries/logt-tool-use-data-visual-search.html"
+  },
+  {
+   "id": "R220",
+   "slug": "accept-agent-code-on-evidence",
+   "title": "Accept agent code on evidence, not line-by-line review",
+   "by": "Paul Iusztin; Matt Pocock on The Pragmatic Engineer",
+   "source": "https://newsletter.pragmaticengineer.com/p/ai-skills-with-matt-pocock",
+   "published": "2026-11-22",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/QCGCvzyrBV14MT54HnN7yW",
+   "tags": [
+    "test-oracles",
+    "code-review",
+    "coding-agents",
+    "tdd",
+    "practitioner-advice"
+   ],
+   "summary": "Two practitioners converge: Paul Iusztin says reading every line of agent code is mostly wasted effort and acceptance should rest on criteria, tests, static, type and security checks, and realistic runs; Matt Pocock says TDD's ritual matters less for agents but the evidence matters more, asking for a test that fails without the change and passes with it, and warns of tautological tests. The reviewer's job shifts to auditing evidence, with line review triggered by risk, novelty or a failed check.",
+   "file": "entries/accept-agent-code-on-evidence.html"
+  },
+  {
+   "id": "R221",
+   "slug": "efficientskill-prune-skills-for-tokens",
+   "title": "EfficientSkill: learn the skill for accuracy, then prune it for tokens",
+   "by": "Shah, Badhe, Kathrotia and Tiwari (credited to Google and Purdue); shared by DAIR.AI",
+   "source": "https://arxiv.org/abs/2611.19823",
+   "published": "2026-11-15",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/Mqe4c3RMxKnQM4Y1doTMwv",
+   "tags": [
+    "agent-skills",
+    "self-improvement",
+    "context-economics",
+    "token-cost",
+    "papers"
+   ],
+   "summary": "Reflective skill optimizers bloat skill files with edge-case rules. EfficientSkill first repairs a minimal seed skill for accuracy with no token penalty, then prunes it under an accuracy floor by compressing rules, bounding turns into compact workflows, and offloading reusable code into workspace utilities. Against unconstrained EvoSkill across four models and three benchmarks, output tokens fell in 11 of 12 configurations (up to 80%) and mean accuracy rose on every benchmark. Pruning straight from the seed stalls.",
+   "file": "entries/efficientskill-prune-skills-for-tokens.html"
   }
  ],
  "edges": [
@@ -9367,6 +9415,36 @@
    "b": "R196",
    "strength": "strong",
    "why": "R219's gains come partly from traces written by a 72B teacher, which is the kind of reasoning-trace transfer R196 says labs now guard."
+  },
+  {
+   "a": "R220",
+   "b": "R182",
+   "strength": "strong",
+   "why": "R182 shows a team that verifies agent code with a tuned reviewer and incident-graded rules; R220 argues the default should be evidence and checks, with human reading by risk."
+  },
+  {
+   "a": "R220",
+   "b": "R058",
+   "strength": "strong",
+   "why": "Pocock's fail-without-change request is R058's 'commit the failing test first' turned into a per-change proof the agent must supply."
+  },
+  {
+   "a": "R220",
+   "b": "R037",
+   "strength": "strong",
+   "why": "skipping line review grows comprehension debt; R037's generated map is one way to keep a mental model of code nobody read."
+  },
+  {
+   "a": "R221",
+   "b": "R064",
+   "strength": "strong",
+   "why": "both say less skill text can be better; SkillEvaluator deletes whole skills that don't help, EfficientSkill prunes inside one skill under an accuracy floor."
+  },
+  {
+   "a": "R221",
+   "b": "R144",
+   "strength": "strong",
+   "why": "both have agents rewrite their own skill files; R144 lets a frozen model design its learning loop, R221 adds the missing length discipline."
   }
  ]
 }

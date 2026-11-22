@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EfficientSkill: learn the skill for accuracy, then prune it for tokens · Research</title>
+<meta name="description" content="Reflective skill optimizers bloat skill files with edge-case rules. EfficientSkill first repairs a minimal seed skill for accuracy with no token penalty, then prunes it under an accuracy floor by compressing rules, bounding turns into compact workflows, and offloading reusable code into workspace utilities. Against unconstrained EvoSkill across four models and three benchmarks, output tokens fell in 11 of 12 configurations (up to 80%) and mean accuracy rose on every benchmark. Pruning straight from the seed stalls.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R221 · Agent architecture › Self-improvement and learning loops</span>
+  <h1>EfficientSkill: learn the skill for accuracy, then prune it for tokens</h1>
+  <div class="entry-meta"><span>Shah, Badhe, Kathrotia and Tiwari (credited to Google and Purdue); shared by DAIR.AI</span><span>Published 2026-11-15</span><span>Summarized 2026-11-22</span></div>
+  <p><a href="https://arxiv.org/abs/2611.19823" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">agent-skills</span><span class="tag">self-improvement</span><span class="tag">context-economics</span><span class="tag">token-cost</span><span class="tag">papers</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Shah, Badhe, Kathrotia and Tiwari, <em>EfficientSkill: Learning Skills for Token-Efficient Multi-Turn Agents</em>, arXiv:2611.19823 (submitted 15 Nov 2026). The DAIR.AI weekly roundup credits Google and Purdue University. It was featured in DAIR.AI's Top AI Papers of the Week (16 to 22 Nov 2026).</p>
+<h2 id="the-problem">The problem</h2>
+<p>Reflective skill optimizers improve an agent by reading its failed and successful rollouts and rewriting its instructions, the "skill" file it loads each turn. The usual failure is bloat. Every failure adds an edge-case rule, the skill grows, every turn replays more tokens, and agents drift into long, error-prone loops that time out. The baseline compared here is EvoSkill, an unconstrained reflective optimizer.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Two phases, in a fixed order.</p>
+<ol><li><p><strong>Accuracy phase.</strong> Start from a minimal seed skill. Repair failed rollouts with no token penalty until the skill reaches a target accuracy.</p></li><li><p><strong>Accuracy-guarded pruning.</strong> Warm-start from that skill and shrink it under a constraint that accuracy stays near the target. The pruning has three levers:</p><ul><li><p><strong>Compress instructions:</strong> merge or delete rules.</p></li><li><p><strong>Bound agent turns:</strong> replace open-ended loops with compact workflows.</p></li><li><p><strong>Offload reusable code into workspace utilities</strong>, which the agent calls instead of re-deriving, so the code costs no prompt tokens.</p></li></ul></li></ol>
+<p>Order matters. Pruning straight from the seed stalls; the optimizer needs a working skill before it can learn what is safe to cut.</p>
+<h2 id="reported-results">Reported results</h2>
+<div class="table-scroll"><table><thead><tr><th>Measure</th><th>Result vs unconstrained EvoSkill</th></tr></thead><tbody><tr><td>Setup</td><td>Four models (frontier, mid-tier, open-weight) on MATH-500, ALFWorld and SpreadsheetBench, 12 configurations</td></tr><tr><td>Output tokens</td><td>Lower in 11 of 12 configurations, by up to 80%</td></tr><tr><td>Accuracy</td><td>Mean accuracy higher on every benchmark; +14.3 points (Gemini 3.8 Flash) and +17.5 points (Grok 4.1 Fast) on SpreadsheetBench</td></tr><tr><td>Serving cost</td><td>Down 25% to 67% according to the roundup; lower total tokens in every configuration, with or without full-prefix KV caching</td></tr></tbody></table></div>
+<p>The accuracy gain comes from the same change as the savings. Stalled loops were replaced with short workflows, so the cheaper agent was also the better one.</p>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<ul><li><p><strong>Two optimization budgets instead of one.</strong> Phase 1 is deliberately wasteful on tokens. Teams pay that once per skill, offline.</p></li><li><p><strong>The target accuracy is a dial.</strong> Set it too high and pruning has no room; set it too low and the skill ships weaker. It needs a held-out set that represents production.</p></li><li><p><strong>Utilities move complexity into code.</strong> Workspace helpers are cheaper per turn but need versioning, tests and a security review, like any other code the agent can execute.</p></li><li><p><strong>Bounded turns trade flexibility for predictability.</strong> Good for repetitive task families (spreadsheets, household simulations), riskier for open-ended work.</p></li></ul>
+<h2 id="failure-modes">Failure modes</h2>
+<ol><li><p><strong>Overfitting the pruned skill</strong> to the optimization set: compact rules that only cover the benchmark's cases.</p></li><li><p><strong>Silent capability loss</strong> when a pruned rule handled a rare but important case the evaluation set missed.</p></li><li><p><strong>Utility drift:</strong> helper code changes and the skill's description of it doesn't.</p></li><li><p><strong>Turn bounds that truncate legitimately long tasks.</strong></p></li></ol>
+<h2 id="review-checklist-for-teams-with-growing-skill-files">Review checklist for teams with growing skill files</h2>
+<ul><li data-checked="false"><p><input disabled="" type="checkbox"/> Is token cost per task tracked next to accuracy for every skill revision?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Does the optimizer or reviewer have a pruning pass, not only an append pass?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Is pruning gated on a held-out accuracy floor?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Have repeated procedural instructions been moved into tested helper scripts?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Are turn limits set per task family, with a measured distribution of turns?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Is there a regression set of rare cases that pruning must not lose?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p><strong>R064</strong> SkillEvaluator: measure whether a skill helps and delete the ones that don't, the same "less is more" stance at the level of whole skills.</p></li><li><p><strong>R140</strong> Rationing skills by count; EfficientSkill rations the contents of one skill by measured effect.</p></li><li><p><strong>R144</strong> Self-organized self-improvement: frozen agents that design their own learning loop and write skill files.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/nvidia-skillevaluator/">SkillEvaluator: measure whether an agent skill helps, then delete the ones that don&#x27;t</a><span class="label">R064 · Agent principles and patterns</span><span class="why">both say less skill text can be better; SkillEvaluator deletes whole skills that don&#x27;t help, EfficientSkill prunes inside one skill under an accuracy floor.</span></li><li style="--c:var(--t1)"><a class="to" href="/research/self-organized-self-improvement/">Self-organized self-improvement: frozen agents that design their own learning loop</a><span class="label">R144 · Agent architecture</span><span class="why">both have agents rewrite their own skill files; R144 lets a frozen model design its learning loop, R221 adds the missing length discipline.</span></li></ul><p><a href="/research/map/#R221">See R221 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
