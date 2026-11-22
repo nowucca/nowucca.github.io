@@ -473,7 +473,8 @@
       "R168",
       "R169",
       "R177",
-      "R209"
+      "R209",
+      "R222"
      ],
      "also": [
       {
@@ -750,6 +751,10 @@
       {
        "id": "R217",
        "why": "agent ports one hot function at a time, enabled only after replayed real calls match, reversible per function"
+      },
+      {
+       "id": "R223",
+       "why": "exploratory QA as a CI fan-out: one agent per device/locale/font-scale persona, about $0.15-0.55 per phone"
       }
      ]
     },
@@ -765,7 +770,8 @@
       "R182",
       "R216",
       "R217",
-      "R220"
+      "R220",
+      "R223"
      ],
      "also": [
       {
@@ -917,6 +923,10 @@
       {
        "id": "R213",
        "why": "the rationale behind code kept as versioned history next to it: edits between commits stored with the messages that caused them"
+      },
+      {
+       "id": "R222",
+       "why": "memory stores and repo skills in Managed Agents are markdown folders mounted into the sandbox; maps an ICM workspace onto them"
       }
      ]
     },
@@ -1264,6 +1274,10 @@
       {
        "id": "R079",
        "why": "the first design decision is whether code or the model owns control flow; pipelines and fan-out are workflows, not agent patterns"
+      },
+      {
+       "id": "R222",
+       "why": "ICM's author reads Managed Agents as proof that process and files beat custom harnesses; the claim holds for the context layer, not the runtime"
       }
      ]
     },
@@ -1456,6 +1470,10 @@
       {
        "id": "R218",
        "why": "measured: a node re-ran on resume after 97 of 100 crashes under every durability mode; idempotency keys on side effects"
+      },
+      {
+       "id": "R222",
+       "why": "Anthropic's Managed Agents keeps an append-only session log outside the model so a crashed harness resumes with wake(sessionId); the log is not the context window"
       }
      ]
     },
@@ -5861,6 +5879,48 @@
    ],
    "summary": "Reflective skill optimizers bloat skill files with edge-case rules. EfficientSkill first repairs a minimal seed skill for accuracy with no token penalty, then prunes it under an accuracy floor by compressing rules, bounding turns into compact workflows, and offloading reusable code into workspace utilities. Against unconstrained EvoSkill across four models and three benchmarks, output tokens fell in 11 of 12 configurations (up to 80%) and mean accuracy rose on every benchmark. Pruning straight from the seed stalls.",
    "file": "entries/efficientskill-prune-skills-for-tokens.html"
+  },
+  {
+   "id": "R222",
+   "slug": "managed-agents-and-icm-folder-workflow",
+   "title": "Managed Agents and Clief's folder workflow, explained",
+   "by": "Jake Van Clief (reel) and Anthropic Engineering",
+   "source": "https://www.anthropic.com/engineering/managed-agents",
+   "published": "2026-04-09",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/WuzSfQmzGn2TEYC9kPziXZ",
+   "tags": [
+    "agent-platforms",
+    "agent-harness",
+    "durable-execution",
+    "sandboxing",
+    "agent-auth",
+    "context-engineering",
+    "deterministic-workflows",
+    "docs-as-code"
+   ],
+   "summary": "Jake Van Clief's reel claims Managed Agents makes custom harnesses a waste of time and vindicates building on files and process. Anthropic's design splits brain (Claude plus a stateless harness), hands (lazily provisioned sandboxes and tools) and an append-only session log, cutting p50 time to first token about 60%. Clief's ICM folder workflow (a one-screen map, routing rows, staged folders, scripts) maps cleanly onto mounted repos, memory stores, outcomes and permission stops. Verdict: own your folder, rent your runtime; harness work moved, it did not die.",
+   "file": "entries/managed-agents-and-icm-folder-workflow.html"
+  },
+  {
+   "id": "R223",
+   "slug": "mobile-agent-testers-persona-matrix",
+   "title": "mobile-agent-testers: one AI tester per phone configuration, in CI",
+   "by": "pierridotite/mobile-agent-testers (MIT); shared by André Lindenberg",
+   "source": "https://github.com/pierridotite/mobile-agent-testers",
+   "published": "2026-11-16",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/FeLSecc3h4uGfHRB5VyxP2",
+   "tags": [
+    "test-oracles",
+    "coding-agents",
+    "mobile",
+    "accessibility",
+    "ci",
+    "open-source"
+   ],
+   "summary": "A GitHub Actions template that builds a mobile app once, then fans out one Claude Code exploratory tester per phone persona (device, OS, font scale, dark mode, locale, RTL), each filing bug reports with numbered screenshots and an accessibility probe. On LocalSend, 20 phones found 46 distinct bugs in 69 minutes for $4.62, most on a single configuration. It finds new problems rather than giving deterministic pass/fail, so triage and scripted regressions are still needed.",
+   "file": "entries/mobile-agent-testers-persona-matrix.html"
   }
  ],
  "edges": [
@@ -9445,6 +9505,30 @@
    "b": "R144",
    "strength": "strong",
    "why": "both have agents rewrite their own skill files; R144 lets a frozen model design its learning loop, R221 adds the missing length discipline."
+  },
+  {
+   "a": "R222",
+   "b": "R084",
+   "strength": "strong",
+   "why": "both are Anthropic designs for agents that outlive a process; R084 gives the always-on primitives, R222 the session-log, stateless-harness and lazy-sandbox split underneath."
+  },
+  {
+   "a": "R222",
+   "b": "R146",
+   "strength": "strong",
+   "why": "both provision a sandbox only when a tool call needs one; Copilot's shared runtime and Managed Agents report the same latency win from keeping the brain out of the container."
+  },
+  {
+   "a": "R223",
+   "b": "R133",
+   "strength": "strong",
+   "why": "both give agents eyes on a running UI; VHarness feeds vision into code generation, R223 uses it to test a finished app across a device matrix."
+  },
+  {
+   "a": "R223",
+   "b": "R167",
+   "strength": "strong",
+   "why": "each persona's numbered screenshots are the runtime evidence R167 asks for as proof-of-done."
   }
  ]
 }
