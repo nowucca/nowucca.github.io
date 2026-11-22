@@ -1207,6 +1207,10 @@
       {
        "id": "R214",
        "why": "code as the action space: one generated program makes many tool calls, with per-call permission checks kept"
+      },
+      {
+       "id": "R219",
+       "why": "tool-use calibration learned from data: training traces that include a no-tool path cut unnecessary calls"
       }
      ]
     },
@@ -1271,7 +1275,8 @@
       "R188",
       "R194",
       "R207",
-      "R211"
+      "R211",
+      "R219"
      ],
      "also": [
       {
@@ -5788,6 +5793,26 @@
    ],
    "summary": "A free, roughly 390-page manual on LangChain 1.5, LangGraph 1.2, Deep Agents 0.7 and LangSmith where every listing comes from a recorded run. Its measured answers: a plain tool loop, create_agent and a hand-built StateGraph gave identical outcomes on 60 of 60 tasks; create_agent costs about 5 ms a call; Deep Agents used 3.6x to 4.3x the prompt tokens; a node re-ran after a crash in 97 of 100 trials under every durability mode; structured-output strategies failed outright on a small local model.",
    "file": "entries/langchain-101-measured-answers.html"
+  },
+  {
+   "id": "R219",
+   "slug": "logt-tool-use-data-visual-search",
+   "title": "LogT: better tool-use data beats heavier RL for visual search",
+   "by": "Fu, You, Guo, Lu, Akula, Wu, Liu, Dutta and Yuan (credited to Meta Superintelligence Labs and UMD); shared by Brenn Hill, resharing Javier Medel",
+   "source": "https://arxiv.org/abs/2611.19200",
+   "published": "2026-11-14",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/UWFP3wCgAQywqMowxWF3Jx",
+   "tags": [
+    "evaluation-data",
+    "synthetic-data",
+    "tool-use",
+    "multimodal",
+    "distillation",
+    "papers"
+   ],
+   "summary": "LogT (NeurIPS 2026) argues the bottleneck for VLMs that zoom into images is poor fine-tuning traces, not RL. An automated engine writes questions about small objects in SA-1B images, filters them with a separate judge, and builds traces following three strategies: answer directly, multi-hop via an anchor, or exhaustive regional search. A 7B model fine-tuned on these beats prior SFT+RL methods on seven benchmarks with 3.1x less data and over 120x fewer GPU hours; part of the gain is distillation from 72B and 106B teachers.",
+   "file": "entries/logt-tool-use-data-visual-search.html"
   }
  ],
  "edges": [
@@ -9330,6 +9355,18 @@
    "b": "R006",
    "strength": "strong",
    "why": "R006 names the harness terms (loop, tool calling, checkpointing); R218 measures what each layer changes in a run and finds the loop shape does not change outcomes."
+  },
+  {
+   "a": "R219",
+   "b": "R211",
+   "strength": "strong",
+   "why": "both make synthetic data the lever and both need generator and judge bias controlled; R211 builds benchmarks for RAG agents, R219 builds training traces for tool-calling VLMs."
+  },
+  {
+   "a": "R219",
+   "b": "R196",
+   "strength": "strong",
+   "why": "R219's gains come partly from traces written by a 72B teacher, which is the kind of reasoning-trace transfer R196 says labs now guard."
   }
  ]
 }
