@@ -741,6 +741,10 @@
       {
        "id": "R213",
        "why": "threads replace PRs: idea, implementation, review and landing in one versioned agent thread"
+      },
+      {
+       "id": "R217",
+       "why": "agent ports one hot function at a time, enabled only after replayed real calls match, reversible per function"
       }
      ]
     },
@@ -753,7 +757,9 @@
       "R082",
       "R124",
       "R133",
-      "R182"
+      "R182",
+      "R216",
+      "R217"
      ],
      "also": [
       {
@@ -1477,6 +1483,10 @@
       {
        "id": "R168",
        "why": "deny and approval policies enforced at a tool gateway); R169 (egress rules enforced outside the agent's sandbox"
+      },
+      {
+       "id": "R216",
+       "why": "put the check out of the agent's reach: base-branch review rules, inert proof exports, held-back tests"
       }
      ]
     },
@@ -5711,6 +5721,44 @@
    ],
    "summary": "A multi-token-prediction drafting head built into Gemma 4: one shared head reads the target's own activations, cross-attends to the target's KV cache with zero copy (no second prefill or cache), and scores clustered vocabulary instead of a full softmax. Reported speedups up to 3.1x on large models, 2.3x for small models on H100 and 2.2x on a phone GPU; recipes keep the drafter aligned after domain fine-tuning. Gains depend on acceptance rate, batch size and sampling settings.",
    "file": "entries/g-mtp-gemma-4-multi-token-drafter.html"
+  },
+  {
+   "id": "R216",
+   "slug": "pointable-work-who-could-fool-the-check",
+   "title": "Pointable work: how long an agent can run alone depends on who could fool its check",
+   "by": "André Lindenberg, Artificial Engineering newsletter",
+   "source": "https://www.linkedin.com/pulse/point-something-which-work-agent-can-finish-alone-andr%C3%A9-lindenberg-sfm6e/",
+   "published": "2026-11-21",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/1TNjARNSkWVXG1yjHS6qP9",
+   "tags": [
+    "verification",
+    "test-oracles",
+    "coding-agents",
+    "legacy-modernization",
+    "formal-verification"
+   ],
+   "summary": "A job is pointable when the instruction names an existing thing that judges the result, and an agent can run alone only as long as its check holds. A ladder of checks, each harder to fool: the agent's own word, tests it can edit, a recorded original it cannot edit, and a small formal statement with an untouchable checker. Five conditions for unattended work: an authority, a recordable boundary, a check the agent cannot edit, shipping half done behind a fallback, and something looking outside the check.",
+   "file": "entries/pointable-work-who-could-fool-the-check.html"
+  },
+  {
+   "id": "R217",
+   "slug": "fast-anything-port-hot-functions-to-rust",
+   "title": "fast-anything: port only the hot functions to Rust, gated on replayed real calls",
+   "by": "EL4CTEO/fast-anything (MIT); shared by André Lindenberg",
+   "source": "https://github.com/EL4CTEO/fast-anything",
+   "published": "2026-11-21",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/1x38cyfNUYrkhbTwyULnFM",
+   "tags": [
+    "test-oracles",
+    "legacy-migration",
+    "coding-agents",
+    "performance",
+    "open-source"
+   ],
+   "summary": "A tool that profiles a running app, ranks pure functions by time spent times portability, records up to 500 real calls, and has a coding agent port only the hot ones to Rust. Each port must replay every recorded call plus derived edge cases (NaN, empty, non-ASCII, 16x larger) answered by the original, and be faster per call, before it swaps in behind a reversible switch. Author's runs show 3x to 116x on fuzzy dedupe; only deterministic plain-data functions qualify.",
+   "file": "entries/fast-anything-port-hot-functions-to-rust.html"
   }
  ],
  "edges": [
@@ -9193,6 +9241,48 @@
    "b": "R051",
    "strength": "strong",
    "why": "R051 lists speculative decoding as a serving technique; R215 shows the drafter moving inside the model and the fine-tuning cost of keeping it aligned."
+  },
+  {
+   "a": "R216",
+   "b": "R124",
+   "strength": "strong",
+   "why": "both are pointable tools; R216 places them on the ladder: rust-anything's recorded original sits a rung above CLI-Anything's agent-written tests anchored on the real app."
+  },
+  {
+   "a": "R216",
+   "b": "R190",
+   "strength": "strong",
+   "why": "both are pointable tools; R216 places them on the ladder: rust-anything's recorded original sits a rung above CLI-Anything's agent-written tests anchored on the real app."
+  },
+  {
+   "a": "R216",
+   "b": "R189",
+   "strength": "strong",
+   "why": "the top rung in practice: a small vetted statement, independent checkers, an inert export the proof's own code cannot reach."
+  },
+  {
+   "a": "R216",
+   "b": "R182",
+   "strength": "strong",
+   "why": "the rule underneath: a check the change can modify is broken; pstack refuses self-reports, the Claude Code team reads review rules from the base branch."
+  },
+  {
+   "a": "R216",
+   "b": "R167",
+   "strength": "strong",
+   "why": "the rule underneath: a check the change can modify is broken; pstack refuses self-reports, the Claude Code team reads review rules from the base branch."
+  },
+  {
+   "a": "R217",
+   "b": "R124",
+   "strength": "strong",
+   "why": "same recorded-original gate at different grain; rust-anything ports a whole app unit by unit behind a front door, fast-anything ports only the hot pure functions and imports them under the same name."
+  },
+  {
+   "a": "R217",
+   "b": "R216",
+   "strength": "strong",
+   "why": "a textbook pointable job: the original function is the authority, arguments and results are the recordable boundary, and the port ships one function at a time behind a fallback."
   }
  ]
 }
