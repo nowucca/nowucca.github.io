@@ -1060,7 +1060,8 @@
       "R092",
       "R103",
       "R128",
-      "R165"
+      "R165",
+      "R218"
      ],
      "also": [
       {
@@ -1436,6 +1437,10 @@
       {
        "id": "R212",
        "why": "a running task steered by later messages: per-request branches, redo only the claims a change invalidates, merge by claim type"
+      },
+      {
+       "id": "R218",
+       "why": "measured: a node re-ran on resume after 97 of 100 crashes under every durability mode; idempotency keys on side effects"
       }
      ]
     },
@@ -1729,6 +1734,10 @@
       {
        "id": "R154",
        "why": "a checked 20-tool agent security map with corrections, useful as a reading list"
+      },
+      {
+       "id": "R218",
+       "why": "a free, measured manual for the LangChain 1.x stack; each section opens with a one-line answer and a recorded experiment"
       }
      ]
     },
@@ -5759,6 +5768,26 @@
    ],
    "summary": "A tool that profiles a running app, ranks pure functions by time spent times portability, records up to 500 real calls, and has a coding agent port only the hot ones to Rust. Each port must replay every recorded call plus derived edge cases (NaN, empty, non-ASCII, 16x larger) answered by the original, and be faster per call, before it swaps in behind a reversible switch. Author's runs show 3x to 116x on fuzzy dedupe; only deterministic plain-data functions qualify.",
    "file": "entries/fast-anything-port-hot-functions-to-rust.html"
+  },
+  {
+   "id": "R218",
+   "slug": "langchain-101-measured-answers",
+   "title": "LangChain 101: measured answers on harness choice, durability and structured output",
+   "by": "AI Engineering from Scratch (rohitg00/ai-engineering-from-scratch); shared by Dr. Alvaro Cintas",
+   "source": "https://aiengineeringfromscratch.com/manual-langchain-101.html",
+   "published": "2026-11-22",
+   "added": "2026-11-21",
+   "artifact": "https://claude.ai/artifact/559pKEFTyfeFCkpZsCvi2J",
+   "tags": [
+    "agent-harness",
+    "durable-execution",
+    "idempotency",
+    "structured-output",
+    "benchmarks",
+    "open-source"
+   ],
+   "summary": "A free, roughly 390-page manual on LangChain 1.5, LangGraph 1.2, Deep Agents 0.7 and LangSmith where every listing comes from a recorded run. Its measured answers: a plain tool loop, create_agent and a hand-built StateGraph gave identical outcomes on 60 of 60 tasks; create_agent costs about 5 ms a call; Deep Agents used 3.6x to 4.3x the prompt tokens; a node re-ran after a crash in 97 of 100 trials under every durability mode; structured-output strategies failed outright on a small local model.",
+   "file": "entries/langchain-101-measured-answers.html"
   }
  ],
  "edges": [
@@ -9283,6 +9312,24 @@
    "b": "R216",
    "strength": "strong",
    "why": "a textbook pointable job: the original function is the authority, arguments and results are the recordable boundary, and the port ships one function at a time behind a fallback."
+  },
+  {
+   "a": "R218",
+   "b": "R035",
+   "strength": "strong",
+   "why": "R035 argues that resume re-runs work and side effects need idempotency keys; R218 measures it on LangGraph, a node re-running after 97 of 100 crashes under every durability mode."
+  },
+  {
+   "a": "R218",
+   "b": "R094",
+   "strength": "strong",
+   "why": "both weigh LangGraph as a durable runtime; R094 rebuilt a coding agent on Inngest and compared, R218 measures LangGraph's checkpoint and resume path directly."
+  },
+  {
+   "a": "R218",
+   "b": "R006",
+   "strength": "strong",
+   "why": "R006 names the harness terms (loop, tool calling, checkpointing); R218 measures what each layer changes in a run and finds the loop shape does not change outcomes."
   }
  ]
 }
