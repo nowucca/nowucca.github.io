@@ -878,7 +878,8 @@
       "R073",
       "R163",
       "R172",
-      "R186"
+      "R186",
+      "R236"
      ],
      "also": [
       {
@@ -1767,6 +1768,10 @@
       {
        "id": "R196",
        "why": "OpenAI ties anti-distillation defences to cyber risk and national security, naming DeepSeek and Moonshot-linked campaigns and backing export-control bills"
+      },
+      {
+       "id": "R236",
+       "why": "lints agent config files: permissions, hooks, MCP launch commands and skills, as a CI gate"
       }
      ]
     },
@@ -6220,6 +6225,26 @@
    ],
    "summary": "On the managed Java Lambda runtime a RequestStreamHandler's output is buffered until the handler returns, so LLM tokens arrive all at once. An MIT library's core module writes API Gateway's streaming wire format through a 1 MB buffer, lifting the 6 MB response limit to 200 MB; its experimental SSE module posts a chunked response to the Runtime API via a Java agent, keeping the managed runtime and SnapStart, so Bedrock tokens start arriving at about 3% of total response time. Limits: undocumented runtime internals, API Gateway REST only, 2 MB/s after 6 MB, billing continues after client disconnect.",
    "file": "entries/jvm-lambda-llm-token-streaming.html"
+  },
+  {
+   "id": "R236",
+   "slug": "safe-anything-agent-config-scanner",
+   "title": "safe-anything: scanning the coding agent's own config as attack surface",
+   "by": "erkamyaman (safe-anything); shared by André Lindenberg and Cole Medin",
+   "source": "https://github.com/erkamyaman/safe-anything",
+   "published": "2026-11-22",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/FBhwgoS8Jp3NCfhvucoLcm",
+   "tags": [
+    "appsec",
+    "agent-config",
+    "mcp",
+    "agent-skills",
+    "model-supply-chain",
+    "open-source"
+   ],
+   "summary": "A single-binary static scanner with 74 regex and parser rules mapped to CWE and OWASP, SARIF output and CI exit codes. Beyond code, secrets, IaC and OSV dependency checks, it lints the coding agent's own config (.mcp.json, Claude Code settings, hooks and skills, CLAUDE.md, AGENTS.md, Cursor, Gemini, OpenCode, any SKILL.md) for bypassed permissions, pre-approved shell, unpinned npx/uvx MCP servers, plaintext MCP tokens, curl|sh in hooks, literal prompt-injection text, skills reading ~/.ssh and hidden Unicode. Pattern matching only, no runtime coverage, author-measured false positives; a day-old single-maintainer tool, so pin it.",
+   "file": "entries/safe-anything-agent-config-scanner.html"
   }
  ],
  "edges": [
@@ -9984,6 +10009,12 @@
    "b": "R096",
    "strength": "weak",
    "why": "both attack time-to-first-token on serverless or pod infrastructure without changing the model: restore faster, or stream sooner."
+  },
+  {
+   "a": "R236",
+   "b": "R195",
+   "strength": "strong",
+   "why": "Cursor's incident is the runtime failure; safe-anything is the static check on the config that sets the blast radius (permissions, pinned MCP servers, tokens in files). Neither covers the other."
   }
  ]
 }
