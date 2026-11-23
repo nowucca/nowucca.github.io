@@ -128,7 +128,8 @@
       "R174",
       "R175",
       "R200",
-      "R221"
+      "R221",
+      "R229"
      ],
      "also": [
       {
@@ -162,6 +163,10 @@
       {
        "id": "R224",
        "why": "an easy-to-hard bug-repair curriculum generated from the same repos at rising mutation budgets; a 9B model trained on it transfers to general code repair"
+      },
+      {
+       "id": "R228",
+       "why": "test-time adaptation compared: in-context replay gives most of the gain, GRPO adds a little and restores skipped verification; self-distillation mixed"
       }
      ]
     },
@@ -232,6 +237,10 @@
       {
        "id": "R175",
        "why": "adoption gate for self-proposed instruction edits; hard controls stay outside the prompt and the gate is compared against a handwritten rule"
+      },
+      {
+       "id": "R229",
+       "why": "self-edits to skills land only as small PRs that cite the feedback behind them; a human merges, so the review queue is the acceptance gate"
       }
      ]
     },
@@ -573,6 +582,10 @@
       {
        "id": "R201",
        "why": "output tokens are decoded serially and cost more, but visible text is about 6% of agent output; reasoning and tool calls dominate"
+      },
+      {
+       "id": "R228",
+       "why": "small-model RL on TPUs is orchestration-bound; local per-host rollout beats a single controller"
       }
      ]
     },
@@ -838,6 +851,10 @@
       {
        "id": "R220",
        "why": "line-by-line review as the exception: risk-based triggers, with acceptance resting on fail-without-change evidence and required checks"
+      },
+      {
+       "id": "R229",
+       "why": "review comments on an AI reviewer's output are harvested on a schedule and turned into PRs against the reviewer's skill"
       }
      ]
     },
@@ -1080,6 +1097,10 @@
       {
        "id": "R203",
        "why": "re-inject rules through lifecycle hooks instead of stating them once; make the agent consult a condensed repo index before grep or glob"
+      },
+      {
+       "id": "R229",
+       "why": "keep skills small with bundled scripts and reference files; write principles with the why, not exhaustive rules"
       }
      ]
     }
@@ -1320,7 +1341,8 @@
       "R207",
       "R211",
       "R219",
-      "R224"
+      "R224",
+      "R228"
      ],
      "also": [
       {
@@ -6022,6 +6044,47 @@
    ],
    "summary": "One read-only orchestrator sent the same diff, CI results, comments and repo rules for a 150-file PR to Claude, Codex and Gemini, each splitting the work across its own sub-agents. Verdicts split. A separate synthesizer checked every disagreement and solo high-severity claim against the code instead of voting: it dropped 2 false positives and kept single-model catches, leaving 41 verified findings with agreement scores, handed to a separate fix run. Open issues: the synthesizer shares a family with one reviewer, no human spot check, differing severity scales, no cost given.",
    "file": "entries/cross-model-pr-review-verify-disagreements.html"
+  },
+  {
+   "id": "R228",
+   "slug": "four-lab-papers-vision-world-models-tta-rl",
+   "title": "Four frontier-lab papers, mid-November 2026: vision in agent work, world-model flips, test-time adaptation, small-model RL",
+   "by": "Tom Anusic (roundup of four arXiv papers)",
+   "source": "https://arxiv.org/abs/2611.25228",
+   "published": "2026-11-18",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/8k9QBudF2Hstvdi59iXpBY",
+   "tags": [
+    "evals",
+    "benchmarks",
+    "multimodal",
+    "world-models",
+    "rl",
+    "test-time-learning",
+    "paper"
+   ],
+   "summary": "Four mid-November papers that each find a gap existing measurements hide. MKA: 200 professional tasks that need vision; removing image viewing leaves GDPval unchanged but costs about 6 points here, and no model clears 57%. Flip Test: 11 video world models score at best 18.3% on counterfactual frame pairs, below random. Test-time adaptation: in-context replay lifts a 9B agent from 28.8% to 49.4%, GRPO on top reaches 51.6% and restores skipped verification. LoCoJAX: host orchestration is 36% of a small-model GRPO step on TPU; local rollouts run 1.3-3.6x faster.",
+   "file": "entries/four-lab-papers-vision-world-models-tta-rl.html"
+  },
+  {
+   "id": "R229",
+   "slug": "warp-self-improving-agents-skill-edits",
+   "title": "Warp's self-improving agents: feedback becomes a reviewed skill edit",
+   "by": "Michael Segner (claude.com), shared by Claude for Business",
+   "source": "https://claude.com/resources/articles/how-warp-builds-self-improving-agents-on-claude",
+   "published": "2026-08-26",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/KNX5D1BHik1gJQKVzHfuFi",
+   "tags": [
+    "self-improving-agents",
+    "agent-skills",
+    "human-oversight",
+    "code-review",
+    "agent-governance",
+    "vendor"
+   ],
+   "summary": "Each Warp agent (PR review, issue triage, spec writing) runs a base skill. A scheduled improver skill pulls human feedback from PR and issue comments, compares the agent's output with how people reacted, and opens a PR with the smallest edit to the base skill; a human reviews and merges. Advice: principles not rules, explain why, capture feedback where work happens, keep skills small, don't conflate skills with memory, assume feedback is sometimes wrong. Gaps: no before/after quality numbers, no replay or regression check before merge, no pruning.",
+   "file": "entries/warp-self-improving-agents-skill-edits.html"
   }
  ],
  "edges": [
@@ -9696,6 +9759,36 @@
    "b": "R100",
    "strength": "strong",
    "why": "both accept findings only after an independent check; R100's arbiter reviews a vulnerability swarm, R227's synthesizer checks cross-vendor disagreements against code."
+  },
+  {
+   "a": "R228",
+   "b": "R086",
+   "strength": "strong",
+   "why": "same curator and format a week later; both roundups are about evals that miss the capability under test."
+  },
+  {
+   "a": "R228",
+   "b": "R224",
+   "strength": "strong",
+   "why": "both train a 9B model with verifiable rewards; R228's adaptation paper shows GRPO restores verification steps that replay alone drops."
+  },
+  {
+   "a": "R229",
+   "b": "R158",
+   "strength": "strong",
+   "why": "both turn human judgment into Agent Skills behind a human approval; R158 mines session traces, R229 mines PR and issue comments on a schedule."
+  },
+  {
+   "a": "R229",
+   "b": "R164",
+   "strength": "strong",
+   "why": "R229's only gate is a person reviewing the skill diff; R164 keeps a self-edit only if it passes a replay of earlier cases, the check R229 lacks."
+  },
+  {
+   "a": "R229",
+   "b": "R227",
+   "strength": "strong",
+   "why": "both improve AI code review; R227 adds reviewers from other model families per PR, R229 feeds reviewer comments back into one reviewer's skill."
   }
  ]
 }
