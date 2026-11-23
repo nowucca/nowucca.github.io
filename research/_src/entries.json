@@ -474,6 +474,10 @@
       {
        "id": "R176",
        "why": "serving layer for RL rollouts: cache-affinity vs tail latency, versioned weight deltas, recovery without pausing healthy workers"
+      },
+      {
+       "id": "R243",
+       "why": "Agent-written runtime mitigations deployed to production hosts"
       }
      ]
     },
@@ -652,7 +656,8 @@
       "R179",
       "R196",
       "R197",
-      "R202"
+      "R202",
+      "R244"
      ],
      "also": [
       {
@@ -904,7 +909,8 @@
       "R163",
       "R172",
       "R186",
-      "R236"
+      "R236",
+      "R243"
      ],
      "also": [
       {
@@ -6385,6 +6391,45 @@
    ],
    "summary": "Across about 26,000 trials, six frontier models acting as shopping agents made stable, model-specific choices on a bare product grid, but one review screenshot, conflicting sources, source order, a single injected memory line or bundling vs splitting tool results shifted picks, sometimes by nearly 100 points. More context made choices less predictable, and susceptibility differed even within a model family. The lesson for agents acting on retrieved content: clean-page benchmarks overstate stability, memory writes are an attack surface, and harness packaging is part of the decision function.",
    "file": "entries/agentic-shopping-contingent-context.html"
+  },
+  {
+   "id": "R243",
+   "slug": "shirudo-agent-written-ebpf-shields",
+   "title": "Shirudo: agent-written eBPF shields that hold the line until the patch lands",
+   "by": "OpenAI and Cisco",
+   "source": "https://openai.com/index/introducing-shirudo/",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/EW5MXBazzPLShsg2yNB94L",
+   "tags": [
+    "security",
+    "ebpf",
+    "vulnerability-mitigation",
+    "agents-in-ops",
+    "open-source",
+    "vendor"
+   ],
+   "summary": "Shirudo is an open-source Linux runtime from OpenAI and Cisco for temporary, targeted mitigations: signed eBPF shields that attach to a live process or kernel hook and block an exploit's code path while the real patch rolls out. Agents investigate the vulnerability, draft a shield and test it against the exploit and representative traffic; operators approve deployment, and a TPM records loads and removals. In a demo, a Codex-written shield blocked a Java4Shell attempt in a running Elasticsearch without downtime. The engineering questions are validation coverage, the verifier proving safety rather than correctness, shield expiry and hot-path overhead.",
+   "file": "entries/shirudo-agent-written-ebpf-shields.html"
+  },
+  {
+   "id": "R244",
+   "slug": "kumo-engine-gnn-on-relational-tables",
+   "title": "Kumo Engine: predictive models trained directly on relational tables with a GNN",
+   "by": "NVIDIA",
+   "source": "https://github.com/NVIDIA/kumo-engine",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/PZKVsd7aJaneQejM8e8fZt",
+   "tags": [
+    "tabular-ml",
+    "graph-neural-networks",
+    "relational-data",
+    "open-source",
+    "vendor"
+   ],
+   "summary": "Kumo Engine is NVIDIA's open-source library for predictive ML on relational data without hand-built features. You declare tables and keys; it stores them as an on-disk graph, samples each entity's bounded, most recent related records before the prediction time, and trains a built-in GNN from a SQL-like predictive query that generates point-in-time-correct training examples. It runs on one machine over graphs larger than memory and ships an agent skill. Leakage control is the real win; check bounded sampling against the question, compare to a tuned gradient-boosted baseline, and keep promotion gates human-owned.",
+   "file": "entries/kumo-engine-gnn-on-relational-tables.html"
   }
  ],
  "edges": [
@@ -10191,6 +10236,18 @@
    "b": "R089",
    "strength": "strong",
    "why": "R089 turns benchmarks into injection suites; R242 shows the same need for decision agents, where benign-looking context (a review, an order, a memory line) steers choices without any attack string."
+  },
+  {
+   "a": "R243",
+   "b": "R163",
+   "strength": "strong",
+   "why": "R163 explains why Java4Shell exposure depends on the host; R243's demo shield blocks that same exploit in a running Elasticsearch without waiting for the patch."
+  },
+  {
+   "a": "R244",
+   "b": "R170",
+   "strength": "strong",
+   "why": "two answers to tabular prediction without feature engineering: TabPFN-4 predicts in context with a pretrained model on one table; Kumo Engine trains a GNN over many linked tables with point-in-time sampling."
   }
  ]
 }
