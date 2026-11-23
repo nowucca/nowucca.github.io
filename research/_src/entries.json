@@ -567,7 +567,8 @@
       "R215",
       "R235",
       "R238",
-      "R239"
+      "R239",
+      "R240"
      ],
      "also": [
       {
@@ -6317,6 +6318,25 @@
    ],
    "summary": "MoE models save compute but not memory, and static expert pruning applies one offline mask to every request, which fails when one backbone serves many agent roles. Dynamic Expert Pruning finds that an agent's system and task prompts predict which experts it needs: a lightweight predictor trained once on workflow transcripts emits a per-request mask in one pass. It beats static pruning and merging baselines, generalizes to unseen workflows, and its margin is largest at high sparsity. Open: expert swap latency across batches, mid-trajectory drift, and no stated gap to the full model.",
    "file": "entries/dynamic-expert-pruning-per-agent-moe.html"
+  },
+  {
+   "id": "R240",
+   "slug": "cerebras-gpu-prefill-wafer-decode",
+   "title": "GPU prefill, wafer-scale decode: Cerebras's heterogeneous disaggregated inference",
+   "by": "Cerebras",
+   "source": "https://www.cerebras.ai/blog/cerebras-launches-disaggregated-inference",
+   "published": "2026-11-17",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/QsnNxRWqSY3JB11VRrCykh",
+   "tags": [
+    "inference-serving",
+    "disaggregation",
+    "hardware",
+    "kv-cache",
+    "vendor"
+   ],
+   "summary": "Cerebras now splits production inference across two chip architectures: AMD Instinct GPUs do compute-bound prefill, CS-3 wafer-scale systems do bandwidth-bound decode from on-chip SRAM, and a KV Portal moves the KV cache over RDMA. On one shared GPT-OSS-120B endpoint, throughput per megawatt rose about 5x versus CS-3 only, with no loss in decode speed (vendor-measured, normalized, no time-to-first-token, traffic mix or GPU power accounting). Offered as a full stack or a decode-only SDK. The engineering questions are the cross-vendor KV format and transfer, prefill:decode ratio for agent traffic, prefix caching and doubled failure domains.",
+   "file": "entries/cerebras-gpu-prefill-wafer-decode.html"
   }
  ],
  "edges": [
@@ -10105,6 +10125,12 @@
    "b": "R238",
    "strength": "strong",
    "why": "two memory tactics for serving huge MoE models: Rocket stores experts in MXFP8 to halve their footprint; DEP keeps only the experts a role needs."
+  },
+  {
+   "a": "R240",
+   "b": "R051",
+   "strength": "strong",
+   "why": "R051 names prefill/decode disaggregation as one of six serving techniques; Cerebras runs it across two chip architectures, so the KV transfer R051 warns about also becomes a cross-vendor format boundary."
   }
  ]
 }
