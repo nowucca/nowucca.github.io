@@ -430,6 +430,10 @@
       {
        "id": "R237",
        "why": "parallel agent teams sharing only proof-checked results, with scheduled idea exchanges"
+      },
+      {
+       "id": "R239",
+       "why": "serving many agent roles on one MoE backbone by predicting per-role expert masks from prompts"
       }
      ]
     }
@@ -562,7 +566,8 @@
       "R206",
       "R215",
       "R235",
-      "R238"
+      "R238",
+      "R239"
      ],
      "also": [
       {
@@ -6294,6 +6299,24 @@
    ],
    "summary": "Microsoft AI's RL system for climbing from a base model without distillation over weeks to months on thousands of GPUs, now post-training the roughly 3T-parameter MoE MAI Base 2. An async GRPO loop handles agentic rollouts with a median of 93 minutes and 249 turns. Staleness is split into sampler lag, in-flight time and queue wait, each with its own control: a 15 s two-stage weight broadcast, oldest-rollout-first priority, dropping failed rollouts, staying inference-bound. MXFP8 storage with BF16 compute, bitwise sampler/learner parity, about 5-minute learner-only recovery and runtime elasticity. Vendor blog; benchmark claims unverifiable.",
    "file": "entries/rocket-microsoft-ai-agentic-rl-infrastructure.html"
+  },
+  {
+   "id": "R239",
+   "slug": "dynamic-expert-pruning-per-agent-moe",
+   "title": "Dynamic Expert Pruning: per-agent MoE expert masks from the agent's own prompts",
+   "by": "Koo, Abbasloo, Lee and Ok; via Microsoft Research",
+   "source": "https://arxiv.org/abs/2610.02951",
+   "published": "2026-10-01",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/JCCAbzkHwJNxd3Hdba8yLa",
+   "tags": [
+    "inference-serving",
+    "moe",
+    "multi-agent",
+    "caching"
+   ],
+   "summary": "MoE models save compute but not memory, and static expert pruning applies one offline mask to every request, which fails when one backbone serves many agent roles. Dynamic Expert Pruning finds that an agent's system and task prompts predict which experts it needs: a lightweight predictor trained once on workflow transcripts emits a per-request mask in one pass. It beats static pruning and merging baselines, generalizes to unseen workflows, and its margin is largest at high sparsity. Open: expert swap latency across batches, mid-trajectory drift, and no stated gap to the full model.",
+   "file": "entries/dynamic-expert-pruning-per-agent-moe.html"
   }
  ],
  "edges": [
@@ -10076,6 +10099,12 @@
    "b": "R176",
    "strength": "strong",
    "why": "two answers to RL rollout bottlenecks: NVIDIA routes and ships weight deltas through a serving layer, Microsoft co-designs learner, scheduler and inference fork and treats staleness and bitwise parity as the core metrics."
+  },
+  {
+   "a": "R239",
+   "b": "R238",
+   "strength": "strong",
+   "why": "two memory tactics for serving huge MoE models: Rocket stores experts in MXFP8 to halve their footprint; DEP keeps only the experts a role needs."
   }
  ]
 }
