@@ -170,6 +170,10 @@
       {
        "id": "R228",
        "why": "test-time adaptation compared: in-context replay gives most of the gain, GRPO adds a little and restores skipped verification; self-distillation mixed"
+      },
+      {
+       "id": "R238",
+       "why": "infrastructure for RL runs that climb from a base model over months, staleness and numerical parity as first-class concerns"
       }
      ]
     },
@@ -557,7 +561,8 @@
       "R198",
       "R206",
       "R215",
-      "R235"
+      "R235",
+      "R238"
      ],
      "also": [
       {
@@ -6269,6 +6274,26 @@
    ],
    "summary": "Quantum circuits too large to simulate can't be scored by running them, so a Lean 4 library (quantum Hoare logic with classical variables plus resource counting) checks correctness and cost against human-written specs. Independent Gemini 4 agent teams search in parallel; only Lean-verified results enter a shared notebook, and teams meet every four hours to trade ideas. Reported against prior baselines: fusion about 12x, photochemistry 8x, Cytochrome P450 2.5x, a Grover implementation 2.57x, an arcsin routine 290x. Spec and cost-model fidelity are the trust boundary; compute is not stated and nothing ran on hardware. The library is Apache-2.0.",
    "file": "entries/lean-verified-quantum-programs-agent-teams.html"
+  },
+  {
+   "id": "R238",
+   "slug": "rocket-microsoft-ai-agentic-rl-infrastructure",
+   "title": "Rocket: Microsoft AI's infrastructure for months-long agentic RL",
+   "by": "Microsoft AI",
+   "source": "https://microsoft.ai/news/rl-infrastructure-at-microsoft-ai/",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/VcNcpseSmbyrRZGPg23Q4E",
+   "tags": [
+    "rl-infrastructure",
+    "post-training",
+    "inference-serving",
+    "numerics",
+    "fault-tolerance",
+    "agents-at-scale"
+   ],
+   "summary": "Microsoft AI's RL system for climbing from a base model without distillation over weeks to months on thousands of GPUs, now post-training the roughly 3T-parameter MoE MAI Base 2. An async GRPO loop handles agentic rollouts with a median of 93 minutes and 249 turns. Staleness is split into sampler lag, in-flight time and queue wait, each with its own control: a 15 s two-stage weight broadcast, oldest-rollout-first priority, dropping failed rollouts, staying inference-bound. MXFP8 storage with BF16 compute, bitwise sampler/learner parity, about 5-minute learner-only recovery and runtime elasticity. Vendor blog; benchmark claims unverifiable.",
+   "file": "entries/rocket-microsoft-ai-agentic-rl-infrastructure.html"
   }
  ],
  "edges": [
@@ -10045,6 +10070,12 @@
    "b": "R208",
    "strength": "strong",
    "why": "the same untrusted-search, trusted-checker split at two scales: one Lean checker certifying RDF reasoning, and many agent teams whose shared notebook admits only Lean-verified quantum programs."
+  },
+  {
+   "a": "R238",
+   "b": "R176",
+   "strength": "strong",
+   "why": "two answers to RL rollout bottlenecks: NVIDIA routes and ships weight deltas through a serving layer, Microsoft co-designs learner, scheduler and inference fork and treats staleness and bitwise parity as the core metrics."
   }
  ]
 }
