@@ -130,7 +130,9 @@
       "R175",
       "R200",
       "R221",
-      "R229"
+      "R229",
+      "R233",
+      "R234"
      ],
      "also": [
       {
@@ -1426,6 +1428,10 @@
       {
        "id": "R155",
        "why": "time-pinned live tools, leakage and decontamination counts, random judge from 13, agent-built references checked against experts, a measured 0.008 eval noise floor"
+      },
+      {
+       "id": "R233",
+       "why": "benchmark: 9B base, starting harness, 24h; harness drove most gains in four of five domains"
       }
      ]
     },
@@ -6157,6 +6163,43 @@
    ],
    "summary": "A July gateway fix caused lock contention that only bit on many-core hardware under peak load. Teams failed over onto Exchange's gateway while 14% of capacity was already out; retry-to-next-healthy cascaded to over 80% of servers unresponsive in about two hours, restored servers were re-flooded, and rollback was impossible for four-month-old code, so engineers shipped a revert-to-known-good patch in waves. Lessons: load-test on production-class hardware, treat failover as a change, compute in-service headroom, admit traffic gradually on recovery.",
    "file": "entries/microsoft-365-outage-latent-defect-failover-headroom.html"
+  },
+  {
+   "id": "R233",
+   "slug": "coevobench-co-evolve-model-and-harness",
+   "title": "CoEvoBench: can an LLM researcher co-evolve a model and its harness?",
+   "by": "Xiao, Wang, Fan, Du and Xu (Alibaba); shared by Elvis Saravia",
+   "source": "https://arxiv.org/abs/2611.27116",
+   "published": "2026-11-20",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/FdHWwjgrRzKfFuWPHa7sGg",
+   "tags": [
+    "self-improvement",
+    "harness",
+    "benchmarks",
+    "rl",
+    "paper"
+   ],
+   "summary": "An LLM researcher gets a 9B base model, a starting harness and 24 hours, may edit the harness, train, or both, and submits one pair scored on held-out SWE-bench Verified, a Terminal-Bench subset, AppWorld, tau-bench and BFCL. GPT-6 Astra closes over four-fifths of the gap to an instruct reference, Opus 5 over half, open models under a third. The harness drove most gains in four of five domains; researchers stalled after one good round, trained before testing whether it would help, and selected on training tasks.",
+   "file": "entries/coevobench-co-evolve-model-and-harness.html"
+  },
+  {
+   "id": "R234",
+   "slug": "rl-post-training-memorizes-own-hallucinations",
+   "title": "RL post-training teaches models their own hallucinations",
+   "by": "Atmakuru and Goyal (Cornell); shared by DAIR.AI",
+   "source": "https://arxiv.org/abs/2611.26863",
+   "published": "2026-11-19",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/4HdxPgT3GHJkf2i8MTq36s",
+   "tags": [
+    "rl",
+    "hallucination",
+    "post-training",
+    "paper"
+   ],
+   "summary": "On knowledge tasks, outcome-reward RL with propose-and-backtrack reasoning reinforces facts the model invents in its own chains. Across six open models, recall of hallucinations in rewarded rollouts rose 4.83% against 0.17% for unrewarded ones; even false facts retracted in the same chain were memorised; the effect peaked on the hardest questions; and abstention on rewarded hallucinations fell 7.23%. Answer-level evals don't catch it.",
+   "file": "entries/rl-post-training-memorizes-own-hallucinations.html"
   }
  ],
  "edges": [
@@ -9897,6 +9940,24 @@
    "b": "R231",
    "strength": "strong",
    "why": "the same lesson at two scales: failures between steps (commit and send, failover and capacity) only show up when you inject them deliberately."
+  },
+  {
+   "a": "R233",
+   "b": "R126",
+   "strength": "strong",
+   "why": "R126 shows one harness-specific LoRA lifting a 9B-class model; R233 asks whether an LLM researcher can find such gains itself, and finds the harness usually beats training."
+  },
+  {
+   "a": "R233",
+   "b": "R114",
+   "strength": "strong",
+   "why": "both put an LLM in charge of training decisions; R233 adds the harness as a second lever and shows researchers stall after one round."
+  },
+  {
+   "a": "R234",
+   "b": "R228",
+   "strength": "strong",
+   "why": "both look at what RL post-training actually changes; R234 finds a side effect: outcome rewards reinforce facts invented in the chain."
   }
  ]
 }
