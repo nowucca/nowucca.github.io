@@ -1,0 +1,393 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parasail interview prep</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: one narrow reading column; index is a ruled list of idea rows, detail is a single article. */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --fg: #17202a;
+  --muted: #5a6774;
+  --line: #d9e0e6;
+  --accent: #1d5c88;
+  --accent-soft: #e2edf5;
+  --mark: #f6e3a1;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad;
+    --line: #2a343f; --accent: #7fb6de; --accent-soft: #1c2c3a; --mark: #5b4a17;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c; --surface: #19212a; --fg: #e4e9ee; --muted: #94a1ad;
+  --line: #2a343f; --accent: #7fb6de; --accent-soft: #1c2c3a; --mark: #5b4a17;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 var(--body);
+}
+.wrap {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding-block: 3rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+p { margin: 0; }
+.label {
+  font: 500 0.75rem/1.4 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* Header */
+.masthead { display: flex; flex-direction: column; gap: 0.75rem; border-bottom: 2px solid var(--fg); padding-bottom: 1.25rem; }
+.masthead .lede { color: var(--muted); max-width: 36rem; }
+.masthead .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-variant-numeric: tabular-nums; }
+
+/* Index rows */
+.ideas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.ideas li { border-bottom: 1px solid var(--line); }
+.ideas a.row {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: 0 1rem;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  color: inherit;
+}
+.ideas a.row:hover .title, .ideas a.row:focus-visible .title { color: var(--accent); }
+.ideas .num { font: 500 0.85rem/1.9 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.ideas .text { min-width: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+.ideas .title { font: 600 1.3rem/1.25 var(--display); transition: color 120ms; }
+.ideas .one { color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+.tag {
+  font: 500 0.72rem/1 var(--mono);
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Detail */
+.back { font: 500 0.85rem/1 var(--mono); text-decoration: none; }
+.article { display: flex; flex-direction: column; gap: 2.25rem; }
+.article header { display: flex; flex-direction: column; gap: 0.9rem; }
+.article .one { font-size: 1.2rem; color: var(--muted); }
+.section { display: flex; flex-direction: column; gap: 0.9rem; }
+.prose { display: flex; flex-direction: column; gap: 1rem; }
+.say { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.say li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+}
+.say li::before { content: "\201C"; font: 700 1.4rem/0 var(--display); color: var(--accent); margin-right: 0.15rem; vertical-align: -0.35rem; }
+.asks { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.fits { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1rem; margin: 0; }
+.fits dt { font: 600 0.95rem/1.6 var(--display); }
+.fits dd { margin: 0; min-width: 0; }
+.source {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+mark { background: var(--mark); color: inherit; padding: 0 0.15em; }
+footer.foot { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .ideas a.row { grid-template-columns: 2.25rem 1fr; }
+  .fits { grid-template-columns: 1fr; gap: 0.15rem; }
+  .fits dd { margin-bottom: 0.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Tables inside detail sections */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table.grid { border-collapse: collapse; width: 100%; font-size: 0.92rem; line-height: 1.45; }
+table.grid th, table.grid td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
+table.grid th { font: 500 0.72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+table.grid tbody tr:last-child td { border-bottom: 0; }
+table.grid td:first-child { font: 600 0.95rem/1.4 var(--display); white-space: nowrap; }
+.note { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 480px) { table.grid { min-width: 34rem; } }
+
+/* Link to the original article */
+.src { font-size: 0.92rem; color: var(--muted); display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.5rem; }
+.src .label { font-size: 0.68rem; }
+.ideas li .src { padding: 0 0 1.25rem calc(3.25rem + 1rem); margin-top: -0.6rem; }
+@media (max-width: 480px) { .ideas li .src { padding-left: calc(2.25rem + 1rem); } }
+
+/* Pattern guide: collapsible pattern cards */
+.pattern { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.pattern + .pattern { margin-top: 0.75rem; }
+.pattern summary {
+  list-style: none; cursor: pointer; display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.15rem 0.75rem;
+  padding: 0.9rem 1rem;
+}
+.pattern summary::-webkit-details-marker { display: none; }
+.pattern summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+.pattern .pnum { font: 500 0.85rem/1.9 var(--mono); color: var(--muted); grid-row: span 2; }
+.pattern .pname { font: 600 1.2rem/1.3 var(--display); }
+.pattern .pname::after { content: " +"; color: var(--accent); }
+.pattern[open] .pname::after { content: " \2212"; }
+.pattern .psig { color: var(--muted); font-size: 0.95rem; }
+.pattern summary:hover .pname { color: var(--accent); }
+.pbody { padding: 0 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.9rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.pbody h3 { font-size: 1rem; margin-top: 0.6rem; }
+.pbody .picture { font-size: 1.05rem; }
+.pbody .note .label, .trade .label { margin-right: 0.35rem; }
+.terms { display: grid; grid-template-columns: minmax(8rem, 13rem) 1fr; gap: 0.55rem 1rem; margin: 0; font-size: 0.95rem; }
+.terms dt { font: 600 0.92rem/1.5 var(--display); }
+.terms dd { margin: 0; min-width: 0; }
+.trades { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.75rem; counter-reset: t; }
+.trade { border-left: 3px solid var(--accent); padding: 0.1rem 0 0.1rem 0.9rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.97rem; }
+.trade h4 { margin: 0; font: 600 1rem/1.3 var(--display); }
+.trade .default { background: var(--accent-soft); border-radius: 4px; padding: 0.45rem 0.6rem; }
+.reads { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.95rem; }
+.dl a { font: 500 0.82rem/1.4 var(--mono); }
+@media (max-width: 480px) {
+  .terms { grid-template-columns: 1fr; gap: 0.1rem; }
+  .terms dd { margin-bottom: 0.5rem; }
+  .pattern summary { grid-template-columns: 1.75rem 1fr; }
+}
+
+code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding: 0.05em 0.3em; border-radius: 3px; overflow-wrap: anywhere; }
+.pbody > p, .pbody ul { min-width: 0; }
+
+</style>
+<style>
+.plan{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.75rem;counter-reset:s}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.step label{display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .6rem;cursor:pointer;font-family:var(--display)}
+.step input{width:1.05rem;height:1.05rem;accent-color:var(--accent);transform:translateY(2px)}
+.step p{font-size:.95rem}
+.step.done{opacity:.6}.step.done strong{text-decoration:line-through}
+</style>
+<main class="wrap">
+<a class="back" href="https://nowucca.com/interviews/" target="_blank" rel="noopener">&larr; All interview notes</a>
+<!-- company-nav -->
+<nav class="co-nav" aria-label="Parasail pages"><span class="co-k">Parasail</span><a href="https://nowucca.com/companies/parasail/">Company profile</a><a href="https://nowucca.com/interviews/parasail/" aria-current="page">System design prep</a><a href="https://nowucca.com/interviews/parasail/#s0">Prep plan</a></nav>
+<style>.co-nav{display:flex;flex-wrap:wrap;gap:.4rem .5rem;align-items:center;margin:1.1rem 0 1.5rem;font:500 .78rem/1.3 var(--mono,ui-monospace,SFMono-Regular,Menlo,monospace)}.co-nav .co-k{color:var(--muted,#5a6774);text-transform:uppercase;letter-spacing:.06em;margin-right:.2rem}.co-nav a{padding:.3rem .6rem;border:1px solid var(--line,#d9e0e6);border-radius:999px;text-decoration:none;color:var(--accent,#1d5c88);background:var(--surface,transparent)}.co-nav a:hover{border-color:var(--accent,#1d5c88)}.co-nav a[aria-current]{background:var(--accent-soft,#e2edf5);border-color:var(--accent,#1d5c88);color:var(--fg,inherit)}</style>
+<!-- /company-nav -->
+<article class="article">
+<header>
+  <span class="label">Parasail · system design prep · backend technical interview 2026-11-23, 10:30 CT</span>
+  <h1>Parasail: system design prep</h1>
+  <p class="one">A 75-minute call: about 60 minutes designing a system from scratch in Excalidraw, plus a short walkthrough of a few of your projects. Here is what they said they'll look at, the vocabulary of inference serving, and five practice questions with Excalidraw templates.</p>
+  <p><a href="#s0">The prep plan for this morning &darr;</a></p>
+</header>
+
+<section class="section" id="s0"><h2>0. Plan for this morning</h2>
+<p class="note">About two hours, then a warm-up at 10:00. Ticks are saved in this browser.</p>
+<ol class="plan">
+<li class="step"><label><input type="checkbox" id="p1"> <strong>Load the Parasail Excalidraw library</strong> <span class="label">5 min</span></label>
+<p>Drag <a href="#s8">parasail-interview.excalidrawlib</a> onto the Library panel in Excalidraw Plus, next to your general pattern library. Orange items are the five Parasail questions.</p></li>
+<li class="step"><label><input type="checkbox" id="p2"> <strong>Skim the company profile</strong> <span class="label">10 min</span></label>
+<p>Read the <a href="https://nowucca.com/companies/parasail/" target="_blank" rel="noopener">Parasail profile</a> for the snapshot, history (the d-Matrix prefill/decode split) and engineering stack. Skip funding.</p></li>
+<li class="step"><label><input type="checkbox" id="p3"> <strong>Read sections 1 to 4 of this page</strong> <span class="label">20 min</span></label>
+<p>Say each of the ten terms in a sentence out loud. Do the KV cache and tokens-per-day arithmetic once on paper so the numbers are yours.</p></li>
+<li class="step"><label><input type="checkbox" id="p4"> <strong>Practise Q1 cold: the serverless inference API</strong> <span class="label">25 min + 10 min review</span></label>
+<p>This is the most Parasail-shaped question for a backend role. Timer on, blank canvas, draw it yourself, then compare with <a href="#q1">Q1</a> and the orange <em>Q1 API</em> template. Note one thing you missed from each deep dive.</p></li>
+<li class="step"><label><input type="checkbox" id="p5"> <strong>Read the Q2 and Q3 deep dives</strong> <span class="label">20 min</span></label>
+<p><a href="#q2">Q2 metering</a> is the classic backend follow-up (exactly-once billing). <a href="#q3">Q3 autoscaling</a> is where cold start and brokered capacity come up. Read the default answers; skip the examples you already know.</p></li>
+<li class="step"><label><input type="checkbox" id="p6"> <strong>Rehearse your three project stories</strong> <span class="label">15 min</span></label>
+<p>The email asks for a brief walkthrough of a few projects: problem, your part, outcome. Say each story in <a href="#s7">section 8</a> out loud in under two minutes.</p></li>
+<li class="step"><label><input type="checkbox" id="p7"> <strong>10:00 warm-up</strong> <span class="label">15 min, before 10:30</span></label>
+<p>Read <a href="#s6">lines worth having ready</a> and pick two <a href="#s9">questions to ask</a>. Open Excalidraw, check both libraries are there, check mic and camera. If there's time left, skim <a href="#q5">Q5</a> for vocabulary.</p></li>
+</ol>
+
+</section>
+
+<section class="section" id="s1"><h2>1. What the email says they'll judge</h2><div class="prose">
+<p>The recruiter's note is explicit. It's a whiteboard-style discussion where you design a real-world system from scratch. <mark>"The goal is not perfect detail"</mark>, but how you approach an open-ended problem, communicate trade-offs and structure a solution. They name four things:</p>
+</div><ol class="asks">
+<li><strong>Clarifying requirements.</strong> Ask early and confirm assumptions, so the interviewer can course-correct quickly.</li>
+<li><strong>Identifying constraints.</strong> Scale, latency, cost, consistency. Say the numbers.</li>
+<li><strong>Proposing a high-level architecture.</strong> Boxes first, then go deeper where it matters.</li>
+<li><strong>Trade-offs and scaling.</strong> Say the "why" behind every decision. That's the signal.</li>
+</ol><div class="prose">
+<p>They also say <mark>drive the discussion collaboratively</mark>: propose, check, adjust. For the non-technical part, they want a brief walkthrough of a few relevant projects: what problem, your specific contribution, the outcome. The interviewer is a Parasail software engineer, and the role is a backend role.</p>
+<p>The question may not be about inference at all ("design a real-world system" could be a URL shortener or a chat app). If so, use the general pattern library and the canvas. But a Parasail engineer is likely to pick something near home, so the rest of this page is about that.</p>
+</div></section>
+
+<section class="section" id="s2"><h2>2. What they build, in one breath</h2><div class="prose">
+<p>Parasail sells <mark>open-model inference by the token</mark>: Kimi, GLM, DeepSeek, gpt-oss and 40+ others behind an OpenAI-compatible API. Products are serverless per-token endpoints, priority "elastic" endpoints, dedicated reserved GPUs and a discounted batch tier. The pitch is "commit to spend, not GPUs": they aggregate capacity from about 40 third-party data centers plus their own Hopper and Blackwell fleet, and route work across it.</p>
+<p>Two things make their backend interesting. First, <mark>heterogeneous, brokered capacity</mark>: GPUs they don't own, in data centers they don't run, that can disappear. Second, the 2026-07 d-Matrix partnership runs <mark>prefill on NVIDIA GPUs and decode on d-Matrix chips</mark> ("disaggregated inference"). They claim trillions of tokens a day. Customers are AI startups who care about cost per token, latency and "no silent quantization".</p>
+</div></section>
+
+<section class="section" id="s3"><h2>3. Which patterns they will probe</h2>
+<div class="table-wrap"><table class="grid"><thead><tr><th>Area</th><th>Pattern labels</th><th>Words to use</th></tr></thead><tbody>
+<tr><td>Inference API</td><td>Read heavy (request/response) + real-time streaming</td><td>Token rate limits, admission control, SSE streaming, TTFT, router, priority queue</td></tr>
+<tr><td>Metering and billing</td><td>Write heavy / event driven + transactional</td><td>Usage events, idempotency key, ledger, reserve then settle, reconciliation</td></tr>
+<tr><td>Capacity</td><td>Workflow orchestration (control plane)</td><td>Autoscaler, placement, bin packing, cold start, warm pool, drain</td></tr>
+<tr><td>Batch tier</td><td>Batch/analytics + workflow</td><td>Shards, leases, checkpoints, preemption, deadline scheduling</td></tr>
+<tr><td>Serving internals</td><td>Real-time + caching</td><td>Continuous batching, paged KV cache, prefix cache, prefill/decode split, speculative decoding</td></tr>
+</tbody></table></div></section>
+
+<section class="section" id="s4"><h2>4. Ten terms they'll assume you know</h2><dl class="terms">
+<dt>Prefill vs decode</dt><dd>Prefill processes the whole prompt in one pass: compute bound, fast per token. Decode makes one token at a time per sequence: memory-bandwidth bound. That difference drives almost every serving decision.</dd>
+<dt>TTFT / TPOT</dt><dd>Time to first token (mostly queueing + prefill) and time per output token, also called inter-token latency (decode speed). Two separate SLOs. Users feel TTFT; agents feel total time.</dd>
+<dt>KV cache</dt><dd>The attention keys and values saved for every token so far, so decode doesn't recompute them. It lives in GPU memory and caps how many sequences fit. Llama-3-70B: 2 × 80 layers × 8 KV heads × 128 dims × 2 bytes ≈ <mark>320 KB per token</mark>, so an 8k-token conversation is about 2.6 GB.</dd>
+<dt>Continuous batching</dt><dd>The server adds and removes sequences from the running batch at every step instead of waiting for a whole batch to finish. The reason vLLM and SGLang get high throughput.</dd>
+<dt>PagedAttention</dt><dd>vLLM's idea: store the KV cache in fixed-size blocks, like OS memory pages, so memory isn't wasted on fragmentation and blocks can be shared.</dd>
+<dt>Prefix caching</dt><dd>Reuse KV blocks for a prompt prefix already seen (a shared system prompt, an agent's growing conversation). Cuts TTFT and cost. Makes routing "sticky": send a request to the replica that already has its prefix.</dd>
+<dt>Disaggregated serving</dt><dd>Run prefill and decode on different machines (even different chips) and ship the KV cache between them over a fast network. Parasail does this with GPUs for prefill and d-Matrix for decode.</dd>
+<dt>Speculative decoding</dt><dd>A small draft model guesses several tokens; the big model checks them in one pass. Same output, faster decode when guesses are often right.</dd>
+<dt>Tensor parallelism / quantization</dt><dd>TP splits one model's layers across GPUs in a node (a 70B model at fp16 is 140 GB, so it needs at least 2 H100s). Quantization (fp8, int4) shrinks weights and KV cache. Parasail promises "no silent quantization", so the precision a customer gets is a product promise.</dd>
+<dt>Goodput</dt><dd>Requests per second that actually meet the latency SLO. Throughput you can sell, not raw tokens per second.</dd>
+</dl></section>
+
+<section class="section" id="s5"><h2>5. How to run the 60 minutes</h2><ol class="asks">
+<li><strong>Requirements, 7 min.</strong> Functional, then non-functional (latency, availability, consistency, cost), then out of scope. They asked for this explicitly, so make it visible: write the list on the canvas.</li>
+<li><strong>Numbers, 5 min.</strong> Round hard. 1 day ≈ 100k seconds. 1 trillion tokens/day ≈ 10M tokens/s. At ~3k tokens per request that's ~3k requests/s average, maybe 10k at peak.</li>
+<li><strong>Label the pattern out loud,</strong> then API and data model, 5 min.</li>
+<li><strong>High-level boxes, 13 min.</strong> Drag the closest template, then adapt it to what they said. Check in: "Does this match what you had in mind?"</li>
+<li><strong>Deep dives, 25 min.</strong> Pick the two riskiest parts yourself. For each: the problem, two options, the trade-off, your default answer. Let them steer you to a third.</li>
+<li><strong>Wrap, 5 min.</strong> Failure modes, what you'd monitor, what you'd build next.</li>
+</ol><p class="note">Leave 10 to 15 minutes in the call for the project walkthrough and your questions. The "Interview canvas" template in the general library has these columns.</p></section>
+
+<section class="section" id="s6q"><h2>6. Practice questions</h2>
+<p class="note">Try each one cold for 20 to 25 minutes in Excalidraw, then open the sketch answer. The matching diagram is in the Parasail library under the same Q number.</p>
+
+<details class="pattern" id="q1" open><summary><span class="pnum">Q1</span><span class="pname">Design a serverless inference API</span><span class="psig">OpenAI-compatible, pay per token, 40+ models, streaming, 10k requests/s at peak, running on your own GPUs plus partner data centers. (The most Parasail-shaped question.)</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> request/response with real-time streaming, plus a routing layer over a pool of scarce, uneven workers.</p>
+<h3>Clarify</h3><ul class="reads"><li>Which endpoints: chat completions, embeddings, both? Streaming required?</li><li>Latency targets: TTFT p95 under 1 s? Different tiers (priority vs best effort)?</li><li>How many models, and how skewed is traffic? (Usually a few models take most of it.)</li><li>Multi-tenant on shared replicas, or does anyone get dedicated capacity?</li><li>Is cost per token a first-class goal? (Yes. Say so.)</li></ul>
+<h3>Numbers</h3><p>10M tokens/s across the fleet. Assume one 8-GPU node serving a 70B-class model does around 20k tokens/s blended (state it as an assumption): that's ~500 nodes, ~4,000 GPUs. GPUs are the cost, so every design choice is about keeping them busy without blowing TTFT. The control traffic itself (10k requests/s) is small for the gateway.</p>
+<h3>Sketch</h3><p>Clients call <code>POST /v1/chat/completions</code> with an API key. The gateway authenticates, applies per-key limits in <em>tokens per minute</em> as well as requests, checks the account has credit, and holds the SSE stream open. A router looks up the model in the catalog, picks a pool and a replica using health, queue depth and KV cache headroom, preferring the replica that already has the prompt's prefix cached. Each pool has a priority queue in front so the router can admit, queue or reject. Model servers (vLLM/SGLang) run continuous batching and stream tokens back. Overflow goes to brokered capacity behind the same interface. At the end of each request the server emits a usage event (tokens in, tokens out, model, account, request_id) to metering.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Rate limiting in tokens, not requests</h4><p><span class="label">Example</span> One customer sends 100 requests/min with 100k-token prompts. Request limits say fine; the GPUs say no.</p><p class="default"><span class="label">Default answer</span> Token-bucket per key on estimated tokens (prompt length + <code>max_tokens</code>), reserved at admission and corrected when the request finishes. Keep counters in Redis per region; small overshoot is acceptable.</p></li>
+<li class="trade"><h4>Routing: load vs cache affinity</h4><p><span class="label">Example</span> An agent sends a 30k-token conversation that grows each turn. On the same replica, the prefix is cached and TTFT is 200 ms; on a random one, it's 3 s.</p><p class="default"><span class="label">Default answer</span> Consistent hashing on a prefix hash (or session id) to pick a preferred replica, with a load check: if it's overloaded, fall back to the least-loaded replica. Affinity is a hint, never a requirement.</p></li>
+<li class="trade"><h4>Overload: queue, shed or degrade</h4><p><span class="label">Example</span> A new model launches on day 0 and traffic is 5× what was provisioned.</p><p class="default"><span class="label">Default answer</span> Bounded queues per pool and priority tier; reject fast with 429 and <code>Retry-After</code> when the queue's expected wait exceeds the TTFT budget; spill to brokered capacity. Never switch to a quantized model without telling the customer.</p></li>
+<li class="trade"><h4>Failure mid-stream</h4><p><span class="label">Example</span> A partner node dies after streaming 400 tokens.</p><p class="default"><span class="label">Default answer</span> You can't transparently retry a half-sent stream. Send an error event, bill the tokens actually delivered, and let the client retry. Health checks and draining keep this rare; replicas are cattle.</p></li>
+</ol></div></details>
+
+<details class="pattern" id="q2"><summary><span class="pnum">Q2</span><span class="pname">Design token metering and billing</span><span class="psig">Count every input and output token per account and model, show usage in near real time, stop prepaid accounts at zero, invoice monthly.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> write heavy / event driven, feeding a transactional ledger.</p>
+<h3>Clarify</h3><ul class="reads"><li>Prepaid credits, postpaid invoices, or both? Hard stop at zero or soft limit?</li><li>Pricing dimensions: model, input vs output, cached tokens, tier (batch is cheaper)?</li><li>How fresh must the usage dashboard be? (A minute is fine; the balance check is the hard part.)</li><li>Who counts the tokens: the gateway or the model server? (The server knows the truth.)</li></ul>
+<h3>Numbers</h3><p>One usage event per request, not per token: ~3k events/s average, ~10k peak, ~300M a day at ~200 bytes, about 60 GB/day raw. Easy for Kafka and an OLAP store. The money is large though: a 1% counting error is a real revenue or trust problem.</p>
+<h3>Sketch</h3><p>Model servers emit a usage event at request end (and on abort) with a <code>request_id</code>. Events go to a Kafka topic keyed by account. A stream aggregator dedups on request_id, prices with a versioned price book, writes to an append-only usage ledger (ClickHouse or Parquet) and decrements a fast balance counter. The gateway checks the balance before admitting a request and reserves an estimate. Invoicing runs monthly from the ledger into Stripe. A daily reconciliation compares the ledger against server logs.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Exactly-once billing</h4><p><span class="label">Example</span> An aggregator crashes after writing to the ledger but before committing its Kafka offset; on restart it re-reads the events.</p><p class="default"><span class="label">Default answer</span> At-least-once delivery plus an idempotent write keyed by request_id gives an exactly-once effect. The ledger is the source of truth; counters are a cache you can rebuild.</p></li>
+<li class="trade"><h4>Stopping overspend without a slow hot path</h4><p><span class="label">Example</span> A prepaid account with $5 left fires 200 parallel requests.</p><p class="default"><span class="label">Default answer</span> Reserve <code>max_tokens × price</code> at admission against a Redis balance (atomic decrement), settle the real cost at the end, release the rest. Accept a small bounded overshoot instead of a global lock.</p></li>
+<li class="trade"><h4>Aborted and failed requests</h4><p><span class="label">Example</span> The client disconnects after 300 output tokens; or the server fails before the first token.</p><p class="default"><span class="label">Default answer</span> Bill what was generated (the GPU did the work). Don't bill server-side failures. Emit the usage event from a <code>finally</code> path so aborts aren't lost.</p></li>
+<li class="trade"><h4>Price changes</h4><p><span class="label">Example</span> Token prices drop mid-month, as they often do.</p><p class="default"><span class="label">Default answer</span> Store raw token counts in the ledger and price with an effective-dated price book, so you can re-price or explain any invoice.</p></li>
+</ol></div></details>
+
+<details class="pattern" id="q3"><summary><span class="pnum">Q3</span><span class="pname">Design GPU capacity management and autoscaling</span><span class="psig">Keep 40+ models served across your own fleet and brokered partner capacity, scale with demand, and keep cost per million tokens low.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> workflow orchestration (a control plane) reading real-time signals.</p>
+<h3>Clarify</h3><ul class="reads"><li>Which GPU types, and which models fit on which? Does a model need one GPU or eight?</li><li>How fast does traffic change? Is scale to zero allowed for rare models?</li><li>What does brokered capacity look like: an API to lease nodes, with what notice before it's taken back?</li><li>Is the goal latency SLO first, cost second? (Usually yes.)</li></ul>
+<h3>Numbers</h3><p>A 70B model at fp16 is 140 GB of weights. From local NVMe at ~5 GB/s that's ~30 s to load; from object storage over the network it can be minutes, plus engine warm-up. That's your cold start, and it's why you can't scale like web servers.</p>
+<h3>Sketch</h3><p>Model servers report queue depth, TTFT p95, KV cache use and tokens/s. A per-model autoscaler turns that into a desired replica count against a goodput target. A placement service finds capacity in an inventory of owned nodes, partner leases and spot, choosing on GPU type and memory fit, cost and region. It starts replicas on Kubernetes in the owned fleet or leases through partner APIs, pulls weights from a cache (object store to local NVMe), and registers ready replicas with the router. Scale-down drains first.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Cold starts</h4><p><span class="label">Example</span> A model idle overnight gets a burst at 9 AM and every request waits three minutes.</p><p class="default"><span class="label">Default answer</span> A warm floor for popular models, pre-staged weights on local NVMe, predictive scaling from daily patterns, and queue-then-scale for the rare long-tail models (with an honest error if the wait exceeds the SLO).</p></li>
+<li class="trade"><h4>What to scale on</h4><p><span class="label">Example</span> GPU utilisation reads 100% whether the batch is efficient or the queue is exploding.</p><p class="default"><span class="label">Default answer</span> Scale on queue wait and KV cache pressure against the TTFT SLO, not on GPU or CPU utilisation. Hysteresis so it doesn't flap.</p></li>
+<li class="trade"><h4>Capacity that vanishes</h4><p><span class="label">Example</span> A partner data center reclaims 64 GPUs with two minutes' notice.</p><p class="default"><span class="label">Default answer</span> Treat brokered replicas as preemptible: spread each model across providers, drain on notice, let in-flight requests finish or fail fast, and backfill from owned capacity. Track reliability per provider and route away from bad ones.</p></li>
+<li class="trade"><h4>Bin packing vs isolation</h4><p><span class="label">Example</span> Ten small 8B models each need a fraction of a GPU; one 400B model needs a whole node.</p><p class="default"><span class="label">Default answer</span> Pack small models several to a GPU (or share replicas with LoRA adapters), give big models tensor-parallel nodes, and keep dedicated customers on reserved nodes so a noisy neighbour can't touch them.</p></li>
+</ol></div></details>
+
+<details class="pattern" id="q4"><summary><span class="pnum">Q4</span><span class="pname">Design the batch inference tier</span><span class="psig">Customers upload a file of a million prompts and get results within 24 hours at half price, using GPUs the online service isn't using.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> batch processing with a job workflow.</p>
+<h3>Clarify</h3><ul class="reads"><li>Input format (JSONL with a <code>custom_id</code> per line, like OpenAI's Batch API)? Max file size?</li><li>Hard 24 h deadline or best effort? Partial results allowed?</li><li>Can batch work be preempted by online traffic? (It should be.)</li></ul>
+<h3>Numbers</h3><p>1M prompts × 1.5k tokens ≈ 1.5B tokens. At 20k tokens/s per node, that's ~21 node-hours, so a few spare nodes overnight clear it easily. The trick is using idle capacity, not adding capacity.</p>
+<h3>Sketch</h3><p>The batch API validates the upload, stores it in object storage, splits it into shards (say 1k lines) and records batch, shard and status in a job DB. A scheduler leases shards to workers running on idle GPUs, ordering by model (avoid swapping weights) and deadline. Workers run big batches for throughput, checkpoint per shard and write output files. Online pools lend capacity when idle and take it back when traffic rises. Usage goes to metering at the batch price.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Preemption</h4><p><span class="label">Example</span> Online traffic spikes at 9 AM and needs the GPUs batch is using.</p><p class="default"><span class="label">Default answer</span> Shards are small and leases expire, so a preempted worker loses at most one shard. Completed rows are idempotent by custom_id, so reruns are safe.</p></li>
+<li class="trade"><h4>Meeting the deadline</h4><p><span class="label">Example</span> A batch is 40% done at hour 20 because the day was busy.</p><p class="default"><span class="label">Default answer</span> Earliest-deadline-first scheduling, and escalate shards near the deadline to guaranteed capacity. Fill idle capacity first because it's cheapest.</p></li>
+<li class="trade"><h4>Throughput tricks</h4><p><span class="label">Example</span> Many prompts in one batch share a long instruction prefix.</p><p class="default"><span class="label">Default answer</span> Group by model and sort by prefix so the prefix cache hits; use large batch sizes since latency doesn't matter.</p></li>
+</ol></div></details>
+
+<details class="pattern" id="q5"><summary><span class="pnum">Q5</span><span class="pname">Inside one model deployment: how do you serve it fast and cheap?</span><span class="psig">A deep dive they may ask after Q1: batching, KV cache memory, prefix routing and splitting prefill from decode.</span></summary><div class="pbody">
+<p class="picture"><strong>Label:</strong> real-time serving with a cache in the middle. You're a backend engineer, so stay at the system level: you don't need to write kernels.</p>
+<h3>Clarify</h3><ul class="reads"><li>Typical prompt and output lengths? (Agents: long prompts, short outputs. Chat: the reverse.)</li><li>Which SLO matters most: TTFT, tokens per second, or cost?</li><li>What hardware: one GPU type, or GPU + d-Matrix like Parasail?</li></ul>
+<h3>Numbers</h3><p>70B model on 8 × H100 (640 GB). Weights in fp8 ≈ 70 GB, leaving ~550 GB for KV cache. At 320 KB per token (fp16 KV) that's ~1.7M tokens in flight: about 200 sequences of 8k tokens. KV memory, not compute, usually caps the batch.</p>
+<h3>Sketch</h3><p>A cache-aware router hashes the prompt prefix to pick a replica. In the simple setup, each replica runs an engine loop with continuous batching and paged KV blocks, sharing prefix blocks across requests. In the disaggregated setup, prefill workers (compute-heavy GPUs) process the prompt and ship the KV cache over RDMA to decode workers (memory-bandwidth-heavy chips), which stream tokens. Speculative decoding speeds up decode where a good draft model exists.</p>
+<h3>Deep dives</h3><ol class="trades">
+<li class="trade"><h4>Throughput vs latency</h4><p><span class="label">Example</span> A bigger batch doubles tokens/s per GPU but each user's stream slows down.</p><p class="default"><span class="label">Default answer</span> Cap batch size per tier: priority endpoints run smaller batches at a higher price, batch tier runs huge ones. That's how one fleet sells both.</p></li>
+<li class="trade"><h4>When to split prefill and decode</h4><p><span class="label">Example</span> A 50k-token prompt's prefill stalls decode for everyone else on the replica.</p><p class="default"><span class="label">Default answer</span> Disaggregate when prompts are long and TTFT and TPOT interfere; the cost is moving the KV cache across the network. Chunked prefill is the cheaper first step on one box.</p></li>
+<li class="trade"><h4>KV cache runs out</h4><p><span class="label">Example</span> Lots of long conversations arrive and memory is full.</p><p class="default"><span class="label">Default answer</span> Admission control on KV headroom, preempt (swap to CPU or recompute) the lowest-priority sequences, evict cold prefix blocks first (LRU).</p></li>
+</ol></div></details>
+</section>
+
+<section class="section" id="s6"><h2>7. Lines worth having ready</h2><ul class="say">
+<li>The <mark>token is the unit</mark> of everything here: rate limits, scheduling, capacity and billing. I'd design around tokens, not requests.</li>
+<li>TTFT and tokens per second are two different SLOs. Prefill is compute bound and decode is memory bound, which is why you'd <mark>split them onto different hardware</mark>.</li>
+<li>Billing has to be exactly-once in effect: <mark>at-least-once events, dedup on request_id</mark>, and the ledger as the source of truth.</li>
+<li>Cold start is a <mark>weight-loading problem</mark>, so keep a warm floor for popular models and stage weights on local NVMe.</li>
+<li>Brokered capacity can disappear, so every replica is cattle: health check, drain, retry somewhere else.</li>
+<li>Bigger batches buy throughput with latency. <mark>Priority tiers</mark> let one fleet sell both.</li>
+</ul></section>
+
+<section class="section" id="s7"><h2>8. Your project walkthrough</h2><div class="prose">
+<p>The email asks for a few projects: the problem, your specific contribution, the outcome. Keep each under two minutes and end with why it matters for Parasail.</p>
+</div><dl class="terms">
+<dt>Netflix fast properties</dt><dd><strong>Problem:</strong> the dynamic configuration service for the whole fleet (200,000+ clients, 50,000+ requests/s on DynamoDB) was slow to publish and a common cause of incidents. <strong>Your part:</strong> owned it; cut publish time 50% to 45 s; built the property canary that flags the riskiest 1% of changes for rollback; the deployment-posture wizard. <strong>Outcome:</strong> incidents down 20%. <em>Parasail tie:</em> a control plane pushing state safely to a huge fleet, which is what routing tables and model rollouts are.</dd>
+<dt>Agentic plugins and pre-flight risk checks</dt><dd><strong>Problem:</strong> LLM-assisted change review was expensive and risky deploys still slipped through. <strong>Your part:</strong> built pre-flight risk assessment of code diffs and agentic plugins. <strong>Outcome:</strong> 10+ critical failures averted, 60% fewer LLM tokens. <em>Parasail tie:</em> you've been the customer who cares about cost per token.</dd>
+<dt>DVD merchandising server</dt><dd><strong>Problem:</strong> home page box shots took 3.4 s for millions of users. <strong>Your part:</strong> led design of a merchandising server with a caching strategy and a sticky-cookie client. <strong>Outcome:</strong> 500 ms to 1.5 s. <em>Parasail tie:</em> caching and affinity routing, the same idea as prefix-cache-aware routing. (Alternative: scaling Lalo's backend 20× as CTO, if they want startup scale.)</dd>
+</dl></section>
+
+<section class="section" id="s8"><h2>9. Excalidraw</h2><div class="prose">
+<p>Load two libraries. They don't overlap.</p>
+</div><dl class="terms">
+<dt>General (11 items)</dt><dd>The blank interview canvas and the ten pattern starters. <a href="https://nowucca.com/interviews/patterns/system-design-patterns.excalidrawlib" target="_blank" rel="noopener">system-design-patterns.excalidrawlib</a></dd>
+<dt>Parasail (5 items)</dt><dd>The diagrams for Q1 to Q5 above, orange badges Q1 API, Q2 Meter, Q3 Scale, Q4 Batch, Q5 Serve. <a href="https://nowucca.com/interviews/parasail/parasail-interview.excalidrawlib" target="_blank" rel="noopener">parasail-interview.excalidrawlib</a> (also in <code>~/Work/jobs/llm/parasail/interview/excalidraw/</code> on your Mac)</dd>
+</dl><div class="prose">
+<p>In Excalidraw Plus, open the Library panel (book icon) and drag the file onto it. During the interview, drag the closest template onto the canvas and edit it to match what they ask. It's a starting point, not an answer: build it up live and explain each box as you add it. Single diagrams open with Menu &rarr; Open:</p>
+</div><ul class="reads"><li><a href="https://nowucca.com/interviews/parasail/q1-inference-api.excalidraw" target="_blank" rel="noopener">q1-inference-api.excalidraw</a></li><li><a href="https://nowucca.com/interviews/parasail/q2-token-metering.excalidraw" target="_blank" rel="noopener">q2-token-metering.excalidraw</a></li><li><a href="https://nowucca.com/interviews/parasail/q3-capacity-autoscaling.excalidraw" target="_blank" rel="noopener">q3-capacity-autoscaling.excalidraw</a></li><li><a href="https://nowucca.com/interviews/parasail/q4-batch-inference.excalidraw" target="_blank" rel="noopener">q4-batch-inference.excalidraw</a></li><li><a href="https://nowucca.com/interviews/parasail/q5-serving-internals.excalidraw" target="_blank" rel="noopener">q5-serving-internals.excalidraw</a></li></ul>
+<p class="note">More: the <a href="https://nowucca.com/interviews/ideas/label-the-pattern-first.html" target="_blank" rel="noopener">pattern guide</a> and the <a href="https://nowucca.com/companies/parasail/" target="_blank" rel="noopener">Parasail company profile</a>.</p>
+</section>
+
+<section class="section" id="s9"><h2>10. Questions to ask them</h2><ul class="asks">
+<li>How does the router decide between your own fleet and brokered capacity, and what happens when a partner takes capacity back?</li>
+<li>Where does token counting happen today, and how do you reconcile it with what customers see?</li>
+<li>What does the backend team own: the API and gateway, the control plane, billing? What would I work on first?</li>
+<li>How has the d-Matrix prefill/decode split changed the serving stack, and is disaggregation going wider?</li>
+<li>How does on-call work across data centers you don't run?</li>
+</ul></section>
+</article>
+
+</main>
+<script>
+(function () {
+  function openTarget() {
+    var id = location.hash.slice(1); if (!id) return;
+    var el = document.getElementById(id); if (!el) return;
+    if (el.tagName === "DETAILS") el.open = true;
+    el.scrollIntoView();
+  }
+  window.addEventListener("hashchange", openTarget);
+  openTarget();
+})();
+</script>
+<script>
+(function(){document.querySelectorAll('.plan input[type="checkbox"]').forEach(function(b){
+ try{var v=localStorage.getItem("parasail-plan-"+b.id);if(v!==null)b.checked=v==="1";}catch(e){}
+ b.closest(".step").classList.toggle("done",b.checked);
+ b.addEventListener("change",function(){b.closest(".step").classList.toggle("done",b.checked);
+  try{localStorage.setItem("parasail-plan-"+b.id,b.checked?"1":"0");}catch(e){}});});})();
+</script>
