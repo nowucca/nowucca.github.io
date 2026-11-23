@@ -384,7 +384,8 @@
       "R077",
       "R100",
       "R132",
-      "R181"
+      "R181",
+      "R245"
      ],
      "also": [
       {
@@ -1466,6 +1467,10 @@
       {
        "id": "R233",
        "why": "benchmark: 9B base, starting harness, 24h; harness drove most gains in four of five domains"
+      },
+      {
+       "id": "R245",
+       "why": "Controlled market measuring delegated agents against ground-truth human rankings"
       }
      ]
     },
@@ -6430,6 +6435,25 @@
    ],
    "summary": "Kumo Engine is NVIDIA's open-source library for predictive ML on relational data without hand-built features. You declare tables and keys; it stores them as an on-disk graph, samples each entity's bounded, most recent related records before the prediction time, and trains a built-in GNN from a SQL-like predictive query that generates point-in-time-correct training examples. It runs on one machine over graphs larger than memory and ships an agent skill. Leakage control is the real win; check bounded sampling against the question, compare to a tuned gradient-boosted baseline, and keep promotion gates human-owned.",
    "file": "entries/kumo-engine-gnn-on-relational-tables.html"
+  },
+  {
+   "id": "R245",
+   "slug": "project-swap-agents-trade-preferences",
+   "title": "Project Swap: agents traded well, but didn't know their people",
+   "by": "Anthropic",
+   "source": "https://www.anthropic.com/research/project-swap",
+   "published": "2026-09-24",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/9wgsTTEARpbF8FG5aRtJ84",
+   "tags": [
+    "multi-agent",
+    "agent-markets",
+    "preference-elicitation",
+    "agent-evaluation",
+    "vendor"
+   ],
+   "summary": "Anthropic ran a controlled book-barter market: 201 employees each had a short intake chat, then a Claude agent traded books for them on a decentralized floor, scored against rankings the participants wrote themselves. The agents negotiated well; about 85% of the gap from the best possible outcome came from misreading what people wanted and only 15% from the market. Stronger models negotiated better (Haiku 0.75 vs Opus 0.88 against Claude's own rankings), while ruthless vs prosocial instructions mattered little. The lesson for delegated agents: invest in preference capture, show the user the agent's model of them, and treat counterparty model tier as a fairness lever.",
+   "file": "entries/project-swap-agents-trade-preferences.html"
   }
  ],
  "edges": [
@@ -10248,6 +10272,12 @@
    "b": "R170",
    "strength": "strong",
    "why": "two answers to tabular prediction without feature engineering: TabPFN-4 predicts in context with a pretrained model on one table; Kumo Engine trains a GNN over many linked tables with point-in-time sampling."
+  },
+  {
+   "a": "R245",
+   "b": "R242",
+   "strength": "strong",
+   "why": "two views of delegated buying agents: R242 shows choices bend to context and injected memory; R245 shows most of the loss comes from the agent's weak model of what its person wants."
   }
  ]
 }
