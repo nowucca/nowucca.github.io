@@ -552,7 +552,8 @@
       "R192",
       "R198",
       "R206",
-      "R215"
+      "R215",
+      "R235"
      ],
      "also": [
       {
@@ -6200,6 +6201,25 @@
    ],
    "summary": "On knowledge tasks, outcome-reward RL with propose-and-backtrack reasoning reinforces facts the model invents in its own chains. Across six open models, recall of hallucinations in rewarded rollouts rose 4.83% against 0.17% for unrewarded ones; even false facts retracted in the same chain were memorised; the effect peaked on the hardest questions; and abstention on rewarded hallucinations fell 7.23%. Answer-level evals don't catch it.",
    "file": "entries/rl-post-training-memorizes-own-hallucinations.html"
+  },
+  {
+   "id": "R235",
+   "slug": "jvm-lambda-llm-token-streaming",
+   "title": "Streaming LLM tokens from a managed JVM Lambda: SSE without a custom runtime",
+   "by": "Elena van Engelen-Maslova",
+   "source": "https://github.com/elenavanengelenmaslova/aws-lambda-response-streaming-jvm",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/U8R1PZPUM9TdeNZcm8wwG4",
+   "tags": [
+    "inference-serving",
+    "serverless",
+    "streaming",
+    "jvm",
+    "open-source"
+   ],
+   "summary": "On the managed Java Lambda runtime a RequestStreamHandler's output is buffered until the handler returns, so LLM tokens arrive all at once. An MIT library's core module writes API Gateway's streaming wire format through a 1 MB buffer, lifting the 6 MB response limit to 200 MB; its experimental SSE module posts a chunked response to the Runtime API via a Java agent, keeping the managed runtime and SnapStart, so Bedrock tokens start arriving at about 3% of total response time. Limits: undocumented runtime internals, API Gateway REST only, 2 MB/s after 6 MB, billing continues after client disconnect.",
+   "file": "entries/jvm-lambda-llm-token-streaming.html"
   }
  ],
  "edges": [
@@ -9958,6 +9978,12 @@
    "b": "R228",
    "strength": "strong",
    "why": "both look at what RL post-training actually changes; R234 finds a side effect: outcome rewards reinforce facts invented in the chain."
+  },
+  {
+   "a": "R235",
+   "b": "R096",
+   "strength": "weak",
+   "why": "both attack time-to-first-token on serverless or pod infrastructure without changing the model: restore faster, or stream sooner."
   }
  ]
 }

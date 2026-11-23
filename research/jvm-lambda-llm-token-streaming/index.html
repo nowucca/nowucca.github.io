@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Streaming LLM tokens from a managed JVM Lambda: SSE without a custom runtime · Research</title>
+<meta name="description" content="On the managed Java Lambda runtime a RequestStreamHandler&#x27;s output is buffered until the handler returns, so LLM tokens arrive all at once. An MIT library&#x27;s core module writes API Gateway&#x27;s streaming wire format through a 1 MB buffer, lifting the 6 MB response limit to 200 MB; its experimental SSE module posts a chunked response to the Runtime API via a Java agent, keeping the managed runtime and SnapStart, so Bedrock tokens start arriving at about 3% of total response time. Limits: undocumented runtime internals, API Gateway REST only, 2 MB/s after 6 MB, billing continues after client disconnect.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R235 · Infrastructure for agents at scale › Inference providers and serving reliability</span>
+  <h1>Streaming LLM tokens from a managed JVM Lambda: SSE without a custom runtime</h1>
+  <div class="entry-meta"><span>Elena van Engelen-Maslova</span><span>Published 2026-11-23</span><span>Summarized 2026-11-23</span></div>
+  <p><a href="https://github.com/elenavanengelenmaslova/aws-lambda-response-streaming-jvm" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">inference-serving</span><span class="tag">serverless</span><span class="tag">streaming</span><span class="tag">jvm</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p>Source: Elena van Engelen-Maslova, aws-lambda-response-streaming-jvm (GitHub, MIT; Maven Central nl.vintik:aws-lambda-streaming-core 3.1.0 and aws-lambda-streaming-sse), with a companion Medium article, announced 23 Nov 2026.</p>
+<h2 id="the-problem">The problem</h2>
+<p>AWS ships response-streaming helpers for the managed Node.js Lambda runtime only. On the managed Java runtime, the OutputStream a RequestStreamHandler receives is an in-memory buffer that is posted only after the handler returns, so calling flush does nothing. The README measures this: 15 MB written at 2 ms, handler idle for 10 s, first byte at API Gateway at about 10,069 ms. For LLM token streaming that means the user waits for the whole answer.</p>
+<p>AWS's documented options are a custom runtime (you own runtime updates) or the Lambda Web Adapter (an HTTP server inside the function). Both give up something: managed patching, SnapStart, CRaC priming, or simplicity.</p>
+<h2 id="how-the-library-works">How the library works</h2>
+<ul><li><p><strong>Core module (stable).</strong> Implements API Gateway's streaming wire format: a metadata JSON (status, headers), an 8-null-byte delimiter, then body bytes, copied through a fixed 1 MB buffer with per-chunk flush so memory stays flat. This lifts the 6 MB buffered response limit to Lambda's 200 MB streaming limit. One dependency (kotlinx-serialization-json), no AWS SDK artifacts.</p></li><li><p><strong>SSE module (experimental).</strong> Posts the response itself as a chunked request to the Lambda Runtime API, so bytes leave while the handler is still running. A Java agent (your own fat jar with a Premain-Class manifest entry) stops the managed runtime's invocation loop from sending a second response. Packaging must be a zip with the jar under lib/ so the -javaagent path exists.</p></li><li><p><strong>Result.</strong> Against Bedrock Nova Lite via API Gateway, the first token arrives at about 3% of total response time (0.4 s to first token, then 4.7 s of steady tokens in the recorded demo).</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<div class="table-scroll"><table><thead><tr><th>Option</th><th>Keeps managed runtime and SnapStart</th><th>Token streaming</th><th>Cost</th></tr></thead><tbody><tr><td>Buffered RequestStreamHandler</td><td>Yes</td><td>No</td><td>Users wait for the full answer</td></tr><tr><td>Custom runtime</td><td>No</td><td>Yes</td><td>You own runtime patching</td></tr><tr><td>Lambda Web Adapter</td><td>Partly</td><td>Yes</td><td>Embedded HTTP server and a layer</td></tr><tr><td>This library, core</td><td>Yes</td><td>No (large bodies only)</td><td>Small dependency</td></tr><tr><td>This library, SSE</td><td>Yes</td><td>Yes</td><td>Relies on undocumented runtime internals via a Java agent</td></tr></tbody></table></div>
+<h2 id="limits-and-failure-modes">Limits and failure modes</h2>
+<ul><li><p><strong>Undocumented internals.</strong> The SSE path depends on how the managed runtime's invocation loop behaves today; an AWS runtime update could break it. Pin runtime versions and keep a buffered fallback.</p></li><li><p><strong>API Gateway REST only.</strong> Function URLs aren't supported on the managed JVM runtime with this method.</p></li><li><p><strong>Throughput cap.</strong> After the first 6 MB, Lambda throttles streamed data to 2 MB/s.</p></li><li><p><strong>Billing after disconnect.</strong> The function keeps running and billing until it finishes or times out, even if the client has gone; check for cancellation or cap generation length.</p></li><li><p><strong>Packaging mistakes.</strong> A bare jar as CodeUri is extracted loose, leaving no jar for -javaagent; the zip layout is required.</p></li><li><p><strong>Padding doesn't help.</strong> Adding SSE comment lines to force flushes (a trick used with the Web Adapter in Python) only makes the buffered response bigger here.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li data-checked="false"><p><input disabled="" type="checkbox"/> Is the SSE module behind a flag, with the buffered path as fallback if the agent fails to attach?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Is the Lambda runtime version pinned and covered by a streaming smoke test in CI?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Does the handler stop generation (or bound max tokens) when the client disconnects?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Is the API exposed through API Gateway REST with RESPONSE_STREAM, not a Function URL?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Does the deployment package put the fat jar under lib/ in a zip, with Premain-Class set?</p></li><li data-checked="false"><p><input disabled="" type="checkbox"/> Is time-to-first-token measured end to end, not just inside the function?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R096 NVIDIA Snapshot: checkpoint and restore GPU inference pods in seconds.</p></li><li><p>R193 Hugging Face's own CDN: why model downloads break the web CDN model.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/nvidia-dynamo-snapshot/">NVIDIA Snapshot: checkpoint and restore GPU inference pods in seconds</a><span class="label">R096 · Infrastructure for agents at scale<span class="weak-tag">weak</span></span><span class="why">both attack time-to-first-token on serverless or pod infrastructure without changing the model: restore faster, or stream sooner.</span></li></ul><p><a href="/research/map/#R235">See R235 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
