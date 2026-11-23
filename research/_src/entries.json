@@ -102,6 +102,10 @@
       {
        "id": "R212",
        "why": "working state as typed claims with provenance and dependencies instead of prose"
+      },
+      {
+       "id": "R242",
+       "why": "An injected one-line user memory redirects agent decisions"
       }
      ]
     },
@@ -806,6 +810,10 @@
       {
        "id": "R223",
        "why": "exploratory QA as a CI fan-out: one agent per device/locale/font-scale persona, about $0.15-0.55 per phone"
+      },
+      {
+       "id": "R241",
+       "why": "Policy-gated approval and agent fix loops after the PR"
       }
      ]
     },
@@ -858,7 +866,8 @@
       "R052",
       "R141",
       "R213",
-      "R227"
+      "R227",
+      "R241"
      ],
      "also": [
       {
@@ -1376,7 +1385,8 @@
       "R211",
       "R219",
       "R224",
-      "R228"
+      "R228",
+      "R242"
      ],
      "also": [
       {
@@ -6337,6 +6347,44 @@
    ],
    "summary": "Cerebras now splits production inference across two chip architectures: AMD Instinct GPUs do compute-bound prefill, CS-3 wafer-scale systems do bandwidth-bound decode from on-chip SRAM, and a KV Portal moves the KV cache over RDMA. On one shared GPT-OSS-120B endpoint, throughput per megawatt rose about 5x versus CS-3 only, with no loss in decode speed (vendor-measured, normalized, no time-to-first-token, traffic mix or GPU power accounting). Offered as a full stack or a decode-only SDK. The engineering questions are the cross-vendor KV format and transfer, prefill:decode ratio for agent traffic, prefix caching and doubled failure domains.",
    "file": "entries/cerebras-gpu-prefill-wafer-decode.html"
+  },
+  {
+   "id": "R241",
+   "slug": "claude-ship-agentic-review-policy-approval",
+   "title": "Claude Ship: agentic review, fix and policy-gated approval after the PR",
+   "by": "Anthropic",
+   "source": "https://claude.com/resources/articles/introducing-claude-ship",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/3FrNvjQV7ivBUZyzo4Usn6",
+   "tags": [
+    "code-review",
+    "auto-approval",
+    "agent-delivery",
+    "policy",
+    "vendor"
+   ],
+   "summary": "Claude Ship automates the post-PR loop on GitHub with three agents: Code Review (GA) finds and adversarially verifies issues, PR Steward (beta) fixes CI failures, conflicts and review comments but cannot approve, and Claude Approvals (beta) decides from a policy file checked into the repo which changes can merge without a human. Anthropic reports its own team's merged PRs more than doubled while reverts fell over 40% (one team, uncontrolled). The engineering questions are protecting the policy file, correlated self-review, fix-loop budgets and rolling out in observe mode first.",
+   "file": "entries/claude-ship-agentic-review-policy-approval.html"
+  },
+  {
+   "id": "R242",
+   "slug": "agentic-shopping-contingent-context",
+   "title": "Agentic shopping is contingent: what an AI buyer picks depends on what it saw first",
+   "by": "Wharton Generative AI Labs",
+   "source": "https://gail.wharton.upenn.edu/research-and-insights/technical-report-agentic-shopping/",
+   "published": "2026-08-27",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/WWt921PiBKyYB2dRJgJcjL",
+   "tags": [
+    "agent-evaluation",
+    "robustness",
+    "prompt-injection",
+    "memory",
+    "agentic-commerce"
+   ],
+   "summary": "Across about 26,000 trials, six frontier models acting as shopping agents made stable, model-specific choices on a bare product grid, but one review screenshot, conflicting sources, source order, a single injected memory line or bundling vs splitting tool results shifted picks, sometimes by nearly 100 points. More context made choices less predictable, and susceptibility differed even within a model family. The lesson for agents acting on retrieved content: clean-page benchmarks overstate stability, memory writes are an attack surface, and harness packaging is part of the decision function.",
+   "file": "entries/agentic-shopping-contingent-context.html"
   }
  ],
  "edges": [
@@ -10131,6 +10179,18 @@
    "b": "R051",
    "strength": "strong",
    "why": "R051 names prefill/decode disaggregation as one of six serving techniques; Cerebras runs it across two chip architectures, so the KV transfer R051 warns about also becomes a cross-vendor format boundary."
+  },
+  {
+   "a": "R241",
+   "b": "R141",
+   "strength": "strong",
+   "why": "R141 describes teams building policy-gated auto-approval themselves; R241 productizes the same split (fixer cannot approve, approval authority in a repo policy file)."
+  },
+  {
+   "a": "R242",
+   "b": "R089",
+   "strength": "strong",
+   "why": "R089 turns benchmarks into injection suites; R242 shows the same need for decision agents, where benign-looking context (a review, an order, a memory line) steers choices without any attack string."
   }
  ]
 }
