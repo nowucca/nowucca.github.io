@@ -22,7 +22,8 @@
       "R147",
       "R159",
       "R184",
-      "R191"
+      "R191",
+      "R226"
      ],
      "also": [
       {
@@ -405,6 +406,10 @@
       {
        "id": "R155",
        "why": "Resolve's own follow-up to R031: a single RL-trained agent reaches frontier ensemble quality; the multi-agent system survives as the audited reference-chain labeler"
+      },
+      {
+       "id": "R227",
+       "why": "cross-vendor fan-out for PR review: three model families with their own sub-agents, a separate synthesizer that verifies disagreements against the code rather than voting"
       }
      ]
     }
@@ -810,7 +815,8 @@
      "primary": [
       "R052",
       "R141",
-      "R213"
+      "R213",
+      "R227"
      ],
      "also": [
       {
@@ -877,7 +883,12 @@
      "primary": [
       "R145"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R225",
+       "why": "Anthropic's FDE delivery method: qualify the use case, agree success measures and a baseline before building, ship a first slice, then drive adoption"
+      }
+     ]
     }
    ]
   },
@@ -971,6 +982,10 @@
       {
        "id": "R211",
        "why": "agents tuning a RAG pipeline per dataset beat published designs, at 1.4 to 5.8x the retrieval latency"
+      },
+      {
+       "id": "R226",
+       "why": "full-pool utility scoring instead of similarity shortlists; report rank-1 and end-to-end accuracy, not just recall@k"
       }
      ]
     },
@@ -1766,7 +1781,8 @@
       "R119",
       "R120",
       "R130",
-      "R205"
+      "R205",
+      "R225"
      ],
      "also": [
       {
@@ -5947,6 +5963,65 @@
    ],
    "summary": "A Code Complexity Index of ten structural features (repo size, dependencies, files, hunks and lines changed) predicts average solve rates across eight coding benchmarks with R² ≈ 0.95. BuggyMLE uses that as a dial: an agent injects verified bugs into working ML repos to a mutation budget, an oracle isolates which ones matter, and a solver is graded on recovered metrics. The best of 14 models falls from 95% to 9% across tiers; silent bugs that leave validation intact are fixed far less often; a 9B model trained on the curriculum rivals frontier models.",
    "file": "entries/buggymle-injected-bugs-ml-repos.html"
+  },
+  {
+   "id": "R225",
+   "slug": "anthropic-fde-learning-path",
+   "title": "Anthropic's Forward Deployed Engineer path: 9.5 hours, and the 100 minutes that make it FDE",
+   "by": "Hao Hoang",
+   "source": "https://lnkd.in/p/gx35v_-t",
+   "published": "2026-11-22",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/PP3kjxEEQEmE2ohak6m9hh",
+   "tags": [
+    "certification",
+    "learning-paths",
+    "education",
+    "learning-resources",
+    "agent-skills",
+    "product-management"
+   ],
+   "summary": "Anthropic's Forward Deployed Engineer path on its partner academy: 11 self-paced courses, about 9.5 hours. Nine are shared with the Claude Developer path; the two FDE-specific courses (100 minutes) cover delivery, not code: qualify the use case, agree success measures and capture a baseline before building, ship a first slice, then drive adoption. Seven courses are in the public Academy. Gaps: no eval, security, cost or post-pilot operations course, and it prepares for the Foundations exam rather than Professional.",
+   "file": "entries/anthropic-fde-learning-path.html"
+  },
+  {
+   "id": "R226",
+   "slug": "jetriever-agent-memory-by-usefulness",
+   "title": "Jetriever: rank every agent memory by usefulness, not similarity",
+   "by": "Li, Zhang, Du and Mao; shared by Zelal Gungordu",
+   "source": "https://arxiv.org/abs/2611.21478",
+   "published": "2026-11-16",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/2kEXYjtktEEEUxPH4dbNvs",
+   "tags": [
+    "memory",
+    "retrieval",
+    "rag",
+    "reranking",
+    "calibration",
+    "paper"
+   ],
+   "summary": "Jetriever skips the similarity shortlist: a small LLM-derived decision model scores every stored memory for the probability it helps answer the query. On InMind's 125 indirect queries it ranks the gold memory first 84.8% of the time (BM25 1.6%, MiniLM 0%) and reaches 76% end-to-end application against at most 16% for published systems, near the 84% oracle. A general 9B model recognises as many gold memories in its top 50 but only 40% at rank 1: calibration, not recognition, is the hard part. Cost grows linearly with the pool.",
+   "file": "entries/jetriever-agent-memory-by-usefulness.html"
+  },
+  {
+   "id": "R227",
+   "slug": "cross-model-pr-review-verify-disagreements",
+   "title": "Cross-model PR review: fan out, verify disagreements, don't vote",
+   "by": "Adhish Thite",
+   "source": "https://lnkd.in/p/grnDkuQA",
+   "published": "2026-11-22",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/2c6rddXCUNK9dC3zSfuZzc",
+   "tags": [
+    "code-review",
+    "multi-agent",
+    "agent-workflows",
+    "evals",
+    "inference-cost"
+   ],
+   "summary": "One read-only orchestrator sent the same diff, CI results, comments and repo rules for a 150-file PR to Claude, Codex and Gemini, each splitting the work across its own sub-agents. Verdicts split. A separate synthesizer checked every disagreement and solo high-severity claim against the code instead of voting: it dropped 2 false positives and kept single-model catches, leaving 41 verified findings with agreement scores, handed to a separate fix run. Open issues: the synthesizer shares a family with one reviewer, no human spot check, differing severity scales, no cost given.",
+   "file": "entries/cross-model-pr-review-verify-disagreements.html"
   }
  ],
  "edges": [
@@ -9573,6 +9648,54 @@
    "b": "R103",
    "strength": "strong",
    "why": "silent bugs pass the visible validation metric; only a held-out evaluator the agent can't read catches them."
+  },
+  {
+   "a": "R225",
+   "b": "R130",
+   "strength": "strong",
+   "why": "two steps of Anthropic's own credential ladder: the FDE path prepares for the Foundations exam, R130 covers the Professional exam that follows."
+  },
+  {
+   "a": "R225",
+   "b": "R222",
+   "strength": "strong",
+   "why": "the path's Platform 101 course teaches managed agents, which R222 explains in depth."
+  },
+  {
+   "a": "R225",
+   "b": "R140",
+   "strength": "strong",
+   "why": "R140's ten levels of Claude Code are a hands-on companion to the path's Claude Code 101 and Claude Code in Action courses."
+  },
+  {
+   "a": "R226",
+   "b": "R088",
+   "strength": "strong",
+   "why": "both rank memories by usefulness instead of relevance; MemCredit learns it from outcomes, R226 asks a calibrated decision model at query time."
+  },
+  {
+   "a": "R226",
+   "b": "R059",
+   "strength": "strong",
+   "why": "the raw-history baseline from R059 is the bar R226's per-query full-pool cost has to justify."
+  },
+  {
+   "a": "R227",
+   "b": "R052",
+   "strength": "strong",
+   "why": "opposite answers to large-PR review: R052 bundles files deterministically for one rules-driven reviewer; R227 fans the same diff out to three model families and verifies their disagreements."
+  },
+  {
+   "a": "R227",
+   "b": "R182",
+   "strength": "strong",
+   "why": "R182 grades one tuned reviewer on past incidents with per-stage recall, the measurement R227's single multi-model run lacks."
+  },
+  {
+   "a": "R227",
+   "b": "R100",
+   "strength": "strong",
+   "why": "both accept findings only after an independent check; R100's arbiter reviews a vulnerability swarm, R227's synthesizer checks cross-vendor disagreements against code."
   }
  ]
 }
