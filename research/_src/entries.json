@@ -157,6 +157,10 @@
       {
        "id": "R113",
        "why": "TokenEconomizer learns per-repo cost habits from past sessions"
+      },
+      {
+       "id": "R224",
+       "why": "an easy-to-hard bug-repair curriculum generated from the same repos at rising mutation budgets; a 9B model trained on it transfers to general code repair"
       }
      ]
     },
@@ -1300,7 +1304,8 @@
       "R194",
       "R207",
       "R211",
-      "R219"
+      "R219",
+      "R224"
      ],
      "also": [
       {
@@ -5921,6 +5926,27 @@
    ],
    "summary": "A GitHub Actions template that builds a mobile app once, then fans out one Claude Code exploratory tester per phone persona (device, OS, font scale, dark mode, locale, RTL), each filing bug reports with numbered screenshots and an accessibility probe. On LocalSend, 20 phones found 46 distinct bugs in 69 minutes for $4.62, most on a single configuration. It finds new problems rather than giving deterministic pass/fail, so triage and scripted regressions are still needed.",
    "file": "entries/mobile-agent-testers-persona-matrix.html"
+  },
+  {
+   "id": "R224",
+   "slug": "buggymle-injected-bugs-ml-repos",
+   "title": "BuggyMLE: harder coding evals by injecting verified bugs into working ML repos",
+   "by": "Wu, Qiang, Zhuang et al. (Google Research, Google DeepMind, UIUC); shared by Elvis Saravia",
+   "source": "https://arxiv.org/abs/2611.25088",
+   "published": "2026-11-18",
+   "added": "2026-11-22",
+   "artifact": "https://claude.ai/artifact/1eXRaVVwfRUpA6MddTz8wz",
+   "tags": [
+    "evals",
+    "benchmarks",
+    "coding-agents",
+    "synthetic-data",
+    "rl",
+    "ml-engineering",
+    "paper"
+   ],
+   "summary": "A Code Complexity Index of ten structural features (repo size, dependencies, files, hunks and lines changed) predicts average solve rates across eight coding benchmarks with R² ≈ 0.95. BuggyMLE uses that as a dial: an agent injects verified bugs into working ML repos to a mutation budget, an oracle isolates which ones matter, and a solver is graded on recovered metrics. The best of 14 models falls from 95% to 9% across tiers; silent bugs that leave validation intact are fixed far less often; a 9B model trained on the curriculum rivals frontier models.",
+   "file": "entries/buggymle-injected-bugs-ml-repos.html"
   }
  ],
  "edges": [
@@ -9529,6 +9555,24 @@
    "b": "R167",
    "strength": "strong",
    "why": "each persona's numbered screenshots are the runtime evidence R167 asks for as proof-of-done."
+  },
+  {
+   "a": "R224",
+   "b": "R185",
+   "strength": "strong",
+   "why": "both mine your own code for coding-agent tasks; Benchmark Factory replays landed changes, R224 synthesises graded bugs on a difficulty dial."
+  },
+  {
+   "a": "R224",
+   "b": "R078",
+   "strength": "strong",
+   "why": "R224 answers saturation with a controllable difficulty budget instead of a new fixed benchmark."
+  },
+  {
+   "a": "R224",
+   "b": "R103",
+   "strength": "strong",
+   "why": "silent bugs pass the visible validation metric; only a held-out evaluator the agent can't read catches them."
   }
  ]
 }
