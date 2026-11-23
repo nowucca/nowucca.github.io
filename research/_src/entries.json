@@ -23,7 +23,8 @@
       "R159",
       "R184",
       "R191",
-      "R226"
+      "R226",
+      "R230"
      ],
      "also": [
       {
@@ -463,7 +464,8 @@
      "title": "Consistency and storage tradeoffs",
      "primary": [
       "R046",
-      "R104"
+      "R104",
+      "R231"
      ],
      "also": [
       {
@@ -1003,6 +1005,10 @@
       {
        "id": "R226",
        "why": "full-pool utility scoring instead of similarity shortlists; report rank-1 and end-to-end accuracy, not just recall@k"
+      },
+      {
+       "id": "R230",
+       "why": "exact-pattern search over a plain-text log of every message and tool output, no index or extra model"
       }
      ]
     },
@@ -6085,6 +6091,45 @@
    ],
    "summary": "Each Warp agent (PR review, issue triage, spec writing) runs a base skill. A scheduled improver skill pulls human feedback from PR and issue comments, compares the agent's output with how people reacted, and opens a PR with the smallest edit to the base skill; a human reviews and merges. Advice: principles not rules, explain why, capture feedback where work happens, keep skills small, don't conflate skills with memory, assume feedback is sometimes wrong. Gaps: no before/after quality numbers, no replay or regression check before merge, no pruning.",
    "file": "entries/warp-self-improving-agents-skill-edits.html"
+  },
+  {
+   "id": "R230",
+   "slug": "grepmem-grep-the-verbatim-log",
+   "title": "GrepMem: keep summarising, but let the agent grep the verbatim log",
+   "by": "Yang, Shi and Zhao (USC); shared by Pascal Biese",
+   "source": "https://arxiv.org/abs/2611.25123",
+   "published": "2026-11-18",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/XVfrp4FjCWvi8GS5f2WHZ8",
+   "tags": [
+    "memory",
+    "context-management",
+    "retrieval",
+    "paper"
+   ],
+   "summary": "Keep summarising to hold working memory small, but first append every message and tool output verbatim to a plain-text log, and give the agent a regex search tool over it. With an RL-trained 9B model, exact recall far past the context window reaches 95-97% against at most 21% for summarisation or observation masking, and it beats summarisation by 8.8 points on multi-question research sessions. No embeddings, index or extra model. Limits: one model, controlled benchmarks, and the agent needs a keyword to search for.",
+   "file": "entries/grepmem-grep-the-verbatim-log.html"
+  },
+  {
+   "id": "R231",
+   "slug": "outbox-inbox-under-chaos-measured",
+   "title": "Outbox plus inbox under chaos: four ways to wire one sale to one message, measured",
+   "by": "Lukas Grigis",
+   "source": "https://lukasgrigis.dev/blog/spring-boot-outbox-inbox/",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/Wp97QodWkXKiwKi2pX1iLT",
+   "tags": [
+    "messaging",
+    "outbox",
+    "idempotency",
+    "chaos-testing",
+    "rabbitmq",
+    "spring",
+    "open-source"
+   ],
+   "summary": "Four ways to wire one sale to one message, measured under seeded chaos (kill -9 on apps and broker, Toxiproxy dropping confirms and acks) and counted from both databases. Save-then-send lost 274 of 1,316 committed sales; send-in-transaction made 25 ghosts; a Spring Modulith outbox lost none but applied 25 twice; outbox plus a Postgres inbox (INSERT ... ON CONFLICT DO NOTHING in the consumer's transaction, settle after commit) gave zero of each. Gotcha: since RabbitMQ 4.3 released deliveries skip the quorum-queue delivery limit. One machine, one run per variant.",
+   "file": "entries/outbox-inbox-under-chaos-measured.html"
   }
  ],
  "edges": [
@@ -9789,6 +9834,36 @@
    "b": "R227",
    "strength": "strong",
    "why": "both improve AI code review; R227 adds reviewers from other model families per PR, R229 feeds reviewer comments back into one reviewer's skill."
+  },
+  {
+   "a": "R229",
+   "b": "R182",
+   "strength": "strong",
+   "why": "both are about trusting agent-written changes; R182 verifies the code an agent writes, R229 relies on human review of the skill edits its improver writes."
+  },
+  {
+   "a": "R230",
+   "b": "R059",
+   "strength": "strong",
+   "why": "both find that searching the raw history beats elaborate memory; R230 keeps summaries for the working window and adds grep as the fallback."
+  },
+  {
+   "a": "R230",
+   "b": "R226",
+   "strength": "strong",
+   "why": "opposite bets on recall: Jetriever learns which memories are useful, GrepMem keeps everything and searches it by exact pattern."
+  },
+  {
+   "a": "R231",
+   "b": "R035",
+   "strength": "strong",
+   "why": "durable execution and the transactional outbox solve the same crash-between-commit-and-send gap at different layers."
+  },
+  {
+   "a": "R231",
+   "b": "R084",
+   "strength": "strong",
+   "why": "always-on agents that wake on events need exactly the consumer-side dedup R231 measures."
   }
  ]
 }
