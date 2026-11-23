@@ -422,6 +422,10 @@
       {
        "id": "R227",
        "why": "cross-vendor fan-out for PR review: three model families with their own sub-agents, a separate synthesizer that verifies disagreements against the code rather than voting"
+      },
+      {
+       "id": "R237",
+       "why": "parallel agent teams sharing only proof-checked results, with scheduled idea exchanges"
       }
      ]
     }
@@ -718,7 +722,8 @@
       "R045",
       "R189",
       "R208",
-      "R210"
+      "R210",
+      "R237"
      ],
      "also": [
       {
@@ -6245,6 +6250,25 @@
    ],
    "summary": "A single-binary static scanner with 74 regex and parser rules mapped to CWE and OWASP, SARIF output and CI exit codes. Beyond code, secrets, IaC and OSV dependency checks, it lints the coding agent's own config (.mcp.json, Claude Code settings, hooks and skills, CLAUDE.md, AGENTS.md, Cursor, Gemini, OpenCode, any SKILL.md) for bypassed permissions, pre-approved shell, unpinned npx/uvx MCP servers, plaintext MCP tokens, curl|sh in hooks, literal prompt-injection text, skills reading ~/.ssh and hidden Unicode. Pattern matching only, no runtime coverage, author-measured false positives; a day-old single-maintainer tool, so pin it.",
    "file": "entries/safe-anything-agent-config-scanner.html"
+  },
+  {
+   "id": "R237",
+   "slug": "lean-verified-quantum-programs-agent-teams",
+   "title": "Agent teams discover Lean-verified quantum programs (DeepMind, Gemini 4)",
+   "by": "Google DeepMind and Google Quantum AI",
+   "source": "https://arxiv.org/abs/2611.09822",
+   "published": "2026-11-06",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/SrpzNUc7f1EsbLUaxMKud9",
+   "tags": [
+    "formal-verification",
+    "lean",
+    "multi-agent",
+    "ai-for-science",
+    "quantum"
+   ],
+   "summary": "Quantum circuits too large to simulate can't be scored by running them, so a Lean 4 library (quantum Hoare logic with classical variables plus resource counting) checks correctness and cost against human-written specs. Independent Gemini 4 agent teams search in parallel; only Lean-verified results enter a shared notebook, and teams meet every four hours to trade ideas. Reported against prior baselines: fusion about 12x, photochemistry 8x, Cytochrome P450 2.5x, a Grover implementation 2.57x, an arcsin routine 290x. Spec and cost-model fidelity are the trust boundary; compute is not stated and nothing ran on hardware. The library is Apache-2.0.",
+   "file": "entries/lean-verified-quantum-programs-agent-teams.html"
   }
  ],
  "edges": [
@@ -10015,6 +10039,12 @@
    "b": "R195",
    "strength": "strong",
    "why": "Cursor's incident is the runtime failure; safe-anything is the static check on the config that sets the blast radius (permissions, pinned MCP servers, tokens in files). Neither covers the other."
+  },
+  {
+   "a": "R237",
+   "b": "R208",
+   "strength": "strong",
+   "why": "the same untrusted-search, trusted-checker split at two scales: one Lean checker certifying RDF reasoning, and many agent teams whose shared notebook admits only Lean-verified quantum programs."
   }
  ]
 }
