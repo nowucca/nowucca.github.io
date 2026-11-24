@@ -1,0 +1,484 @@
+{
+ "about": "Who wrote or shared each public Research entry. authors.py parses each entry's `by` line; `people` gives display names, aliases and a short public specialty (leave blank when unknown, and the page falls back to the subtopics the author covers). `overrides` replaces the parse for one entry (role: author = wrote the source or post, shared = surfaced someone else's work). `ignore` drops names the parser should not credit. Only public facts go here.",
+ "people": {
+  "ethan-mollick": {
+   "name": "Ethan Mollick",
+   "kind": "person",
+   "specialty": "Wharton professor who studies how AI changes work and education; writes the One Useful Thing newsletter."
+  },
+  "elvis-saravia": {
+   "name": "Elvis Saravia",
+   "kind": "person",
+   "specialty": "Co-founder of DAIR.AI; explains new LLM and agent papers for practitioners."
+  },
+  "dair-ai": {
+   "name": "DAIR.AI",
+   "kind": "org",
+   "specialty": "Open AI research and education group that posts digests of new papers."
+  },
+  "ruben-hassid": {
+   "name": "Ruben Hassid",
+   "kind": "person",
+   "specialty": "Writes a newsletter on practical prompting and everyday AI tools."
+  },
+  "paul-iusztin": {
+   "name": "Paul Iusztin",
+   "kind": "person",
+   "specialty": "Runs Decoding AI, a newsletter and courses on production LLM and agent engineering."
+  },
+  "gunnar-morling": {
+   "name": "Gunnar Morling",
+   "kind": "person",
+   "specialty": "Java and data-infrastructure engineer; writes about building systems software with agents."
+  },
+  "shubham-saboo": {
+   "name": "Shubham Saboo",
+   "kind": "person",
+   "specialty": "Writes about building AI agents and maintains open-source agent app collections."
+  },
+  "aishwarya-naresh-reganti": {
+   "name": "Aishwarya Naresh Reganti",
+   "kind": "person",
+   "specialty": "Reviews applied LLM and agent research papers."
+  },
+  "pascal-biese": {
+   "name": "Pascal Biese",
+   "kind": "person",
+   "specialty": "Writes LLM Watch, a newsletter summarizing new AI research."
+  },
+  "matthew-purcell": {
+   "name": "Matthew Purcell",
+   "kind": "person",
+   "specialty": "Writes the Unprompted newsletter on hands-on Claude and agent use."
+  },
+  "hao-hoang": {
+   "name": "Hao Hoang",
+   "kind": "person",
+   "specialty": "Posts AI engineering interview questions and paper explainers."
+  },
+  "maryam-miradi": {
+   "name": "Maryam Miradi",
+   "kind": "person",
+   "specialty": "Posts curated maps of agent patterns, tools and repositories."
+  },
+  "andre-lindenberg": {
+   "name": "André Lindenberg",
+   "kind": "person",
+   "specialty": "Surfaces new open-source agent tooling, MCP servers and developer infrastructure; writes the Artificial Engineering newsletter.",
+   "aliases": [
+    "Andre Lindenberg"
+   ]
+  },
+  "jake-van-clief": {
+   "name": "Jake Van Clief",
+   "kind": "person",
+   "specialty": "Founder of Eduba; teaches an agent workflow method through courses and videos."
+  },
+  "the-pragmatic-engineer": {
+   "name": "The Pragmatic Engineer",
+   "kind": "org",
+   "specialty": "Gergely Orosz's newsletter and podcast about how software engineering is done at tech companies."
+  },
+  "clem-delangue": {
+   "name": "Clem Delangue",
+   "kind": "person",
+   "specialty": "Co-founder and CEO of Hugging Face."
+  },
+  "thomas-wolf": {
+   "name": "Thomas Wolf",
+   "kind": "person",
+   "specialty": "Co-founder of Hugging Face."
+  },
+  "yann-lecun": {
+   "name": "Yann LeCun",
+   "kind": "person",
+   "specialty": "AI researcher; Turing Award laureate."
+  },
+  "ali-ghodsi": {
+   "name": "Ali Ghodsi",
+   "kind": "person",
+   "specialty": "Co-founder and CEO of Databricks."
+  },
+  "alvaro-cintas": {
+   "name": "Alvaro Cintas",
+   "kind": "person",
+   "aliases": [
+    "Dr. Alvaro Cintas"
+   ]
+  },
+  "rick-hightower": {
+   "name": "Rick Hightower",
+   "kind": "person"
+  },
+  "charly-wargnier": {
+   "name": "Charly Wargnier",
+   "kind": "person"
+  },
+  "mayank-a": {
+   "name": "Mayank A.",
+   "kind": "person"
+  },
+  "sam-keen": {
+   "name": "Sam Keen",
+   "kind": "person"
+  },
+  "addy-osmani": {
+   "name": "Addy Osmani",
+   "kind": "person"
+  },
+  "sean-goedecke": {
+   "name": "Sean Goedecke",
+   "kind": "person"
+  },
+  "oscar-benedek": {
+   "name": "Oscar Benedek",
+   "kind": "person"
+  },
+  "shahram-anver": {
+   "name": "Shahram Anver",
+   "kind": "person"
+  },
+  "deepak-kumar": {
+   "name": "Deepak Kumar",
+   "kind": "person"
+  },
+  "lauren-tan": {
+   "name": "Lauren Tan",
+   "kind": "person"
+  },
+  "michael-segner": {
+   "name": "Michael Segner",
+   "kind": "person"
+  },
+  "ettore-di-giacinto": {
+   "name": "Ettore Di Giacinto",
+   "kind": "person"
+  },
+  "kiran-prakash": {
+   "name": "Kiran Prakash",
+   "kind": "person"
+  },
+  "remi-louf": {
+   "name": "Rémi Louf",
+   "kind": "person"
+  },
+  "anthropic": {
+   "name": "Anthropic",
+   "kind": "org",
+   "aliases": [
+    "Anthropic Engineering"
+   ]
+  },
+  "openai": {
+   "name": "OpenAI",
+   "kind": "org"
+  },
+  "microsoft-research": {
+   "name": "Microsoft Research",
+   "kind": "org"
+  },
+  "microsoft-ai": {
+   "name": "Microsoft AI",
+   "kind": "org"
+  },
+  "nvidia": {
+   "name": "NVIDIA",
+   "kind": "org",
+   "aliases": [
+    "NVIDIA Technical Blog"
+   ]
+  },
+  "nvidia-ai": {
+   "name": "NVIDIA AI",
+   "kind": "org",
+   "specialty": "NVIDIA's AI account; shares NVIDIA research and developer releases."
+  },
+  "google-deepmind": {
+   "name": "Google DeepMind",
+   "kind": "org"
+  },
+  "google-quantum-ai": {
+   "name": "Google Quantum AI",
+   "kind": "org"
+  },
+  "langchain": {
+   "name": "LangChain",
+   "kind": "org"
+  },
+  "thinking-machines-lab": {
+   "name": "Thinking Machines Lab",
+   "kind": "org"
+  },
+  "databricks": {
+   "name": "Databricks",
+   "kind": "org"
+  },
+  "databricks-labs": {
+   "name": "Databricks Labs",
+   "kind": "org"
+  },
+  "wharton-generative-ai-labs": {
+   "name": "Wharton Generative AI Labs",
+   "kind": "org"
+  },
+  "mit-technology-review": {
+   "name": "MIT Technology Review",
+   "kind": "org"
+  },
+  "uber-engineering": {
+   "name": "Uber Engineering",
+   "kind": "org"
+  },
+  "github": {
+   "name": "GitHub",
+   "kind": "org",
+   "aliases": [
+    "GitHub Blog",
+    "GitHub Changelog"
+   ],
+   "match": [
+    "GitHub Blog",
+    "GitHub Changelog"
+   ]
+  },
+  "hugging-face": {
+   "name": "Hugging Face",
+   "kind": "org"
+  },
+  "resolve-ai": {
+   "name": "Resolve AI",
+   "kind": "org",
+   "aliases": [
+    "ResolveAI Labs"
+   ]
+  },
+  "cerebras": {
+   "name": "Cerebras",
+   "kind": "org"
+  },
+  "expo": {
+   "name": "Expo",
+   "kind": "org"
+  },
+  "litellm": {
+   "name": "LiteLLM",
+   "kind": "org"
+  },
+  "localai": {
+   "name": "LocalAI",
+   "kind": "org"
+  },
+  "delivery-hero": {
+   "name": "Delivery Hero",
+   "kind": "org"
+  },
+  "robinhood": {
+   "name": "Robinhood",
+   "kind": "org"
+  },
+  "infoq": {
+   "name": "InfoQ",
+   "kind": "org"
+  },
+  "thoughtworks": {
+   "name": "Thoughtworks",
+   "kind": "org"
+  },
+  "vectify-ai": {
+   "name": "Vectify AI",
+   "kind": "org"
+  },
+  "dottxt": {
+   "name": ".txt",
+   "kind": "org"
+  },
+  "cncf": {
+   "name": "CNCF",
+   "kind": "org"
+  },
+  "elastic-security-labs": {
+   "name": "Elastic Security Labs",
+   "kind": "org"
+  },
+  "f5": {
+   "name": "F5",
+   "kind": "org",
+   "aliases": [
+    "F5 Labs"
+   ]
+  },
+  "prior-labs": {
+   "name": "Prior Labs",
+   "kind": "org"
+  },
+  "together-ai": {
+   "name": "Together AI",
+   "kind": "org"
+  },
+  "ollama": {
+   "name": "Ollama",
+   "kind": "org"
+  },
+  "zed-industries": {
+   "name": "Zed Industries",
+   "kind": "org"
+  },
+  "cursor": {
+   "name": "Cursor",
+   "kind": "org"
+  },
+  "clickhouse": {
+   "name": "ClickHouse",
+   "kind": "org"
+  },
+  "neuml": {
+   "name": "NeuML",
+   "kind": "org"
+  },
+  "deeplearning-ai": {
+   "name": "DeepLearning.AI",
+   "kind": "org",
+   "aliases": [
+    "The Batch"
+   ]
+  },
+  "claude-for-business": {
+   "name": "Claude for Business",
+   "kind": "org"
+  },
+  "ai-engineering-page": {
+   "name": "AI Engineering (LinkedIn page)",
+   "kind": "org",
+   "aliases": [
+    "the AI Engineering LinkedIn page"
+   ]
+  },
+  "asymptote-labs": {
+   "name": "Asymptote Labs",
+   "kind": "org"
+  },
+  "stanford-online": {
+   "name": "Stanford Online",
+   "kind": "org"
+  },
+  "cisco": {
+   "name": "Cisco",
+   "kind": "org"
+  },
+  "meta": {
+   "name": "Meta",
+   "kind": "org"
+  }
+ },
+ "overrides": {
+  "R109": [
+   {
+    "who": "jake-van-clief",
+    "role": "author"
+   }
+  ],
+  "R163": [
+   {
+    "who": "deepak-kumar",
+    "role": "shared"
+   }
+  ],
+  "R218": [
+   {
+    "who": "alvaro-cintas",
+    "role": "shared"
+   }
+  ],
+  "R027": [
+   {
+    "who": "dottxt",
+    "role": "author"
+   },
+   {
+    "who": "remi-louf",
+    "role": "author"
+   }
+  ],
+  "R035": [
+   {
+    "who": "kiran-prakash",
+    "role": "author"
+   },
+   {
+    "who": "thoughtworks",
+    "role": "author"
+   }
+  ],
+  "R253": [
+   {
+    "who": "localai",
+    "role": "author"
+   },
+   {
+    "who": "ettore-di-giacinto",
+    "role": "author"
+   }
+  ],
+  "R229": [
+   {
+    "who": "michael-segner",
+    "role": "author"
+   },
+   {
+    "who": "claude-for-business",
+    "role": "shared"
+   }
+  ],
+  "R017": [
+   {
+    "who": "shubham-saboo",
+    "role": "author"
+   },
+   {
+    "who": "dave-rensin",
+    "role": "author"
+   }
+  ],
+  "R220": [
+   {
+    "who": "paul-iusztin",
+    "role": "author"
+   },
+   {
+    "who": "matt-pocock",
+    "role": "author"
+   },
+   {
+    "who": "the-pragmatic-engineer",
+    "role": "author"
+   }
+  ],
+  "R187": [
+   {
+    "who": "matt-pocock",
+    "role": "author"
+   },
+   {
+    "who": "artem-kukharenko",
+    "role": "shared"
+   }
+  ],
+  "R243": [
+   {
+    "who": "openai",
+    "role": "author"
+   },
+   {
+    "who": "cisco",
+    "role": "author"
+   }
+  ]
+ },
+ "ignore": [
+  "Serving Trace Lab",
+  "Decoding AI",
+  "Strands Agents",
+  "Hugging Face blog",
+  "Microsoft Foundry Blog"
+ ]
+}

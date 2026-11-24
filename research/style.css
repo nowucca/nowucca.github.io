@@ -150,3 +150,11 @@ html { scroll-behavior: smooth; }
 
 /* Code blocks scroll inside the column */
 .article pre { overflow-x: auto; max-width: 100%; }
+
+/* Authors */
+.registry.authors td.num, .registry.authors th.num { text-align: right; font: 500 0.85rem/1.6 var(--mono); white-space: nowrap; }
+.registry.authors .spec { display: block; color: var(--muted); font-size: 0.86rem; margin-top: 0.2rem; }
+.registry.authors .tags { margin-top: 0.35rem; }
+a.tag.guide-tag { text-decoration: none; color: var(--accent); border-color: var(--accent-soft, var(--line)); }
+.credits { font-size: 0.92rem; }
+.credits .label { margin-right: 0.4rem; }

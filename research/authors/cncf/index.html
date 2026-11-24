@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CNCF · Authors · Research</title>
+<meta name="description" content="CNCF: 1 research entries on nowucca.com.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/" aria-current="page">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">Author · organization</span>
+  <h1>CNCF</h1>
+  <p class="lede">Writes most about agent session hosting and control planes.</p>
+  <div class="entry-meta"><span>1 entry</span><span>Reputation 1.5 · rank 51 of 149</span></div>
+  <div class="tags"><span class="tag">agent-governance</span><span class="tag">agent-harness</span><span class="tag">agent-platforms</span><span class="tag">context-isolation</span><span class="tag">formal-verification</span></div>
+</header><section class="article"><h2>Field guides</h2><p>Entries by CNCF are sources in these guides:</p><div class="tags"><a class="tag guide-tag" href="/research/guides/agent-security/">Agent security · 1</a></div></section><section class="article"><h2>Entries</h2></section><ol class="rows"><li><a class="row" href="/research/openshell/"><span class="date">2026-11-11</span><span class="text"><span class="id">R030</span><span class="title">OpenShell: kernel-enforced sandboxes and verified policy for AI agents</span><span class="one">A runtime for agent fleets: a gateway control plane, and per sandbox a split across a trust boundary, with the sandbox side owning the agent&#x27;s processes and intercepting TCP and DNS (Landlock, seccomp user notification, no capabilities) and a trusted supervisor deciding every request, resolving DNS and injecting credentials only for approved endpoints (agents see placeholders). The supervisor channel is the only egress; the agent cannot start until the boundary is confirmed and freezes if it drops. An SMT-based prover runs a boundary check (does a policy exceed an environment&#x27;s maximum, with counterexamples; usable by a parent agent on a subagent&#x27;s policy) and a proposal risk check on agent-requested network rules (new credentialed hosts, new methods, metadata endpoints), blocking auto-approval. Caveats: guarantees only cover what the prover models (not MCP or GraphQL rules), allowed access can still be misused, approval fatigue, 0.1.x and mid-move to CNCF, telemetry on by default.</span><div class="tags"><span class="tag">agent-platforms</span><span class="tag">agent-governance</span><span class="tag">agent-harness</span><span class="tag">context-isolation</span><span class="tag">formal-verification</span><span class="tag">human-oversight</span></div></span></a></li></ol><p class="foot">Credits come from each entry's byline. <a href="/research/authors/#scoring">How reputation is scored</a>.</p>
+</main>
+</body>
+</html>

@@ -11,12 +11,13 @@
 </head>
 <body>
 <main class="wrap">
-<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/library/">Library</a></nav>
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
 <header class="masthead">
   <span class="label">R227 · AI-built software and its verification › AI code review</span>
   <h1>Cross-model PR review: fan out, verify disagreements, don&#x27;t vote</h1>
   <div class="entry-meta"><span>Adhish Thite</span><span>Published 2026-11-22</span><span>Summarized 2026-11-22</span></div>
   <p><a href="https://lnkd.in/p/grnDkuQA" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/adhish-thite/">Adhish Thite</a></p>
   <div class="tags"><span class="tag">code-review</span><span class="tag">multi-agent</span><span class="tag">agent-workflows</span><span class="tag">evals</span><span class="tag">inference-cost</span></div>
 </header>
 <article class="article"><p>Adhish Thite reviewed a 150-file, 9-commit PR by sending one read-only prompt to Claude, Codex and Gemini, letting each split the work across sub-agents, then having a separate synthesizer check every disagreement against the code instead of voting. The result was 41 verified findings (1 Critical, 10 High), several caught by only one model.</p>

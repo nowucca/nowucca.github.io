@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luís Rodrigues · Authors · Research</title>
+<meta name="description" content="Luís Rodrigues: 1 research entries on nowucca.com.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/" aria-current="page">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">Author · person</span>
+  <h1>Luís Rodrigues</h1>
+  <p class="lede">Writes most about agent interaction protocols.</p>
+  <div class="entry-meta"><span>1 entry</span><span>Reputation 1.25 · rank 85 of 149</span><span>1 of 1 reviewed entries passed on the first round</span></div>
+  <div class="tags"><span class="tag">agent-auth</span><span class="tag">agent-protocols</span><span class="tag">learning-resources</span><span class="tag">mcp</span></div>
+</header><section class="article"><h2>Entries</h2></section><ol class="rows"><li><a class="row" href="/research/mcp-vs-api-adapter/"><span class="date">2026-11-18</span><span class="text"><span class="id">R143</span><span class="title">MCP vs API: an adapter in front of the same endpoints</span><span class="one">Right on the core claim: an MCP server is an adapter calling the same APIs, and the difference is that MCP tells a model what it can ask for. Corrections: MCP has no central hub (one client per configured server; a gateway is something you add, R071); discovery is `tools/list` on servers the host was configured with; someone still writes the tool schemas and descriptions; MCP paths that skip the API gateway create a second, less governed route to the data (R074); remote servers need OAuth 2.1 (R062). The 2026-07-28 revision is stateless (no initialize, no session id), puts `Mcp-Method`/`Mcp-Name` headers on HTTP POSTs for gateway routing, and makes list results cacheable, so MCP now looks much like an HTTP API with a model-facing description layer. Lesson: treat tool descriptions as a versioned interface, keep MCP tools under the same policy as their routes, and pick MCP only when a model chooses the call at run time.</span><div class="tags"><span class="tag">mcp</span><span class="tag">agent-protocols</span><span class="tag">agent-auth</span><span class="tag">learning-resources</span></div></span></a></li></ol><p class="foot">Credits come from each entry's byline. <a href="/research/authors/#scoring">How reputation is scored</a>.</p>
+</main>
+</body>
+</html>

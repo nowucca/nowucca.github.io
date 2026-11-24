@@ -12,10 +12,12 @@ Outputs:
   research/index.html          themes, subtopics and entries, plus a registry
   research/map/index.html      interactive knowledge map of entries and links
   research/<slug>/index.html   one page per entry, with its connections
+  research/authors/            authors ranked by reputation, one page each (authors.py, authors.json)
 
 Jekyll skips _src (leading underscore), so only the generated pages are served.
 """
 import html, json, math, random, re
+import authors as authors_mod
 from datetime import date, datetime
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -102,6 +104,7 @@ def page(title, body, desc, wide=False, active=""):
     nav = [("/research/", "Research"), ("/research/map/", "Knowledge map")]
     if GUIDES:
         nav.append(("/research/guides/", "Field guides"))
+    nav.append(("/research/authors/", "Authors"))
     nav.append(("/library/", "Library"))
     links = " ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if h == active else ""}>{e(t)}</a>' for h, t in nav
@@ -155,6 +158,9 @@ def fill_diagrams(body):
     return re.sub(r'<figure class="diagram" data-diagram="([^"]+)">(.*?)</figure>', sub, body, flags=re.S)
 
 
+AUTHOR_LINKS = {}  # entry id -> html of credited author links, filled in main()
+
+
 def entry_page(cfg, entries, theme_of, sub_of, x):
     t, s = theme_of[x["id"]], sub_of[x["id"]]
     body = (SRC / x["file"]).read_text()
@@ -178,6 +184,7 @@ def entry_page(cfg, entries, theme_of, sub_of, x):
   <h1>{e(x["title"])}</h1>
   <div class="entry-meta"><span>{e(x["by"])}</span><span>Published {e(x["published"])}</span><span>Summarized {e(x["added"])}</span></div>
   <p><a href="{e(x["source"])}" rel="noopener">Read the original</a></p>
+  {AUTHOR_LINKS.get(x["id"], "")}
   {tags(x["tags"])}
 </header>"""
     foot = '<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source\'s own unless the summary says otherwise.</p>'
@@ -197,7 +204,7 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
   <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
 </header>
 <a class="cta" href="/research/map/"><span><span class="cta-title">Knowledge map</span><span class="label">Every entry and how the ideas connect</span></span><span class="cta-go">Open the map &rarr;</span></a>"""]
-    parts[0] += guides_block()
+    parts[0] += guides_block() + authors_block()
     toc = []
     for t in cfg["themes"]:
         n_t = sum(len(s["primary"]) for s in t["subtopics"])
@@ -249,6 +256,106 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
         f"<tbody>{reg}</tbody></table></div></section>"
     )
     (OUT / "index.html").write_text(page("Research", "\n".join(parts), cfg["lede"], active="/research/"))
+
+
+# ---------- authors ----------
+
+AUTHORS = []
+
+
+def guide_short(g):
+    return re.sub(r"^Field guide:\s*", "", g["title"])
+
+
+def guide_chips(a):
+    if not a["guides"]:
+        return ""
+    return '<div class="tags">' + "".join(
+        f'<a class="tag guide-tag" href="/research/guides/{e(g["slug"])}/">{e(guide_short(g))} · {a["guide_count"][g["slug"]]}</a>'
+        for g in a["guides"]) + "</div>"
+
+
+def specialty(a):
+    if a["specialty"]:
+        return e(a["specialty"])
+    subs = [t for (n, t), _ in a["top_subs"]]
+    return "Writes most about " + e(", ".join(subs[:-1]) + (" and " if len(subs) > 1 else "") + subs[-1]).lower() + "." if subs else ""
+
+
+def fmt(x):
+    return f"{x:.2f}".rstrip("0").rstrip(".")
+
+
+def authors_block():
+    if not AUTHORS:
+        return ""
+    return (f'<a class="cta" href="/research/authors/"><span><span class="cta-title">Authors</span>'
+            f'<span class="label">{len(AUTHORS)} people and organizations, ranked by reputation</span></span>'
+            f'<span class="cta-go">See who writes what &rarr;</span></a>')
+
+
+def scoring_note():
+    q = authors_mod.QUALITY
+    return (f'<section class="article" id="scoring"><h2>How reputation is scored</h2>'
+            f'<p>Each public entry an author wrote or shared counts {fmt(q["base"])}. An entry that passed the research Reviewer on its first round adds {fmt(q["review_first_pass"])}; '
+            f'one the Reviewer sent back for revision subtracts {fmt(-q["review_revise"])}. An entry cited by a published field guide adds {fmt(q["in_guide"])}. '
+            f'Authors on the curated trusted-author list get their total multiplied by {fmt(authors_mod.TRUSTED_BOOST)}. '
+            f'Ties go to the author with more entries. Only published entries and field guides count.</p></section>')
+
+
+def author_pages(entries, theme_of, sub_of, updated):
+    if not AUTHORS:
+        return
+    d = OUT / "authors"
+    d.mkdir(exist_ok=True)
+    rows = []
+    for a in AUTHORS:
+        n = len(a["entries"])
+        trusted = '<span class="weak-tag">trusted</span>' if a["trusted"] else ""
+        rows.append(
+            f'<tr><td>{a["rank"]}</td><td><a href="/research/authors/{e(a["slug"])}/">{e(a["name"])}</a>{trusted}'
+            f'<span class="spec">{specialty(a)}</span>{guide_chips(a)}</td>'
+            f'<td class="num">{n}</td><td class="num">{fmt(a["score"])}</td></tr>')
+        ent = []
+        for r in a["entries"]:
+            x = entries[r["id"]]
+            role = '<span class="weak-tag">shared</span>' if r["role"] == "shared" else ""
+            ent.append(
+                f'<li><a class="row" href="/research/{x["slug"]}/"><span class="date">{e(x["added"])}</span>'
+                f'<span class="text"><span class="id">{e(r["id"])}</span>{role}<span class="title">{e(x["title"])}</span>'
+                f'<span class="one">{e(x["summary"])}</span>{tags(x["tags"])}</span></a></li>')
+        n_auth = sum(r["role"] == "author" for r in a["entries"])
+        facts = [f'{n} entr{"y" if n == 1 else "ies"}' + (f' ({n_auth} as author, {n - n_auth} shared)' if 0 < n_auth < n else (" shared" if n_auth == 0 else ""))]
+        facts.append(f'Reputation {fmt(a["score"])} · rank {a["rank"]} of {len(AUTHORS)}')
+        if a["reviewed"]:
+            facts.append(f'{a["first_pass"]} of {a["reviewed"]} reviewed entries passed on the first round')
+        if a["trusted"]:
+            facts.append("On the trusted-author list")
+        guides_html = (f'<section class="article"><h2>Field guides</h2><p>Entries by {e(a["name"])} are sources in these guides:</p>{guide_chips(a)}</section>'
+                       if a["guides"] else "")
+        head = f"""<header class="masthead">
+  <span class="label">Author · {"organization" if a["kind"] == "org" else "person"}</span>
+  <h1>{e(a["name"])}</h1>
+  <p class="lede">{specialty(a)}</p>
+  <div class="entry-meta">{"".join(f"<span>{e(f)}</span>" for f in facts)}</div>
+  {tags(a["top_tags"])}
+</header>"""
+        body = (head + guides_html + f'<section class="article"><h2>Entries</h2></section><ol class="rows">{"".join(ent)}</ol>'
+                + '<p class="foot">Credits come from each entry\'s byline. <a href="/research/authors/#scoring">How reputation is scored</a>.</p>')
+        ad = d / a["slug"]
+        ad.mkdir(exist_ok=True)
+        (ad / "index.html").write_text(page(f'{a["name"]} · Authors · Research', body, f'{a["name"]}: {n} research entries on nowucca.com.', active="/research/authors/"))
+    idx = f"""<header class="masthead">
+  <span class="label">nowucca.com · research</span>
+  <h1>Authors</h1>
+  <p class="lede">Who wrote or shared the sources behind the Research entries, ranked by reputation: how many entries they account for, weighted by how well those entries held up.</p>
+  <div class="meta label"><span>{len(AUTHORS)} authors</span><span>{len(entries)} entries</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
+</header>
+<div class="table-scroll"><table class="registry authors">
+<thead><tr><th>#</th><th>Author, specialty and field guides</th><th class="num">Entries</th><th class="num">Reputation</th></tr></thead>
+<tbody>{"".join(rows)}</tbody></table></div>
+{scoring_note()}"""
+    (d / "index.html").write_text(page("Authors · Research", idx, "Authors behind the research entries on nowucca.com, ranked by reputation.", active="/research/authors/"))
 
 
 # ---------- map ----------
@@ -416,12 +523,24 @@ def main():
     # Build time in Central (Steven's zone); builds only run when something is published.
     now = datetime.now(ZoneInfo("America/Chicago")).replace(second=0, microsecond=0)
     updated = (now.isoformat(), now.strftime("%b %-d, %Y, %-I:%M %p CT"))
+    global AUTHORS
+    AUTHORS, cred = authors_mod.build_authors(entries, GUIDES, theme_of, sub_of)
+    by_slug = {a["slug"]: a for a in AUTHORS}
+    for rid, m in cred.items():
+        if m:
+            links = ", ".join(f'<a href="/research/authors/{e(sl)}/">{e(by_slug[sl]["name"])}</a>' + (" (shared)" if role == "shared" else "")
+                              for sl, role in sorted(m.items(), key=lambda kv: kv[1] == "shared") if sl in by_slug)
+            AUTHOR_LINKS[rid] = f'<p class="credits"><span class="label">Authors</span> {links}</p>'
+    uncredited = [rid for rid, m in cred.items() if not m]
     for x in entries.values():
         entry_page(cfg, entries, theme_of, sub_of, x)
     index_page(cfg, entries, theme_of, sub_of, updated)
     map_page(cfg, entries, theme_of, updated)
     guide_pages(entries, theme_of)
-    print(f"built {len(entries)} entries, index and map (updated {updated[1]})")
+    author_pages(entries, theme_of, sub_of, updated)
+    print(f"built {len(entries)} entries, index, map and {len(AUTHORS)} author pages (updated {updated[1]})")
+    if uncredited:
+        print(f"no author credited for {len(uncredited)} entries (paper author lists are not credited): {' '.join(sorted(uncredited))}")
 
 
 if __name__ == "__main__":
