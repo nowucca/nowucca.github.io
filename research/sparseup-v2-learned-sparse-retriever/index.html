@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SPARSEUP-v2: a 150M learned sparse retriever that matches late interaction · Research</title>
+<meta name="description" content="SPARSEUP-v2 is an Apache 2.0, SPLADE-style learned sparse retriever on ModernBERT-base (about 150M parameters) that turns text into weighted vocabulary terms for an inverted index. The vendor reports 57.2 nDCG@10 on BEIR-15, matching a same-size late-interaction model, plus 59.7 on MTEB English v2 retrieval, and 55.8 even when pruned to 128 terms per document. Changes from v1: sparse contrastive pre-training from scratch, cross-encoder distillation, Matryoshka top-k training and 8,192-token fine-tuning. Key caveats: vendor numbers only, English only, and it still trails late interaction on long documents (MLDR).">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R261 · Knowledge for agents › Retrieval over long documents</span>
+  <h1>SPARSEUP-v2: a 150M learned sparse retriever that matches late interaction</h1>
+  <div class="entry-meta"><span>Linkup Research</span><span>Published 2026-11-24</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://huggingface.co/Linkup-Platform/linkup-sparseup-embed-v2" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">retrieval</span><span class="tag">embeddings</span><span class="tag">open-weights</span><span class="tag">benchmark</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> Linkup Research, SPARSEUP-v2 model card on Hugging Face (Linkup-Platform/linkup-sparseup-embed-v2, Apache 2.0), released late November 2026; the SPARSEUP paper (arXiv 2611.09680); highlighted by Tom Aarsen (Sentence Transformers) on LinkedIn, 2026-11-24.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>A SPLADE-style learned sparse retriever on a ModernBERT-base backbone (about 150M parameters). Each query or document becomes a short list of weighted vocabulary terms, including expansion terms not in the text, scored by dot product. That means it can live in an inverted index, its matches are inspectable term by term, and you store only the active dimensions.</p>
+<h2 id="headline-numbers-vendor-reported">Headline numbers (vendor-reported)</h2>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Family</th><th>Params</th><th>BEIR-15 nDCG@10</th><th>Retrieval FLOPS</th></tr></thead><tbody><tr><td>SPARSEUP-v2</td><td>sparse</td><td>150M</td><td>57.2</td><td>4.2</td></tr><tr><td>SPARSEUP (v1)</td><td>sparse</td><td>150M</td><td>54.5</td><td>6.2</td></tr><tr><td>SPLADE-v3</td><td>sparse</td><td>133M</td><td>50.5</td><td>5.6</td></tr><tr><td>LACONIC-8B</td><td>sparse</td><td>8B</td><td>60.1</td><td>20.1</td></tr><tr><td>LateOn</td><td>late interaction</td><td>149M</td><td>57.2</td><td>n/a</td></tr><tr><td>DenseOn</td><td>dense</td><td>149M</td><td>56.2</td><td>n/a</td></tr></tbody></table></div>
+<ul><li><p>59.7 on MTEB English v2 retrieval, reported as the best sparse score on that leaderboard.</p></li><li><p>With pruning to 128 terms per document it still scores 55.8 on BEIR-15, above v1 at about 342 terms per document.</p></li><li><p>Beyond BEIR, it wins or ties on many of 12 extra benchmarks (strong on finance, BRIGHT-Pro reasoning-heavy retrieval, CURE), but late interaction still clearly leads on long documents (MLDR) and on the LIMIT stress test, and dense or late-interaction models lead on ChemTEB and some forum-style sets.</p></li></ul>
+<h2 id="what-changed-from-v1">What changed from v1</h2>
+<ol><li><p><strong>Sparse contrastive pre-training from scratch</strong>: ModernBERT-base trained directly for sparse retrieval on 665M contrastive pairs, instead of starting from a late-interaction checkpoint.</p></li><li><p><strong>Cross-encoder distillation</strong>: a KL-divergence loss against a large reranker's scores teaches better ranking.</p></li><li><p><strong>Matryoshka top-k training</strong>: the model is trained under several sparsity budgets so you can keep only the top-k terms at inference, trading a little quality for storage and speed.</p></li><li><p><strong>Long-context fine-tuning</strong>: 8,192-token pairs (v1 was 512 tokens).</p></li></ol>
+<p>Kept from v1: a logit shift so training starts sparse, a per-position top-k of 12 vocabulary weights before max pooling, and vocabulary folding that merges case variants (about 50k to 34k dimensions).</p>
+<h2 id="architecture-choices-for-a-retrieval-stack">Architecture choices for a retrieval stack</h2>
+<ul><li><p><strong>Sparse vs dense vs late interaction.</strong> Sparse vectors fit existing inverted-index engines (Lucene/OpenSearch-style), compress well, and explain matches. Dense vectors need an ANN index; late interaction stores many vectors per document and costs the most in storage. At this size SPARSEUP-v2 claims late-interaction quality at sparse cost on BEIR.</p></li><li><p><strong>Sparsity as a runtime knob.</strong> Separate query and document budgets let you tune latency and index size without retraining.</p></li><li><p><strong>Hybrid stays sensible.</strong> Since the strengths differ by domain (long documents, chemistry), a sparse plus dense or sparse plus reranker pipeline is still the safe default.</p></li></ul>
+<h2 id="failure-modes-and-caveats">Failure modes and caveats</h2>
+<ul><li><p>All numbers are the vendor's own; independent replication is not yet available.</p></li><li><p>English only.</p></li><li><p>Long-document retrieval still trails late interaction by a wide margin on MLDR.</p></li><li><p>Expansion terms can match on related vocabulary that is not in the text; good for recall, but it can surface off-topic hits in domains with overloaded terms.</p></li><li><p>Benchmark contamination: the card also reports a decontaminated BEIR variant (59.5), which is the more trustworthy figure to compare against.</p></li></ul>
+<h2 id="review-checklist-before-adopting">Review checklist before adopting</h2>
+<ul><li><p>Re-run on your own query set and corpus, including long documents.</p></li><li><p>Pick query and document term budgets by measuring recall@k against index size.</p></li><li><p>Check your search engine supports learned sparse vectors with float weights and the vocabulary size used.</p></li><li><p>Keep a reranker stage, and compare against your current dense model in a hybrid.</p></li><li><p>Inspect top expansion terms on failure cases; this is the main debugging advantage of sparse retrieval.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>R171 (tiny retrieval embedding models), R106 (a local index combining vectors, SQL and a graph), R211 (agents building RAG systems).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t4)"><a class="to" href="/research/atto-tiny-retrieval-embeddings/">Atto: retrieval embeddings from 840 parameters to 28 million</a><span class="label">R171 · Knowledge for agents</span><span class="why">two ends of cheap retrieval: Atto shrinks dense encoders to fit tiny budgets; SPARSEUP-v2 keeps a base-size encoder but makes vectors sparse and prunable, so cost moves from model size to index size.</span></li></ul><p><a href="/research/map/#R261">See R261 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

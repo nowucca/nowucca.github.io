@@ -1069,7 +1069,8 @@
       "R160",
       "R171",
       "R204",
-      "R256"
+      "R256",
+      "R261"
      ],
      "also": [
       {
@@ -6824,6 +6825,24 @@
    ],
    "summary": "A DAIR.AI reading list of ten 2026 recursive self-improvement papers, grouped by what to change (Meta-Harness, Exo, Hyperagents, a harness-versus-training failure taxonomy), how to tell a gain is real (Harness-Delta Attribution, the winner's curse in self-improvement loops, co-evolving verifiers), how loops get poisoned, and production use (Spotify's recommender, a split pre-training loop), plus five benchmarks. Its real thesis is measurement hygiene: many reported gains are partly selection noise, overfitting, extra compute or grader drift. Key caveat: a curated list with headline numbers from each paper, not a replication.",
    "file": "entries/recursive-self-improvement-2026-ten-papers.html"
+  },
+  {
+   "id": "R261",
+   "slug": "sparseup-v2-learned-sparse-retriever",
+   "title": "SPARSEUP-v2: a 150M learned sparse retriever that matches late interaction",
+   "by": "Linkup Research",
+   "source": "https://huggingface.co/Linkup-Platform/linkup-sparseup-embed-v2",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/3dxyBz1uxAcyNJS9ZZ5rgd",
+   "tags": [
+    "retrieval",
+    "embeddings",
+    "open-weights",
+    "benchmark"
+   ],
+   "summary": "SPARSEUP-v2 is an Apache 2.0, SPLADE-style learned sparse retriever on ModernBERT-base (about 150M parameters) that turns text into weighted vocabulary terms for an inverted index. The vendor reports 57.2 nDCG@10 on BEIR-15, matching a same-size late-interaction model, plus 59.7 on MTEB English v2 retrieval, and 55.8 even when pruned to 128 terms per document. Changes from v1: sparse contrastive pre-training from scratch, cross-encoder distillation, Matryoshka top-k training and 8,192-token fine-tuning. Key caveats: vendor numbers only, English only, and it still trails late interaction on long documents (MLDR).",
+   "file": "entries/sparseup-v2-learned-sparse-retriever.html"
   }
  ],
  "edges": [
@@ -10756,6 +10775,12 @@
    "b": "R066",
    "strength": "strong",
    "why": "R066's statistical acceptance gate is the fix for R260's winner's-curse finding that small-sample selection overstates gains by 13 to 20 points."
+  },
+  {
+   "a": "R261",
+   "b": "R171",
+   "strength": "strong",
+   "why": "two ends of cheap retrieval: Atto shrinks dense encoders to fit tiny budgets; SPARSEUP-v2 keeps a base-size encoder but makes vectors sparse and prunable, so cost moves from model size to index size."
   }
  ]
 }
