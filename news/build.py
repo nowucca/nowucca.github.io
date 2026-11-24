@@ -18,18 +18,28 @@ import datetime as dt
 import html
 import json
 import pathlib
+import re
+import urllib.parse
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
 FONTS = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700'
          '&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">')
+SITE = "https://nowucca.com"
 SECTION_TITLE = "Daily news brief"
 SECTION_LEDE = "A neutral daily roundup — Austin, Texas, the US, Australia, AI, tech, world and a little sport — from well-sourced, low-bias outlets, with every story linked to its source."
 
 e = lambda s: html.escape(str(s), quote=True)
 
 
-def head(title, extra=""):
+def head(title, extra="", desc="", url=""):
+    og = ""
+    if desc or url:
+        og = (f'<meta name="description" content="{e(desc)}">\n'
+              f'<meta property="og:type" content="article">\n<meta property="og:site_name" content="nowucca.com">\n'
+              f'<meta property="og:title" content="{e(title)}">\n<meta property="og:description" content="{e(desc)}">\n'
+              f'<meta property="og:url" content="{e(url)}">\n<meta name="twitter:card" content="summary">\n')
+    extra = og + extra
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -58,15 +68,56 @@ def load():
     return topics, eds
 
 
-def story_html(s):
+def slug(text, used):
+    base = re.sub(r"[^a-z0-9]+", "-", str(text).lower()).strip("-")
+    if len(base) > 60:
+        base = base[:61].rsplit("-", 1)[0]
+    base = base or "story"
+    sid, n = base, 2
+    while sid in used:
+        sid, n = f"{base}-{n}", n + 1
+    used.add(sid)
+    return sid
+
+
+SHARE_ICON = ('<svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" '
+              'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/>'
+              '<path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>')
+
+
+def share_html(s, link):
+    """Per-story share control. Works with no JS (a <details> menu of plain share links);
+    share.js upgrades it to the native share sheet on touch devices and adds Copy link."""
+    q = urllib.parse.quote
+    title = s["headline"]
+    u, t = q(link, safe=""), q(title, safe="")
+    targets = [
+        ("X", f"https://x.com/intent/post?text={t}&url={u}"),
+        ("Bluesky", f"https://bsky.app/intent/compose?text={q(title + ' ' + link, safe='')}"),
+        ("LinkedIn", f"https://www.linkedin.com/sharing/share-offsite/?url={u}"),
+        ("Facebook", f"https://www.facebook.com/sharer/sharer.php?u={u}"),
+        ("Reddit", f"https://www.reddit.com/submit?url={u}&title={t}"),
+        ("WhatsApp", f"https://wa.me/?text={q(title + ' ' + link, safe='')}"),
+        ("Email", f"mailto:?subject={t}&body={q(s['summary'] + chr(10) + chr(10) + link, safe='')}"),
+    ]
+    items = "".join(f'<a href="{e(h)}" target="_blank" rel="noopener">{e(n)}</a>' for n, h in targets)
+    return f"""<details class="share" data-url="{e(link)}" data-title="{e(title)}" data-text="{e(s['summary'])}">
+    <summary aria-label="Share: {e(title)}">{SHARE_ICON}<span>Share</span></summary>
+    <div class="share-menu" role="group" aria-label="Share this story"><button type="button" class="copy" hidden>Copy link</button>{items}</div>
+  </details>"""
+
+
+def story_html(s, page_url, used):
+    sid = slug(s["headline"], used)
     also = ""
     if s.get("also"):
         also = " · also " + ", ".join(f'<a href="{e(a["url"])}" rel="noopener">{e(a["name"])}</a>' for a in s["also"])
     date = f' · {e(s["date"])}' if s.get("date") else ""
-    return f"""<li class="story">
+    return f"""<li class="story" id="{e(sid)}">
   <h3><a href="{e(s['url'])}" rel="noopener">{e(s['headline'])}</a></h3>
   <p>{e(s['summary'])}</p>
-  <p class="src label">{e(s['source'])}{date}{also}</p>
+  <div class="story-foot"><p class="src label">{e(s['source'])}{date}{also}</p>
+  {share_html(s, f"{page_url}#{sid}")}</div>
 </li>"""
 
 
@@ -77,16 +128,20 @@ def edition_page(ed, topics, prev_d, next_d):
     known = {t["id"] for t in topics}
     present += [{"id": k, "title": k.replace("-", " ").title()} for k in secs if k not in known and secs[k]]
     nav = "".join(f'<a href="#{e(t["id"])}">{e(t["title"])}</a>' for t in present)
+    page_url = f"{SITE}/news/{ed['date']}/"
+    used = {t["id"] for t in present}
     body = []
     for t in present:
-        items = "\n".join(story_html(s) for s in secs[t["id"]])
+        items = "\n".join(story_html(s, page_url, used) for s in secs[t["id"]])
         body.append(f'<section id="{e(t["id"])}" class="topic">\n<h2>{e(t["title"])}</h2>\n<ol class="stories">\n{items}\n</ol>\n</section>')
     n = sum(len(secs[t["id"]]) for t in present)
     pn = []
     pn.append(f'<a href="/news/{prev_d}/">&larr; {e(long_date(prev_d))}</a>' if prev_d else "<span></span>")
     pn.append(f'<a href="/news/{next_d}/">{e(long_date(next_d))} &rarr;</a>' if next_d else "<span></span>")
     gen = ed.get("generated", "")
-    return head(f"News brief · {long_date(ed['date'])}") + f"""<main class="wrap">
+    desc = ed.get("headline") or f"{n} stories from well-sourced, low-bias outlets."
+    return head(f"News brief · {long_date(ed['date'])}", '<script src="/news/share.js" defer></script>\n',
+                desc=desc, url=page_url) + f"""<main class="wrap">
 <nav class="crumbs label"><a href="/news/">&larr; All briefs</a><a href="/library/">Library</a></nav>
 <header class="masthead">
   <span class="label">nowucca.com · Daily news brief</span>
