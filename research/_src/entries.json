@@ -849,7 +849,8 @@
       "R216",
       "R217",
       "R220",
-      "R223"
+      "R223",
+      "R248"
      ],
      "also": [
       {
@@ -1334,6 +1335,10 @@
       {
        "id": "R219",
        "why": "tool-use calibration learned from data: training traces that include a no-tool path cut unnecessary calls"
+      },
+      {
+       "id": "R248",
+       "why": "An app framework whose driver lets agents observe and test the UI they built"
       }
      ]
     },
@@ -6507,6 +6512,25 @@
    ],
    "summary": "Model Carving learns a Transformer's architecture and weights in one pretraining run: every attention and MLP sublayer gets a learnable gate, a smooth log penalty tied to the learning rate pushes gates toward zero, and closed sublayers are removed outright, leaving a smaller, heterogeneous network. From 140M to 2.7B parameters, carved models beat dense models trained with up to 1.7x more compute and size-matched pruned or distilled ones, with up to 34% fewer FLOPs per token and 1.6x faster decoding. Caveats: unproven past 2.7B, weaker cooldown gains, harder serving for irregular layers, and data-dependent topology.",
    "file": "entries/model-carving-pretraining-deletes-sublayers.html"
+  },
+  {
+   "id": "R248",
+   "slug": "expo-exact-agent-loop-app-framework",
+   "title": "Exact: Expo's all-platform app framework built around the agent loop",
+   "by": "Expo",
+   "source": "https://github.com/expo/exact",
+   "published": "2026-11",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/2Fr93MyyszCzSZPDHy3EBt",
+   "tags": [
+    "coding-agents",
+    "ui-testing",
+    "frameworks",
+    "open-source",
+    "verification"
+   ],
+   "summary": "Exact is Expo's new open-source (MIT, pre-1.0) app framework: one source tree builds native apps for web, iOS, macOS, Linux and Android, designed so a coding agent can build, run, see and test the app through one deterministic loop. A small typed UI language compiles to a plan run by a Rust VM over real native widgets; one driver exposes the same ten operations (tree, screenshot, tap, clock and so on) on every host, with a driven clock so tests never sleep; one verify command checks themes, widths, accessibility and text scaling. Tradeoffs: immaturity, no React or Flutter plugin bridge, a new language, and driver-observed behavior that can hide real-device bugs.",
+   "file": "entries/expo-exact-agent-loop-app-framework.html"
   }
  ],
  "edges": [
@@ -10349,6 +10373,12 @@
    "b": "R239",
    "strength": "strong",
    "why": "two ends of structured sparsity: Model Carving removes sublayers during pretraining for every input; Dynamic Expert Pruning masks MoE experts per agent at inference time."
+  },
+  {
+   "a": "R248",
+   "b": "R101",
+   "strength": "strong",
+   "why": "two ways to let agents see what they built: SLATE spins up per-change service environments and drives a browser; Exact builds the observe-and-act driver into the UI framework itself."
   }
  ]
 }
