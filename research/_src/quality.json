@@ -768,6 +768,22 @@
   "R268": {
    "verdict": "pass",
    "round": 1
+  },
+  "R269": {
+   "verdict": "revise",
+   "round": 1
+  },
+  "R270": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R271": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R272": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
