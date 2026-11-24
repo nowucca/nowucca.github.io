@@ -178,6 +178,10 @@
       {
        "id": "R238",
        "why": "infrastructure for RL runs that climb from a base model over months, staleness and numerical parity as first-class concerns"
+      },
+      {
+       "id": "R246",
+       "why": "Agent-filed papercuts feed a loop that fixes and re-evaluates skills"
       }
      ]
     },
@@ -479,6 +483,10 @@
       {
        "id": "R243",
        "why": "Agent-written runtime mitigations deployed to production hosts"
+      },
+      {
+       "id": "R246",
+       "why": "Platform operations for a company-wide agent skills marketplace"
       }
      ]
     },
@@ -1393,7 +1401,8 @@
       "R219",
       "R224",
       "R228",
-      "R242"
+      "R242",
+      "R246"
      ],
      "also": [
       {
@@ -6454,6 +6463,26 @@
    ],
    "summary": "Anthropic ran a controlled book-barter market: 201 employees each had a short intake chat, then a Claude agent traded books for them on a decentralized floor, scored against rankings the participants wrote themselves. The agents negotiated well; about 85% of the gap from the best possible outcome came from misreading what people wanted and only 15% from the market. Stronger models negotiated better (Haiku 0.75 vs Opus 0.88 against Claude's own rankings), while ruthless vs prosocial instructions mattered little. The lesson for delegated agents: invest in preference capture, show the user the agent's model of them, and treat counterparty model tier as a fairness lever.",
    "file": "entries/project-swap-agents-trade-preferences.html"
+  },
+  {
+   "id": "R246",
+   "slug": "uber-skills-marketplace-evals-ablation",
+   "title": "Uber's skills marketplace: evals, ablation and agent-filed papercuts",
+   "by": "Uber Engineering",
+   "source": "https://www.uber.com/us/en/blog/optimizing-ubers-agent-skills/",
+   "published": "2026-11-23",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/LpLSuJrLcnc3RgGDbPUG6P",
+   "tags": [
+    "agent-skills",
+    "evals",
+    "ablation",
+    "cost",
+    "telemetry",
+    "developer-infrastructure"
+   ],
+   "summary": "Uber runs one Git-backed marketplace of more than 5,000 agent skills serving Claude Code, Codex, Cursor and internal agents, with over a million invocations a month. Around it: three tiers with rising bars, one CLI that translates skills into each agent's config, OpenTelemetry per-skill metrics, spec-first authoring with a linter, eval suites mixing golden, trajectory-graded and human-judged cases, and with/without ablation against a noise band. Cost levers include Code Mode scripts, cheaper worker subagents and load-time scripts, and an always-on skill lets agents file their own papercuts. Open problem: evaluating rare, high-stakes workflows.",
+   "file": "entries/uber-skills-marketplace-evals-ablation.html"
   }
  ],
  "edges": [
@@ -10278,6 +10307,18 @@
    "b": "R242",
    "strength": "strong",
    "why": "two views of delegated buying agents: R242 shows choices bend to context and injected memory; R245 shows most of the loss comes from the agent's weak model of what its person wants."
+  },
+  {
+   "a": "R246",
+   "b": "R071",
+   "strength": "strong",
+   "why": "the third layer of Uber's agent platform: MCP Gateway exposes tools, SLATE tests changes, and the skills marketplace packages workflows with evals and cost tracking on top of both."
+  },
+  {
+   "a": "R246",
+   "b": "R101",
+   "strength": "strong",
+   "why": "the third layer of Uber's agent platform: MCP Gateway exposes tools, SLATE tests changes, and the skills marketplace packages workflows with evals and cost tracking on top of both."
   }
  ]
 }
