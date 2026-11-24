@@ -964,6 +964,10 @@
       {
        "id": "R225",
        "why": "Anthropic's FDE delivery method: qualify the use case, agree success measures and a baseline before building, ship a first slice, then drive adoption"
+      },
+      {
+       "id": "R249",
+       "why": "Review of AI output emerges as the main internal bottleneck across 58 companies"
       }
      ]
     }
@@ -1835,7 +1839,8 @@
      "n": "7.5",
      "title": "Work, skills and meaning",
      "primary": [
-      "R075"
+      "R075",
+      "R249"
      ],
      "also": []
     }
@@ -6531,6 +6536,25 @@
    ],
    "summary": "Exact is Expo's new open-source (MIT, pre-1.0) app framework: one source tree builds native apps for web, iOS, macOS, Linux and Android, designed so a coding agent can build, run, see and test the app through one deterministic loop. A small typed UI language compiles to a plan run by a Rust VM over real native widgets; one driver exposes the same ten operations (tree, screenshot, tap, clock and so on) on every host, with a driven clock so tests never sleep; one verify command checks themes, widths, accessibility and text scaling. Tradeoffs: immaturity, no React or Flutter plugin bridge, a new language, and driver-observed behavior that can hide real-device bugs.",
    "file": "entries/expo-exact-agent-loop-app-framework.html"
+  },
+  {
+   "id": "R249",
+   "slug": "working-with-ai-reorganizing-not-automating",
+   "title": "Working with AI: value comes from reorganizing, not automating",
+   "by": "Anthropic",
+   "source": "https://www.anthropic.com/research/working-with-ai",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/UYppXpfuDYarEEDLTmrrEe",
+   "tags": [
+    "enterprise-adoption",
+    "organizational-change",
+    "labor-market",
+    "field-study",
+    "code-review"
+   ],
+   "summary": "Anthropic's qualitative report from 66 interviews at 58 US companies finds the highest-value AI uses forced an organizational change (merged roles, new review processes, shared data), while light-touch uses were mostly rated low value. Value showed up mainly as more output rather than lower cost; few positions were eliminated outright, but about two-thirds hired less. Bottlenecks were internal, above all review of AI output. Of three adoption strategies (top-down automation, bottom-up experimentation, reorganizing around AI), reorganizing worked best. Engineering takeaways: name a maintainer per agent workflow, design for model churn, staff review first, build agent-readable data and a paved road for citizen-built apps.",
+   "file": "entries/working-with-ai-reorganizing-not-automating.html"
   }
  ],
  "edges": [
@@ -10379,6 +10403,12 @@
    "b": "R101",
    "strength": "strong",
    "why": "two ways to let agents see what they built: SLATE spins up per-change service environments and drives a browser; Exact builds the observe-and-act driver into the UI framework itself."
+  },
+  {
+   "a": "R249",
+   "b": "R145",
+   "strength": "strong",
+   "why": "the same bottleneck shift seen from two sides: R145 redesigns product management once delivery runs on agents; R249's interviews find firms redeploying engineers to review, requirements and customer work as coding speeds up."
   }
  ]
 }
