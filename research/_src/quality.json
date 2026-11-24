@@ -784,6 +784,18 @@
   "R272": {
    "verdict": "pass",
    "round": 1
+  },
+  "R273": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R274": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R275": {
+   "verdict": "revise",
+   "round": 1
   }
  },
  "trusted": [

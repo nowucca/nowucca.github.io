@@ -1071,7 +1071,8 @@
       "R117",
       "R136",
       "R199",
-      "R203"
+      "R203",
+      "R276"
      ],
      "also": [
       {
@@ -7162,7 +7163,7 @@
     "weight-editing",
     "research"
    ],
-   "summary": "In SELFWRITE, a model studies its own reasoning, inspects its weights and activations in a persistent Python session with white-box primitives only, then writes a program that builds a low-rank edit to its own weights with no gradient step. Each candidate is graded once on a hidden gate set and only a strictly improving edit is merged, and the edited model writes the next edit. Over five generations on Qwen3.8-27B, held-out avg@4 rises from 76.30% to 77.75% and pass@4 from 82.60% to 84.80%. Key caveats: a 1.5 to 2.5 point gain on one model and one domain, acceptance is a hill-climb on a single gate set, and this summary covers the abstract only.",
+   "summary": "In SELFWRITE, a model studies its own reasoning, inspects its weights and activations in a persistent Python session with white-box primitives only, then writes a program that builds a low-rank edit to its own weights with no gradient step. Each candidate is graded once on a hidden gate set and only a strictly improving edit is merged, and the edited model writes the next edit. Over five generations on Qwen3.8-27B, held-out avg@4 rises from 76.30% to 77.75% and pass@4 from 82.60% to 84.80%. Key caveats: a 1.5 to 2.5 point gain on one model and one domain, acceptance is a hill-climb on a single gate set.",
    "file": "entries/selfwrite-model-programs-own-weight-edits.html"
   },
   {
@@ -7182,6 +7183,24 @@
    ],
    "summary": "Baseten describes replacing the stored Hugging Face token that inference platforms use to pull private weights with workload identity: at deploy time the platform mints a signed identity token asserting its organization, team and workload type, Hugging Face checks it against the repo's Trusted Publisher settings and issues a token scoped to one repo, read-only, expiring within an hour. The read-only option did not exist until they asked for it. Key caveats: a one-hour token cannot be unissued, everything rests on the signed claims being unspoofable, and nothing here governs where the weights live after the pull.",
    "file": "entries/private-weights-one-hour-read-only-token.html"
+  },
+  {
+   "id": "R276",
+   "slug": "design-md-plain-text-design-system",
+   "title": "DESIGN.md: a plain-text design system for coding agents",
+   "by": "VoltAgent",
+   "source": "[LinkedIn, Aymane Mrini](https://lnkd.in/p/ggSBzqxY); [GitHub, VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/8fbm1U5zCqa69AwVu7WEW6",
+   "tags": [
+    "docs-as-code",
+    "agent-coding",
+    "tooling",
+    "open-source"
+   ],
+   "summary": "DESIGN.md is a markdown file at the project root that states a design system in prose and tables — colors, typography, spacing, components, layout rules — so a coding or design agent reads it like any other repository file: AGENTS.md says how to build the project, DESIGN.md says how it should look. The format follows Google Stitch's nine sections, two of which do work a JSON token file cannot: a do's-and-don'ts section that states what not to do, and a visual-theme section that gives an agent intent to extrapolate from. The collection ships 83 files extracted from public websites, each with light and dark preview pages. Key caveats: nothing validates the hex values or their contrast, nothing keeps the file in agreement with the code, extraction fidelity against any company's real system is unverified, and a third-party file carrying an “agent prompt guide” is outside instructions dropped where the agent reads every task.",
+   "file": "entries/design-md-plain-text-design-system.html"
   }
  ],
  "edges": [
@@ -11252,6 +11271,12 @@
    "b": "R262",
    "strength": "strong",
    "why": "opposite directions on the same credential. R275 removes the stored token from a weights pull entirely; the control plane in R262 works by reading every installed agent's login file, which is the long-lived credential this replaces, now concentrated in one more process."
+  },
+  {
+   "a": "R276",
+   "b": "R199",
+   "strength": "strong",
+   "why": "both put knowledge an agent needs into a plain file in the repo, and only one of them checks it. Trail-code gates commits on its decision records; DESIGN.md has no link to the implementation at all, so a wrong color ships where a wrong build instruction would have failed."
   }
  ]
 }
