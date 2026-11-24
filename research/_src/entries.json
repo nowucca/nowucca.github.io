@@ -136,7 +136,8 @@
       "R221",
       "R229",
       "R233",
-      "R234"
+      "R234",
+      "R252"
      ],
      "also": [
       {
@@ -587,7 +588,8 @@
       "R238",
       "R239",
       "R240",
-      "R247"
+      "R247",
+      "R253"
      ],
      "also": [
       {
@@ -625,6 +627,10 @@
       {
        "id": "R228",
        "why": "small-model RL on TPUs is orchestration-bound; local per-host rollout beats a single controller"
+      },
+      {
+       "id": "R252",
+       "why": "Stackable soft-prompt skills served at near-backbone throughput"
       }
      ]
     },
@@ -1349,6 +1355,10 @@
       {
        "id": "R248",
        "why": "An app framework whose driver lets agents observe and test the UI they built"
+      },
+      {
+       "id": "R253",
+       "why": "A self-hosted agent workspace built on undo, sandboxing and human-only permissions"
       }
      ]
     },
@@ -6603,6 +6613,44 @@
    ],
    "summary": "pequalnp.com is an open, continuously running fleet of AI agents attacking P vs NP; anyone can connect an agent with one command. Programs hold lines of attack, orchestrators assign lemmas, thinker agents argue on paper, builder agents write Lean, a red team hunts counterexamples, a barrier desk checks approaches against known barriers, and a pinned Lean checker is the only judge. Early on it showed about 370 agents and 1,599 of 3,366 lemmas checked. The realistic output is a library of checked lemmas and a test of open-fleet coordination; risks include lemma inflation, statement drift and wasted compute.",
    "file": "entries/pequalnp-open-agent-fleet-lean-judge.html"
+  },
+  {
+   "id": "R252",
+   "slug": "cspd-stackable-soft-prompt-rl-skills",
+   "title": "CSPD: add RL-trained skills to a frozen model as stackable soft prompts",
+   "by": "Zhang, Yang, He et al.",
+   "source": "https://arxiv.org/abs/2611.27376",
+   "published": "2026-11-20",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/TXfmSaZtLaWAgCbyLrCpDw",
+   "tags": [
+    "post-training",
+    "continual-learning",
+    "distillation",
+    "rl",
+    "paper"
+   ],
+   "summary": "CSPD keeps the pre-RL base model frozen and distills each RL expert (math, code, agents) into its own soft prompt, a short block of learned embeddings; skills compose by concatenating prompts with no joint training. One prompt recovers at least 90% of the RL teacher's gain in 22 of 23 settings, the full composition matches multi-teacher on-policy distillation (67.83 vs 67.79), and throughput stays within 1.5% of the backbone, about 2.4x a rank-4 LoRA. Limits: one base model and few domains for composition, context cost per skill, re-distilling on every backbone upgrade, and open weights only.",
+   "file": "entries/cspd-stackable-soft-prompt-rl-skills.html"
+  },
+  {
+   "id": "R253",
+   "slug": "localai-5-workspace-sandbox-undo",
+   "title": "LocalAI 5.0: a self-hosted model server grows a workspace, sandbox and undo",
+   "by": "LocalAI (Ettore Di Giacinto)",
+   "source": "https://localai.io/blog/localai-5-0/",
+   "published": "2026-11-18",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/U5pPVpdn3bek9vLzZB8GVY",
+   "tags": [
+    "self-hosting",
+    "open-source",
+    "inference-serving",
+    "sandboxing",
+    "agent-workspace"
+   ],
+   "summary": "LocalAI, the MIT-licensed self-hosted server that runs text, vision, image, audio and speech models behind OpenAI- and Anthropic-format APIs with 80+ backends, grows into an agent workspace in 5.0: a desktop app, projects with memory notes, a files page whose History tab undoes model changes, Office and PDF tools, a no-network Linux bash sandbox where each command is one undoable change, team sharing that only humans can change, sandboxed HTML pages and server-side chats with sub-agents. Caveats: add-ons other than the sandbox run with server OS privileges, and projects are not security boundaries.",
+   "file": "entries/localai-5-workspace-sandbox-undo.html"
   }
  ],
  "edges": [
@@ -10469,6 +10517,18 @@
    "b": "R250",
    "strength": "strong",
    "why": "the same week, the algebraic analogue of P vs NP was claimed by a single lab's model, while an open agent fleet attacks the Boolean question itself with Lean as its only judge."
+  },
+  {
+   "a": "R252",
+   "b": "R126",
+   "strength": "strong",
+   "why": "two ways to add RL-tuned behavior to an open model: R126 trains a harness-specific LoRA; R252 freezes the model and stacks one soft prompt per RL expert, with lower serving overhead but context cost."
+  },
+  {
+   "a": "R253",
+   "b": "R061",
+   "strength": "strong",
+   "why": "sandboxing agent code in practice: R061 uses an interpreter instead of a VM; LocalAI 5.0 runs a no-network bash runtime with files mounted and every command undoable."
   }
  ]
 }

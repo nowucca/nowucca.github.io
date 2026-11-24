@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CSPD: add RL-trained skills to a frozen model as stackable soft prompts · Research</title>
+<meta name="description" content="CSPD keeps the pre-RL base model frozen and distills each RL expert (math, code, agents) into its own soft prompt, a short block of learned embeddings; skills compose by concatenating prompts with no joint training. One prompt recovers at least 90% of the RL teacher&#x27;s gain in 22 of 23 settings, the full composition matches multi-teacher on-policy distillation (67.83 vs 67.79), and throughput stays within 1.5% of the backbone, about 2.4x a rank-4 LoRA. Limits: one base model and few domains for composition, context cost per skill, re-distilling on every backbone upgrade, and open weights only.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R252 · Agent architecture › Self-improvement and learning loops</span>
+  <h1>CSPD: add RL-trained skills to a frozen model as stackable soft prompts</h1>
+  <div class="entry-meta"><span>Zhang, Yang, He et al.</span><span>Published 2026-11-20</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://arxiv.org/abs/2611.27376" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">post-training</span><span class="tag">continual-learning</span><span class="tag">distillation</span><span class="tag">rl</span><span class="tag">paper</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Zhang, Yang, He et al. (28 authors including Alkesh Patel, Zhe Gan and Xin Eric Wang; the post credits Apple, NVIDIA and university researchers), <em>Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training</em>, <a href="https://arxiv.org/abs/2611.27376">arXiv 2611.27376</a>, submitted 2026-11-20. Surfaced by <a href="https://lnkd.in/p/gxvqNfiJ">Pascal Biese's post</a>.</p>
+<h2 id="the-problem">The problem</h2>
+<p>RL post-training produces domain experts (math, code, agents). Shipping one model means consolidating them, usually by weight merging or multi-teacher on-policy distillation (MOPD). When experts keep arriving, consolidation becomes a continual process: every new expert forces a re-merge or re-distill of the whole model, and each round can erode capabilities outside the target domains.</p>
+<h2 id="the-method">The method</h2>
+<ul><li><p>Keep the pre-RL base model frozen.</p></li><li><p>Distill each RL expert independently into a <strong>soft prompt</strong>: a short block of learned embedding vectors placed in the input.</p></li><li><p>Compose skills by <strong>concatenating</strong> their soft prompts, with no joint training. Add a skill by training its block; remove one by dropping it.</p></li></ul>
+<h2 id="results-from-the-abstract">Results (from the abstract)</h2>
+<ul><li><p>One soft prompt recovers at least 90% of the RL teacher's gain in 22 of 23 math, code and agent settings, across several open backbones.</p></li><li><p>Independently trained prompts compose: with experts added one at a time, the average score rises with each addition, and the full composition matches MOPD (67.83 vs 67.79).</p></li><li><p>The composition generalizes best on six held-out benchmarks.</p></li><li><p>Serving cost: throughput stays within 1.5% of the unadapted backbone, about 2.4x a rank-4 LoRA.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<div class="table-scroll"><table><thead><tr><th></th><th>CSPD</th><th>Weight merging / MOPD</th><th>LoRA adapters</th></tr></thead><tbody><tr><td>Add a skill</td><td>Train one prompt</td><td>Re-consolidate whole model</td><td>Train one adapter, then merge or route</td></tr><tr><td>Interference with old skills</td><td>Base frozen; prompts interact only through attention</td><td>Can erode skills</td><td>Merge can interfere</td></tr><tr><td>Serving</td><td>Near-backbone throughput; costs context tokens</td><td>Single model</td><td>Adapter overhead (about 2.4x slower than CSPD here)</td></tr><tr><td>Base-model upgrade</td><td>Rebuild every prompt</td><td>Re-run consolidation</td><td>Rebuild every adapter</td></tr></tbody></table></div>
+<h2 id="limits-to-keep-in-mind">Limits to keep in mind</h2>
+<ul><li><p>The multi-expert composition result is on one base model with few domains and, per the post's reading, a single run. Variance across seeds and orders is not established.</p></li><li><p>Each prompt uses context window. Stacking many skills adds memory and prefill cost and competes with the user's input.</p></li><li><p>Prompts are tied to one backbone, so a model upgrade means re-distilling the whole library.</p></li><li><p>Soft prompts need embedding-level access to the model, so this works for open weights you serve yourself, not closed APIs.</p></li></ul>
+<h2 id="engineering-takeaways">Engineering takeaways</h2>
+<ul><li><p><strong>A skill library on a fixed backbone becomes plausible.</strong> Teams that self-host can treat RL-tuned skills as deployable artifacts, versioned and toggled per request, without re-releasing the model.</p></li><li><p><strong>Order and interaction tests matter.</strong> If skills compose by concatenation, CI should test combinations and orderings, not each skill alone.</p></li><li><p><strong>Budget the context.</strong> Track the token cost of each skill prompt the way you would track adapter memory.</p></li></ul>
+<h2 id="review-checklist">Review checklist</h2>
+<ul><li><p>Has composition been tested across seeds, orders and more than one backbone?</p></li><li><p>What is the token length per skill, and how many fit before quality or latency drops?</p></li><li><p>Does adding a skill degrade held-out general tasks?</p></li><li><p>What is the re-distillation cost when the base model changes?</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<ul><li><p>R126: RL-tuning an open model for one coding agent with a harness-specific LoRA.</p></li><li><p>R202: RL post-training in diffusion transformers as a near-constant steering shift.</p></li><li><p>R247: Model Carving, pretraining that deletes its own sublayers.</p></li></ul>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t1)"><a class="to" href="/research/harness-adapters-rl-tuned-qwen-pi/">Harness adapters: RL-tuning an open model for one coding agent</a><span class="label">R126 · Agent architecture</span><span class="why">two ways to add RL-tuned behavior to an open model: R126 trains a harness-specific LoRA; R252 freezes the model and stacks one soft prompt per RL expert, with lower serving overhead but context cost.</span></li></ul><p><a href="/research/map/#R252">See R252 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
