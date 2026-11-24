@@ -257,6 +257,10 @@
       {
        "id": "R229",
        "why": "self-edits to skills land only as small PRs that cite the feedback behind them; a human merges, so the review queue is the acceptance gate"
+      },
+      {
+       "id": "R256",
+       "why": "Governed ontology tools served to agents over MCP"
       }
      ]
     },
@@ -1054,7 +1058,8 @@
       "R137",
       "R160",
       "R171",
-      "R204"
+      "R204",
+      "R256"
      ],
      "also": [
       {
@@ -6700,6 +6705,25 @@
    ],
    "summary": "Isolating eight country stacks would have multiplied relational cluster costs, so talabat asked which datasets were actually relational. Carts and orders are aggregates read and written whole, so each became one DynamoDB item holding snapshots of values it doesn't own, re-validated at checkout; per-request billing removes the per-market cost floor, with a reported 70 to 90% storage cost cut. The migration ran in four phases (abstraction, dark build, dual-write shadow with background comparison, cohort rollout), graduating only on days of near-zero mismatches. An AI agent now drafts storage recommendations and migration plans for human review.",
    "file": "entries/talabat-fit-store-to-data-shadow-migration.html"
+  },
+  {
+   "id": "R256",
+   "slug": "ontobricks-ontology-over-warehouse-mcp",
+   "title": "OntoBricks: an ontology over live warehouse tables, served to agents over MCP",
+   "by": "Databricks Labs",
+   "source": "https://github.com/databrickslabs/ontobricks",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/99gksXX9tkxCnedtmPJfML",
+   "tags": [
+    "knowledge-graph",
+    "ontology",
+    "mcp",
+    "data-governance",
+    "open-source"
+   ],
+   "summary": "OntoBricks, a Databricks Labs project, puts an OWL ontology on top of Unity Catalog tables instead of copying data into a separate graph database: LLM-assisted ontology design and SQL mappings compile to R2RML, triples are views over live tables (or a Lakebase snapshot or Neo4j), OWL 2 RL, SWRL and SHACL compile to SQL, and each domain publishes chosen MCP tools plus GraphQL and read-only SPARQL. Versioned domains have a draft, review and publish lifecycle, and MCP tools run as the end user. Key caveat: freshness is per path, since SPARQL reads current rows while MCP lookups use snapshot indexes.",
+   "file": "entries/ontobricks-ontology-over-warehouse-mcp.html"
   }
  ],
  "edges": [
@@ -10590,6 +10614,12 @@
    "b": "R124",
    "strength": "strong",
    "why": "gating a migration on recorded behavior: R124 ports code unit by unit against recorded outputs; R255 shadows a new store on live traffic and graduates only when mismatches stay near zero for days."
+  },
+  {
+   "a": "R256",
+   "b": "R159",
+   "strength": "strong",
+   "why": "two answers to a stale graph: R159 versions the graph and tells the agent what it can't answer; R256 avoids the copy by defining triples as views over live tables, though its MCP lookups still read snapshot indexes."
   }
  ]
 }
