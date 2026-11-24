@@ -299,7 +299,6 @@ def scoring_note():
     return (f'<section class="article" id="scoring"><h2>How reputation is scored</h2>'
             f'<p>Each public entry an author wrote or shared counts {fmt(q["base"])}. An entry that passed the research Reviewer on its first round adds {fmt(q["review_first_pass"])}; '
             f'one the Reviewer sent back for revision subtracts {fmt(-q["review_revise"])}. An entry cited by a published field guide adds {fmt(q["in_guide"])}. '
-            f'Authors on the curated trusted-author list get their total multiplied by {fmt(authors_mod.TRUSTED_BOOST)}. '
             f'Ties go to the author with more entries. Only published entries and field guides count.</p></section>')
 
 
@@ -311,9 +310,8 @@ def author_pages(entries, theme_of, sub_of, updated):
     rows = []
     for a in AUTHORS:
         n = len(a["entries"])
-        trusted = '<span class="weak-tag">trusted</span>' if a["trusted"] else ""
         rows.append(
-            f'<tr><td>{a["rank"]}</td><td><a href="/research/authors/{e(a["slug"])}/">{e(a["name"])}</a>{trusted}'
+            f'<tr><td>{a["rank"]}</td><td><a href="/research/authors/{e(a["slug"])}/">{e(a["name"])}</a>'
             f'<span class="spec">{specialty(a)}</span>{guide_chips(a)}</td>'
             f'<td class="num">{n}</td><td class="num">{fmt(a["score"])}</td></tr>')
         ent = []
@@ -329,8 +327,6 @@ def author_pages(entries, theme_of, sub_of, updated):
         facts.append(f'Reputation {fmt(a["score"])} · rank {a["rank"]} of {len(AUTHORS)}')
         if a["reviewed"]:
             facts.append(f'{a["first_pass"]} of {a["reviewed"]} reviewed entries passed on the first round')
-        if a["trusted"]:
-            facts.append("On the trusted-author list")
         guides_html = (f'<section class="article"><h2>Field guides</h2><p>Entries by {e(a["name"])} are sources in these guides:</p>{guide_chips(a)}</section>'
                        if a["guides"] else "")
         head = f"""<header class="masthead">

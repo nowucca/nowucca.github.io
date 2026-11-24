@@ -11,7 +11,7 @@ this `_src` folder, so only the generated pages are served.
 | `diagrams/<node id>.svg` | Static SVG rendered by `render_diagrams.js` |
 | `authors.py` | Credits each entry to its authors from the `by` line and scores reputation; `build.py` calls it |
 | `authors.json` | Author display names, aliases, short public specialties, per-entry overrides and ignored names |
-| `quality.json` | Generated snapshot of Reviewer verdicts (public entries only) and trusted-author names; refreshed by `build.py` when /mnt/project-files/research is present |
+| `quality.json` | Generated snapshot of Reviewer verdicts (public entries only); refreshed by `build.py` when /mnt/project-files/research is present |
 
 ## Adding or updating an entry
 
@@ -41,7 +41,7 @@ Specialties must be public facts; leave them blank rather than guess.
 
 Reputation is the sum of entry quality over an author's public entries
 (1 per entry, +0.25 for a first-round Reviewer pass, -0.25 if the Reviewer
-asked for a revision, +0.5 if a published field guide cites it), times 1.25
-for authors on the trusted-author list. Weights live in `authors.py` `QUALITY`.
+asked for a revision, +0.5 if a published field guide cites it). The private
+trusted-author list is not used or shown. Weights live in `authors.py` `QUALITY`.
 Only guides listed in `guides.json` (approved) count, so private guides never
 show up as tags.
