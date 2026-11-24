@@ -137,7 +137,8 @@
       "R229",
       "R233",
       "R234",
-      "R252"
+      "R252",
+      "R258"
      ],
      "also": [
       {
@@ -381,6 +382,10 @@
       {
        "id": "R221",
        "why": "prune a learned skill under an accuracy floor and move reusable code into zero-prompt-cost utilities; up to 80% fewer output tokens"
+      },
+      {
+       "id": "R258",
+       "why": "keeps long inputs as program variables and sub-call outputs in program memory rather than the prompt, so each call stays in distribution as tasks get longer"
       }
      ]
     },
@@ -6753,6 +6758,25 @@
    ],
    "summary": "A free, MIT-licensed 15-module Python course that grows one project into a small agent harness (tool loop, tool schemas, context and memory, retries, permissions, planning), paired with a companion book that records each failure of a small local model (gemma4:e4b via Ollama) and the safeguard it motivates, then maps it to production practice. Key caveats: experiments use 2 to 7 runs each, the code is for teaching rather than production, and sandboxing and evals are discussed but not built.",
    "file": "entries/build-your-own-agent-harness-failure-first.html"
+  },
+  {
+   "id": "R258",
+   "slug": "rlm-harnesses-compositional-generalizers",
+   "title": "Harnesses as compositional generalizers: RLMs keep every model call in distribution",
+   "by": "Alex L. Zhang, Souradip Chakraborty and Omar Khattab (MIT CSAIL)",
+   "source": "https://arxiv.org/abs/2611.28298",
+   "published": "2026-11-20",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/VRejCGFNS8pC9hAr8eAuLR",
+   "tags": [
+    "agent-harness",
+    "long-context",
+    "rl",
+    "post-training",
+    "paper"
+   ],
+   "summary": "An MIT CSAIL paper argues that Recursive Language Model (RLM) harnesses, which keep task data in a program environment and split work into sub-calls, keep each model call locally in distribution as tasks grow. Per the abstract, RLMs trained with RL only on short tasks generalize to tasks 2 to 64 times longer, training transfers across domains with shared structure, and RLM-27B (trained on synthetic surrogate environments) improves Qwen3.8-27B in the same harness by 26.9% on average on hard long-context suites with about 2x fewer inference tokens. Key caveats: controlled benchmarks and few base models, slower training per sample, and no production cost or latency data.",
+   "file": "entries/rlm-harnesses-compositional-generalizers.html"
   }
  ],
  "edges": [
@@ -10667,6 +10691,12 @@
    "b": "R218",
    "strength": "strong",
    "why": "same teaching style: each answer is backed by a recorded, dated experiment rather than an assertion; R218 does it for LangChain choices, R257 for hand-built harness pieces."
+  },
+  {
+   "a": "R258",
+   "b": "R233",
+   "strength": "strong",
+   "why": "both say the harness carries much of the gain: R233 benchmarks co-evolving model and harness; R258 shows RL through an RLM harness generalizes 2 to 64x in length where direct training does not."
   }
  ]
 }
