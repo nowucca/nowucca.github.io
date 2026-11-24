@@ -138,7 +138,8 @@
       "R233",
       "R234",
       "R252",
-      "R258"
+      "R258",
+      "R260"
      ],
      "also": [
       {
@@ -726,6 +727,10 @@
       {
        "id": "R247",
        "why": "Pretraining that removes its own sublayers to produce smaller, faster models"
+      },
+      {
+       "id": "R259",
+       "why": "long-horizon search over messy primary sources that ends in a falsifiable prediction (a named document) a person then fetches to confirm"
       }
      ]
     },
@@ -1534,6 +1539,10 @@
       {
        "id": "R245",
        "why": "Controlled market measuring delegated agents against ground-truth human rankings"
+      },
+      {
+       "id": "R260",
+       "why": "evaluation lessons for self-improving loops: keep a frozen evaluation-only held-out set, rerun the old harness at the new compute budget, and validate the grader separately"
       }
      ]
     },
@@ -1732,7 +1741,8 @@
      "primary": [
       "R016",
       "R039",
-      "R050"
+      "R050",
+      "R259"
      ],
      "also": [
       {
@@ -6777,6 +6787,43 @@
    ],
    "summary": "An MIT CSAIL paper argues that Recursive Language Model (RLM) harnesses, which keep task data in a program environment and split work into sub-calls, keep each model call locally in distribution as tasks grow. Per the abstract, RLMs trained with RL only on short tasks generalize to tasks 2 to 64 times longer, training transfers across domains with shared structure, and RLM-27B (trained on synthetic surrogate environments) improves Qwen3.8-27B in the same harness by 26.9% on average on hard long-context suites with about 2x fewer inference tokens. Key caveats: controlled benchmarks and few base models, slower training per sample, and no production cost or latency data.",
    "file": "entries/rlm-harnesses-compositional-generalizers.html"
+  },
+  {
+   "id": "R259",
+   "slug": "ai-model-solves-archival-attribution",
+   "title": "An AI model solves a 200-year-old archival attribution",
+   "by": "Mark Humphries (Generative History)",
+   "source": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/Ehwnfxj7LS5s9vr3rh6Fcz",
+   "tags": [
+    "ai-research",
+    "verification",
+    "frontier-models",
+    "humanities"
+   ],
+   "summary": "Historian Mark Humphries gave pre-release GPT-6.2 Astra an open archival question: who drew an anonymous 1808 sketchbook of a canoe journey from Montreal to Fort William, held at Yale's Beinecke Library. In about 22 minutes the model ruled out the two candidates in the literature on dates, found a French aristocrat in fur-trade diaries and letters, and predicted a specific microfilmed journal would confirm it; Humphries obtained the journal and the handwriting, itinerary and a sketch entry matched. Key caveats: one case chosen by one researcher, no benchmark, and the model hedged heavily even after the evidence was decisive.",
+   "file": "entries/ai-model-solves-archival-attribution.html"
+  },
+  {
+   "id": "R260",
+   "slug": "recursive-self-improvement-2026-ten-papers",
+   "title": "Recursive self-improvement in 2026: ten papers and what they teach",
+   "by": "Elvis Saravia (DAIR.AI)",
+   "source": "https://www.linkedin.com/pulse/top-10-rsi-papers-2026-elvis-saravia-eqv5e/",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/EjkEWEWFSAQA2tiTY2bdso",
+   "tags": [
+    "self-improvement",
+    "evaluation",
+    "agent-harness",
+    "reading-list",
+    "survey"
+   ],
+   "summary": "A DAIR.AI reading list of ten 2026 recursive self-improvement papers, grouped by what to change (Meta-Harness, Exo, Hyperagents, a harness-versus-training failure taxonomy), how to tell a gain is real (Harness-Delta Attribution, the winner's curse in self-improvement loops, co-evolving verifiers), how loops get poisoned, and production use (Spotify's recommender, a split pre-training loop), plus five benchmarks. Its real thesis is measurement hygiene: many reported gains are partly selection noise, overfitting, extra compute or grader drift. Key caveat: a curated list with headline numbers from each paper, not a replication.",
+   "file": "entries/recursive-self-improvement-2026-ten-papers.html"
   }
  ],
  "edges": [
@@ -10697,6 +10744,18 @@
    "b": "R233",
    "strength": "strong",
    "why": "both say the harness carries much of the gain: R233 benchmarks co-evolving model and harness; R258 shows RL through an RLM harness generalizes 2 to 64x in length where direct training does not."
+  },
+  {
+   "a": "R259",
+   "b": "R189",
+   "strength": "strong",
+   "why": "both are frontier models producing checkable research claims outside code; R189 needs experts to audit a Lean statement, R259 was settled by a model-predicted primary source a human fetched."
+  },
+  {
+   "a": "R260",
+   "b": "R066",
+   "strength": "strong",
+   "why": "R066's statistical acceptance gate is the fix for R260's winner's-curse finding that small-sample selection overstates gains by 13 to 20 points."
   }
  ]
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>An AI model solves a 200-year-old archival attribution · Research</title>
+<meta name="description" content="Historian Mark Humphries gave pre-release GPT-6.2 Astra an open archival question: who drew an anonymous 1808 sketchbook of a canoe journey from Montreal to Fort William, held at Yale&#x27;s Beinecke Library. In about 22 minutes the model ruled out the two candidates in the literature on dates, found a French aristocrat in fur-trade diaries and letters, and predicted a specific microfilmed journal would confirm it; Humphries obtained the journal and the handwriting, itinerary and a sketch entry matched. Key caveats: one case chosen by one researcher, no benchmark, and the model hedged heavily even after the evidence was decisive.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R259 · AI&#x27;s effect on people › Human verification of AI output</span>
+  <h1>An AI model solves a 200-year-old archival attribution</h1>
+  <div class="entry-meta"><span>Mark Humphries (Generative History)</span><span>Published 2026-11-24</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical" rel="noopener">Read the original</a></p>
+  <div class="tags"><span class="tag">ai-research</span><span class="tag">verification</span><span class="tag">frontier-models</span><span class="tag">humanities</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> Mark Humphries, <em>Generative History</em> (Substack), 2026-11-24, "GPT-6.2 Astra solves a historical mystery"; surfaced by Ethan Mollick on LinkedIn the same day.</p>
+<h2 id="what-happened">What happened</h2>
+<p>Humphries, a historian who had pre-release access to OpenAI's GPT-6.2 Astra from late October, gave it an open archival problem: Yale's Beinecke Library holds an anonymous 1808 sketchbook (WA MSS S-4271, 84 pages, 34 with drawings) recording a canoe journey from Montreal to Fort William. Two candidate artists had been suggested in the literature.</p>
+<p>Running at the highest effort setting in a goal-driven mode, the model worked for about 22 minutes and returned a named attribution: Louis-Guy-Charles-Guillaume de Rohan-Chabot, vicomte de Chabot (1780 to 1875), a young French aristocrat travelling with North West Company partners.</p>
+<h2 id="how-it-got-there">How it got there</h2>
+<ul><li><p><strong>Eliminated the existing candidates</strong> using the dates on the drawings, which did not fit either suggested artist's known movements.</p></li><li><p><strong>Found the traveller in primary sources</strong>: a fur-trade partner's diary entry for 6 June 1808 recording Chabot leaving Lachine with William McGillivray and Alexander McKay, and a letter placing Chabot at Fort St. Joseph.</p></li><li><p><strong>Made a falsifiable prediction</strong>: that a microfilmed manuscript, "Journal to the Upper Country", would confirm it. The model traced that journal through a footnote in a 2014 PhD thesis to a microfilm collection at Cleveland State University.</p></li></ul>
+<p>Humphries obtained the 162-page journal. The handwriting matched, the itinerary matched, and an 18 June 1808 entry records the writer taking a sketch of Fort St. Joseph, which corresponds to a drawing in the book.</p>
+<h2 id="comparisons-and-earlier-test">Comparisons and earlier test</h2>
+<ul><li><p>A competing frontier model (Fable 5.2) reached the same name in about 35 minutes but did not find the confirming journal.</p></li><li><p>Earlier in testing, GPT-6.2 Astra corrected an 8,002-row transcription of a merchant ledger against 353 page images, using the ledger's own arithmetic to catch errors.</p></li></ul>
+<h2 id="caveats-the-author-raises">Caveats the author raises</h2>
+<ul><li><p>The model's communication was strange: heavy hedging, oblique phrasing, and continued uncertainty even after the journal settled the question. Humphries attributes this to post-training aimed at mathematics.</p></li><li><p>It is one case, chosen by one researcher. There is no benchmark here.</p></li></ul>
+<h2 id="why-it-matters-for-engineers">Why it matters for engineers</h2>
+<ul><li><p><strong>The output was a checkable claim, not an essay.</strong> The valuable step was the model naming a specific document that would confirm or refute it. Systems that ask models for falsifiable predictions plus where to look are easier to verify than ones that ask for conclusions.</p></li><li><p><strong>Verification stayed human and physical.</strong> The decisive evidence came from a microfilm the model could not read. Pipelines for research agents should treat "go fetch this source" as a first-class output.</p></li><li><p><strong>Long-horizon search over messy, multilingual archives</strong> (diaries, letters, theses, finding aids) is now in range for frontier models, not only math and code.</p></li><li><p><strong>Over-hedging is a usability cost.</strong> If a model cannot state confidence plainly after decisive evidence, downstream users will discount correct answers.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>R189 and R250 (machine-produced proofs and how to evaluate them), R251 (an open agent fleet on P vs NP), R125 (the GPT-6.2 Astra release), R249 (working with AI).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t3)"><a class="to" href="/research/riemann-hypothesis-lean-claim/">An unverified Lean-checked claim of the Riemann Hypothesis, and how to evaluate it</a><span class="label">R189 · AI-built software and its verification</span><span class="why">both are frontier models producing checkable research claims outside code; R189 needs experts to audit a Lean statement, R259 was settled by a model-predicted primary source a human fetched.</span></li></ul><p><a href="/research/map/#R259">See R259 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
