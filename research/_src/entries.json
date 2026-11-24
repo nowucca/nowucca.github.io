@@ -389,7 +389,8 @@
       "R100",
       "R132",
       "R181",
-      "R245"
+      "R245",
+      "R251"
      ],
      "also": [
       {
@@ -757,12 +758,17 @@
       "R189",
       "R208",
       "R210",
-      "R237"
+      "R237",
+      "R250"
      ],
      "also": [
       {
        "id": "R001",
        "why": "see its summary's notes on formal verification"
+      },
+      {
+       "id": "R251",
+       "why": "An open agent fleet using a Lean checker as the sole arbiter of results"
       }
      ]
     },
@@ -1786,6 +1792,10 @@
       {
        "id": "R210",
        "why": "an AI-found Lean proof of an open physics question: humans check the statement and interpret the argument, the kernel checks the steps"
+      },
+      {
+       "id": "R250",
+       "why": "A claimed major math result from an AI model, with Lean formalization"
       }
      ]
     },
@@ -6555,6 +6565,44 @@
    ],
    "summary": "Anthropic's qualitative report from 66 interviews at 58 US companies finds the highest-value AI uses forced an organizational change (merged roles, new review processes, shared data), while light-touch uses were mostly rated low value. Value showed up mainly as more output rather than lower cost; few positions were eliminated outright, but about two-thirds hired less. Bottlenecks were internal, above all review of AI output. Of three adoption strategies (top-down automation, bottom-up experimentation, reorganizing around AI), reorganizing worked best. Engineering takeaways: name a maintainer per agent workflow, design for model churn, staff review first, build agent-readable data and a paved road for citizen-built apps.",
    "file": "entries/working-with-ai-reorganizing-not-automating.html"
+  },
+  {
+   "id": "R250",
+   "slug": "vp-vnp-claude-proof-lean",
+   "title": "A claimed VP ≠ VNP proof from a Claude model, formalized in Lean",
+   "by": "Anthropic",
+   "source": "https://www.alphaxiv.org/abs/2611.vp-vnp-arithmetic-lower-bounds",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/5T1cdPaz48tU3is1a2e6dC",
+   "tags": [
+    "formal-verification",
+    "lean",
+    "ai-for-math",
+    "complexity-theory",
+    "paper"
+   ],
+   "summary": "A paper credited to Anthropic and Claude claims every arithmetic circuit computing the m×m permanent needs more than m^(c·(log m)^(1/3)) gates over every field of characteristic other than two (and, via the Hamiltonian-cycle polynomial, over every field), giving VP ≠ VNP and settling Valiant's 1979 question in the algebraic model. An internal research Claude model reportedly found it, and it is formalized in Lean, but expert review was not complete at publication. It does not settle P vs NP. Lean moves trust to the theorem statement, definitions and axioms, so review should start there.",
+   "file": "entries/vp-vnp-claude-proof-lean.html"
+  },
+  {
+   "id": "R251",
+   "slug": "pequalnp-open-agent-fleet-lean-judge",
+   "title": "pequalnp.com: an open AI agent fleet on P vs NP with Lean as the only judge",
+   "by": "pequalnp.com",
+   "source": "https://pequalnp.com/",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/T9jb3c3sDwMQZPR64rXM2X",
+   "tags": [
+    "multi-agent",
+    "formal-verification",
+    "lean",
+    "open-research",
+    "red-team"
+   ],
+   "summary": "pequalnp.com is an open, continuously running fleet of AI agents attacking P vs NP; anyone can connect an agent with one command. Programs hold lines of attack, orchestrators assign lemmas, thinker agents argue on paper, builder agents write Lean, a red team hunts counterexamples, a barrier desk checks approaches against known barriers, and a pinned Lean checker is the only judge. Early on it showed about 370 agents and 1,599 of 3,366 lemmas checked. The realistic output is a library of checked lemmas and a test of open-fleet coordination; risks include lemma inflation, statement drift and wasted compute.",
+   "file": "entries/pequalnp-open-agent-fleet-lean-judge.html"
   }
  ],
  "edges": [
@@ -10409,6 +10457,18 @@
    "b": "R145",
    "strength": "strong",
    "why": "the same bottleneck shift seen from two sides: R145 redesigns product management once delivery runs on agents; R249's interviews find firms redeploying engineers to review, requirements and customer work as coding speeds up."
+  },
+  {
+   "a": "R250",
+   "b": "R189",
+   "strength": "strong",
+   "why": "two Lean-checked claims of famous results from AI-assisted work: R189's Riemann claim and R250's VP ≠ VNP both move trust from proof steps to the formal statement, the definitions and the axioms used."
+  },
+  {
+   "a": "R251",
+   "b": "R250",
+   "strength": "strong",
+   "why": "the same week, the algebraic analogue of P vs NP was claimed by a single lab's model, while an open agent fleet attacks the Boolean question itself with Lean as its only judge."
   }
  ]
 }
