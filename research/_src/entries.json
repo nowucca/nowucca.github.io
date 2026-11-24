@@ -140,7 +140,8 @@
       "R234",
       "R252",
       "R258",
-      "R260"
+      "R260",
+      "R274"
      ],
      "also": [
       {
@@ -406,7 +407,8 @@
       "R132",
       "R181",
       "R245",
-      "R251"
+      "R251",
+      "R273"
      ],
      "also": [
       {
@@ -582,6 +584,10 @@
       {
        "id": "R165",
        "why": "a cloud vendor's agent CLI and skill as the on-ramp to its hosted agent service"
+      },
+      {
+       "id": "R273",
+       "why": "threads as the unit of agent context and status, with a worktree and linked PR per thread and status derived from activity"
       }
      ]
     },
@@ -610,7 +616,8 @@
       "R239",
       "R240",
       "R247",
-      "R253"
+      "R253",
+      "R271"
      ],
      "also": [
       {
@@ -678,6 +685,10 @@
       {
        "id": "R195",
        "why": "a marketplace cache served tampered builds of a real extension; signatures must survive caches, not only the upstream registry"
+      },
+      {
+       "id": "R274",
+       "why": "a model with write access to its own weights is a new drift and attack surface: edits need provenance, reversibility and broad regression gates"
       }
      ]
     },
@@ -695,7 +706,8 @@
       "R196",
       "R197",
       "R202",
-      "R244"
+      "R244",
+      "R269"
      ],
      "also": [
       {
@@ -909,7 +921,8 @@
       "R217",
       "R220",
       "R223",
-      "R248"
+      "R248",
+      "R270"
      ],
      "also": [
       {
@@ -977,6 +990,10 @@
       {
        "id": "R229",
        "why": "review comments on an AI reviewer's output are harvested on a schedule and turned into PRs against the reviewer's skill"
+      },
+      {
+       "id": "R273",
+       "why": "cross-model review as the quality gate: reviewers from a different lab than the author model, and a fresh full-diff re-review after each fix round"
       }
      ]
     },
@@ -1496,7 +1513,8 @@
       "R228",
       "R242",
       "R246",
-      "R254"
+      "R254",
+      "R272"
      ],
      "also": [
       {
@@ -1881,6 +1899,14 @@
       {
        "id": "R267",
        "why": "polished AI-built pages hid spec violations and invented details; check against the source document, not the look"
+      },
+      {
+       "id": "R269",
+       "why": "a vendor capability claim with external physical validation attached, plus a reusable checklist for judging general-model-matches-specialist claims"
+      },
+      {
+       "id": "R272",
+       "why": "models underestimate their own convergence, so asking a model how unusual its answer is gives a badly calibrated reading"
       }
      ]
     },
@@ -1902,6 +1928,10 @@
       {
        "id": "R075",
        "why": "de-skilling as the person-level version: assistant-mode use feels like learning and being in the loop when it is neither"
+      },
+      {
+       "id": "R270",
+       "why": "attacks comprehension debt by removing what has to be understood, and claims 46% fewer tokens for an agent to read its demo app"
       }
      ]
     },
@@ -7019,6 +7049,116 @@
    ],
    "summary": "OCRia-1 is LlamaIndex's 4B vision-language model, fine-tuned from Qwen3.5-4B, that turns one page image into Markdown with HTML tables in a single call, keeping spanning headers, chart data as tables, meaningful formatting, LaTeX math and page furniture. It was trained on about 101k real and synthetic pages with SFT, then GRPO using rewards that score each dimension the way a benchmark would. The vendor reports 85.2 on its own ParseBench 2 (first of 23 open-weight systems) and small leads of 0.3 to 2 points on three independent benchmarks. Key caveats: the headline benchmark is the vendor's, scores move with rendering resolution and output normalization, public weights run about nine times slower than the hosted stack, and the license restricts larger and competing commercial use.",
    "file": "entries/ocria-1-page-to-markdown-parser.html"
+  },
+  {
+   "id": "R269",
+   "slug": "general-model-specialist-protein-design",
+   "title": "A general model does specialist protein design, with lab results to check it",
+   "by": "OpenAI",
+   "source": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/Jmd7SUCTJXsZKEfmUYtM7R",
+   "tags": [
+    "frontier-models",
+    "benchmark",
+    "science",
+    "verification"
+   ],
+   "summary": "OpenAI reports that GPT-6 models design protein structures and sequences using only reasoning and general coding tools, reaching or beating specialist baselines on docking (93% against 50% for DiffDock-L) and motif scaffolding, while trailing badly on whole-structure prediction (0.38 against 0.93 TM-score for ESMFold2). Three wet-lab campaigns with Onava back it: 35 of 322 designed minibinders bound their target, 85% of 88 MDM2 sequence designs bound, and 70% of antibody loop redesigns kept binding. Key caveats: specialist models still filtered candidates, the claim is parity at two stages rather than end-to-end design, and one organization reports both the capability and its evaluation.",
+   "file": "entries/general-model-specialist-protein-design.html"
+  },
+  {
+   "id": "R270",
+   "slug": "shrink-anything-test-gated-deletion",
+   "title": "shrink-anything: delete dead code, keep the cut only if your tests still pass",
+   "by": "EL4CTEO",
+   "source": "https://github.com/EL4CTEO/shrink-anything",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/VDecQb9RVf9QHSYMe62YsU",
+   "tags": [
+    "tooling",
+    "open-source",
+    "test-oracle",
+    "agent-coding"
+   ],
+   "summary": "shrink-anything is an MIT-licensed CLI that finds dead code, files, dependencies and assets, then keeps each deletion only if your own check command still exits 0 and runs at least as many tests as before. Cuts go in as batches and a failing batch is bisected until the one breaking cut is restored, every edited file is parsed before the check runs, and tests are never edited. Detection counts name mentions across every text file rather than building a call graph, so it can miss dead code but not invent it. Key caveats: the proof is only as strong as the test suite, flaky suites mislead the bisection, and the benchmark numbers are from demo projects with planted dead code.",
+   "file": "entries/shrink-anything-test-gated-deletion.html"
+  },
+  {
+   "id": "R271",
+   "slug": "doubling-decode-throughput-same-weights",
+   "title": "Doubling decode throughput on the same weights: kernel fusion and speculation tuning",
+   "by": "Momento",
+   "source": "https://gomomento.ai/blog/how-we-made-glm-5-3-flash-faster-on-amd-instinct/",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/XgDGtSitTGpzrXKvB48HaL",
+   "tags": [
+    "inference",
+    "serving",
+    "benchmark",
+    "open-weights"
+   ],
+   "summary": "Momento took GLM-5.3-Flash decode from 304 to 639 tok/s on four AMD MI355X GPUs with no change to weights, precision or draft length: fusing each layer into one persistent kernel per GPU (499), moving the speculative draft head onto fused kernels and replacing a full-vocabulary sort with a cutoff search (569), then cutting synchronization and wasted expert scans in verification (639). Correctness is argued with digests of outputs and saved state across tested configurations. Key caveats: all figures are single-concurrency and the vendor's own, and its 4-bit build still reached 698 on the same test, so quantization buys more than all this kernel work.",
+   "file": "entries/doubling-decode-throughput-same-weights.html"
+  },
+  {
+   "id": "R272",
+   "slug": "models-give-everyone-same-advice",
+   "title": "65 AIs, 127,918 answers: models give everyone the same advice",
+   "by": "Cody Collier (A90)",
+   "source": "https://a90.com/experiments/same-advice/",
+   "published": "2026-11-20",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/B3B7Djck6AXAcrPFYBP1CG",
+   "tags": [
+    "evals",
+    "model-comparison",
+    "output-diversity",
+    "synthetic-data",
+    "prompting"
+   ],
+   "summary": "Cody Collier asked 65 models from 30 companies everyday questions 127,918 times and found they converge on one favourite answer: 98% name an index fund, 90% say study computer science, 73% pick the same book. Models are poorly calibrated about it, guessing 15% would name Austin while answering Austin 80 times in 100. Siblings from the same lab cluster in answer space (59% against 4% by chance), thinking never increased variety, and saying who you are cuts the same-answer chance from 34% to 4%. In one OLMo 2 1B test the convergence appears at supervised fine-tuning. Key caveats: 50 asks per question per model, one provider per model, and the SFT finding is from a single 1B model.",
+   "file": "entries/models-give-everyone-same-advice.html"
+  },
+  {
+   "id": "R273",
+   "slug": "orchestrating-orchestrators-coding-threads",
+   "title": "Orchestrating orchestrators: 15 to 40 coding threads in one chat room",
+   "by": "Bas Nijholt",
+   "source": "https://www.nijho.lt/post/orchestrating-orchestrators/",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/SkNYTpEeKf7TF7sPXnrxXw",
+   "tags": [
+    "multi-agent",
+    "orchestration",
+    "coding-agents",
+    "code-review",
+    "control-plane"
+   ],
+   "summary": "Bas Nijholt runs 15 parallel coding sessions on a normal day and up to 40 at peak, each task a chat thread with its own git worktree, a parent orchestrator agent and cross-model review where no model reviews its own code and a fresh reviewer re-reads the whole diff after fixes. He reports about 4 million lines changed in 20 days at $50,000 to $100,000 a month in model spend, a test-first skill that produced a failing test first in 32 of 32 runs against 0 of 32 without it, and says his own working memory is now the limit. Key caveats: one person's practice, he no longer reads code line by line, and he co-founded the tool he describes.",
+   "file": "entries/orchestrating-orchestrators-coding-threads.html"
+  },
+  {
+   "id": "R274",
+   "slug": "selfwrite-model-programs-own-weight-edits",
+   "title": "SELFWRITE: a model programs low-rank edits to its own weights",
+   "by": "Linghua Zhang and Yunhe Li",
+   "source": "https://arxiv.org/abs/2611.29513",
+   "published": "2026-11-22",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/UnFwUbQqM2uhurNZRrcAfS",
+   "tags": [
+    "self-improving-agents",
+    "interpretability",
+    "weight-editing",
+    "research"
+   ],
+   "summary": "In SELFWRITE, a model studies its own reasoning, inspects its weights and activations in a persistent Python session with white-box primitives only, then writes a program that builds a low-rank edit to its own weights with no gradient step. Each candidate is graded once on a hidden gate set and only a strictly improving edit is merged, and the edited model writes the next edit. Over five generations on Qwen3.8-27B, held-out avg@4 rises from 76.30% to 77.75% and pass@4 from 82.60% to 84.80%. Key caveats: a 1.5 to 2.5 point gain on one model and one domain, acceptance is a hill-climb on a single gate set, and this summary covers the abstract only.",
+   "file": "entries/selfwrite-model-programs-own-weight-edits.html"
   }
  ],
  "edges": [
@@ -11029,6 +11169,60 @@
    "b": "R010",
    "strength": "strong",
    "why": "two answers to long PDFs: PageIndex reasons over a document's structure to pick pages; OCRia-1 makes each page's tables, charts and formatting faithful at ingestion. Retrieval over structure only helps if the parsed structure is right."
+  },
+  {
+   "a": "R269",
+   "b": "R189",
+   "strength": "strong",
+   "why": "both ask how to judge a technical claim an AI system produced; R189's checks are mathematical proof-checking, R269's are a wet lab, and in both the model's own confidence is the least useful signal."
+  },
+  {
+   "a": "R270",
+   "b": "R217",
+   "strength": "strong",
+   "why": "the same author's two tools with one structure: an automated edit is kept only when a recorded check refuses the bad ones. fast-anything makes hot functions faster, shrink-anything makes the codebase smaller, and both put a failed cut back alone."
+  },
+  {
+   "a": "R271",
+   "b": "R215",
+   "strength": "strong",
+   "why": "R215 ships the drafter inside the model; R271 shows that a shipped drafter still only pays once drafting and verification kernels are tuned, with verification left at about 70% of the step."
+  },
+  {
+   "a": "R272",
+   "b": "R227",
+   "strength": "strong",
+   "why": "cross-model review assumes models disagree usefully; Collier finds same-lab siblings cluster, so pick reviewers across labs."
+  },
+  {
+   "a": "R272",
+   "b": "R192",
+   "strength": "strong",
+   "why": "both are about lost diversity after post-training; PMD keeps a teacher's output spread in distillation, Collier measures the spread lost at SFT."
+  },
+  {
+   "a": "R273",
+   "b": "R262",
+   "strength": "strong",
+   "why": "both are control planes over many coding-agent sessions with a worktree per thread; Nijholt left T3 Code past ~20 sessions over single-threaded writes."
+  },
+  {
+   "a": "R273",
+   "b": "R227",
+   "strength": "strong",
+   "why": "both fan review out across labs and refuse self-review; Nijholt adds a fresh full-diff re-review after each fix round."
+  },
+  {
+   "a": "R274",
+   "b": "R150",
+   "strength": "strong",
+   "why": "R150 shows frontier models can read and edit network weights; SELFWRITE closes the loop by having a model edit its own."
+  },
+  {
+   "a": "R274",
+   "b": "R164",
+   "strength": "strong",
+   "why": "both accept a self-modification only if a gate shows strict improvement; GUARD edits the harness, SELFWRITE the weights."
   }
  ]
 }
