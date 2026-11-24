@@ -1373,6 +1373,10 @@
       {
        "id": "R253",
        "why": "A self-hosted agent workspace built on undo, sandboxing and human-only permissions"
+      },
+      {
+       "id": "R257",
+       "why": "builds the core harness pieces by hand (tool loop, schemas, retries, permissions) and shows which ones a small local model needs"
       }
      ]
     },
@@ -1926,7 +1930,8 @@
       "R120",
       "R130",
       "R205",
-      "R225"
+      "R225",
+      "R257"
      ],
      "also": [
       {
@@ -1988,6 +1993,10 @@
       {
        "id": "R205",
        "why": "one backbone, every objective: hold the SFT checkpoint and data fixed and swap --loss_type dpo/orpo/kto/simpo for a side-by-side lesson; start on the three-command laptop track"
+      },
+      {
+       "id": "R257",
+       "why": "a failure-first harness course for teaching: each module pairs a recorded small-model failure with the safeguard it motivates, so students see why each harness piece exists; runs locally on Ollama with no API keys"
       }
      ]
     }
@@ -6724,6 +6733,26 @@
    ],
    "summary": "OntoBricks, a Databricks Labs project, puts an OWL ontology on top of Unity Catalog tables instead of copying data into a separate graph database: LLM-assisted ontology design and SQL mappings compile to R2RML, triples are views over live tables (or a Lakebase snapshot or Neo4j), OWL 2 RL, SWRL and SHACL compile to SQL, and each domain publishes chosen MCP tools plus GraphQL and read-only SPARQL. Versioned domains have a draft, review and publish lifecycle, and MCP tools run as the end user. Key caveat: freshness is per path, since SPARQL reads current rows while MCP lookups use snapshot indexes.",
    "file": "entries/ontobricks-ontology-over-warehouse-mcp.html"
+  },
+  {
+   "id": "R257",
+   "slug": "build-your-own-agent-harness-failure-first",
+   "title": "Build Your Own Agent Harness: a failure-first course and book",
+   "by": "Jimin Lee",
+   "source": "https://jiminelee.github.io/agent-harness-course/",
+   "published": "2026-11-22",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/CNaFuv6QGteTBAHnAfqkkr",
+   "tags": [
+    "agent-harness",
+    "learning-resources",
+    "teaching",
+    "agent-reliability",
+    "local-inference",
+    "open-source"
+   ],
+   "summary": "A free, MIT-licensed 15-module Python course that grows one project into a small agent harness (tool loop, tool schemas, context and memory, retries, permissions, planning), paired with a companion book that records each failure of a small local model (gemma4:e4b via Ollama) and the safeguard it motivates, then maps it to production practice. Key caveats: experiments use 2 to 7 runs each, the code is for teaching rather than production, and sandboxing and evals are discussed but not built.",
+   "file": "entries/build-your-own-agent-harness-failure-first.html"
   }
  ],
  "edges": [
@@ -10620,6 +10649,24 @@
    "b": "R159",
    "strength": "strong",
    "why": "two answers to a stale graph: R159 versions the graph and tells the agent what it can't answer; R256 avoids the copy by defining triples as views over live tables, though its MCP lookups still read snapshot indexes."
+  },
+  {
+   "a": "R257",
+   "b": "R023",
+   "strength": "strong",
+   "why": "two open harness courses at different levels: R023 builds a Claude Code-style coding agent with sandbox, compaction and evals; R257 builds a smaller generic harness for beginners and documents each failure of a small local model that motivates a safeguard."
+  },
+  {
+   "a": "R257",
+   "b": "R095",
+   "strength": "strong",
+   "why": "R095 teaches harness engineering through production teardowns of other people's systems; R257 teaches it by running its own code on a small model and recording what broke, then mapping each break to a production practice."
+  },
+  {
+   "a": "R257",
+   "b": "R218",
+   "strength": "strong",
+   "why": "same teaching style: each answer is backed by a recorded, dated experiment rather than an assertion; R218 does it for LangChain choices, R257 for hand-built harness pieces."
   }
  ]
 }
