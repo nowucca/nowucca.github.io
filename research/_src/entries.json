@@ -667,7 +667,8 @@
      "title": "Model supply chain and weight integrity",
      "primary": [
       "R033",
-      "R053"
+      "R053",
+      "R275"
      ],
      "also": [
       {
@@ -1032,6 +1033,10 @@
       {
        "id": "R195",
        "why": "secret scanning has to cover agent traces and support tickets, not only repositories; traces kept for training held live credentials"
+      },
+      {
+       "id": "R275",
+       "why": "write access is the quiet risk: a leaked read token loses your weights, a write token lets someone replace them, which compromises everything served from that repo afterwards"
       }
      ]
     },
@@ -7159,6 +7164,24 @@
    ],
    "summary": "In SELFWRITE, a model studies its own reasoning, inspects its weights and activations in a persistent Python session with white-box primitives only, then writes a program that builds a low-rank edit to its own weights with no gradient step. Each candidate is graded once on a hidden gate set and only a strictly improving edit is merged, and the edited model writes the next edit. Over five generations on Qwen3.8-27B, held-out avg@4 rises from 76.30% to 77.75% and pass@4 from 82.60% to 84.80%. Key caveats: a 1.5 to 2.5 point gain on one model and one domain, acceptance is a hill-climb on a single gate set, and this summary covers the abstract only.",
    "file": "entries/selfwrite-model-programs-own-weight-edits.html"
+  },
+  {
+   "id": "R275",
+   "slug": "private-weights-one-hour-read-only-token",
+   "title": "Pulling private model weights with a one-hour read-only token",
+   "by": "Baseten",
+   "source": "https://www.baseten.co/blog/deploy-private-hugging-face-models-without-sharing-your-access-token/",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/Loa2xS4T9bMtdeKqmGrPLm",
+   "tags": [
+    "security",
+    "supply-chain",
+    "credentials",
+    "inference"
+   ],
+   "summary": "Baseten describes replacing the stored Hugging Face token that inference platforms use to pull private weights with workload identity: at deploy time the platform mints a signed identity token asserting its organization, team and workload type, Hugging Face checks it against the repo's Trusted Publisher settings and issues a token scoped to one repo, read-only, expiring within an hour. The read-only option did not exist until they asked for it. Key caveats: a one-hour token cannot be unissued, everything rests on the signed claims being unspoofable, and nothing here governs where the weights live after the pull.",
+   "file": "entries/private-weights-one-hour-read-only-token.html"
   }
  ],
  "edges": [
@@ -11223,6 +11246,12 @@
    "b": "R164",
    "strength": "strong",
    "why": "both accept a self-modification only if a gate shows strict improvement; GUARD edits the harness, SELFWRITE the weights."
+  },
+  {
+   "a": "R275",
+   "b": "R262",
+   "strength": "strong",
+   "why": "opposite directions on the same credential. R275 removes the stored token from a weights pull entirely; the control plane in R262 works by reading every installed agent's login file, which is the long-lived credential this replaces, now concentrated in one more process."
   }
  ]
 }
