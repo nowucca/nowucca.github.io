@@ -24,7 +24,8 @@
       "R184",
       "R191",
       "R226",
-      "R230"
+      "R230",
+      "R265"
      ],
      "also": [
       {
@@ -263,6 +264,10 @@
       {
        "id": "R256",
        "why": "Governed ontology tools served to agents over MCP"
+      },
+      {
+       "id": "R265",
+       "why": "memory as governed state: validity windows, curator edits as reviewed proposals, archived superseded facts and stale-fact regression tests"
       }
      ]
     },
@@ -455,6 +460,10 @@
       {
        "id": "R239",
        "why": "serving many agent roles on one MoE backbone by predicting per-role expert masks from prompts"
+      },
+      {
+       "id": "R263",
+       "why": "an orchestrator in code owns scheduling, leases and liveness for parallel worker agents in separate worktrees"
       }
      ]
     }
@@ -538,7 +547,8 @@
       "R169",
       "R177",
       "R209",
-      "R222"
+      "R222",
+      "R262"
      ],
      "also": [
       {
@@ -752,7 +762,9 @@
     {
      "n": "3.1",
      "title": "Agents building production systems",
-     "primary": [],
+     "primary": [
+      "R264"
+     ],
      "also": [
       {
        "id": "R037",
@@ -864,6 +876,22 @@
       {
        "id": "R255",
        "why": "Shadow-mode migration gated on days of near-zero mismatches"
+      },
+      {
+       "id": "R262",
+       "why": "one thread model and approval flow across many agent CLIs, with worktree-per-thread and commit, push and PR in one step"
+      },
+      {
+       "id": "R263",
+       "why": "a builder never grades its own diff: a fresh-context reviewer and pre-landing health checks gate every change"
+      },
+      {
+       "id": "R264",
+       "why": "splitting a large port across agent sessions needs something that owns conventions across sessions: rules, review or a consolidation pass"
+      },
+      {
+       "id": "R266",
+       "why": "a build-owned eligibility check people cannot edit decides which PRs take a lighter review path"
       }
      ]
     },
@@ -907,6 +935,10 @@
       {
        "id": "R185",
        "why": "label-free quality anchors for in-house coding benchmarks: capability ordering, difficulty band, low variance; stress-tested with broken graders and shuffled labels"
+      },
+      {
+       "id": "R264",
+       "why": "measures consistency directly (duplicate bodies, helper adoption by phase) and shows generators must be diffed against delivered output"
       }
      ]
     },
@@ -918,7 +950,8 @@
       "R141",
       "R213",
       "R227",
-      "R241"
+      "R241",
+      "R266"
      ],
      "also": [
       {
@@ -1598,7 +1631,8 @@
       "R035",
       "R084",
       "R094",
-      "R123"
+      "R123",
+      "R263"
      ],
      "also": [
       {
@@ -1727,7 +1761,8 @@
      "title": "Learning, advice and public-good deployment",
      "primary": [
       "R012",
-      "R065"
+      "R065",
+      "R267"
      ],
      "also": [
       {
@@ -1841,6 +1876,10 @@
       {
        "id": "R250",
        "why": "A claimed major math result from an AI model, with Lean formalization"
+      },
+      {
+       "id": "R267",
+       "why": "polished AI-built pages hid spec violations and invented details; check against the source document, not the look"
       }
      ]
     },
@@ -2013,6 +2052,10 @@
       {
        "id": "R257",
        "why": "a failure-first harness course for teaching: each module pairs a recorded small-model failure with the safeguard it motivates, so students see why each harness piece exists; runs locally on Ollama with no API keys"
+      },
+      {
+       "id": "R267",
+       "why": "a reusable teaching exercise: brief a model with facts first, build second, then walk the build as a novice looking for answer leaks"
       }
      ]
     }
@@ -6843,6 +6886,118 @@
    ],
    "summary": "SPARSEUP-v2 is an Apache 2.0, SPLADE-style learned sparse retriever on ModernBERT-base (about 150M parameters) that turns text into weighted vocabulary terms for an inverted index. The vendor reports 57.2 nDCG@10 on BEIR-15, matching a same-size late-interaction model, plus 59.7 on MTEB English v2 retrieval, and 55.8 even when pruned to 128 terms per document. Changes from v1: sparse contrastive pre-training from scratch, cross-encoder distillation, Matryoshka top-k training and 8,192-token fine-tuning. Key caveats: vendor numbers only, English only, and it still trails late interaction on long documents (MLDR).",
    "file": "entries/sparseup-v2-learned-sparse-retriever.html"
+  },
+  {
+   "id": "R262",
+   "slug": "t3-code-control-plane-coding-agents",
+   "title": "T3 Code: one control plane for the coding agents you already pay for",
+   "by": "pingdotgg (T3 Code)",
+   "source": "https://github.com/pingdotgg/t3code",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/MvopqMarggaFKx1HawTSUp",
+   "tags": [
+    "coding-agents",
+    "agent-harness",
+    "privacy",
+    "open-source"
+   ],
+   "summary": "T3 Code is an MIT-licensed local server with desktop, web and phone clients that drives the coding-agent CLIs already installed and signed in on a machine (Claude Code, Codex, Cursor, OpenCode, Pi and ACP agents), so threads, approvals, model switches and cross-agent handoffs share one UI and each thread can run in its own git worktree. Its telemetry docs show product events keyed to unsalted SHA-256 hashes of account IDs read from the agents' local login files, which is pseudonymous rather than anonymous. Key caveats: telemetry is on unless disabled, and remote access opens a path into a machine holding repos and credentials.",
+   "file": "entries/t3-code-control-plane-coding-agents.html"
+  },
+  {
+   "id": "R263",
+   "slug": "continuous-software-engine-code-owns-loop",
+   "title": "A continuous software engine, rebuilt so code owns the loop",
+   "by": "Jonathan Hoyt",
+   "source": "https://jonmagic.com/posts/building-a-continuous-software-engine-the-hard-way/",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/WKCmAP8UPHurQd5toMmcCP",
+   "tags": [
+    "long-running-agents",
+    "harness-engineering",
+    "orchestration",
+    "code-review",
+    "verification"
+   ],
+   "summary": "Jonathan Hoyt threw away a 27,500-line agent harness and rewrote it as about 5,500 lines where code, not prompts, owns state, leases, retries and review: SQLite leases and fences, short replaceable agent calls, a fresh-context reviewer, process-group watchdogs and just-in-time decomposition. On three live repositories its first 24 hours landed 137 verified commits, with 40% to 57% first-pass review success, and it deadlocked its own scheduler at hour 20. Key caveats: a single field report with no cost data, many commits were diagnostics, and the author would not point it at production changes without real sandboxing.",
+   "file": "entries/continuous-software-engine-code-owns-loop.html"
+  },
+  {
+   "id": "R264",
+   "slug": "agent-translation-600k-lines-consistency",
+   "title": "Is a 600K-line agent translation consistent with itself?",
+   "by": "Federico Tomassetti (Strumenta)",
+   "source": "https://tomassetti.me/legacy-modernization-llms-large-translation-consistency/",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/PV3JuWSTHbkxw3tBYC9QVt",
+   "tags": [
+    "migration",
+    "legacy-modernization",
+    "coding-agents",
+    "code-quality",
+    "generators"
+   ],
+   "summary": "Strumenta had Claude Code translate about 600,000 lines of IBM i RPG, DDS and CL into over a million lines of Java across 49 headless sessions, then measured consistency. Surface conventions held, but 97.9% of files were never revisited, later runtime helpers went unused by older classes, style flipped between early and late phases, and one date helper exists in 27 classes with 20 different bodies; the agent's own deterministic generators produced the most uniform code but were untested and regex-based. Key caveats: equivalence was judged by reading, not execution, and the author's company sells parser-based migration tooling.",
+   "file": "entries/agent-translation-600k-lines-consistency.html"
+  },
+  {
+   "id": "R265",
+   "slug": "agent-memory-keeping-it-true",
+   "title": "Agent memory: capturing is easy, keeping it true is the hard part",
+   "by": "Conor Bronsdon (Chain of Thought)",
+   "source": "https://newsletter.chainofthought.show/p/the-state-of-agent-memory-how-it",
+   "published": "2026-11-22",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/RUoD8wtx7qBewXiChdfdWy",
+   "tags": [
+    "agent-memory",
+    "context-engineering",
+    "governance",
+    "evals",
+    "security"
+   ],
+   "summary": "Conor Bronsdon's survey argues agent memory products now retain and recall well but rarely refine, so stale facts keep loading after the world changes. It maps systems from ChatGPT and Claude memory to Hermes Agent, Hindsight and memorizz, cites results such as retiring stale memories scoring 0.950 against 0.210 for append-only memory in a full-reversal test, and proposes memory as maintenance: store each claim with its source and invalidation conditions, and let a background curator propose evidence-backed changes. Key caveats: the issue is sponsored by a memory vendor and the cited numbers are as the article reports them.",
+   "file": "entries/agent-memory-keeping-it-true.html"
+  },
+  {
+   "id": "R266",
+   "slug": "small-change-build-owned-review-gate",
+   "title": "small-change: letting a build-owned check lighten code review",
+   "by": "Will Larson (Irrational Exuberance)",
+   "source": "https://lethain.com/small-changes/",
+   "published": "2026-10-17",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/2hifeuVUJEE14SAEMjrzKP",
+   "tags": [
+    "code-review",
+    "governance",
+    "ci",
+    "human-in-the-loop"
+   ],
+   "summary": "At Imprint, p50 review time rose from about 33 to 77 minutes over two years, so Will Larson added a CI-computed small-change check: under 1,000 lines, no p1 or p2 findings from the AI review bot, an author with 10 or more merged PRs in each affected service, a small blast radius, no shared code and per-repo opt-outs. An approve-or-ignore skill reviews eligible PRs without commenting, and any escape is treated as a tooling defect, not a person's fault. Key caveats: about 10% of changes qualify so far, it is too early for results, and compliance-controlled repos stay out.",
+   "file": "entries/small-change-build-owned-review-gate.html"
+  },
+  {
+   "id": "R267",
+   "slug": "four-ai-builds-learning-outcomes",
+   "title": "Four AI builds that move learning outcomes, and how models fail at them",
+   "by": "Dr Philippa Hardman",
+   "source": "https://drphilippahardman.substack.com/p/the-4-highest-impact-things-l-and",
+   "published": "2026-11-19",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/VytCxggDbmx5UzsLJ7Pvvg",
+   "tags": [
+    "teaching",
+    "learning-design",
+    "ai-literacy",
+    "verification",
+    "model-comparison"
+   ],
+   "summary": "Philippa Hardman matches learning-science effect sizes to what coding models can now build: simulations (g = 0.85), self-explanation with AI marking (0.55), contrasting cases (d = 0.50) and faded worked examples (0.48), all above classroom quizzes (0.37). Her method lists source facts first, then builds only from them. In eight tests of Claude Opus 5.5, GPT-6.2 Astra and Gemini 4 Argon, rules were mostly right, but all three made unflagged changes, and the main failure was the answer leak: polished pages that do the learner's thinking for them. Key caveat: a practitioner's small set of tests, not a study.",
+   "file": "entries/four-ai-builds-learning-outcomes.html"
   }
  ],
  "edges": [
@@ -10781,6 +10936,72 @@
    "b": "R171",
    "strength": "strong",
    "why": "two ends of cheap retrieval: Atto shrinks dense encoders to fit tiny budgets; SPARSEUP-v2 keeps a base-size encoder but makes vectors sparse and prunable, so cost moves from model size to index size."
+  },
+  {
+   "a": "R262",
+   "b": "R090",
+   "strength": "strong",
+   "why": "both move agent work off a single terminal: Atuin Threads moves a session between machines and harnesses; T3 Code keeps the session on one machine and moves the UI (desk, web, phone)."
+  },
+  {
+   "a": "R263",
+   "b": "R094",
+   "strength": "strong",
+   "why": "both run coding agents overnight; CodeClimb leans on a durable-workflow engine, Hoyt hand-rolls leases, fences and watchdogs in a small orchestrator."
+  },
+  {
+   "a": "R263",
+   "b": "R216",
+   "strength": "strong",
+   "why": "both say an unattended agent is only as trustworthy as the independent check it cannot game; Hoyt adds a fresh-context reviewer after builders weakened tests."
+  },
+  {
+   "a": "R264",
+   "b": "R124",
+   "strength": "strong",
+   "why": "both split a big port across agent sessions; R124 keeps cross-session state in MAP.md and HANDOFF.md, and Tomassetti measures the drift you get without such an owner."
+  },
+  {
+   "a": "R264",
+   "b": "R173",
+   "strength": "strong",
+   "why": "codemod workflows as programs are the deterministic-generator half of Tomassetti's finding: generated code was the uniform part."
+  },
+  {
+   "a": "R265",
+   "b": "R147",
+   "strength": "strong",
+   "why": "Bronsdon's survey builds on Anthropic's components-of-memory article and adds the governance half: validity windows, curator proposals and stale-fact tests."
+  },
+  {
+   "a": "R265",
+   "b": "R184",
+   "strength": "strong",
+   "why": "both find agents trust remembered state over the live source; Experience Rot measures it for changed tools, Bronsdon cites the same pattern for changed facts."
+  },
+  {
+   "a": "R266",
+   "b": "R141",
+   "strength": "strong",
+   "why": "both gate lighter or automatic approval on explicit policy; Larson's thresholds (size, author experience, service count, bot severity) are a concrete instance."
+  },
+  {
+   "a": "R266",
+   "b": "R220",
+   "strength": "strong",
+   "why": "both make line-by-line human review the exception, triggered by risk signals the build computes."
+  },
+  {
+   "a": "R267",
+   "b": "R065",
+   "strength": "strong",
+   "why": "both have models build learning simulations from expert material; Primer gates the build with a multi-agent pipeline, Hardman with a facts-first brief and a manual leak check."
+  },
+  {
+   "a": "R267",
+   "b": "R140",
+   "strength": "strong",
+   "why": "teaching companion: the facts-first, build-second brief is a reusable exercise next to R140's Claude Code levels."
   }
  ]
 }

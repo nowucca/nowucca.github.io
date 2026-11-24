@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T3 Code: one control plane for the coding agents you already pay for · Research</title>
+<meta name="description" content="T3 Code is an MIT-licensed local server with desktop, web and phone clients that drives the coding-agent CLIs already installed and signed in on a machine (Claude Code, Codex, Cursor, OpenCode, Pi and ACP agents), so threads, approvals, model switches and cross-agent handoffs share one UI and each thread can run in its own git worktree. Its telemetry docs show product events keyed to unsalted SHA-256 hashes of account IDs read from the agents&#x27; local login files, which is pseudonymous rather than anonymous. Key caveats: telemetry is on unless disabled, and remote access opens a path into a machine holding repos and credentials.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R262 · Infrastructure for agents at scale › Agent session hosting and control planes</span>
+  <h1>T3 Code: one control plane for the coding agents you already pay for</h1>
+  <div class="entry-meta"><span>pingdotgg (T3 Code)</span><span>Published 2026-11-24</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://github.com/pingdotgg/t3code" rel="noopener">Read the original</a></p>
+  
+  <div class="tags"><span class="tag">coding-agents</span><span class="tag">agent-harness</span><span class="tag">privacy</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p><strong>Sources:</strong> pingdotgg/t3code on GitHub (MIT, about 77k stars, active as of 2026-11-24): README, docs/user/telemetry.md and the server's telemetry identity code; highlighted by André Lindenberg on LinkedIn, 2026-11-24.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>T3 Code is an open-source local server plus desktop, web and phone clients that drives the coding-agent CLIs already installed and signed in on your machine: Claude Code, Codex, Cursor, OpenCode, Pi and any ACP-speaking agent, among others. It does not resell tokens; it rides your existing subscriptions.</p>
+<ul><li><p>Start a thread at your desk and approve the next tool call from your phone.</p></li><li><p>Switch models mid-thread, or let one agent hand a task to another (for example Claude to Codex).</p></li><li><p>Each thread can run in its own git worktree, with diff review, commit, push and PR in one step.</p></li><li><p>Remote access over the local network, Tailscale or the vendor's relay (T3 Connect).</p></li></ul>
+<h2 id="architecture-in-one-paragraph">Architecture in one paragraph</h2>
+<p>A single server process on the machine that owns the code spawns and supervises the agent CLIs, normalises their event streams into one thread model, and serves every client from that one source of truth. Approvals are just another event the client answers. This is the same shape as other agent control planes: the agent runs where the credentials and repo live, the UI is thin and can be anywhere.</p>
+<h2 id="the-telemetry-detail-worth-knowing">The telemetry detail worth knowing</h2>
+<p>The project's own telemetry documentation says product events go to the vendor's ingest endpoint and on to PostHog, keyed to a hashed owner identifier. To count installs per person, the server reads identifiers from the agents' local login files (the Claude account UUID when logged in, the OpenAI user ID from Codex's token) plus the vendor account and a per-device random ID, and sends their hashes.</p>
+<ul><li><p>The hash is a plain, unsalted SHA-256 of the raw ID. That makes the value stable across machines and surfaces, which is the point, but it is pseudonymous rather than anonymous: anyone who already holds the raw ID can compute the same hash and link the events.</p></li><li><p>Events carry provider, model, reasoning effort, permission mode, results, durations and token counts; the docs state prompts, responses, file contents and tokens are excluded.</p></li><li><p>A separate relay diagnostics stream goes to Axiom and can include machine names and error text.</p></li><li><p>Opt-out is an environment variable (<code>T3CODE_TELEMETRY_ENABLED=false</code>) read by the server, or a managed policy for administrators. The desktop app reads it from your shell profile.</p></li><li><p>The post that surfaced this notes the settings screen labels the data anonymous; the documentation itself describes hashed account identifiers.</p></li></ul>
+<h2 id="tradeoffs">Tradeoffs</h2>
+<div class="table-scroll"><table><thead><tr><th>You gain</th><th>You accept</th></tr></thead><tbody><tr><td>One UI and approval flow across many agent CLIs</td><td>A third-party process that reads every agent's login files</td></tr><tr><td>Phone approvals for long-running work</td><td>A remote path into a machine with repo and credentials</td></tr><tr><td>Cross-agent handoff in one thread</td><td>Behaviour coupled to each CLI's event format, which changes often</td></tr><tr><td>Uses existing subscriptions</td><td>Vendor telemetry on by default unless disabled</td></tr></tbody></table></div>
+<h2 id="failure-modes">Failure modes</h2>
+<ul><li><p><strong>Approval fatigue on a small screen</strong>: approving shell commands from a phone invites rubber-stamping; keep dangerous-command policies in the agent itself.</p></li><li><p><strong>Remote exposure</strong>: a misconfigured relay or LAN bind exposes an agent runner with write access.</p></li><li><p><strong>Upstream drift</strong>: a CLI update can break event parsing mid-thread.</p></li><li><p><strong>Identity leakage</strong>: stable hashed account IDs let the vendor (or anyone with the raw ID) correlate usage across devices.</p></li></ul>
+<h2 id="review-checklist-before-rolling-out-to-a-team">Review checklist before rolling out to a team</h2>
+<ul><li><p>Set the telemetry opt-out (or the managed policy) before first launch if your policy forbids third-party analytics.</p></li><li><p>Decide which remote mode is allowed: LAN only, Tailscale, or the vendor relay.</p></li><li><p>Confirm worktree-per-thread is on so parallel agents do not collide.</p></li><li><p>Keep each agent's own permission settings strict; the control plane does not replace them.</p></li><li><p>Pin versions of T3 Code and the agent CLIs together, and test upgrades.</p></li></ul>
+<h2 id="related-entries">Related entries</h2>
+<p>R227 (cross-model PR review run from this tool), R090 (moving an agent session between machines and harnesses), R177 (a message board as the coordination layer for coding agents), R168 (identity and audit for agent tool calls).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/atuin-threads-agent-sessions/">Atuin Threads: move an agent session between machines and harnesses</a><span class="label">R090 · Infrastructure for agents at scale</span><span class="why">both move agent work off a single terminal: Atuin Threads moves a session between machines and harnesses; T3 Code keeps the session on one machine and moves the UI (desk, web, phone).</span></li></ul><p><a href="/research/map/#R262">See R262 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
