@@ -585,7 +585,8 @@
       "R235",
       "R238",
       "R239",
-      "R240"
+      "R240",
+      "R247"
      ],
      "also": [
       {
@@ -704,6 +705,10 @@
       {
        "id": "R215",
        "why": "Gemma 4 drafting head: fast decode shipped as part of the model family"
+      },
+      {
+       "id": "R247",
+       "why": "Pretraining that removes its own sublayers to produce smaller, faster models"
       }
      ]
     },
@@ -6483,6 +6488,25 @@
    ],
    "summary": "Uber runs one Git-backed marketplace of more than 5,000 agent skills serving Claude Code, Codex, Cursor and internal agents, with over a million invocations a month. Around it: three tiers with rising bars, one CLI that translates skills into each agent's config, OpenTelemetry per-skill metrics, spec-first authoring with a linter, eval suites mixing golden, trajectory-graded and human-judged cases, and with/without ablation against a noise band. Cost levers include Code Mode scripts, cheaper worker subagents and load-time scripts, and an always-on skill lets agents file their own papercuts. Open problem: evaluating rare, high-stakes workflows.",
    "file": "entries/uber-skills-marketplace-evals-ablation.html"
+  },
+  {
+   "id": "R247",
+   "slug": "model-carving-pretraining-deletes-sublayers",
+   "title": "Model Carving: let pretraining delete its own sublayers",
+   "by": "Kaden Zheng and Pratyusha Sharma",
+   "source": "https://arxiv.org/abs/2611.27962",
+   "published": "2026-11-20",
+   "added": "2026-11-23",
+   "artifact": "https://claude.ai/artifact/9EB5rFFK8HRVLSnzKzJ15W",
+   "tags": [
+    "model-architecture",
+    "pretraining",
+    "pruning",
+    "inference-efficiency",
+    "paper"
+   ],
+   "summary": "Model Carving learns a Transformer's architecture and weights in one pretraining run: every attention and MLP sublayer gets a learnable gate, a smooth log penalty tied to the learning rate pushes gates toward zero, and closed sublayers are removed outright, leaving a smaller, heterogeneous network. From 140M to 2.7B parameters, carved models beat dense models trained with up to 1.7x more compute and size-matched pruned or distilled ones, with up to 34% fewer FLOPs per token and 1.6x faster decoding. Caveats: unproven past 2.7B, weaker cooldown gains, harder serving for irregular layers, and data-dependent topology.",
+   "file": "entries/model-carving-pretraining-deletes-sublayers.html"
   }
  ],
  "edges": [
@@ -10319,6 +10343,12 @@
    "b": "R101",
    "strength": "strong",
    "why": "the third layer of Uber's agent platform: MCP Gateway exposes tools, SLATE tests changes, and the skills marketplace packages workflows with evals and cost tracking on top of both."
+  },
+  {
+   "a": "R247",
+   "b": "R239",
+   "strength": "strong",
+   "why": "two ends of structured sparsity: Model Carving removes sublayers during pretraining for every input; Dynamic Expert Pruning masks MoE experts per agent at inference time."
   }
  ]
 }
