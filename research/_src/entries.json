@@ -1103,7 +1103,8 @@
       "R171",
       "R204",
       "R256",
-      "R261"
+      "R261",
+      "R268"
      ],
      "also": [
       {
@@ -6998,6 +6999,26 @@
    ],
    "summary": "Philippa Hardman matches learning-science effect sizes to what coding models can now build: simulations (g = 0.85), self-explanation with AI marking (0.55), contrasting cases (d = 0.50) and faded worked examples (0.48), all above classroom quizzes (0.37). Her method lists source facts first, then builds only from them. In eight tests of Claude Opus 5.5, GPT-6.2 Astra and Gemini 4 Argon, rules were mostly right, but all three made unflagged changes, and the main failure was the answer leak: polished pages that do the learner's thinking for them. Key caveat: a practitioner's small set of tests, not a study.",
    "file": "entries/four-ai-builds-learning-outcomes.html"
+  },
+  {
+   "id": "R268",
+   "slug": "ocria-1-page-to-markdown-parser",
+   "title": "OCRia-1: a 4B page-to-Markdown parser trained with verifiable rewards",
+   "by": "LlamaIndex",
+   "source": "https://huggingface.co/llamaindex/OCRia-1",
+   "published": "2026-11-24",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/XNCFLS6UXJS2QXrDw45tjx",
+   "tags": [
+    "document-parsing",
+    "ocr",
+    "vision-language",
+    "open-weights",
+    "benchmark",
+    "rl"
+   ],
+   "summary": "OCRia-1 is LlamaIndex's 4B vision-language model, fine-tuned from Qwen3.5-4B, that turns one page image into Markdown with HTML tables in a single call, keeping spanning headers, chart data as tables, meaningful formatting, LaTeX math and page furniture. It was trained on about 101k real and synthetic pages with SFT, then GRPO using rewards that score each dimension the way a benchmark would. The vendor reports 85.2 on its own ParseBench 2 (first of 23 open-weight systems) and small leads of 0.3 to 2 points on three independent benchmarks. Key caveats: the headline benchmark is the vendor's, scores move with rendering resolution and output normalization, public weights run about nine times slower than the hosted stack, and the license restricts larger and competing commercial use.",
+   "file": "entries/ocria-1-page-to-markdown-parser.html"
   }
  ],
  "edges": [
@@ -11002,6 +11023,12 @@
    "b": "R140",
    "strength": "strong",
    "why": "teaching companion: the facts-first, build-second brief is a reusable exercise next to R140's Claude Code levels."
+  },
+  {
+   "a": "R268",
+   "b": "R010",
+   "strength": "strong",
+   "why": "two answers to long PDFs: PageIndex reasons over a document's structure to pick pages; OCRia-1 makes each page's tables, charts and formatting faithful at ingestion. Retrieval over structure only helps if the parsed structure is right."
   }
  ]
 }

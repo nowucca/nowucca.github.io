@@ -756,6 +756,14 @@
   "R265": {
    "verdict": "pass",
    "round": 1
+  },
+  "R266": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R267": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
