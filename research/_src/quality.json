@@ -740,6 +740,22 @@
   "R261": {
    "verdict": "pass",
    "round": 1
+  },
+  "R262": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R263": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R264": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R265": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
