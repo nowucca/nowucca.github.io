@@ -299,6 +299,7 @@ def scoring_note():
     return (f'<section class="article" id="scoring"><h2>How reputation is scored</h2>'
             f'<p>Each public entry an author wrote or shared counts {fmt(q["base"])}. An entry that passed the research Reviewer on its first round adds {fmt(q["review_first_pass"])}; '
             f'one the Reviewer sent back for revision subtracts {fmt(-q["review_revise"])}. An entry cited by a published field guide adds {fmt(q["in_guide"])}. '
+            f'Authors on the curated list of trusted sources get their total multiplied by {fmt(authors_mod.TRUSTED_BOOST)}. '
             f'Ties go to the author with more entries. Only published entries and field guides count.</p></section>')
 
 
