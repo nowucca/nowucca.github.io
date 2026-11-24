@@ -724,6 +724,22 @@
   "R257": {
    "verdict": "pass",
    "round": 1
+  },
+  "R258": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R259": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R260": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R261": {
+   "verdict": "pass",
+   "round": 1
   }
  }
 }

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Pragmatic Engineer · Authors · Research</title>
+<meta name="description" content="The Pragmatic Engineer: 2 research entries on nowucca.com.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/" aria-current="page">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">Author · organization</span>
+  <h1>The Pragmatic Engineer</h1>
+  <p class="lede">Gergely Orosz&#x27;s newsletter and podcast about how software engineering is done at tech companies.</p>
+  <div class="entry-meta"><span>2 entries</span><span>Reputation 3.5 · rank 22 of 154</span><span>2 of 2 reviewed entries passed on the first round</span></div>
+  <div class="tags"><span class="tag">code-review</span><span class="tag">coding-agents</span><span class="tag">ci</span><span class="tag">cost</span><span class="tag">developer-infrastructure</span></div>
+</header><section class="article"><h2>Field guides</h2><p>Entries by The Pragmatic Engineer are sources in these guides:</p><div class="tags"><a class="tag guide-tag" href="/research/guides/agent-verification/">Agent verification · 2</a></div></section><section class="article"><h2>Entries</h2></section><ol class="rows"><li><a class="row" href="/research/accept-agent-code-on-evidence/"><span class="date">2026-11-22</span><span class="text"><span class="id">R220</span><span class="title">Accept agent code on evidence, not line-by-line review</span><span class="one">Two practitioners converge: Paul Iusztin says reading every line of agent code is mostly wasted effort and acceptance should rest on criteria, tests, static, type and security checks, and realistic runs; Matt Pocock says TDD&#x27;s ritual matters less for agents but the evidence matters more, asking for a test that fails without the change and passes with it, and warns of tautological tests. The reviewer&#x27;s job shifts to auditing evidence, with line review triggered by risk, novelty or a failed check.</span><div class="tags"><span class="tag">test-oracles</span><span class="tag">code-review</span><span class="tag">coding-agents</span><span class="tag">tdd</span><span class="tag">practitioner-advice</span></div></span></a></li><li><a class="row" href="/research/uber-slate-agent-end-to-end-testing/"><span class="date">2026-11-16</span><span class="text"><span class="id">R101</span><span class="title">Uber SLATE: agents that test their own changes end to end</span><span class="one">SLATE deploys only the services a branch changes into a per-engineer instance and routes a test account&#x27;s traffic to it, with all other calls going to shared staging; agents now create SLATE instances, run an agent browser against main and the branch, and attach a before/after regression report with screenshots and video to the PR (also for iOS, Android, backend APIs). Same episode: Model Gateway with security middleware, per-user spend and traces; AIFX wrapper so settings, skills and plugins move across Claude Code, Codex and OpenCode; spend tiers with manager sign-off and ~50% token-cost cut; AI review plus risk score before human review; CI jobs doubled in 12 months, so cheap checks moved into the agent&#x27;s inner loop; PRs tagged by work type instead of PR velocity.</span><div class="tags"><span class="tag">developer-infrastructure</span><span class="tag">coding-agents</span><span class="tag">testing</span><span class="tag">code-review</span><span class="tag">ci</span><span class="tag">cost</span></div></span></a></li></ol><p class="foot">Credits come from each entry's byline. <a href="/research/authors/#scoring">How reputation is scored</a>.</p>
+</main>
+</body>
+</html>

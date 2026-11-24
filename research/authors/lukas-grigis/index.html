@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lukas Grigis · Authors · Research</title>
+<meta name="description" content="Lukas Grigis: 1 research entries on nowucca.com.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/" aria-current="page">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">Author · person</span>
+  <h1>Lukas Grigis</h1>
+  <p class="lede">Writes most about consistency and storage tradeoffs.</p>
+  <div class="entry-meta"><span>1 entry</span><span>Reputation 0.75 · rank 152 of 154</span><span>0 of 1 reviewed entries passed on the first round</span></div>
+  <div class="tags"><span class="tag">chaos-testing</span><span class="tag">idempotency</span><span class="tag">messaging</span><span class="tag">open-source</span><span class="tag">outbox</span></div>
+</header><section class="article"><h2>Entries</h2></section><ol class="rows"><li><a class="row" href="/research/outbox-inbox-under-chaos-measured/"><span class="date">2026-11-23</span><span class="text"><span class="id">R231</span><span class="title">Outbox plus inbox under chaos: four ways to wire one sale to one message, measured</span><span class="one">Four ways to wire one sale to one message, measured under seeded chaos (kill -9 on apps and broker, Toxiproxy dropping confirms and acks) and counted from both databases. Save-then-send lost 274 of 1,316 committed sales; send-in-transaction made 25 ghosts; a Spring Modulith outbox lost none but applied 25 twice; outbox plus a Postgres inbox (INSERT ... ON CONFLICT DO NOTHING in the consumer&#x27;s transaction, settle after commit) gave zero of each. Gotcha: since RabbitMQ 4.3 released deliveries skip the quorum-queue delivery limit. One machine, one run per variant.</span><div class="tags"><span class="tag">messaging</span><span class="tag">outbox</span><span class="tag">idempotency</span><span class="tag">chaos-testing</span><span class="tag">rabbitmq</span><span class="tag">spring</span><span class="tag">open-source</span></div></span></a></li></ol><p class="foot">Credits come from each entry's byline. <a href="/research/authors/#scoring">How reputation is scored</a>.</p>
+</main>
+</body>
+</html>
