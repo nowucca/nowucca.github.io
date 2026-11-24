@@ -27,6 +27,58 @@ FONTS = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@
 e = lambda s: html.escape(str(s), quote=True)
 
 
+def load_guides():
+    p = SRC / "guides.json"
+    return json.loads(p.read_text())["guides"] if p.exists() else []
+
+
+GUIDES = load_guides()
+
+
+def guide_pages(entries, theme_of):
+    """Field guides: syntheses across entries, published one at a time after approval."""
+    if not GUIDES:
+        return
+    d = OUT / "guides"
+    d.mkdir(exist_ok=True)
+    cards = []
+    for g in GUIDES:
+        for rid in g["entries"]:
+            if rid not in entries:
+                raise SystemExit(f"guide {g['slug']} draws on non-public entry {rid}")
+        body = fill_diagrams(wrap_tables((SRC / "guides" / f"{g['slug']}.html").read_text()))
+        srcs = "".join(
+            f'<li style="--c:{theme_of[r]["color"]}"><a class="to" href="/research/{entries[r]["slug"]}/">{e(entries[r]["title"])}</a><span class="label">{e(r)}</span></li>'
+            for r in g["entries"]
+        )
+        head = f"""<header class="masthead">
+  <span class="label">Field guide · {len(g["entries"])} sources</span>
+  <h1>{e(g["title"])}</h1>
+  <p class="lede">{e(g["summary"])}</p>
+  <div class="entry-meta"><span>Claims read from the full papers</span><span>Updated {e(g["updated"])}</span></div>
+</header>"""
+        foot = ('<section class="article"><h2>Sources in this guide</h2><ul class="links">' + srcs + '</ul></section>'
+                '<p class="foot">A field guide synthesizes the <a href="/research/">Research</a> entries it cites. Each claim id links to the entry it comes from.</p>')
+        gd = d / g["slug"]
+        gd.mkdir(exist_ok=True)
+        (gd / "index.html").write_text(page(f'{g["title"]} · Field guide', head + f'\n<article class="article">{body}</article>\n' + foot, g["summary"], active="/research/guides/"))
+        cards.append(f'<li><a class="row" href="/research/guides/{g["slug"]}/"><span class="date">{e(g["updated"])}</span>'
+                     f'<span class="text"><span class="title">{e(g["title"])}</span><span class="one">{e(g["summary"])}</span></span></a></li>')
+    idx = f"""<header class="masthead"><span class="label">nowucca.com · research</span><h1>Field guides</h1>
+<p class="lede">What the research entries add up to, topic by topic: what to decide, what to do, where the evidence disagrees, and the numbers behind it.</p></header>
+<ol class="rows">{"".join(cards)}</ol>"""
+    (d / "index.html").write_text(page("Field guides · Research", idx, "Field guides built from the research entries on nowucca.com.", active="/research/guides/"))
+
+
+def guides_block():
+    if not GUIDES:
+        return ""
+    items = "".join(f'<li><a href="/research/guides/{g["slug"]}/">{e(g["title"])}</a></li>' for g in GUIDES)
+    return (f'<a class="cta" href="/research/guides/"><span><span class="cta-title">Field guides</span>'
+            f'<span class="label">{len(GUIDES)} guide{"s" if len(GUIDES) != 1 else ""} synthesized from the entries</span></span>'
+            f'<span class="cta-go">Read the guides &rarr;</span></a>')
+
+
 def load():
     cfg = json.loads((SRC / "entries.json").read_text())
     entries = {x["id"]: x for x in cfg["entries"]}
@@ -47,7 +99,10 @@ def load():
 
 
 def page(title, body, desc, wide=False, active=""):
-    nav = [("/research/", "Research"), ("/research/map/", "Knowledge map"), ("/library/", "Library")]
+    nav = [("/research/", "Research"), ("/research/map/", "Knowledge map")]
+    if GUIDES:
+        nav.append(("/research/guides/", "Field guides"))
+    nav.append(("/library/", "Library"))
     links = " ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if h == active else ""}>{e(t)}</a>' for h, t in nav
     )
@@ -142,6 +197,7 @@ def index_page(cfg, entries, theme_of, sub_of, updated):
   <div class="meta label"><span>{len(entries)} entries</span><span>{len(cfg["edges"])} connections</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
 </header>
 <a class="cta" href="/research/map/"><span><span class="cta-title">Knowledge map</span><span class="label">Every entry and how the ideas connect</span></span><span class="cta-go">Open the map &rarr;</span></a>"""]
+    parts[0] += guides_block()
     toc = []
     for t in cfg["themes"]:
         n_t = sum(len(s["primary"]) for s in t["subtopics"])
@@ -364,6 +420,7 @@ def main():
         entry_page(cfg, entries, theme_of, sub_of, x)
     index_page(cfg, entries, theme_of, sub_of, updated)
     map_page(cfg, entries, theme_of, updated)
+    guide_pages(entries, theme_of)
     print(f"built {len(entries)} entries, index and map (updated {updated[1]})")
 
 
