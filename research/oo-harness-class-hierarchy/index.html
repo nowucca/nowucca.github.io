@@ -11,13 +11,12 @@
 </head>
 <body>
 <main class="wrap">
-<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/library/">Library</a></nav>
 <header class="masthead">
   <span class="label">R108 · Agent architecture › Self-improvement and learning loops</span>
   <h1>OO-Harness: evolving a class hierarchy of agent harnesses</h1>
   <div class="entry-meta"><span>Elvis Saravia&#x27;s post on Li et al., UIUC and Google Cloud AI Research, arXiv 2610.28380</span><span>Published 2026-10</span><span>Summarized 2026-11-16</span></div>
   <p><a href="https://www.linkedin.com/posts/omarsar_build-specialized-harnesses-folks-this-share-7518676737493221377-R_iB/" rel="noopener">Read the original</a></p>
-  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/elvis-saravia/">Elvis Saravia</a></p>
   <div class="tags"><span class="tag">self-improving-agents</span><span class="tag">agent-harness</span><span class="tag">evals</span><span class="tag">benchmarks</span></div>
 </header>
 <article class="article"><p>Instead of evolving one global harness, OO-Harness (Li et al., UIUC and Google Cloud AI Research, arXiv 2610.28380) evolves a tree of harness subclasses, each specialized for a cluster of tasks, and routes each new task to one of them after looking at a base-harness run. With the executor frozen at Gemini 3.5 Flash it lifts AutomationBench mean partial credit from 61.6% to 77.4% on held-out tasks and tops Meta-Harness, AHE and Adaptive Auto-Harness on all three benchmarks tested.</p>
