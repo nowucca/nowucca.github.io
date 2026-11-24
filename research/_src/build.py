@@ -299,8 +299,21 @@ def scoring_note():
     return (f'<section class="article" id="scoring"><h2>How reputation is scored</h2>'
             f'<p>Each public entry an author wrote or shared counts {fmt(q["base"])}. An entry that passed the research Reviewer on its first round adds {fmt(q["review_first_pass"])}; '
             f'one the Reviewer sent back for revision subtracts {fmt(-q["review_revise"])}. An entry cited by a published field guide adds {fmt(q["in_guide"])}. '
-            f'Authors on the curated list of trusted sources get their total multiplied by {fmt(authors_mod.TRUSTED_BOOST)}. '
+            f'Authors on the <a href="#trusted">trusted sources</a> list get their total multiplied by {fmt(authors_mod.TRUSTED_BOOST)}. '
             f'Ties go to the author with more entries. Only published entries and field guides count.</p></section>')
+
+
+def trusted_section():
+    t = [a for a in AUTHORS if a["trusted"]]
+    if not t:
+        return ""
+    items = "".join(
+        f'<li><a class="to" href="/research/authors/{e(a["slug"])}/">{e(a["name"])}</a>'
+        f'<span class="label">{len(a["entries"])} entr{"y" if len(a["entries"]) == 1 else "ies"} · reputation {fmt(a["score"])}</span>'
+        f'<span class="why">{specialty(a)}</span></li>' for a in t)
+    return (f'<section class="article" id="trusted"><h2>Trusted sources</h2>'
+            f'<p>The authors and pages followed most closely. Their posts are read first, and their reputation is weighted by {fmt(authors_mod.TRUSTED_BOOST)}.</p>'
+            f'<ul class="links">{items}</ul></section>')
 
 
 def author_pages(entries, theme_of, sub_of, updated):
@@ -311,8 +324,9 @@ def author_pages(entries, theme_of, sub_of, updated):
     rows = []
     for a in AUTHORS:
         n = len(a["entries"])
+        trusted = '<span class="weak-tag">trusted</span>' if a["trusted"] else ""
         rows.append(
-            f'<tr><td>{a["rank"]}</td><td><a href="/research/authors/{e(a["slug"])}/">{e(a["name"])}</a>'
+            f'<tr><td>{a["rank"]}</td><td><a href="/research/authors/{e(a["slug"])}/">{e(a["name"])}</a>{trusted}'
             f'<span class="spec">{specialty(a)}</span>{guide_chips(a)}</td>'
             f'<td class="num">{n}</td><td class="num">{fmt(a["score"])}</td></tr>')
         ent = []
@@ -328,6 +342,8 @@ def author_pages(entries, theme_of, sub_of, updated):
         facts.append(f'Reputation {fmt(a["score"])} · rank {a["rank"]} of {len(AUTHORS)}')
         if a["reviewed"]:
             facts.append(f'{a["first_pass"]} of {a["reviewed"]} reviewed entries passed on the first round')
+        if a["trusted"]:
+            facts.append("On the trusted-author list")
         guides_html = (f'<section class="article"><h2>Field guides</h2><p>Entries by {e(a["name"])} are sources in these guides:</p>{guide_chips(a)}</section>'
                        if a["guides"] else "")
         head = f"""<header class="masthead">
@@ -348,6 +364,8 @@ def author_pages(entries, theme_of, sub_of, updated):
   <p class="lede">Who wrote or shared the sources behind the Research entries, ranked by reputation: how many entries they account for, weighted by how well those entries held up.</p>
   <div class="meta label"><span>{len(AUTHORS)} authors</span><span>{len(entries)} entries</span><span>Updated <time datetime="{updated[0]}">{updated[1]}</time></span></div>
 </header>
+{trusted_section()}
+<h2 class="label" id="all-authors">All authors, by reputation</h2>
 <div class="table-scroll"><table class="registry authors">
 <thead><tr><th>#</th><th>Author, specialty and field guides</th><th class="num">Entries</th><th class="num">Reputation</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>
