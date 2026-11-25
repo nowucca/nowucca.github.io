@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nango: what operating OAuth for 1,000+ APIs teaches about token refresh · Research</title>
+<meta name="description" content="Nango&#x27;s field report from operating OAuth for about 935 providers. A May 2025 bug meant refreshed credentials were not saved; the fix was reverted in under two hours, but scheduled jobs had already thrown away tokens for hundreds of connections, and Airtable and Atlassian users had to re-consent because those providers do not accept the old refresh token. Other lessons: Airtable revokes a whole grant on a duplicate refresh, so refreshes are serialised per connection behind a distributed lock; Exact Online tokens last 10 minutes and reject refreshes more than 30 seconds early, so expiry buffers are per provider; &lt;code&gt;expires_in&lt;/code&gt; is optional in RFC 6749 and Salesforce returns none; Zoho CRM returns HTTP 200 with an error body. 16% of commits to the provider config are fixes. The rules carry straight over to agents, which run unattended, fan out parallel calls on one connection, and read an empty 200 as a real answer.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R282 · Agent principles and patterns › Agent interaction protocols</span>
+  <h1>Nango: what operating OAuth for 1,000+ APIs teaches about token refresh</h1>
+  <div class="entry-meta"><span>Robin Guldener</span><span>Published 2026-08-06</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://tldr.tech/dev/2026-11-24" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/robin-guldener/">Robin Guldener</a></p>
+  <div class="tags"><span class="tag">oauth</span><span class="tag">tool-auth</span><span class="tag">integrations</span><span class="tag">production-incidents</span><span class="tag">mcp</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://nango.dev/blog/lessons-from-operating-api-auth-for-900-apis/">Robin Guldener (Nango), "What we learned operating auth for 1,000+ APIs"</a> (2026-08-06). Found via <a href="https://tldr.tech/dev/2026-11-24">TLDR Dev 2026-11-24</a>. Nango is an open-source integration and auth layer for apps and agents, so this is a vendor post, but it is a field report with named providers and specific failures, not a pitch.</p>
+<h2 id="lessons">Lessons</h2>
+<ol><li><p><strong>Rotation makes refresh bugs permanent.</strong> In May 2025 a bad <code>if</code> meant refreshed credentials were not saved. The fix was reverted in under two hours, but scheduled jobs had already thrown away tokens for hundreds of connections. Most providers still accepted the old refresh token. Airtable and Atlassian do not, so those users had to re-consent. Nango now writes the new token before anything else, tests that path, and pages on refresh anomalies: "treat refresh tokens like money, not cache."</p></li><li><p><strong>Concurrent refreshes can revoke everything.</strong> Airtable revokes the whole grant on a duplicate refresh after a short grace period and kills the old access token, so long jobs fail mid-run. Xero allows reuse of the previous refresh token for 30 minutes. Nango serialises refreshes per connection behind a distributed lock.</p></li><li><p><strong>Refresh timing is provider-specific.</strong> Exact Online tokens last 10 minutes and reject refreshes more than 30 seconds before expiry, so a blanket "refresh 15 minutes early" rule always failed. Buffers are now per provider.</p></li><li><p><strong>You often cannot know when a token expires.</strong> <code>expires_in</code> is optional in RFC 6749. Zendesk returns it only on request; Salesforce returns none, and its introspection endpoint intermittently errored. NetSuite refresh tokens die after 7 days; Google's after six months unused. Nango refreshes idle credentials on a schedule so they never go stale.</p></li><li><p><strong>Errors that look like success.</strong> Zoho CRM returns HTTP 200 with an error body. Workday and Dayforce return empty data when a permission is missing. LastPass's credential check is a string search for "Authorization Error".</p></li><li><p><strong>Providers change auth without notice.</strong> 16% of commits to Nango's provider config are fixes. Figma moved credentials to a Basic header and changed its OAuth host by email.</p></li><li><p><strong>Build tools around providers.</strong> A mock server for Salesforce Data Cloud's chained token exchanges, because test orgs lack the features.</p></li></ol>
+<p>Scale: about 935 providers in the registry; 276 have an endpoint Nango can call to check a credential works.</p>
+<h2 id="why-it-matters-for-a-staff-engineer">Why it matters for a staff engineer</h2>
+<p>The post never mentions agents directly, but this is the auth layer under every MCP server and tool integration (R062 covers the OAuth 2.1 spec side). Agents make it worse: they run unattended for hours, fan out parallel calls on one connection, and treat an empty 200 as a real answer. The concrete rules carry over: persist a rotated token before using it, one refresh in flight per connection, per-provider expiry buffers, scheduled refresh of idle grants, and verify success by content, not status code.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/mcp-authorization-oauth/">MCP authorization: OAuth 2.1 for remote tool servers</a><span class="label">R062 · Agent principles and patterns</span><span class="why">R062 is the OAuth 2.1 spec side of MCP tool auth; Nango is the operational side: rotation, concurrency and expiry quirks behind every tool connection.</span></li></ul><p><a href="/research/map/#R282">See R282 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

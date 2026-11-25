@@ -796,6 +796,10 @@
   "R275": {
    "verdict": "revise",
    "round": 1
+  },
+  "R276": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The AI stack of 40,000 companies, read from vendor disclosures · Research</title>
+<meta name="description" content="Public subprocessor and vendor-disclosure lists for about 40,000 companies, sorted by hand into 20 categories, with growth measured as the one-month net change between 16 October and 13 November 2026 in how many companies name a vendor. Multi-provider is the norm: 44.8% of companies that name a model provider name two or more. Anthropic and OpenAI lead the provider ranking; routers and gateways grow fastest among provider types, mostly OpenRouter; the fastest-growing categories overall are agent sandboxes, web search APIs, agent frameworks and connectors, model routers, scraping, voice, LLM observability and evals. Key caveats: disclosures show who a company names, not what it runs, so models behind a router and self-hosted weights are undercounted; one month of growth data; no denominators for most percentages; subjective categories.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R281 · Infrastructure for agents at scale › Inference providers and serving reliability</span>
+  <h1>The AI stack of 40,000 companies, read from vendor disclosures</h1>
+  <div class="entry-meta"><span>Hrishikesh Kamath</span><span>Published 2026-11-22</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://tldr.tech/dev/2026-11-23" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/hrishikesh-kamath/">Hrishikesh Kamath</a></p>
+  <div class="tags"><span class="tag">market-data</span><span class="tag">model-providers</span><span class="tag">routing</span><span class="tag">agent-tooling</span><span class="tag">adoption</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://kamathhrishi.substack.com/p/i-analyzed-the-ai-stack-used-by-40000">Hrishikesh Kamath, "I Analyzed the AI Stack Used by 40,000+ Companies"</a> (2026-11-22), part 2 of a series. Found via <a href="https://tldr.tech/dev/2026-11-23">TLDR Dev 2026-11-23</a>. Most of the rankings appear only in chart images, so what follows keeps to the numbers stated in the post's text.</p>
+<h2 id="method">Method</h2>
+<p>The data appears to come from public subprocessor and vendor disclosure lists of about 40,000 companies; the post does not say how the companies were chosen. Growth is the one-month net change (16 October to 13 November 2026) in how many companies name a vendor. The author sorted vendors into 20 categories by hand, and a vendor can sit in more than one. "Model provider" covers labs, routers, cloud model services and GPU compute.</p>
+<h2 id="findings">Findings</h2>
+<ul><li><p><strong>Multi-provider is the norm.</strong> 44.8% of companies that name a model provider name two or more.</p></li><li><p><strong>Anthropic and OpenAI lead</strong> the provider ranking. AWS Bedrock and Azure OpenAI show up as cloud model services.</p></li><li><p><strong>Routers and gateways grow fastest</strong> among provider types, mostly OpenRouter. Inference and GPU providers are on slightly more lists than routers. The author reads both as a sign of open-weight adoption.</p></li><li><p><strong>Chinese models:</strong> a small share name one directly, DeepSeek first. They grow about as fast as everything else, and most companies that name one also name a US provider.</p></li><li><p><strong>Fastest-growing categories:</strong> agent sandboxes, web search APIs, agent frameworks and connectors, model routers, web scraping for agents, voice generation, LLM observability and evals, meeting notetakers, inference and GPU compute, speech-to-text.</p></li><li><p><strong>Search APIs:</strong> older ones (SerpApi, Serper) keep growing alongside agent-native search (Exa, Parallel, Tavily).</p></li></ul>
+<h2 id="limits">Limits</h2>
+<ul><li><p>Disclosures show who a company names, not what it runs. Models behind a router, self-hosted models and open models rented on GPU clouds are undercounted.</p></li><li><p>One month of growth data, no denominators for most percentages, and subjective categories.</p></li><li><p>An OpenRouter figure of 73% open-weight tokens is from an embedded tweet about OpenRouter's own traffic, not from this dataset.</p></li></ul>
+<h2 id="why-it-matters-for-a-staff-engineer">Why it matters for a staff engineer</h2>
+<p>Subprocessor lists are a cheap, public signal for what the market is wiring together, and this one says the growth is in the layer around the model: sandboxes, search, scraping, routing and observability. That matches the Databricks enterprise index (R116) on multi-provider use. For a platform team, the 44.8% multi-provider figure is the practical one: provider abstraction and routing are now normal, not an edge case. Treat the shares as share of disclosing companies, not market share.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/databricks-ai-index/">Databricks AI Index: enterprise model share and coding-agent cost</a><span class="label">R116 · Infrastructure for agents at scale</span><span class="why">both measure enterprise multi-provider use from the outside; Databricks from platform traffic, Kamath from disclosure lists (44.8% name 2+ providers).</span></li></ul><p><a href="/research/map/#R281">See R281 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

@@ -25,7 +25,8 @@
       "R191",
       "R226",
       "R230",
-      "R265"
+      "R265",
+      "R278"
      ],
      "also": [
       {
@@ -617,7 +618,9 @@
       "R240",
       "R247",
       "R253",
-      "R271"
+      "R271",
+      "R279",
+      "R281"
      ],
      "also": [
       {
@@ -659,6 +662,10 @@
       {
        "id": "R252",
        "why": "Stackable soft-prompt skills served at near-backbone throughput"
+      },
+      {
+       "id": "R283",
+       "why": "the serving unit is one 8-GPU node in FP8, with a speculative drafter and sparse-MLA kernels the stack has to support"
       }
      ]
     },
@@ -708,7 +715,8 @@
       "R197",
       "R202",
       "R244",
-      "R269"
+      "R269",
+      "R283"
      ],
      "also": [
       {
@@ -754,6 +762,10 @@
       {
        "id": "R259",
        "why": "long-horizon search over messy primary sources that ends in a falsifiable prediction (a named document) a person then fetches to confirm"
+      },
+      {
+       "id": "R279",
+       "why": "residual-stream design is now a shipping choice in open frontier models, not only a research axis"
       }
      ]
     },
@@ -763,7 +775,12 @@
      "primary": [
       "R232"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R282",
+       "why": "a two-hour bug in refresh-token persistence destroyed tokens for hundreds of connections, which is the cascading-failure shape to design against"
+      }
+     ]
     }
    ]
   },
@@ -1445,6 +1462,10 @@
       {
        "id": "R257",
        "why": "builds the core harness pieces by hand (tool loop, schemas, retries, permissions) and shows which ones a small local model needs"
+      },
+      {
+       "id": "R281",
+       "why": "the growth is in the layer around the model — sandboxes, search, scraping, routing and observability — which is the harness, not the model"
       }
      ]
     },
@@ -1520,7 +1541,8 @@
       "R242",
       "R246",
       "R254",
-      "R272"
+      "R272",
+      "R280"
      ],
      "also": [
       {
@@ -1602,6 +1624,10 @@
       {
        "id": "R260",
        "why": "evaluation lessons for self-improving loops: keep a frozen evaluation-only held-out set, rerun the old harness at the new compute budget, and validate the grader separately"
+      },
+      {
+       "id": "R278",
+       "why": "publishes a per-category benchmark split rather than one headline, which is the discipline to demand of any memory vendor"
       }
      ]
     },
@@ -1616,7 +1642,8 @@
       "R091",
       "R135",
       "R143",
-      "R190"
+      "R190",
+      "R282"
      ],
      "also": [
       {
@@ -1963,6 +1990,10 @@
       {
        "id": "R236",
        "why": "lints agent config files: permissions, hooks, MCP launch commands and skills, as a CI gate"
+      },
+      {
+       "id": "R280",
+       "why": "the transparency ask — publish lab-internal horizons the way OpenAI did — is a policy argument as much as a measurement one"
       }
      ]
     },
@@ -2023,7 +2054,8 @@
       "R130",
       "R205",
       "R225",
-      "R257"
+      "R257",
+      "R277"
      ],
      "also": [
       {
@@ -2093,6 +2125,10 @@
       {
        "id": "R267",
        "why": "a reusable teaching exercise: brief a model with facts first, build second, then walk the build as a novice looking for answer leaks"
+      },
+      {
+       "id": "R277",
+       "why": "a ready-made curriculum for teaching how a model is built, with a checkable milestone at every stop"
       }
      ]
     }
@@ -7201,6 +7237,136 @@
    ],
    "summary": "DESIGN.md is a markdown file at the project root that states a design system in prose and tables — colors, typography, spacing, components, layout rules — so a coding or design agent reads it like any other repository file: AGENTS.md says how to build the project, DESIGN.md says how it should look. The format follows Google Stitch's nine sections, two of which do work a JSON token file cannot: a do's-and-don'ts section that states what not to do, and a visual-theme section that gives an agent intent to extrapolate from. The collection ships 83 files extracted from public websites, each with light and dark preview pages. Key caveats: nothing validates the hex values or their contrast, nothing keeps the file in agreement with the code, extraction fidelity against any company's real system is unverified, and a third-party file carrying an “agent prompt guide” is outside instructions dropped where the agent reads every task.",
    "file": "entries/design-md-plain-text-design-system.html"
+  },
+  {
+   "id": "R277",
+   "slug": "seven-repos-learning-path-autograd-chat-model",
+   "title": "Seven repos as a learning path from autograd to a chat model",
+   "by": "Hao Hoang",
+   "source": "https://lnkd.in/p/g_ikWiyg",
+   "published": "2026-11-25",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/7u5jEusKzjgzczveo6Zg6L",
+   "tags": [
+    "learning-paths",
+    "open-source",
+    "training",
+    "education"
+   ],
+   "summary": "Seven Karpathy repositories treated as an ordered curriculum rather than a reading list: micrograd (scalar autograd in ~100 lines), nn-zero-to-hero, minbpe (byte-pair encoding that reproduces GPT-4's token IDs), nanoGPT, llm.c (GPT-2 in plain C and CUDA), nanochat (a GPT-2-class chat model for roughly $48 on eight H100s for about two hours) and autoresearch. The transferable artifact is the ordering rule — each stop answers the question the previous one leaves open — and the fact that each stop has an unambiguous “it works” signal. Key caveats: nanoGPT's README is now deprecated in favour of nanochat, so read four and run six; the cost figures are the most perishable claim here; and the path stops short of post-training, serving economics, evaluation design and anything about production.",
+   "file": "entries/seven-repos-learning-path-autograd-chat-model.html"
+  },
+  {
+   "id": "R278",
+   "slug": "agent-memory-as-database-feature-oracle",
+   "title": "Agent memory as a database feature: Oracle's client library and its numbers",
+   "by": "Oracle",
+   "source": "https://lnkd.in/p/gpXc_6Dx",
+   "published": "2026-11-25",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/WG5649y4oq7h7h1VET7mja",
+   "tags": [
+    "agent-memory",
+    "benchmarks",
+    "databases",
+    "retrieval"
+   ],
+   "summary": "Oracle's <code>oracleagentmemory</code> Python client puts agent memory inside Oracle AI Database rather than a separate vector store: threads scoped to a user, automatic extraction of durable facts from turns, directly written memories that bypass extraction, a search scope with metadata filters over VECTOR, KEYWORD or HYBRID strategies, and context cards as the packaging step. The published numbers are the useful part: 94.4 on LongMemEval (472 of 500, at a mean of 29,042 answer tokens) but on BEAM 68.5% at 100K tokens falling to 50.3% at 10M, with event ordering at roughly 22–25% throughout and multi-session reasoning collapsing to 14% at 10M. Retrieval of stated facts is close to solved at this scale; reasoning across sessions and ordering events in time are not.",
+   "file": "entries/agent-memory-as-database-feature-oracle.html"
+  },
+  {
+   "id": "R279",
+   "slug": "deepcrossattention-per-token-residual-routing",
+   "title": "DeepCrossAttention: learned, per-token residual routing across layers",
+   "by": "Kyriakos Axiotis and Thomas Fu",
+   "source": "https://tldr.tech/ai/2026-11-24",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/DBDQfUUdg1mgYoa1j6iEfw",
+   "tags": [
+    "model-architecture",
+    "pretraining",
+    "residual-connections",
+    "paper"
+   ],
+   "summary": "DeepCrossAttention replaces the transformer's fixed residual sum with a learned router over the whole layer history: per-token weights mixing all earlier layer outputs, depth-wise attention that builds queries, keys and values from separately weighted mixes, and an initialisation identical to a plain residual network so it can be retrofitted onto a trained model. Reported results are same quality up to three times faster, an LM1B perplexity target met with 30 layers against the baseline's 42, parameter overhead under 0.2%, and a retrofit that cut perplexity by 0.19 against 0.02 for plain continued training. Key caveats: perplexity and step counts on small LM benchmarks with no downstream scores or model sizes, “up to” figures are best cases, and the extra memory bandwidth — the cost that matters for serving — is acknowledged but not quantified.",
+   "file": "entries/deepcrossattention-per-token-residual-routing.html"
+  },
+  {
+   "id": "R280",
+   "slug": "naam-lab-internal-task-horizons",
+   "title": "Ramez Naam: lab-internal task horizons sit far below the METR-style charts",
+   "by": "Ramez Naam",
+   "source": "https://tldr.tech/ai/2026-11-23",
+   "published": "2026-11-21",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/VSkReQjzeNg9zbsbvqgyDX",
+   "tags": [
+    "evals",
+    "time-horizons",
+    "forecasting",
+    "recursive-self-improvement",
+    "opinion"
+   ],
+   "summary": "Ramez Naam compares the task-horizon charts used to argue that recursive self-improvement is close against the month-by-month internal figures OpenAI published and one point from Google DeepMind's Gemini 4 Argon card. At 80% success, internal horizons are about 16 minutes (OpenAI, on his adjustment) and about 9 minutes (Google), against ECI-to-METR estimates of 33x and 41x those, and AI 2027 projections of 111x and 114x; the ratio widened from 53x in June to 165x in October. At 99% success the horizon is about 28 seconds and 6 seconds. His estimate of extra research productivity per ECI point is 3.6% against a 15–19% runaway threshold. Key caveats: one lab's data for most of the series, a single Google point, his own upward adjustment to OpenAI's numbers, and curve fits extrapolated far beyond the data.",
+   "file": "entries/naam-lab-internal-task-horizons.html"
+  },
+  {
+   "id": "R281",
+   "slug": "ai-stack-40000-companies-vendor-disclosures",
+   "title": "The AI stack of 40,000 companies, read from vendor disclosures",
+   "by": "Hrishikesh Kamath",
+   "source": "https://tldr.tech/dev/2026-11-23",
+   "published": "2026-11-22",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/C9yH5hba9iVeGfE1nqfHEW",
+   "tags": [
+    "market-data",
+    "model-providers",
+    "routing",
+    "agent-tooling",
+    "adoption"
+   ],
+   "summary": "Public subprocessor and vendor-disclosure lists for about 40,000 companies, sorted by hand into 20 categories, with growth measured as the one-month net change between 16 October and 13 November 2026 in how many companies name a vendor. Multi-provider is the norm: 44.8% of companies that name a model provider name two or more. Anthropic and OpenAI lead the provider ranking; routers and gateways grow fastest among provider types, mostly OpenRouter; the fastest-growing categories overall are agent sandboxes, web search APIs, agent frameworks and connectors, model routers, scraping, voice, LLM observability and evals. Key caveats: disclosures show who a company names, not what it runs, so models behind a router and self-hosted weights are undercounted; one month of growth data; no denominators for most percentages; subjective categories.",
+   "file": "entries/ai-stack-40000-companies-vendor-disclosures.html"
+  },
+  {
+   "id": "R282",
+   "slug": "nango-oauth-1000-apis-token-refresh",
+   "title": "Nango: what operating OAuth for 1,000+ APIs teaches about token refresh",
+   "by": "Robin Guldener",
+   "source": "https://tldr.tech/dev/2026-11-24",
+   "published": "2026-08-06",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/RU4iuc8SJeXzsp836aTyDo",
+   "tags": [
+    "oauth",
+    "tool-auth",
+    "integrations",
+    "production-incidents",
+    "mcp"
+   ],
+   "summary": "Nango's field report from operating OAuth for about 935 providers. A May 2025 bug meant refreshed credentials were not saved; the fix was reverted in under two hours, but scheduled jobs had already thrown away tokens for hundreds of connections, and Airtable and Atlassian users had to re-consent because those providers do not accept the old refresh token. Other lessons: Airtable revokes a whole grant on a duplicate refresh, so refreshes are serialised per connection behind a distributed lock; Exact Online tokens last 10 minutes and reject refreshes more than 30 seconds early, so expiry buffers are per provider; <code>expires_in</code> is optional in RFC 6749 and Salesforce returns none; Zoho CRM returns HTTP 200 with an error body. 16% of commits to the provider config are fixes. The rules carry straight over to agents, which run unattended, fan out parallel calls on one connection, and read an empty 200 as a real answer.",
+   "file": "entries/nango-oauth-1000-apis-token-refresh.html"
+  },
+  {
+   "id": "R283",
+   "slug": "tencent-hy4-770b-open-weight-moe",
+   "title": "Tencent Hy4: a 770B open-weight MoE with sparse attention and 1M context",
+   "by": "Tencent",
+   "source": "https://tldr.tech/ai/2026-11-23",
+   "published": "2026-11-23",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/X2jy9Xvys4R9aJVg5wooWx",
+   "tags": [
+    "frontier-model-release",
+    "open-weights",
+    "moe",
+    "sparse-attention",
+    "inference"
+   ],
+   "summary": "Tencent's Hy4 is a 770B-parameter mixture of experts with about 49B active per token: 78 layers, 256 routed experts plus one shared, gated DeepSeek Sparse Attention over Multi-head Latent Attention with an indexer picking the top 2,048 tokens, identity Hyper-Connections with four residual streams, 1M context, a 40-layer vision tower, and a 3.3B speculative-decoding head shipped in the box. Base-model numbers beat DeepSeek-V4-Pro-Base on MMLU (91.6 vs 91.1), SuperGPQA (62.7 vs 54.8) and U-MATH (71.6 vs 64.8), and lose on MBPP-plus and OCW Courses. Key caveats: a custom Tencent Hy License rather than Apache or MIT, the instruct-model tables are images, the finance table is Tencent's own internal evaluation, and the card itself says Hy4 trails top closed models on research math, long-horizon coding and advanced visual QA.",
+   "file": "entries/tencent-hy4-770b-open-weight-moe.html"
   }
  ],
  "edges": [
@@ -11277,6 +11443,42 @@
    "b": "R199",
    "strength": "strong",
    "why": "both put knowledge an agent needs into a plain file in the repo, and only one of them checks it. Trail-code gates commits on its decision records; DESIGN.md has no link to the implementation at all, so a wrong color ships where a wrong build instruction would have failed."
+  },
+  {
+   "a": "R279",
+   "b": "R283",
+   "strength": "strong",
+   "why": "Hy4 ships 4-stream identity Hyper-Connections, one of DCA's baselines; residual-stream design is now a live axis in open frontier models."
+  },
+  {
+   "a": "R279",
+   "b": "R247",
+   "strength": "strong",
+   "why": "both change how depth is used: Model Carving deletes sublayers, DCA lets each token route around layers by reusing earlier outputs."
+  },
+  {
+   "a": "R280",
+   "b": "R194",
+   "strength": "strong",
+   "why": "direct counterweight: METR shows long and fast-growing benchmark horizons; Naam shows lab-internal 80%-reliability horizons of minutes, and the ratio widening monthly."
+  },
+  {
+   "a": "R281",
+   "b": "R116",
+   "strength": "strong",
+   "why": "both measure enterprise multi-provider use from the outside; Databricks from platform traffic, Kamath from disclosure lists (44.8% name 2+ providers)."
+  },
+  {
+   "a": "R282",
+   "b": "R062",
+   "strength": "strong",
+   "why": "R062 is the OAuth 2.1 spec side of MCP tool auth; Nango is the operational side: rotation, concurrency and expiry quirks behind every tool connection."
+  },
+  {
+   "a": "R283",
+   "b": "R197",
+   "strength": "strong",
+   "why": "two open-weight releases a day apart with opposite targets: Inkling 2 Mini is 26B for local loops, Hy4 is 770B for an 8-GPU node."
   }
  ]
 }
