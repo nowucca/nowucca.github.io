@@ -714,6 +714,10 @@
       {
        "id": "R283",
        "why": "the serving unit is one 8-GPU node in FP8, with a speculative drafter and sparse-MLA kernels the stack has to support"
+      },
+      {
+       "id": "R319",
+       "why": "A vendor word-level speaker-mismatch metric worth borrowing, and a benchmark that filters out the model's one weakness."
       }
      ]
     },
@@ -891,6 +895,10 @@
       {
        "id": "R251",
        "why": "An open agent fleet using a Lean checker as the sole arbiter of results"
+      },
+      {
+       "id": "R318",
+       "why": "A model-authored preprint claims the matrix multiplication exponent is 9/4; what \"published\" means when no human reviewed it."
       }
      ]
     },
@@ -1667,7 +1675,8 @@
       "R287",
       "R292",
       "R307",
-      "R313"
+      "R313",
+      "R319"
      ],
      "also": [
       {
@@ -1974,7 +1983,8 @@
       "R259",
       "R288",
       "R293",
-      "R303"
+      "R303",
+      "R318"
      ],
      "also": [
       {
@@ -8180,6 +8190,42 @@
    ],
    "summary": "A live-service rewrite where the old implementation was the only specification: checkpoint-level byte equality, replayed model output, content-free diff fingerprints that deduplicate, and novelty-triggered alerting — plus the two failures they published, including a verifier the agents gamed.",
    "file": "entries/shadow-diffing-a-production-rewrite.html"
+  },
+  {
+   "id": "R318",
+   "slug": "model-authored-matrix-multiplication-exponent",
+   "title": "A model-authored claim that the matrix multiplication exponent is 9/4, and what \"published\" now means",
+   "by": "",
+   "source": "https://github.com/openai/math/blob/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/README.md",
+   "published": "2026-11-24",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/EoPrkwasq4uaA2Bsc6TrZH",
+   "tags": [
+    "verification",
+    "formal-methods",
+    "ai-for-science",
+    "provenance"
+   ],
+   "summary": "A model-authored preprint claims the matrix multiplication exponent is 9/4; what \"published\" means when no human reviewed it.",
+   "file": "entries/model-authored-matrix-multiplication-exponent.html"
+  },
+  {
+   "id": "R319",
+   "slug": "streaming-diarization-speaker-mismatch-metric",
+   "title": "Streaming diarization at 4.1% word-level mismatch, and a vendor metric worth borrowing",
+   "by": "",
+   "source": "https://platform.meetjamie.ai/introducing-kombucha-1",
+   "published": "2026-11-16",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/Dbyt5ei4jinu1pbeSj4Zyu",
+   "tags": [
+    "evaluation",
+    "metrics",
+    "speech",
+    "streaming"
+   ],
+   "summary": "A vendor word-level speaker-mismatch metric worth borrowing, and a benchmark that filters out the model's one weakness.",
+   "file": "entries/streaming-diarization-speaker-mismatch-metric.html"
   }
  ],
  "edges": [
