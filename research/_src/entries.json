@@ -711,6 +711,10 @@
       {
        "id": "R274",
        "why": "a model with write access to its own weights is a new drift and attack surface: edits need provenance, reversibility and broad regression gates"
+      },
+      {
+       "id": "R291",
+       "why": "the defensive half: the supply-chain surface a dataset loader exposes"
       }
      ]
     },
@@ -1571,7 +1575,8 @@
       "R272",
       "R280",
       "R285",
-      "R287"
+      "R287",
+      "R292"
      ],
      "also": [
       {
@@ -1970,6 +1975,10 @@
       {
        "id": "R272",
        "why": "models underestimate their own convergence, so asking a model how unusual its answer is gives a badly calibrated reading"
+      },
+      {
+       "id": "R292",
+       "why": "the human-review cost of deciding whether a grader was right"
       }
      ]
     },
@@ -2006,7 +2015,8 @@
       "R112",
       "R152",
       "R161",
-      "R195"
+      "R195",
+      "R291"
      ],
      "also": [
       {
@@ -7535,6 +7545,44 @@
    ],
    "summary": "A practitioner review of <em>Building Agentic AI Systems, Second Edition</em>, whose organising claim is that a model inside a loop is not a system: the system is the harness, the protocol layer, the deployment and the controls. The most transferable idea is reinjection — when the model announces it is finished, the harness runs a verifier it already trusts and feeds the failure text back as the next observation, because a model's self-report of completion is a generated token sequence with no privileged access to the world. If you cannot name the cheapest check you actually trust for a task class, you do not have a termination condition, you have a stopping heuristic. Three more disciplines: diagnose whether the model ever received the instruction before rewriting the prompt, since plumbing failures misdiagnosed as reasoning failures produce long superstitious prompts; write error messages for the model, giving the actionable delta rather than a stack trace; and mark every synchronous edge between agents, because chained agents reproduce the distributed monolith. Key caveat: none of these come with effect sizes — they are engineering heuristics with good mechanical justification, not measured results.",
    "file": "entries/ask-the-environment-not-the-model.html"
+  },
+  {
+   "id": "R291",
+   "slug": "guardrail-lockout-agentic-intrusion",
+   "title": "Guardrail lockout: what a 17,000-action agentic intrusion taught one platform about defending with agents",
+   "by": "Thomas Wolf",
+   "source": "https://huggingface.co/blog/security-incident-july-2026",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/KnPRGUS9Qe7YkyXS9sDugq",
+   "tags": [
+    "security",
+    "incident-response",
+    "model-supply-chain",
+    "agents-at-scale",
+    "production-operations"
+   ],
+   "summary": "An intrusion into a model-and-dataset hosting platform's production infrastructure, disclosed as driven end to end by an autonomous agent system, read alongside the launch post for the security agent the platform built afterwards. The incident is the first-hand, durable part. Entry was the data-processing pipeline: a malicious dataset abused two code-execution paths — a remote-code dataset loader and a template injection in a dataset configuration — to run code on a processing worker, then harvested cloud and cluster credentials and moved laterally into several internal clusters over a weekend. The campaign executed many thousands of actions across a swarm of short-lived sandboxes with self-migrating command-and-control staged on public services. Detection came from LLM-based triage correlating security telemetry out of daily noise, and forensics ran analysis agents over an attacker action log of more than 17,000 events to rebuild the timeline in hours rather than days. The finding to carry is <strong>guardrail lockout</strong>: frontier models behind commercial APIs refused the forensic work, because it means submitting real attack commands, exploit payloads and C2 artifacts, and provider safety filters cannot tell an incident responder from an attacker. The team ran the analysis on an open-weight model on their own infrastructure instead, which also kept credentials inside the perimeter. Their stated lesson is to vet a self-hostable model before an incident: the attacker was bound by no usage policy while the defender was refused precisely for using a governed service. Key caveats: the product half is a vendor claim with no third-party test, false-positive rate, alert volume and running cost unpublished, and a product mixing open and closed models for security analysis inherits the refusal risk at its closed boundary.",
+   "file": "entries/guardrail-lockout-agentic-intrusion.html"
+  },
+  {
+   "id": "R292",
+   "slug": "most-broken-benchmarks-punish-correct-answers",
+   "title": "Most broken benchmarks punish correct answers: an audit of 749 tasks across eight frontier evals",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.27622",
+   "published": "2026-11-20",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/2xXC81w2RwuqxzL9pcbMby",
+   "tags": [
+    "evals",
+    "benchmarks",
+    "reliability",
+    "research",
+    "production-operations"
+   ],
+   "summary": "Task-level quality reviews of 749 tasks across eight frontier benchmarks, plus 767 public model evaluations, asking of each task whether the prompt, the working environment and the grader agree on what counts as a pass. The headline inverts the usual assumption: across confirmed defects <strong>71.7% withhold credit from compliant solutions</strong> and only 28.3% permit shortcut passes, so raw leaderboard ceilings on unverified multi-step benchmarks understate frontier capability, and a model picked off such a leaderboard may be beaten by one sitting lower. Validity stratifies by grading architecture — closed-form suites revised after public error reporting reach 92.5% verified validity against 29.3% across six multi-step suites, which still supply 161 verified complex tasks. Failures follow the architecture: rubric suites break through prompt-versus-checklist mismatches, such as a financial task miscoding a 100-basis-point decline as 1,000, while execution harnesses add incomplete state assertions, shared-channel leaks and grading-time collisions, with defect rates of 56-82% across one suite's six business workflows. The cheap repair is isolation: grading committed patches in a fresh container rather than a shared one cuts confirmed runtime bypasses from 14.7% to 2.7%, so these suites are under-maintained rather than disposable. Key caveats the authors state: a confirmed defect is not a quantified score shift, since rank changes need model cohorts re-run on patched harnesses; the isolation and curation contrasts compare benchmarks that also differ in domain and authoring workflow, so they are associations not ablations; each task is counted under one primary defect class; and four large pools were sampled.",
+   "file": "entries/most-broken-benchmarks-punish-correct-answers.html"
   }
  ],
  "edges": [
@@ -11677,6 +11725,18 @@
    "b": "R257",
    "strength": "strong",
    "why": "both treat the harness, not the model, as the unit of engineering, and both arrive as teaching material rather than measurement — R257's failure-first course and R290's book review agree on the diagnosis and neither reports an effect size for the fix."
+  },
+  {
+   "a": "R291",
+   "b": "R161",
+   "strength": "strong",
+   "why": "both are first-hand accounts of an intrusion run at machine tempo, and both locate the defender's binding constraint in triage capacity rather than detection coverage; R291 adds the guardrail-lockout failure, where the defender's own tooling refuses the work."
+  },
+  {
+   "a": "R292",
+   "b": "R287",
+   "strength": "strong",
+   "why": "two independent audits of overlapping benchmark sets reaching the same verdict — the grader is the weak link — which is the strongest available evidence that this is a property of the field and not one author's sampling; R292 adds the direction of the asymmetry (71.7% of defects withhold credit) and a measured repair (fresh containers, 14.7% to 2.7%)."
   }
  ]
 }
