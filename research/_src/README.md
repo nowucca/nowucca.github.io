@@ -45,3 +45,7 @@ asked for a revision, +0.5 if a published field guide cites it), times 1.25
 for authors on the trusted-author list. Weights live in `authors.py` `QUALITY`.
 Only guides listed in `guides.json` (approved) count, so private guides never
 show up as tags.
+
+## Found via (discovery channels)
+
+Entry pages show a "Found via" line: the LinkedIn posts and newsletter issues (TLDR AI, TLDR Dev, The Download, Substack newsletters) that pointed to the source. `via.py` reads them from the Registry "Sources" column of the research INDEX.md when the project folder is mounted and snapshots them into `via.json`; builds elsewhere use the snapshot. The original article is never repeated there, and claude.ai, Google redirect and file links are dropped. Nothing to add per entry: list the channel in the INDEX Sources cell (e.g. `[TLDR Dev 2026-11-24](https://tldr.tech/dev/2026-11-24)`) and rebuild.
