@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>It&#x27;s a Plan: an open-source issue tracker where agents take tickets · Research</title>
+<meta name="description" content="A self-hosted project tracker (Kanban, timeline, cycles, docs) pitched as an open-source Linear alternative, where AI agents are project members you assign issues to the same way as people. Internal agents run on the server on any model and API key; external agents run on the developer&#x27;s own machine through a runner package, using their own Claude Code, Codex, Copilot CLI or opencode account, so the server dispatches work and the developer&#x27;s machine does it with the developer&#x27;s credentials. An @mention, an assignment or a schedule starts a run, and there is a REST API with OpenAPI, an MCP server, webhooks and PR integration with five forges. AGPL-3.0 except the runner, which is Apache-2.0 so it can run inside companies. Key caveat: there are no reliability or throughput numbers, and the README is promotional, so judge it as a design rather than as evidence.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R286 · Infrastructure for agents at scale › Agent session hosting and control planes</span>
+  <h1>It&#x27;s a Plan: an open-source issue tracker where agents take tickets</h1>
+  <div class="entry-meta"><span>Andrii Poluosmak</span><span>Published 2026-11</span><span>Summarized 2026-11-24</span></div>
+  <p><a href="https://github.com/croffasia/itsaplan" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/andrii-poluosmak/">Andrii Poluosmak</a></p>
+  <div class="tags"><span class="tag">control-plane</span><span class="tag">issue-tracking</span><span class="tag">coding-agents</span><span class="tag">open-source</span><span class="tag">mcp</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://github.com/croffasia/itsaplan">GitHub, croffasia/itsaplan</a> (Andrii Poluosmak; 2.5k stars, 688 commits). Found via <a href="https://tldr.tech/dev/2026-11-23">TLDR Dev 2026-11-23</a>. The README is promotional (pricing, referral links), but the architecture sections are concrete.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>A self-hosted project tracker (Kanban, timeline, cycles, docs), pitched as an open-source Linear alternative. AI agents are project members you can assign issues to, the same way as people.</p>
+<h2 id="how-agents-work-in-it">How agents work in it</h2>
+<ul><li><p><strong>Internal agents</strong> run on the server with any model and API key, built on Mastra.</p></li><li><p><strong>External agents</strong> run on your own machine through <code>@itsaplan/runner</code>, using your own Claude Code, Codex, Copilot CLI or opencode account. The server hands out work; your machine does it with your credentials.</p></li><li><p><strong>Triggers:</strong> an @mention, an assignment, or a schedule starts a run.</p></li><li><p><strong>Integration:</strong> a REST API with OpenAPI, an MCP server, webhooks, and PR integration with five code forges.</p></li></ul>
+<h2 id="stack-and-license">Stack and license</h2>
+<p>Bun and Turborepo, Elysia backend, Next.js frontend, better-auth, Drizzle on PostgreSQL. AGPL-3.0, except the runner package, which is Apache-2.0 so it can run inside companies without AGPL obligations. A paid Pro tier is a flat $240 a year per instance.</p>
+<h2 id="why-it-matters-for-a-staff-engineer">Why it matters for a staff engineer</h2>
+<p>This is the issue tracker as the agent control plane: the ticket is the unit of work, assignment is dispatch, and the comment thread is the log. The split between a central server and a local runner that uses the developer's own agent subscription is a pattern worth noting. It keeps credentials and compute on the developer's machine and avoids the server paying for model calls. Compare R262 and R273, which put the control plane in a session manager or chat room instead of a tracker. There are no reliability or throughput numbers; judge it as a design, not as evidence.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/t3-code-control-plane-coding-agents/">T3 Code: one control plane for the coding agents you already pay for</a><span class="label">R262 · Infrastructure for agents at scale</span><span class="why">both are control planes over coding agents; R262 is a session manager, It&#x27;s a Plan makes the ticket the unit of work with a local runner on the developer&#x27;s own subscription.</span></li></ul><p><a href="/research/map/#R286">See R286 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

@@ -472,6 +472,10 @@
       {
        "id": "R263",
        "why": "an orchestrator in code owns scheduling, leases and liveness for parallel worker agents in separate worktrees"
+      },
+      {
+       "id": "R286",
+       "why": "assignment is dispatch and the comment thread is the log, so the tracker becomes the coordination surface between people and agents"
       }
      ]
     }
@@ -556,7 +560,8 @@
       "R177",
       "R209",
       "R222",
-      "R262"
+      "R262",
+      "R286"
      ],
      "also": [
       {
@@ -1547,7 +1552,8 @@
       "R246",
       "R254",
       "R272",
-      "R280"
+      "R280",
+      "R285"
      ],
      "also": [
       {
@@ -1999,6 +2005,10 @@
       {
        "id": "R280",
        "why": "the transparency ask — publish lab-internal horizons the way OpenAI did — is a policy argument as much as a measurement one"
+      },
+      {
+       "id": "R285",
+       "why": "proposes shared capability thresholds tied to one number, which is a governance proposal as much as a measurement one"
       }
      ]
     },
@@ -7284,7 +7294,7 @@
    "slug": "deepcrossattention-per-token-residual-routing",
    "title": "DeepCrossAttention: learned, per-token residual routing across layers",
    "by": "Kyriakos Axiotis and Thomas Fu",
-   "source": "https://tldr.tech/ai/2026-11-24",
+   "source": "https://research.google/blog/supercharging-transformer-residual-connections/",
    "published": "2026-11-23",
    "added": "2026-11-24",
    "artifact": "https://claude.ai/artifact/DBDQfUUdg1mgYoa1j6iEfw",
@@ -7302,7 +7312,7 @@
    "slug": "naam-lab-internal-task-horizons",
    "title": "Ramez Naam: lab-internal task horizons sit far below the METR-style charts",
    "by": "Ramez Naam",
-   "source": "https://tldr.tech/ai/2026-11-23",
+   "source": "https://www.rameznaam.com/p/the-most-important-charts-in-ai-are",
    "published": "2026-11-21",
    "added": "2026-11-24",
    "artifact": "https://claude.ai/artifact/VSkReQjzeNg9zbsbvqgyDX",
@@ -7321,7 +7331,7 @@
    "slug": "ai-stack-40000-companies-vendor-disclosures",
    "title": "The AI stack of 40,000 companies, read from vendor disclosures",
    "by": "Hrishikesh Kamath",
-   "source": "https://tldr.tech/dev/2026-11-23",
+   "source": "https://kamathhrishi.substack.com/p/i-analyzed-the-ai-stack-used-by-40000",
    "published": "2026-11-22",
    "added": "2026-11-24",
    "artifact": "https://claude.ai/artifact/C9yH5hba9iVeGfE1nqfHEW",
@@ -7340,7 +7350,7 @@
    "slug": "nango-oauth-1000-apis-token-refresh",
    "title": "Nango: what operating OAuth for 1,000+ APIs teaches about token refresh",
    "by": "Robin Guldener",
-   "source": "https://tldr.tech/dev/2026-11-24",
+   "source": "https://nango.dev/blog/lessons-from-operating-api-auth-for-900-apis/",
    "published": "2026-08-06",
    "added": "2026-11-24",
    "artifact": "https://claude.ai/artifact/RU4iuc8SJeXzsp836aTyDo",
@@ -7359,7 +7369,7 @@
    "slug": "tencent-hy4-770b-open-weight-moe",
    "title": "Tencent Hy4: a 770B open-weight MoE with sparse attention and 1M context",
    "by": "Tencent",
-   "source": "https://tldr.tech/ai/2026-11-23",
+   "source": "https://huggingface.co/tencent/Hy4",
    "published": "2026-11-23",
    "added": "2026-11-24",
    "artifact": "https://claude.ai/artifact/X2jy9Xvys4R9aJVg5wooWx",
@@ -7391,6 +7401,44 @@
    ],
    "summary": "A self-evolving agent harness bundles half a dozen mechanisms and papers report the bundle's score, so nobody can tell which part earned it. This one fixes the framework, defines a recency-truncation baseline, and tests each mechanism against it across two benchmarks and three backbones. Folding — a compact digest per attempt, with any attempt unfoldable in full on demand — wins in all six settings (+8.6% average); compaction, the rolling summary most agent systems actually run, is +0.3% and loses in two of six. Among skill-library mechanisms, deleting any lesson unselected for five iterations leads (+4.1%) ahead of promotion (+3.0%) and merging (+2.2%), and ends a run with 31 skills where the unmanaged library ends with 312. Key caveats: no seed counts or variance intervals, 10 and 50 tasks is a small sample for 1–2% differences, thresholds not swept, and the gains concentrate on the weakest backbone.",
    "file": "entries/ablating-autoresearch-harness-folded-history.html"
+  },
+  {
+   "id": "R285",
+   "slug": "pachocki-perplexity-shared-yardstick",
+   "title": "Pachocki: OpenAI proposes perplexity as the shared yardstick for frontier pretraining",
+   "by": "Jakub Pachocki",
+   "source": "https://openai.com/index/perplexity-and-intelligence/",
+   "published": "2026-11-22",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/QEEQ8aJbP4EBcjJGZCEJM5",
+   "tags": [
+    "evals",
+    "pretraining",
+    "scaling",
+    "ai-policy",
+    "opinion"
+   ],
+   "summary": "OpenAI's chief scientist argues that most of what models can do comes from pretraining and that post-training mostly draws out what is already there, so held-out perplexity is the most direct single measure of underlying capability and labs should report it on a common basis. He publishes OpenAI's internal ladder in log-perplexity: about 0.99 for fluent chat (GPT-3.5), about 0.91 where chain-of-thought becomes productive (GPT-4), below 0.8 for emergent cybersecurity and mathematical capability, about 0.76 where a model began producing results on open math problems, and “transformative capabilities” expected around 0.68 to 0.7, possibly as soon as 2027. The policy ask is shared thresholds at which labs agree to extra safeguards. Key caveats: it is a position essay from a lab proposing a metric it already reports well on; perplexity is hard to compare across tokenisers and held-out sets, is detached from task evals, and does not fall when a model reasons at inference; and the 0.76 claim and the 2027 timeline are assertions without published evidence.",
+   "file": "entries/pachocki-perplexity-shared-yardstick.html"
+  },
+  {
+   "id": "R286",
+   "slug": "itsaplan-issue-tracker-agents-take-tickets",
+   "title": "It's a Plan: an open-source issue tracker where agents take tickets",
+   "by": "Andrii Poluosmak",
+   "source": "https://github.com/croffasia/itsaplan",
+   "published": "2026-11",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/6NphXZohRQ6Mp9NkSESRfu",
+   "tags": [
+    "control-plane",
+    "issue-tracking",
+    "coding-agents",
+    "open-source",
+    "mcp"
+   ],
+   "summary": "A self-hosted project tracker (Kanban, timeline, cycles, docs) pitched as an open-source Linear alternative, where AI agents are project members you assign issues to the same way as people. Internal agents run on the server on any model and API key; external agents run on the developer's own machine through a runner package, using their own Claude Code, Codex, Copilot CLI or opencode account, so the server dispatches work and the developer's machine does it with the developer's credentials. An @mention, an assignment or a schedule starts a run, and there is a REST API with OpenAPI, an MCP server, webhooks and PR integration with five forges. AGPL-3.0 except the runner, which is Apache-2.0 so it can run inside companies. Key caveat: there are no reliability or throughput numbers, and the README is promotional, so judge it as a design rather than as evidence.",
+   "file": "entries/itsaplan-issue-tracker-agents-take-tickets.html"
   }
  ],
  "edges": [
@@ -11503,6 +11551,18 @@
    "b": "R197",
    "strength": "strong",
    "why": "two open-weight releases a day apart with opposite targets: Inkling 2 Mini is 26B for local loops, Hy4 is 770B for an 8-GPU node."
+  },
+  {
+   "a": "R285",
+   "b": "R280",
+   "strength": "strong",
+   "why": "opposite measurement philosophies a day apart: Naam measures what models do on real long tasks, Pachocki says watch the pretraining loss because capability follows it."
+  },
+  {
+   "a": "R286",
+   "b": "R262",
+   "strength": "strong",
+   "why": "both are control planes over coding agents; R262 is a session manager, It's a Plan makes the ticket the unit of work with a local runner on the developer's own subscription."
   }
  ]
 }
