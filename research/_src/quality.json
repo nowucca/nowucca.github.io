@@ -876,6 +876,22 @@
   "R295": {
    "verdict": "pass",
    "round": 1
+  },
+  "R296": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R297": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R298": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R299": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
