@@ -1188,6 +1188,10 @@
       {
        "id": "R230",
        "why": "exact-pattern search over a plain-text log of every message and tool output, no index or extra model"
+      },
+      {
+       "id": "R288",
+       "why": "where the reference comes from is a retrieval-layer decision: a record of (doc, version, span offsets) makes a citation unforgeable by construction"
       }
      ]
     },
@@ -1846,7 +1850,8 @@
       "R016",
       "R039",
       "R050",
-      "R259"
+      "R259",
+      "R288"
      ],
      "also": [
       {
@@ -7463,6 +7468,25 @@
    ],
    "summary": "A teardown of twelve public agent benchmarks — four on coding and science, six on knowledge work, two on browsing and computer use — arguing that in eight of the twelve there is evidence the grader failed work that should have passed. The per-benchmark numbers are the substance: Terminal Bench 4.0 graded 41 of 65 tasks on unstated requirements, and making those requirements explicit moved one model from 63% to 89%, a swing larger than most model-to-model gaps; DeepSWE marked correct solutions as failures in 23 of 113 tasks; BrowseComp's human trainers disagreed with the reference on 14% of solved questions. False positives are as bad: on one legal benchmark, an external review found material hallucinations in more than 60% of deliverables that passed every criterion, because the judge never sees the source files. Two measurement arguments are worth adopting: average pass rate hides reliability (two agents at 70% can be 70% and 17% under pass^k), and the scarce resource is human review time, not tokens. Key caveats: the eight-of-twelve headline is synthesised from third-party audits and issue trackers without naming which eight, the “hot takes” section mixes evidence with opinion, and a few figures are internally inconsistent.",
    "file": "entries/twelve-public-evals-grader-weakest-link.html"
+  },
+  {
+   "id": "R288",
+   "slug": "who-writes-the-citation",
+   "title": "Who writes the citation decides what your reviewer is checking",
+   "by": "Hao Hoang",
+   "source": "https://arxiv.org/abs/2304.09848",
+   "published": "2026-11-25",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/W8Hk3GuRXgKfU8V2Yawv5s",
+   "tags": [
+    "retrieval",
+    "provenance",
+    "human-verification",
+    "evals",
+    "production-operations"
+   ],
+   "summary": "A document assistant that shows a link under each answer looks finished, but the link's value depends entirely on which component produced it, and teams rarely know. If the retriever emits the reference, a human reviewer is checking evidence: does this passage support this sentence? If the model wrote it in the same pass as the prose, the reviewer is checking a claim against another claim — is the link real, does the passage exist in this version, does it say what the sentence says — and that is a second review step somebody has to own. The 2023 audit it leans on measured four generative search engines at 74.5% mean citation precision and 51.5% recall, so about a quarter of citations did not support their sentence and about half of sentences were not fully supported. Supported statements were largely extractive, so failures concentrate on answers that aggregate across sources. Key caveats: the inverse correlation between grounding and perceived usefulness rests on four systems, the authors call it an empirical observation rather than a fundamental relationship, and it is a snapshot of consumer products from early 2023.",
+   "file": "entries/who-writes-the-citation.html"
   }
  ],
  "edges": [
@@ -11587,6 +11611,12 @@
    "b": "R262",
    "strength": "strong",
    "why": "both are control planes over coding agents; R262 is a session manager, It's a Plan makes the ticket the unit of work with a local runner on the developer's own subscription."
+  },
+  {
+   "a": "R288",
+   "b": "R287",
+   "strength": "strong",
+   "why": "both locate the defect in the checking layer rather than the generator — R287 on graders that never open the source files, R288 on citations no component ever resolved; in each case the artifact that is supposed to make review possible is itself unverified."
   }
  ]
 }
