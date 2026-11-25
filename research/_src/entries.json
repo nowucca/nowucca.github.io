@@ -1290,6 +1290,10 @@
       {
        "id": "R254",
        "why": "Comparing agent harnesses as well as models on your own tasks"
+      },
+      {
+       "id": "R287",
+       "why": "harness effects are large enough to invalidate cross-model comparison, so the practical advice is to evaluate candidates in your own production harness"
       }
      ]
     }
@@ -1553,7 +1557,8 @@
       "R254",
       "R272",
       "R280",
-      "R285"
+      "R285",
+      "R287"
      ],
      "also": [
       {
@@ -7439,6 +7444,25 @@
    ],
    "summary": "A self-hosted project tracker (Kanban, timeline, cycles, docs) pitched as an open-source Linear alternative, where AI agents are project members you assign issues to the same way as people. Internal agents run on the server on any model and API key; external agents run on the developer's own machine through a runner package, using their own Claude Code, Codex, Copilot CLI or opencode account, so the server dispatches work and the developer's machine does it with the developer's credentials. An @mention, an assignment or a schedule starts a run, and there is a REST API with OpenAPI, an MCP server, webhooks and PR integration with five forges. AGPL-3.0 except the runner, which is Apache-2.0 so it can run inside companies. Key caveat: there are no reliability or throughput numbers, and the README is promotional, so judge it as a design rather than as evidence.",
    "file": "entries/itsaplan-issue-tracker-agents-take-tickets.html"
+  },
+  {
+   "id": "R287",
+   "slug": "twelve-public-evals-grader-weakest-link",
+   "title": "Twelve public evals, audited: the grader is now the weakest link",
+   "by": "Eugene Yan",
+   "source": "https://eugeneyan.com/writing/public-evals/",
+   "published": "2026-11-22",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/AdCy9A9qnMba6qYTyFsmnm",
+   "tags": [
+    "evals",
+    "benchmarks",
+    "reliability",
+    "production-operations",
+    "harness-design"
+   ],
+   "summary": "A teardown of twelve public agent benchmarks — four on coding and science, six on knowledge work, two on browsing and computer use — arguing that in eight of the twelve there is evidence the grader failed work that should have passed. The per-benchmark numbers are the substance: Terminal Bench 4.0 graded 41 of 65 tasks on unstated requirements, and making those requirements explicit moved one model from 63% to 89%, a swing larger than most model-to-model gaps; DeepSWE marked correct solutions as failures in 23 of 113 tasks; BrowseComp's human trainers disagreed with the reference on 14% of solved questions. False positives are as bad: on one legal benchmark, an external review found material hallucinations in more than 60% of deliverables that passed every criterion, because the judge never sees the source files. Two measurement arguments are worth adopting: average pass rate hides reliability (two agents at 70% can be 70% and 17% under pass^k), and the scarce resource is human review time, not tokens. Key caveats: the eight-of-twelve headline is synthesised from third-party audits and issue trackers without naming which eight, the “hot takes” section mixes evidence with opinion, and a few figures are internally inconsistent.",
+   "file": "entries/twelve-public-evals-grader-weakest-link.html"
   }
  ],
  "edges": [
