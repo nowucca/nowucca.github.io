@@ -800,6 +800,22 @@
   "R276": {
    "verdict": "pass",
    "round": 1
+  },
+  "R277": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R278": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R279": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R280": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

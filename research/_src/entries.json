@@ -108,6 +108,10 @@
       {
        "id": "R242",
        "why": "An injected one-line user memory redirects agent decisions"
+      },
+      {
+       "id": "R284",
+       "why": "measures what a history representation is worth: an attempt you can still pull back in full beats a rolling summary of all of them"
       }
      ]
     },
@@ -142,7 +146,8 @@
       "R252",
       "R258",
       "R260",
-      "R274"
+      "R274",
+      "R284"
      ],
      "also": [
       {
@@ -7367,6 +7372,25 @@
    ],
    "summary": "Tencent's Hy4 is a 770B-parameter mixture of experts with about 49B active per token: 78 layers, 256 routed experts plus one shared, gated DeepSeek Sparse Attention over Multi-head Latent Attention with an indexer picking the top 2,048 tokens, identity Hyper-Connections with four residual streams, 1M context, a 40-layer vision tower, and a 3.3B speculative-decoding head shipped in the box. Base-model numbers beat DeepSeek-V4-Pro-Base on MMLU (91.6 vs 91.1), SuperGPQA (62.7 vs 54.8) and U-MATH (71.6 vs 64.8), and lose on MBPP-plus and OCW Courses. Key caveats: a custom Tencent Hy License rather than Apache or MIT, the instruct-model tables are images, the finance table is Tencent's own internal evaluation, and the card itself says Hy4 trails top closed models on research math, long-horizon coding and advanced visual QA.",
    "file": "entries/tencent-hy4-770b-open-weight-moe.html"
+  },
+  {
+   "id": "R284",
+   "slug": "ablating-autoresearch-harness-folded-history",
+   "title": "Ablating the autoresearch harness: folded history beats rolling summaries, and pruning unused lessons beats hoarding them",
+   "by": "",
+   "source": "https://www.linkedin.com/in/elvissaravia/",
+   "published": "2026-11-20",
+   "added": "2026-11-24",
+   "artifact": "https://claude.ai/artifact/WWu18unhdGqok9TAFvwcPG",
+   "tags": [
+    "self-improving-agents",
+    "agent-memory",
+    "benchmarks",
+    "research",
+    "harness-design"
+   ],
+   "summary": "A self-evolving agent harness bundles half a dozen mechanisms and papers report the bundle's score, so nobody can tell which part earned it. This one fixes the framework, defines a recency-truncation baseline, and tests each mechanism against it across two benchmarks and three backbones. Folding — a compact digest per attempt, with any attempt unfoldable in full on demand — wins in all six settings (+8.6% average); compaction, the rolling summary most agent systems actually run, is +0.3% and loses in two of six. Among skill-library mechanisms, deleting any lesson unselected for five iterations leads (+4.1%) ahead of promotion (+3.0%) and merging (+2.2%), and ends a run with 31 skills where the unmanaged library ends with 312. Key caveats: no seed counts or variance intervals, 10 and 50 tasks is a small sample for 1–2% differences, thresholds not swept, and the gains concentrate on the weakest backbone.",
+   "file": "entries/ablating-autoresearch-harness-folded-history.html"
   }
  ],
  "edges": [
