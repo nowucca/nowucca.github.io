@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cognition SWE-2.1: RL on an open base doubles SWE-2, still behind the frontier · Research</title>
+<meta name="description" content="A coding and agent model trained with reinforcement learning only, on top of an open-weight base, and the clearest current example of a product company buying frontier-adjacent coding ability this way and then making it cheap and fast with specialised inference hardware. It roughly doubles its predecessor across the board — 50.0 against 24.2 on Terminal-Bench 4.1, 41.3 against 24.1 on FrontierCode 2.0, 44.0 against 17.0 on ProgramBench, 54.9 against 32.5 on SWE Marathon — and still trails the three frontier labs on most of them, so the pitch is cost and speed rather than peak quality. The training details worth noting: RL environments were widened to short and long tasks in science, performance engineering and security; post-training was changed to control rollout length, because swings in length had destabilised earlier runs; and exploit-solving rate grows log-linearly with rollout time from 3 minutes to 6 hours. Served on specialised hardware the same model runs about 10x faster, roughly 600 tokens per second against 60. The detail most worth carrying for anyone running RL or long agent loops: a canary sandbox-escape eval found new sandbox vulnerabilities four times during training. Assume a capable agent will probe its sandbox, and test containment as part of training rather than after it. Key caveats: all numbers are the vendor&#x27;s own, harnesses differ between the open and closed models compared, one benchmark takes the best of five runs, the base model is named ambiguously, and no pricing is given.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R301 · Infrastructure for agents at scale › Frontier model releases</span>
+  <h1>Cognition SWE-2.1: RL on an open base doubles SWE-2, still behind the frontier</h1>
+  <div class="entry-meta"><span>Cognition</span><span>Published 2026-11-24</span><span>Summarized 2026-11-25</span></div>
+  <p><a href="https://cognition.com/blog/swe-2-1" rel="noopener">Read the original</a></p>
+  
+  <div class="tags"><span class="tag">frontier-model-release</span><span class="tag">coding-agents</span><span class="tag">reinforcement-learning</span><span class="tag">security</span><span class="tag">vendor</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://cognition.com/blog/swe-2-1">Cognition, "SWE-2.1"</a> (2026-11-24). Found via <a href="https://tldr.tech/ai/2026-11-25">TLDR AI 2026-11-25</a> and <a href="https://tldr.tech/dev/2026-11-25">TLDR Dev 2026-11-25</a>. All numbers are Cognition's own.</p>
+<h2 id="what-it-is">What it is</h2>
+<p>Cognition's in-house coding and agent model, trained with reinforcement learning only on top of Moonshot's open-weight Kimi K3. The post names K3 as the base but compares against K3.1, so the exact base is ambiguous. RL environments were widened to short and long tasks in science, performance engineering and security. Post-training was changed to control rollout length, because swings in length had destabilised earlier runs. Training ran stably for days on tasks lasting minutes to hours.</p>
+<h2 id="results">Results</h2>
+<div class="table-scroll"><table><thead><tr><th>Benchmark</th><th>SWE-2.1</th><th>SWE-2</th><th>Kimi K3.1</th><th>Opus 5.5</th><th>GPT-6.2 Sol</th><th>Gemini 4 Neon</th></tr></thead><tbody><tr><td>Terminal-Bench 4.1</td><td>50.0</td><td>24.2</td><td>59.7</td><td>65.8</td><td>61.5</td><td>65.2</td></tr><tr><td>FrontierCode 2.0</td><td>41.3</td><td>24.1</td><td>19.9</td><td>47.3</td><td>43.8</td><td>46.2</td></tr><tr><td>ProgramBench</td><td>44.0</td><td>17.0</td><td>31.5</td><td>65.0</td><td>66.0</td><td>45.0</td></tr><tr><td>SWE Marathon v1.2</td><td>54.9</td><td>32.5</td><td>38.8</td><td>73.1</td><td>68.8</td><td>58.1</td></tr></tbody></table></div>
+<p>Security: ExploitBench 80.0 (SWE-2: 36.1; Opus 5.5: 91; GPT-6.2 Sol: 100), CWE-Bench v2 65.8. Exploit-solving rate grows log-linearly with rollout time from 3 minutes to 6 hours.</p>
+<p><strong>Ultrafast:</strong> the same model on Cerebras at about 10x the speed, roughly 600 tokens per second against 60.</p>
+<p><strong>Availability:</strong> Devin Desktop, Cloud and CLI; free on Desktop and CLI through December 8, then discounted. A more permissive SWE-2.1 Cyber goes only to Devin Security. A canary sandbox-escape eval found new sandbox vulnerabilities four times during training.</p>
+<h2 id="caveats">Caveats</h2>
+<p>Scores use a simulated clock (1 second to first token plus a per-token cost), so speed does not affect them. Harnesses differ: Devin CLI for open models, each lab's preferred harness for closed ones. ExploitBench takes the best of five runs. Pricing is not given.</p>
+<h2 id="why-it-matters-for-a-staff-engineer">Why it matters for a staff engineer</h2>
+<p>This is the clearest current example of a product company buying frontier-adjacent coding ability by running RL on an open base, then making it cheap and fast with specialised inference hardware. It roughly doubles its predecessor but still trails the three frontier labs on most benchmarks, so the pitch is cost and speed, not peak quality. The sandbox-escape findings during training are worth noting for anyone running RL or long agent loops: assume a capable agent will probe its sandbox, and test containment as part of training, not after.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t2)"><a class="to" href="/research/inkling-2-mini-looped-moe/">Inkling 2 Mini: a looped 26B MoE built to run locally</a><span class="label">R197 · Infrastructure for agents at scale</span><span class="why">both are products of post-training an open base for agent loops; Inkling 2 Mini targets local size, SWE-2.1 targets speed on Cerebras.</span></li></ul><p><a href="/research/map/#R301">See R301 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jimmy Lin · Authors · Research</title>
+<meta name="description" content="Jimmy Lin: 1 research entries on nowucca.com.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/" aria-current="page">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">Author · person</span>
+  <h1>Jimmy Lin</h1>
+  <p class="lede">Writes most about harness building blocks.</p>
+  <div class="entry-meta"><span>1 entry</span><span>Reputation 1 · rank 160 of 178</span></div>
+  <div class="tags"><span class="tag">agent-harness</span><span class="tag">cost-control</span><span class="tag">evaluation</span><span class="tag">multi-agent</span><span class="tag">small-models</span></div>
+</header><section class="article"><h2>Entries</h2></section><ol class="rows"><li><a class="row" href="/research/frontier-leads-small-model-legwork/"><span class="date">2026-11-25</span><span class="text"><span class="id">R297</span><span class="title">Keep the frontier model in charge, give the legwork to a small local one</span><span class="one">Cascades and routers decide which model runs a whole task, which means the cheap model gets the wheel and the task is lost when it is out of its depth. This harness takes the opposite arrangement: the frontier model leads every task start to finish and never hands over control, delegating only &lt;em&gt;subtasks&lt;/em&gt; — reading code, running tests, searching a corpus — to subagents running a small model on hardware you already own. No router, no model trained, either side swappable. Frontier cost falls to a third of baseline on long-horizon coding and to 41% on agentic search, with the number of tasks solved unchanged; a 2B model that fits on a laptop does nearly as well on coding as a 27B one. The explanation is better than the result. The coding harness already spawned subagents by default — it just spawned them on the frontier model, on 98% of the hardest task set, accounting for 53% of its cost — so moving that work explains 80% of the saving. The remaining 20% is the lead model&#x27;s own behaviour changing: 46–48 turns per task instead of 84, its own test runs dropping from about eight to one or two, and 11–24% less tool output reaching its context because only reports return rather than raw output. A long agent trajectory is mostly not reasoning. The short delegation instruction is load-bearing, but not for cost: without it delegation still roughly halves cost and loses tasks, so the instruction is what protects task performance while the saving happens. Two cautions worth carrying: the saving is strongly lead-model-dependent — a plan-first frontier model reached only 69% of baseline rather than 34%, half the benefit from the same setup — and delegation makes tasks slower, a median 38 minutes instead of 25 on long tasks and roughly double on short ones, so this is a batch-mode optimisation. The search path&#x27;s pattern generalises: make the cheap model&#x27;s report checkable by construction, with quotes verified mechanically against their sources, rather than asking the expensive model whether it looks right.</span><div class="tags"><span class="tag">cost-control</span><span class="tag">multi-agent</span><span class="tag">small-models</span><span class="tag">agent-harness</span><span class="tag">evaluation</span></div></span></a></li></ol><p class="foot">Credits come from each entry's byline. <a href="/research/authors/#scoring">How reputation is scored</a>.</p>
+</main>
+</body>
+</html>
