@@ -912,6 +912,22 @@
   "R304": {
    "verdict": "revise",
    "round": 1
+  },
+  "R305": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R306": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R307": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R308": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

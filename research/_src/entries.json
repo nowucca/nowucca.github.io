@@ -848,6 +848,10 @@
       {
        "id": "R001",
        "why": "see its summary's notes on AI-built software"
+      },
+      {
+       "id": "R311",
+       "why": "It is about generated code reaching a privileged position on a real machine, which is what shipping agent-built software means in practice."
       }
      ]
     },
@@ -1846,7 +1850,8 @@
       "R041",
       "R044",
       "R154",
-      "R305"
+      "R305",
+      "R311"
      ],
      "also": [
       {
@@ -8009,6 +8014,24 @@
    ],
    "summary": "A solo developer replaces code review with 159 automated checks and reports a 100x speed-up; the interesting claim is the shape of the work, not the multiple.",
    "file": "entries/solo-developer-100x-159-checks.html"
+  },
+  {
+   "id": "R311",
+   "slug": "chat-output-as-an-installed-app",
+   "title": "Chat output as an installed app: versioned consent and the hole in it",
+   "by": "",
+   "source": "https://claude.com/resources/articles/install-as-app",
+   "published": "2026-11-24",
+   "added": "2026-11-25",
+   "artifact": "EXWDnU1zpdJXRc9vAD5HnA",
+   "tags": [
+    "agent-security",
+    "sandboxing",
+    "permissions",
+    "tooling"
+   ],
+   "summary": "Installing a generated HTML artifact as a desktop app, with a three-tier permission model and consent scoped to the exact version — plus the boundary that leaves open: remotely loaded subresources.",
+   "file": "entries/chat-output-as-an-installed-app.html"
   }
  ],
  "edges": [
@@ -12283,6 +12306,12 @@
    "b": "R310",
    "strength": "medium",
    "why": "both replace human diff review with machine-enforced checks; Hoyt makes code own the loop, Veszelovszki makes a 159-check suite the specification."
+  },
+  {
+   "a": "R305",
+   "b": "R311",
+   "strength": "medium",
+   "why": "both answer \"how do you grant privilege to software you did not write and cannot fully read\" - R305 by checking each action at an enforcement point outside the process, R311 by scoping consent to an exact version and re-asking on change. Both leak at the same place: whatever the governed thing loads from somewhere else."
   }
  ]
 }
