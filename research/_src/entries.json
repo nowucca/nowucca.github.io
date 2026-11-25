@@ -193,6 +193,10 @@
       {
        "id": "R246",
        "why": "Agent-filed papercuts feed a loop that fixes and re-evaluates skills"
+      },
+      {
+       "id": "R313",
+       "why": "A retriever that leaks future content makes most rollout groups uniformly correct, which is a training-loop problem before it is an accuracy one."
       }
      ]
     },
@@ -412,6 +416,10 @@
       {
        "id": "R297",
        "why": "a context-economics result: cheap tool output kept out of the expensive model’s context"
+      },
+      {
+       "id": "R312",
+       "why": "Both are about what a token actually costs to serve, and the batch-1 result changes the arithmetic of low-batch agent loops."
       }
      ]
     },
@@ -655,7 +663,8 @@
       "R279",
       "R281",
       "R294",
-      "R300"
+      "R300",
+      "R312"
      ],
      "also": [
       {
@@ -1350,6 +1359,10 @@
       {
        "id": "R299",
        "why": "what a server can now hand a harness: skills, background tasks and a user gate"
+      },
+      {
+       "id": "R314",
+       "why": "It is a concrete harness-configuration pattern: what you bundle, what you fetch, and what that costs in always-on tokens."
       }
      ]
     }
@@ -1639,7 +1652,8 @@
       "R285",
       "R287",
       "R292",
-      "R307"
+      "R307",
+      "R313"
      ],
      "also": [
       {
@@ -1749,7 +1763,8 @@
       "R143",
       "R190",
       "R282",
-      "R299"
+      "R299",
+      "R314"
      ],
      "also": [
       {
@@ -8032,6 +8047,62 @@
    ],
    "summary": "Installing a generated HTML artifact as a desktop app, with a three-tier permission model and consent scoped to the exact version — plus the boundary that leaves open: remotely loaded subresources.",
    "file": "entries/chat-output-as-an-installed-app.html"
+  },
+  {
+   "id": "R312",
+   "slug": "speculative-decoding-fine-grained-moe-batch-1",
+   "title": "Speculative decoding on fine-grained MoEs is fastest at batch size 1",
+   "by": "",
+   "source": "https://arxiv.org/abs/2610.38981",
+   "published": "2026-10-28",
+   "added": "2026-11-25",
+   "artifact": "WzJ3K2c5wgR4tcxSU35UuZ",
+   "tags": [
+    "inference-optimization",
+    "speculative-decoding",
+    "moe",
+    "serving"
+   ],
+   "summary": "Across 10 sparse MoE models, fine-grained architectures get their highest speculative-decoding speedup at batch size 1, overturning the concave-curve prediction; routing inertia and kernel time-share each explain about half of it.",
+   "file": "entries/speculative-decoding-fine-grained-moe-batch-1.html"
+  },
+  {
+   "id": "R313",
+   "slug": "dated-web-snapshots-api-parameter",
+   "title": "Dated web snapshots as an API parameter: freezing retrieval for training and evals",
+   "by": "",
+   "source": "https://www.perplexity.ai/hub/blog/freeze-the-web-with-perplexity-time-machine",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "UykQzqMzEqrrs29W5vndVN",
+   "tags": [
+    "evaluation",
+    "retrieval",
+    "reinforcement-learning",
+    "data-contamination"
+   ],
+   "summary": "A date-cutoff parameter that serves stored page bodies instead of live ones, so agents trained or evaluated on past questions cannot read the answer out of later reporting — plus what the crawl interval leaves open.",
+   "file": "entries/dated-web-snapshots-api-parameter.html"
+  },
+  {
+   "id": "R314",
+   "slug": "agent-plugins-fetch-skill-catalog",
+   "title": "Agent plugins: a small bundle that fetches the rest of the skill catalog on demand",
+   "by": "Remigiusz Samborski",
+   "source": "https://www.youtube.com/watch?v=BKVDdL1InsA&t=253s",
+   "published": "2026-11-24",
+   "added": "2026-11-25",
+   "artifact": "VmytPQB8RXHgop1F15Z3e6",
+   "tags": [
+    "agent-skills",
+    "context-engineering",
+    "agent-protocols",
+    "harness-config",
+    "mcp",
+    "vendor"
+   ],
+   "summary": "Google’s cloud-developer plugin keeps always-loaded context to five skills and one routing rule, then fetches any of 219 catalog skills over the network on demand — a fourth level above the Agent Skills spec’s three, with the pinning and trust questions that creates.",
+   "file": "entries/agent-plugins-fetch-skill-catalog.html"
   }
  ],
  "edges": [
@@ -12312,6 +12383,24 @@
    "b": "R311",
    "strength": "medium",
    "why": "both answer \"how do you grant privilege to software you did not write and cannot fully read\" - R305 by checking each action at an enforcement point outside the process, R311 by scoping consent to an exact version and re-asking on change. Both leak at the same place: whatever the governed thing loads from somewhere else."
+  },
+  {
+   "a": "R132",
+   "b": "R314",
+   "strength": "medium",
+   "why": "R132 finds one agent with skills beats orchestrated subagents; R314 shows the packaging that keeps such an agent's always-loaded context to five skill descriptions and one routing rule while 219 more stay one fetch away."
+  },
+  {
+   "a": "R299",
+   "b": "R314",
+   "strength": "medium",
+   "why": "Both move skill delivery off the local disk: R299 ships skills versioned with an MCP server, while R314 fetches them from a repo's main branch, unpinned to the installed plugin version."
+  },
+  {
+   "a": "R246",
+   "b": "R314",
+   "strength": "medium",
+   "why": "Uber's marketplace and Google's catalog face the same routing problem at hundreds to thousands of skills; Uber answers with evals and ablations, the Google plugin with name prefixes and a finder skill."
   }
  ]
 }

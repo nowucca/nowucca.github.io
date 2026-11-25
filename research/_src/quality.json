@@ -928,6 +928,18 @@
   "R308": {
    "verdict": "pass",
    "round": 1
+  },
+  "R309": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R310": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R311": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
