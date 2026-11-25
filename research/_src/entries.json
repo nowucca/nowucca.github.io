@@ -766,7 +766,8 @@
       "R269",
       "R283",
       "R301",
-      "R309"
+      "R309",
+      "R316"
      ],
      "also": [
       {
@@ -1363,6 +1364,10 @@
       {
        "id": "R314",
        "why": "It is a concrete harness-configuration pattern: what you bundle, what you fetch, and what that costs in always-on tokens."
+      },
+      {
+       "id": "R316",
+       "why": "A capable agent model that fits on a laptop changes which harness tips apply, starting with what you can run locally on private files."
       }
      ]
     }
@@ -1572,6 +1577,10 @@
       {
        "id": "R305",
        "why": "Both are agent-harness building blocks: the sandbox is the piece a harness delegates execution to."
+      },
+      {
+       "id": "R315",
+       "why": "It is a worked example of a harness building block that is deliberately not a model call: a tabular classifier where an LLM would be the wrong tool."
       }
      ]
     },
@@ -2151,6 +2160,14 @@
        "why": "Replacing review with a check suite changes what the engineering work is, and what it means for the people doing it."
       }
      ]
+    },
+    {
+     "n": "7.6",
+     "title": "Interfaces that sense the user",
+     "primary": [
+      "R315"
+     ],
+     "also": []
     }
    ]
   },
@@ -8103,6 +8120,43 @@
    ],
    "summary": "Google’s cloud-developer plugin keeps always-loaded context to five skills and one routing rule, then fetches any of 219 catalog skills over the network on demand — a fourth level above the Agent Skills spec’s three, with the pinning and trust questions that creates.",
    "file": "entries/agent-plugins-fetch-skill-catalog.html"
+  },
+  {
+   "id": "R315",
+   "slug": "pointer-affect-detection-tree-model",
+   "title": "A 142 KB tree model that reads the pointer: affect detection as a UI input, not an LLM call",
+   "by": "",
+   "source": "https://libraries.dev/mood-recognition",
+   "published": "",
+   "added": "2026-11-25",
+   "artifact": "9MVnzTxoh2fSvXh6cbJkpf",
+   "tags": [
+    "human-factors",
+    "on-device-models",
+    "evaluation",
+    "accessibility"
+   ],
+   "summary": "A 142 KB gradient-boosted tree model infers frustration, confusion and being lost from pointer behaviour, entirely in the browser. The design around the model — two timescales and explicit asymmetric smoothing — is the transferable part; the assistive-input blind spot is the one to test first.",
+   "file": "entries/pointer-affect-detection-tree-model.html"
+  },
+  {
+   "id": "R316",
+   "slug": "ternary-bonsai-2-5-27b",
+   "title": "Ternary Bonsai 2.5 27B: a 5.9 GB on-device model close to its full-precision base on agent tasks",
+   "by": "",
+   "source": "https://prismml.com/news/bonsai-2-5-27b",
+   "published": "2026-11-24",
+   "added": "2026-11-25",
+   "artifact": "R6e4n8By5dSLcCa9nDSJhw",
+   "tags": [
+    "quantization",
+    "on-device",
+    "open-weights",
+    "agent-coding",
+    "vendor"
+   ],
+   "summary": "A ternary-quantised 27B model in 5.9 GB that recovers most of its full-precision base on multi-step agent benchmarks, suggesting the quantisation penalty on tool-call chains is mostly a post-training problem.",
+   "file": "entries/ternary-bonsai-2-5-27b.html"
   }
  ],
  "edges": [
@@ -12401,6 +12455,12 @@
    "b": "R314",
    "strength": "medium",
    "why": "Uber's marketplace and Google's catalog face the same routing problem at hundreds to thousands of skills; Uber answers with evals and ablations, the Google plugin with name prefixes and a finder skill."
+  },
+  {
+   "a": "R197",
+   "b": "R316",
+   "strength": "medium",
+   "why": "two 26-27B models built to run locally for agents: Inkling 2 Mini by architecture, Bonsai 2.5 by ternary weights plus agent post-training."
   }
  ]
 }

@@ -940,6 +940,18 @@
   "R311": {
    "verdict": "pass",
    "round": 1
+  },
+  "R312": {
+   "verdict": "revise",
+   "round": 1
+  },
+  "R313": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R314": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

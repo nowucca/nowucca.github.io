@@ -189,7 +189,7 @@ def entry_page(cfg, entries, theme_of, sub_of, x):
     head = f"""<header class="masthead">
   <span class="label">{e(x["id"])} · {e(t["title"])} › {e(s["title"])}</span>
   <h1>{e(x["title"])}</h1>
-  <div class="entry-meta"><span>{e(x["by"])}</span><span>Published {e(x["published"])}</span><span>Summarized {e(x["added"])}</span></div>
+  <div class="entry-meta"><span>{e(x["by"])}</span><span>{("Published " + e(x["published"])) if x["published"] else "Undated source"}</span><span>Summarized {e(x["added"])}</span></div>
   <p><a href="{e(x["source"])}" rel="noopener">Read the original</a></p>
   {AUTHOR_LINKS.get(x["id"], "")}
   {tags(x["tags"])}
