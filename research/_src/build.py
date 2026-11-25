@@ -18,6 +18,7 @@ Jekyll skips _src (leading underscore), so only the generated pages are served.
 """
 import html, json, math, random, re
 import authors as authors_mod
+import via as via_mod
 from datetime import date, datetime
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -161,6 +162,17 @@ def fill_diagrams(body):
 AUTHOR_LINKS = {}  # entry id -> html of credited author links, filled in main()
 
 
+VIA = {}
+
+
+def found_via(x):
+    ch = via_mod.channels(x["id"], x["source"], VIA)
+    if not ch:
+        return ""
+    items = ", ".join(f'<a href="{e(c["url"])}" rel="noopener">{e(c["label"])}</a>' if c["url"] else e(c["label"]) for c in ch)
+    return f'<p class="credits"><span class="label">Found via</span> {items}</p>'
+
+
 def entry_page(cfg, entries, theme_of, sub_of, x):
     t, s = theme_of[x["id"]], sub_of[x["id"]]
     body = (SRC / x["file"]).read_text()
@@ -183,8 +195,9 @@ def entry_page(cfg, entries, theme_of, sub_of, x):
   <span class="label">{e(x["id"])} · {e(t["title"])} › {e(s["title"])}</span>
   <h1>{e(x["title"])}</h1>
   <div class="entry-meta"><span>{e(x["by"])}</span><span>Published {e(x["published"])}</span><span>Summarized {e(x["added"])}</span></div>
-  <p><a href="{e(x["source"])}" rel="noopener">Read the original</a></p>
+  <p><a href="{e(via_mod.original_url(x["source"]))}" rel="noopener">Read the original</a></p>
   {AUTHOR_LINKS.get(x["id"], "")}
+  {found_via(x)}
   {tags(x["tags"])}
 </header>"""
     foot = '<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source\'s own unless the summary says otherwise.</p>'
@@ -538,7 +551,8 @@ def main():
     # Build time in Central (Steven's zone); builds only run when something is published.
     now = datetime.now(ZoneInfo("America/Chicago")).replace(second=0, microsecond=0)
     updated = (now.isoformat(), now.strftime("%b %-d, %Y, %-I:%M %p CT"))
-    global AUTHORS
+    global AUTHORS, VIA
+    VIA = via_mod.refresh_via_snapshot(set(entries))
     AUTHORS, cred = authors_mod.build_authors(entries, GUIDES, theme_of, sub_of)
     by_slug = {a["slug"]: a for a in AUTHORS}
     for rid, m in cred.items():
