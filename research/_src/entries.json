@@ -1489,6 +1489,10 @@
       {
        "id": "R281",
        "why": "the growth is in the layer around the model — sandboxes, search, scraping, routing and observability — which is the harness, not the model"
+      },
+      {
+       "id": "R290",
+       "why": "names the four controls that decide whether an agent is operable: budgets, a verifier-backed termination condition, oscillation detection and checkpointing"
       }
      ]
     },
@@ -2085,7 +2089,8 @@
       "R205",
       "R225",
       "R257",
-      "R277"
+      "R277",
+      "R290"
      ],
      "also": [
       {
@@ -7511,6 +7516,25 @@
    ],
    "summary": "Agent orchestration mostly reasons about hard dependencies — B cannot start until A returns. This paper names what that graph leaves out: a soft dependency is information not required for an operation to execute but which would improve it if it arrived first. At a designated scheduling boundary the controller picks ACT (proceed now), WAIT (hold for the pending information) or SPEC (start the work that stays useful either way and reconcile later), choosing by a linear utility over a predicted consequence vector of task quality plus four resource coordinates, so the same trained controller serves a latency-sensitive service and a cost-sensitive batch job by reweighting rather than retraining. On AppWorld it completes 276 of 417 tasks against ReAct's 191 at comparable token spend. Key caveats: WebShop is a cost result, not a score win — LATS beats it by 3.3 points while spending about 4,850x the tokens; the tau²-bench comparison gave it a 200-step allowance against the baselines' 30; it makes one scheduling decision per task, not general scheduling; and speculation is cheap in a sandbox but an architectural commitment against services that commit.",
    "file": "entries/neural-agent-compiler-soft-dependencies.html"
+  },
+  {
+   "id": "R290",
+   "slug": "ask-the-environment-not-the-model",
+   "title": "Ask the environment, not the model: harness disciplines from a multi-agent systems book review",
+   "by": "Ashish Joshi",
+   "source": "https://github.com/PacktPublishing/Building-Agentic-AI-Systems",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/5K5hYtDK66rL4M5oY7puXJ",
+   "tags": [
+    "harness-design",
+    "agent-architecture",
+    "production-operations",
+    "evals",
+    "orchestration"
+   ],
+   "summary": "A practitioner review of <em>Building Agentic AI Systems, Second Edition</em>, whose organising claim is that a model inside a loop is not a system: the system is the harness, the protocol layer, the deployment and the controls. The most transferable idea is reinjection — when the model announces it is finished, the harness runs a verifier it already trusts and feeds the failure text back as the next observation, because a model's self-report of completion is a generated token sequence with no privileged access to the world. If you cannot name the cheapest check you actually trust for a task class, you do not have a termination condition, you have a stopping heuristic. Three more disciplines: diagnose whether the model ever received the instruction before rewriting the prompt, since plumbing failures misdiagnosed as reasoning failures produce long superstitious prompts; write error messages for the model, giving the actionable delta rather than a stack trace; and mark every synchronous edge between agents, because chained agents reproduce the distributed monolith. Key caveat: none of these come with effect sizes — they are engineering heuristics with good mechanical justification, not measured results.",
+   "file": "entries/ask-the-environment-not-the-model.html"
   }
  ],
  "edges": [
@@ -11647,6 +11671,12 @@
    "b": "R284",
    "strength": "strong",
    "why": "the two useful harness papers of this week share a method, not a topic: fix one framework, isolate one decision, report it against a named baseline. R284 ablates memory mechanisms, R289 ablates release timing; both are more quotable than the bundled-system papers around them because you can tell what the gain came from."
+  },
+  {
+   "a": "R290",
+   "b": "R257",
+   "strength": "strong",
+   "why": "both treat the harness, not the model, as the unit of engineering, and both arrive as teaching material rather than measurement — R257's failure-first course and R290's book review agree on the diagnosis and neither reports an effect size for the fix."
   }
  ]
 }

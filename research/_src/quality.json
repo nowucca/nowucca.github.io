@@ -848,6 +848,10 @@
   "R288": {
    "verdict": "pass",
    "round": 1
+  },
+  "R289": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
