@@ -399,6 +399,10 @@
       {
        "id": "R258",
        "why": "keeps long inputs as program variables and sub-call outputs in program memory rather than the prompt, so each call stays in distribution as tasks get longer"
+      },
+      {
+       "id": "R289",
+       "why": "prices waiting as a purchase rather than free patience: the value is the change in the continuation, including acquisition cost and delay"
       }
      ]
     },
@@ -1318,7 +1322,8 @@
       "R103",
       "R128",
       "R165",
-      "R218"
+      "R218",
+      "R289"
      ],
      "also": [
       {
@@ -7487,6 +7492,25 @@
    ],
    "summary": "A document assistant that shows a link under each answer looks finished, but the link's value depends entirely on which component produced it, and teams rarely know. If the retriever emits the reference, a human reviewer is checking evidence: does this passage support this sentence? If the model wrote it in the same pass as the prose, the reviewer is checking a claim against another claim — is the link real, does the passage exist in this version, does it say what the sentence says — and that is a second review step somebody has to own. The 2023 audit it leans on measured four generative search engines at 74.5% mean citation precision and 51.5% recall, so about a quarter of citations did not support their sentence and about half of sentences were not fully supported. Supported statements were largely extractive, so failures concentrate on answers that aggregate across sources. Key caveats: the inverse correlation between grounding and perceived usefulness rests on four systems, the authors call it an empirical observation rather than a fundamental relationship, and it is a snapshot of consumer products from early 2023.",
    "file": "entries/who-writes-the-citation.html"
+  },
+  {
+   "id": "R289",
+   "slug": "neural-agent-compiler-soft-dependencies",
+   "title": "Neural Agent Compiler: scheduling the information an agent could wait for",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.29262",
+   "published": "2026-11-22",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/Sh526xnLwiRCiaDAPL2XqM",
+   "tags": [
+    "harness-design",
+    "orchestration",
+    "agent-architecture",
+    "benchmarks",
+    "production-operations"
+   ],
+   "summary": "Agent orchestration mostly reasons about hard dependencies — B cannot start until A returns. This paper names what that graph leaves out: a soft dependency is information not required for an operation to execute but which would improve it if it arrived first. At a designated scheduling boundary the controller picks ACT (proceed now), WAIT (hold for the pending information) or SPEC (start the work that stays useful either way and reconcile later), choosing by a linear utility over a predicted consequence vector of task quality plus four resource coordinates, so the same trained controller serves a latency-sensitive service and a cost-sensitive batch job by reweighting rather than retraining. On AppWorld it completes 276 of 417 tasks against ReAct's 191 at comparable token spend. Key caveats: WebShop is a cost result, not a score win — LATS beats it by 3.3 points while spending about 4,850x the tokens; the tau²-bench comparison gave it a 200-step allowance against the baselines' 30; it makes one scheduling decision per task, not general scheduling; and speculation is cheap in a sandbox but an architectural commitment against services that commit.",
+   "file": "entries/neural-agent-compiler-soft-dependencies.html"
   }
  ],
  "edges": [
@@ -11617,6 +11641,12 @@
    "b": "R287",
    "strength": "strong",
    "why": "both locate the defect in the checking layer rather than the generator — R287 on graders that never open the source files, R288 on citations no component ever resolved; in each case the artifact that is supposed to make review possible is itself unverified."
+  },
+  {
+   "a": "R289",
+   "b": "R284",
+   "strength": "strong",
+   "why": "the two useful harness papers of this week share a method, not a topic: fix one framework, isolate one decision, report it against a named baseline. R284 ablates memory mechanisms, R289 ablates release timing; both are more quotable than the bundled-system papers around them because you can tell what the gain came from."
   }
  ]
 }
