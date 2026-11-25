@@ -237,14 +237,15 @@ code { font: 500 0.85em/1.4 var(--mono); background: var(--accent-soft); padding
 </div></section>
 
 <section class="section" id="s2"><h2>2. What the JD wants, and how this round tests it</h2>
-<div class="table-wrap"><table class="grid"><thead><tr><th>JD line (paraphrased)</th><th>How it shows up tomorrow</th></tr></thead><tbody>
-<tr><td>Own platform architecture, "balancing fast iteration with the security, privacy, and uptime schools require"</td><td>Don't block the launch. Split findings into must-fix-before-launch and follow-ups, and offer the cheapest fix that closes each risk.</td></tr>
-<tr><td>Application and infrastructure security; partner with security teams on threat modeling, reviews and remediation</td><td>This is the round. Show a repeatable method (data flow, trust boundaries, STRIDE, rank) rather than a bag of tricks.</td></tr>
-<tr><td>Raise the bar through architecture reviews and design guidance; mentor Staff and Senior engineers</td><td>Talk about the doc's authors as people you're coaching. End with what you'd change in the template or the platform so the next doc is better.</td></tr>
-<tr><td>AI development roadmap; LLM and agent workflows</td><td>If the doc has an AI feature (ParentSquare Intelligence is their 2026 push), cover prompt injection, data sent to model vendors, and agent permissions. Also: how AI can help security reviews scale.</td></tr>
-<tr><td>Explain trade-offs to non-technical audiences; prefer simple solutions</td><td>Say each risk as "what could happen to a family or a school", then the fix in one sentence.</td></tr>
-<tr><td>Ruby, Python, TS, PHP monolith; MySQL/Postgres; AWS Aurora, RDS, SQS</td><td>Expect a Rails-ish monolith plus acquired stacks (Remind, Gabbart's PHP sites, Signal Kit). Tenant isolation in a shared database is a likely theme.</td></tr>
-</tbody></table></div></section>
+<p class="note">How each JD theme shows up in today's review. The paraphrased JD line is under each one.</p>
+<ol class="asks">
+<li><strong>Ship safely, don't block.</strong> Don't block the launch. Split findings into must-fix-before-launch and follow-ups, and offer the cheapest fix that closes each risk.<br><span class="label">JD: Own platform architecture, "balancing fast iteration with the security, privacy, and uptime schools require"</span></li>
+<li><strong>Security reviews and threat modeling.</strong> This is the round. Show a repeatable method (data flow, trust boundaries, STRIDE, rank) rather than a bag of tricks.<br><span class="label">JD: Application and infrastructure security; partner with security teams on threat modeling, reviews and remediation</span></li>
+<li><strong>Raise the bar and mentor.</strong> Talk about the doc's authors as people you're coaching. End with what you'd change in the template or the platform so the next doc is better.<br><span class="label">JD: Raise the bar through architecture reviews and design guidance; mentor Staff and Senior engineers</span></li>
+<li><strong>AI roadmap.</strong> If the doc has an AI feature (ParentSquare Intelligence is their 2026 push), cover prompt injection, data sent to model vendors, and agent permissions. Also: how AI can help security reviews scale.<br><span class="label">JD: AI development roadmap; LLM and agent workflows</span></li>
+<li><strong>Explain trade-offs simply.</strong> Say each risk as "what could happen to a family or a school", then the fix in one sentence.<br><span class="label">JD: Explain trade-offs to non-technical audiences; prefer simple solutions</span></li>
+<li><strong>Their stack.</strong> Expect a Rails-ish monolith plus acquired stacks (Remind, Gabbart's PHP sites, Signal Kit). Tenant isolation in a shared database is a likely theme.<br><span class="label">JD: Ruby, Python, TS, PHP monolith; MySQL/Postgres; AWS Aurora, RDS, SQS</span></li>
+</ol></section>
 
 <section class="section" id="s3"><h2>3. The K-12 lens: what's special about their risk</h2><div class="prose">
 <p>ParentSquare holds data about <mark>22 million students</mark>, most of them minors, for 42,000+ schools, and it can send a message to every family in a district in minutes. That gives it four unusual properties. Bring these up early, because they show you understand the business, not just OWASP.</p>
