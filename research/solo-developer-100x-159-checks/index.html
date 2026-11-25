@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A solo developer&#x27;s 100x claim: no code review, 159 automated checks instead · Research</title>
+<meta name="description" content="A solo developer replaces code review with 159 automated checks and reports a 100x speed-up; the interesting claim is the shape of the work, not the multiple.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R310 · AI-built software and its verification › Agent delivery workflows</span>
+  <h1>A solo developer&#x27;s 100x claim: no code review, 159 automated checks instead</h1>
+  <div class="entry-meta"><span>David Veszelovszki</span><span>Published 2026-10-24</span><span>Summarized 2026-11-25</span></div>
+  <p><a href="https://veszelovszki.com/a/tpe/" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/david-veszelovszki/">David Veszelovszki</a></p>
+  <div class="tags"><span class="tag">agent-coding</span><span class="tag">verification</span><span class="tag">productivity</span><span class="tag">claude-code</span><span class="tag">anecdote</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://veszelovszki.com/a/tpe/">David Veszelovszki, "I'm a 100x engineer now"</a> (2026-10-24), second place in The Pragmatic Engineer's essay challenge. Found via <a href="https://tldr.tech/dev/2026-11-25">TLDR Dev 2026-11-25</a>. All numbers are self-reported.</p>
+<h2 id="the-setup">The setup</h2>
+<p>One developer building Cmdr, a macOS file manager in Rust and Svelte, with Claude Code on Opus 5.5 at medium effort on one Max plan. Prompts are a few lines long. There are no specs and few rules, and he does not review code: he does QA at the end. He runs parallel sessions and sub-agents with permission prompts turned off, and gives agents broad API tokens.</p>
+<h2 id="the-numbers">The numbers</h2>
+<ul><li><p>About 1.4M lines of code in 10 months, discounted by a third for AI verbosity; 12,005 commits, 67 releases, 1,674 changelog entries.</p></li><li><p>Baseline from 2022 to 2025: 194 lines per active workday. His speed-up estimates go from 2x with Copilot to 80-100x by September 2026. They are guesses, measured mainly in lines of code.</p></li><li><p>One day: 42 GitHub issues closed across sessions.</p></li></ul>
+<h2 id="what-replaced-code-review">What replaced code review</h2>
+<p>159 automated checks: about 11,500 Rust tests, hundreds of end-to-end tests, a cyclomatic complexity cap of 15, translation coverage for 15 languages, a check that CLAUDE.md stays under 600 words, and a check that generated bindings are current. In September, agents ran 104,000 checks with 2,200 failures, almost all caught before CI. He spends 40-50% of his own time on tooling and architecture, not features.</p>
+<h2 id="his-own-caveats">His own caveats</h2>
+<p>Lines of code are a poor measure. He does not understand much of the Rust or Svelte. He says critical systems should not be built this way. An early library "didn't work at first" and took months to harden.</p>
+<h2 id="why-it-matters-for-a-staff-engineer">Why it matters for a staff engineer</h2>
+<p>The interesting claim is not 100x; it is the shape of the work. Human attention moved from reading diffs to building the checks that agents must pass, and the check suite became the specification. That matches the oracle-first theme in section 3.4 and the verification-over-review direction in R241 and R263. The risks are just as clear: permissions off, broad tokens, no review, and an author who cannot read the code. That is acceptable for a non-critical solo app and not for a team system. Treat it as a strong anecdote for check-driven agent development, not as productivity evidence.</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/continuous-software-engine-code-owns-loop/">A continuous software engine, rebuilt so code owns the loop</a><span class="label">R263 · Agent principles and patterns</span><span class="why">both replace human diff review with machine-enforced checks; Hoyt makes code own the loop, Veszelovszki makes a 159-check suite the specification.</span></li></ul><p><a href="/research/map/#R310">See R310 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

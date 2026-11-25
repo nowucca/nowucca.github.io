@@ -558,6 +558,10 @@
       {
        "id": "R002",
        "why": "contradiction handling in semantic memory"
+      },
+      {
+       "id": "R307",
+       "why": "The trace store is where evaluation data for agents comes from, and the storage tradeoffs decide what is cheap to ask."
       }
      ]
     },
@@ -752,7 +756,8 @@
       "R244",
       "R269",
       "R283",
-      "R301"
+      "R301",
+      "R309"
      ],
      "also": [
       {
@@ -876,7 +881,8 @@
      "title": "Agent delivery workflows",
      "primary": [
       "R017",
-      "R058"
+      "R058",
+      "R310"
      ],
      "also": [
       {
@@ -1098,6 +1104,10 @@
       {
        "id": "R301",
        "why": "the sandbox-escape finding: containment tested during training, not after"
+      },
+      {
+       "id": "R308",
+       "why": "An autonomous intrusion campaign is the adversarial case for security scanning of AI-written and AI-driven code."
       }
      ]
     },
@@ -1541,6 +1551,10 @@
       {
        "id": "R298",
        "why": "context hygiene as the harness lever that beats adding agents"
+      },
+      {
+       "id": "R305",
+       "why": "Both are agent-harness building blocks: the sandbox is the piece a harness delegates execution to."
       }
      ]
     },
@@ -1620,7 +1634,8 @@
       "R280",
       "R285",
       "R287",
-      "R292"
+      "R292",
+      "R307"
      ],
      "also": [
       {
@@ -1710,6 +1725,10 @@
       {
        "id": "R304",
        "why": "why a benchmark that presents one task per prompt cannot see this effect"
+      },
+      {
+       "id": "R309",
+       "why": "The post-training result is only legible through the evaluation suite it was measured on."
       }
      ]
     },
@@ -1826,7 +1845,8 @@
      "primary": [
       "R041",
       "R044",
-      "R154"
+      "R154",
+      "R305"
      ],
      "also": [
       {
@@ -1881,6 +1901,10 @@
       {
        "id": "R202",
        "why": "a constant activation shift explains most RL post-training gains in diffusion transformers; fit one to a tuned checkpoint to see what the tuning really changed"
+      },
+      {
+       "id": "R306",
+       "why": "Oversight of AI-run research depends on being able to monitor the reasoning it produces."
       }
      ]
     }
@@ -2067,7 +2091,9 @@
       "R152",
       "R161",
       "R195",
-      "R291"
+      "R291",
+      "R306",
+      "R308"
      ],
      "also": [
       {
@@ -2099,7 +2125,12 @@
       "R075",
       "R249"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R310",
+       "why": "Replacing review with a check suite changes what the engineering work is, and what it means for the people doing it."
+      }
+     ]
     }
    ]
   },
@@ -7866,6 +7897,118 @@
    ],
    "summary": "Put several questions a reasoning model answers reliably on its own into one prompt, and it starts getting some of them wrong. The experiment is tight enough to rule out the easy explanations: for each model, only questions that model solved in <strong>three of three independent isolated attempts</strong> were used, then composed 3, 6, 10 or 20 to a prompt, with the single response split and each answer graded separately. All eight models tested lost accuracy — one frontier model dropped about 7 percentage points at ten questions per prompt on a graduate-level science benchmark, on questions it had just solved three times out of three. The mechanism is an implicit per-task thinking budget. Tagging each question and attributing segments of the reasoning trace back to it shows the per-question token share follows a power law in the number of composed tasks, with a median exponent near −0.54, so at six questions per prompt each one gets roughly 38–40% of the thinking it would have received alone. The cut is close to uniform — the model preserves the <em>relative</em> allocation and simply has less to allocate — but the consequence is not: questions whose isolated traces were longest lose far more accuracy than short ones, which were carrying slack. Two controls matter: nearly all responses stayed well inside the context window, so this is not context exhaustion, and imposing a fixed small budget externally on a question answered <em>alone</em> reproduced the same degradation more sharply still. Fragility belongs to the model–task pair: it correlates 0.81 across composition sizes and orderings for the same model but only 0.24 across models, so a batching policy is tuned to one specific model and a routine upgrade invalidates it. Turned around, the effect is also a saving — greedy grouping under a predicted accuracy-drop budget saved 43% of output tokens at −0.6 points using measured fragility, though replacing measurement with a learned predictor drops that to 31%, and on the frontier model the predictor saves almost nothing and costs 2.0 points. The conjecture worth carrying: if the implicit budget is the real variable, the familiar degradation of long-running agents starts well before the context window is anywhere near full, and shows up as a high-effort step quietly under-thinking and handing a wrong intermediate result downstream — no error, no truncation warning. Standard benchmarks present one task per prompt, which is precisely the condition under which the effect does not appear.",
    "file": "entries/batching-cuts-the-thinking-budget.html"
+  },
+  {
+   "id": "R305",
+   "slug": "strands-box-os-containment-policy-language",
+   "title": "Strands Box: OS containment plus a policy language, not a virtual machine",
+   "by": "",
+   "source": "https://aws.amazon.com/blogs/opensource/introducing-strands-box-ai-agent-sandboxes-powered-by-dogwood/",
+   "published": "2026-10-07",
+   "added": "2026-11-25",
+   "artifact": "HEeRGGi5tHhNvLKnKCZNQ8",
+   "tags": [
+    "agent-security",
+    "sandboxing",
+    "agent-harness",
+    "policy"
+   ],
+   "summary": "An AWS agent sandbox that uses operating-system containment and a declarative policy language rather than a virtual machine, with the policy surface and its unverified parts set out.",
+   "file": "entries/strands-box-os-containment-policy-language.html"
+  },
+  {
+   "id": "R306",
+   "slug": "handoff-auditing-ai-run-ai-research",
+   "title": "Handoff: when AI runs the AI research, what is left to audit",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.30711",
+   "published": "2026-11-23",
+   "added": "2026-11-25",
+   "artifact": "T9TfU6HJSGnhfavLm7NBoa",
+   "tags": [
+    "governance",
+    "oversight",
+    "evaluation",
+    "agent-architecture"
+   ],
+   "summary": "An Apollo Research policy report on what remains auditable once AI systems run AI research themselves, and which oversight measures it proposes.",
+   "file": "entries/handoff-auditing-ai-run-ai-research.html"
+  },
+  {
+   "id": "R307",
+   "slug": "agent-traces-as-a-data-problem",
+   "title": "Agent traces as a data problem: the trace store, the outcome table and the loop",
+   "by": "Sam Crowder",
+   "source": "https://www.langchain.com/blog/the-agent-lake",
+   "published": "2026-11-24",
+   "added": "2026-11-25",
+   "artifact": "8ua5Pi7xHTbPR2LhRfN4Ar",
+   "tags": [
+    "observability",
+    "evaluation",
+    "agent-harness",
+    "data-architecture"
+   ],
+   "summary": "A data model for agent observability — traces, threads and outcomes in one store — plus the improvement loop built on it, and where the vendor post stops short of a storage design.",
+   "file": "entries/agent-traces-as-a-data-problem.html"
+  },
+  {
+   "id": "R308",
+   "slug": "cairn-25-autonomous-intrusions",
+   "title": "Cairn: an open-source agent framework ran 25 autonomous intrusions, breaching 10 organizations",
+   "by": "Unit 42",
+   "source": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks",
+   "published": "2026-11-12",
+   "added": "2026-11-25",
+   "artifact": "5nWdsfXmY1XhzCoi8a3W6R",
+   "tags": [
+    "security",
+    "offensive-ai",
+    "autonomous-agents",
+    "incident-report",
+    "open-weights"
+   ],
+   "summary": "Unit 42 documents 25 autonomous intrusion operations run on an open-source agent framework, breaching 10 organizations with known weakness classes; what changed is cost, not technique.",
+   "file": "entries/cairn-25-autonomous-intrusions.html"
+  },
+  {
+   "id": "R309",
+   "slug": "harvey-tenet-recipe-us-open-weight",
+   "title": "Harvey's Tenet recipe: RL post-training lifts US open-weight models on legal agent tasks",
+   "by": "Harvey Research",
+   "source": "https://www.harvey.ai/blog/applying-the-harvey-tenet-training-recipe-to-us-open-weight-models",
+   "published": "2026-11-24",
+   "added": "2026-11-25",
+   "artifact": "W282fV8GGKW99uRUYLCo4x",
+   "tags": [
+    "post-training",
+    "reinforcement-learning",
+    "open-weights",
+    "legal-ai",
+    "evals",
+    "vendor"
+   ],
+   "summary": "A worked domain-RL playbook: LoRA plus rubric-graded judge rewards over 1,250 agentic legal tasks, with double-digit in-domain gains and a measured regression on extraction.",
+   "file": "entries/harvey-tenet-recipe-us-open-weight.html"
+  },
+  {
+   "id": "R310",
+   "slug": "solo-developer-100x-159-checks",
+   "title": "A solo developer's 100x claim: no code review, 159 automated checks instead",
+   "by": "David Veszelovszki",
+   "source": "https://veszelovszki.com/a/tpe/",
+   "published": "2026-10-24",
+   "added": "2026-11-25",
+   "artifact": "CCQ4Zpc18j8XkpEkuV5jUL",
+   "tags": [
+    "agent-coding",
+    "verification",
+    "productivity",
+    "claude-code",
+    "anecdote"
+   ],
+   "summary": "A solo developer replaces code review with 159 automated checks and reports a 100x speed-up; the interesting claim is the shape of the work, not the multiple.",
+   "file": "entries/solo-developer-100x-159-checks.html"
   }
  ],
  "edges": [
@@ -12104,6 +12247,42 @@
    "b": "R118",
    "strength": "strong",
    "why": "prefix caching makes repeated agent turns cheap by reusing the prompt; fragility-aware batching makes them cheap by reshaping how many tasks share one prompt - and shows that the second trade costs accuracy on exactly the steps that need reasoning."
+  },
+  {
+   "a": "R118",
+   "b": "R307",
+   "strength": "medium",
+   "why": "prefix caching is about what you keep in the prompt; the agent lake is about what you keep after the run, and both turn out to be questions about which parts of a trace are worth storing."
+  },
+  {
+   "a": "R303",
+   "b": "R306",
+   "strength": "medium",
+   "why": "both ask what happens when the model is wrong and nobody checks - R303 builds the release gate for one AI-drafted artifact, R306 asks a whole organisation to publish its miss rate on seeded flaws."
+  },
+  {
+   "a": "R035",
+   "b": "R305",
+   "strength": "medium",
+   "why": "the harness decides what an agent may attempt; Strands Box enforces it from outside the agent process, and the gap between the two is exactly the set of actions no enforcement point sees."
+  },
+  {
+   "a": "R152",
+   "b": "R308",
+   "strength": "medium",
+   "why": "a new, well-documented case for the AI-assisted attack ledger: multi-day autonomous intrusions run by a small team on open-weight models."
+  },
+  {
+   "a": "R301",
+   "b": "R309",
+   "strength": "medium",
+   "why": "same playbook in two domains: RL on an open base with task environments; Harvey for legal agents with rubric rewards, Cognition for coding."
+  },
+  {
+   "a": "R263",
+   "b": "R310",
+   "strength": "medium",
+   "why": "both replace human diff review with machine-enforced checks; Hoyt makes code own the loop, Veszelovszki makes a 159-check suite the specification."
   }
  ]
 }
