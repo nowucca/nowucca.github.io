@@ -179,6 +179,13 @@ def entry_page(cfg, entries, theme_of, sub_of, x):
         f'<p><a href="/research/map/#{e(x["id"])}">See {e(x["id"])} on the knowledge map</a></p></section>'
         if items else ""
     )
+    cited = [g for g in GUIDES if x["id"] in g["entries"]]
+    guides_html = (
+        '<section class="article"><h2>Cited in field guides</h2><div class="tags">'
+        + "".join(f'<a class="tag guide-tag" href="/research/guides/{e(g["slug"])}/">{e(guide_short(g))}</a>' for g in cited)
+        + "</div></section>"
+        if cited else ""
+    )
     head = f"""<header class="masthead">
   <span class="label">{e(x["id"])} · {e(t["title"])} › {e(s["title"])}</span>
   <h1>{e(x["title"])}</h1>
@@ -188,7 +195,7 @@ def entry_page(cfg, entries, theme_of, sub_of, x):
   {tags(x["tags"])}
 </header>"""
     foot = '<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source\'s own unless the summary says otherwise.</p>'
-    html_out = page(f'{x["title"]} · Research', head + f'\n<article class="article">{body}</article>\n' + conn_html + foot, x["summary"])
+    html_out = page(f'{x["title"]} · Research', head + f'\n<article class="article">{body}</article>\n' + guides_html + conn_html + foot, x["summary"])
     d = OUT / x["slug"]
     d.mkdir(exist_ok=True)
     (d / "index.html").write_text(html_out)
