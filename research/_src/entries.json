@@ -403,6 +403,10 @@
       {
        "id": "R289",
        "why": "prices waiting as a purchase rather than free patience: the value is the change in the continuation, including acquisition cost and delay"
+      },
+      {
+       "id": "R294",
+       "why": "the cache-residency question when a model no longer fits in fast memory"
       }
      ]
     },
@@ -634,7 +638,8 @@
       "R253",
       "R271",
       "R279",
-      "R281"
+      "R281",
+      "R294"
      ],
      "also": [
       {
@@ -2125,7 +2130,8 @@
       "R056",
       "R079",
       "R140",
-      "R180"
+      "R180",
+      "R295"
      ],
      "also": [
       {
@@ -7607,6 +7613,43 @@
    ],
    "summary": "A system design for an agent that answers research-and-development questions so that <strong>a reviewer can check every claim</strong>, collapsing the naive five-part build — scholarly search API, PDF parser, domain database, a model to read and write, and the glue between them — into two paths and one gate. The router asks a single question of each request: would a person need to read the papers? No goes to a cheap, high-volume retrieval call that fits inside an agent's inner loop; yes goes to a minutes-long deep-work call that plans, reads the papers and the user's own files, and returns a cited answer. That one question is a cost router, a latency router and a capability router at once, and its failure directions differ in kind: under-routing produces a confident answer assembled from abstracts, which is wrong in a way that looks fine, while over-routing is merely expensive. The gate is the part worth owning rather than delegating: every claim must resolve to a source before it reaches the user, resolution is checked against the cited span rather than asserted, and a claim that does not resolve is reinjected for another pass rather than labelled and shipped — shipping it transfers the work to the reviewer whose time the whole system exists to protect. The granularity of \"a claim\" is the honest cost nobody wants to pay, since a sentence can hold a supported fact and an unsupported inference. The weakest part of the original is \"five parts become two calls\": consolidating onto one provider relocates the complexity to a layer you cannot inspect or swap, inheriting its ranking biases, citation-resolution false positives, coverage boundaries and pricing, and it stops being the right trade where retrieval quality becomes the product — which in a verifiable-research product it nearly is. Key caveat: the post's vendor-specific claims do not match that vendor's published introduction and pricing pages, which name no such two products, list none of the claimed patent, clinical-trial, grant or chemical-database coverage, mention no streaming, and price a standard search about an order of magnitude higher — enough to invert the routing economics the design rests on. The architecture survives that check; the specifics do not.",
    "file": "entries/would-a-person-need-to-read-the-papers.html"
+  },
+  {
+   "id": "R294",
+   "slug": "ssd-expert-streaming-vram-to-ssd",
+   "title": "When the limit moves from VRAM to SSD: checking an SSD-expert-streaming claim against the project's own docs",
+   "by": "Akshay Pachaar",
+   "source": "https://github.com/magnitudedev/magnitude",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/3tjKS9Qt9k2EWa5PfqG73u",
+   "tags": [
+    "inference-serving",
+    "local-inference",
+    "dev-infra",
+    "benchmarks",
+    "reliability"
+   ],
+   "summary": "A claim that local inference has changed shape — that <strong>SSD expert streaming</strong> moves the binding constraint from VRAM capacity to SSD bandwidth — checked against the named project's own published pages. The argued mechanism is coherent and worth keeping on its own: sparse mixture-of-experts models activate a small fraction of their weights per token, so keep attention and the session's hottest experts in fast memory, leave the rest on NVMe, and read an expert only when the router selects it. The four obstacles the post names are the right four. An eviction policy blind to the router's near-future selections evicts exactly what the next tokens need, since expert selection is strongly skewed and autocorrelated across adjacent tokens — which is also what makes prefetch possible. Serialised layer-wise reads leave GPU and storage alternately idle, so device throughput is irrelevant when the pipeline alternates. Speculative decoding verifies several positions at once and widens the per-step expert working set, and it is not optional, because speculation is table stakes for local throughput. And a long prefill sweeps every layer's experts and flushes the decode working set, leaving a cold cache exactly when the user starts waiting — the one most likely to bite in agent workloads, where prompts are long and decode bursts are short. <strong>But the project's own documentation does not claim the feature.</strong> No published page mentions SSD, NVMe, disk offloading, streaming weights from storage, expert reuse ranking, prefetch, flash wear or the prefill/decode interaction; there is no changelog, so the \"launching today\" framing cannot be dated. The memory language points the other way — use the fit assessment, close memory-heavy applications if loading fails, only variants that fit with room to work are recommended — which is fit-or-refuse, not streaming. The demo model is listed in the project's own catalog at 180B total and 6B active, not the 300B the post states, its 4-bit download is 115 GB, it publishes no tokens-per-second figure, and it is absent from the benchmark tables. What is solid: Apache-2.0, fully local, per-chip kernel tuning at download time, pre-download throughput estimates, desktop app and CLI across three platforms, and published benchmarks of 1.32x prefill and 2.19x decode against a popular local runner on a 48 GB Mac and 1.34x / 2.17x on a developer box, across 11 models at 64k context — with the project's own creditable note that some of the Mac decode gain \"partly compares speculative decoding against almost none\". Two readings survive and the published evidence cannot separate them: the feature is new and wholly undocumented, or the post describes a capability the project does not have. The parameter error is not cosmetic, since the whole argument is about fitting a model that should not fit.",
+   "file": "entries/ssd-expert-streaming-vram-to-ssd.html"
+  },
+  {
+   "id": "R295",
+   "slug": "spherical-harmonics-one-basis-three-fields",
+   "title": "One basis, three fields: spherical harmonics in atomic orbitals, Gaussian splatting and equivariant networks",
+   "by": "Pallavi Ahuja",
+   "source": "https://www.linkedin.com/in/pallavi-ahuja/",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/SzHe7NfYpzChwERLdUmKcg",
+   "tags": [
+    "teaching",
+    "fundamentals",
+    "model-architecture",
+    "research"
+   ],
+   "summary": "Three problems that look unrelated — describing an atomic orbital's angular structure, representing how a 3D scene's colour changes with viewing angle, and building a network whose features transform predictably when its input rotates — are the same problem, representing a function on the surface of a sphere, and all three are solved with spherical harmonics. The working mental model is Fourier analysis one dimension up: sines and cosines form an orthonormal basis for functions on a circle indexed by frequency, and spherical harmonics form an orthonormal basis for square-integrable functions on the 2-sphere indexed by degree and order, describing how a quantity varies with <em>direction</em> rather than over <em>time</em>. The instances follow from that one sentence. The angular factor of a separated hydrogenic wavefunction is a spherical harmonic, and the familiar s, p and d orbital lobes are the nodal structure of successive degrees rather than a chemical fact bolted on afterwards. 3D Gaussian splatting stores per-Gaussian harmonic coefficients per colour channel so that apparent colour can depend on view direction, with the reference implementation at degree 3 giving (3+1)² = 16 basis functions per channel. And tensor-field networks use harmonics as the angular part of their filters, so that rotating the input transforms features under a known representation of the rotation group rather than arbitrarily — which is why they suit molecular property prediction, where there is no canonical orientation and the alternative is spending capacity on learning rotation invariance from augmented data. The cost the original omits is the part worth carrying: in splatting the coefficients dominate the payload, at 48 floats per Gaussian against roughly a dozen for position, scale, rotation and opacity combined, so degree is a quality knob production pipelines prune rather than a constant of nature; and in equivariant networks the tensor products that combine degrees scale badly, which is the family's central performance problem and the reason much recent work trades exact equivariance for throughput. Key caveat: this is teaching material rather than news — no paper, no release and no measurement — and its value is the bridge for a reader who did not already have the connection.",
+   "file": "entries/spherical-harmonics-one-basis-three-fields.html"
   }
  ],
  "edges": [
@@ -11767,6 +11810,18 @@
    "b": "R290",
    "strength": "strong",
    "why": "the citation gate and reinjection are the same mechanism named twice in one day from unrelated sources — a verifier the harness trusts, and a failure fed back into the loop rather than passed to the human. R293 adds the granularity question (what counts as one claim) that R290 leaves implicit."
+  },
+  {
+   "a": "R294",
+   "b": "R293",
+   "strength": "strong",
+   "why": "two posts on the same day building sound technical arguments on a named project's specifics, where the specifics did not survive a check against that project's own pages — a wrong per-call price in one, a wrong parameter count and an undocumented core feature in the other. The architecture reasoning was good in both cases, which is exactly why the pattern is dangerous."
+  },
+  {
+   "a": "R295",
+   "b": "R056",
+   "strength": "strong",
+   "why": "both are teaching entries whose value is a transfer rather than a result, and both were kept because the claims checked out rather than because anything was new — the test for this class of entry is accuracy plus non-obviousness, not novelty."
   }
  ]
 }
