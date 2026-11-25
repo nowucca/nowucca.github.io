@@ -309,7 +309,8 @@
       "R113",
       "R118",
       "R156",
-      "R201"
+      "R201",
+      "R304"
      ],
      "also": [
       {
@@ -1705,6 +1706,10 @@
       {
        "id": "R278",
        "why": "publishes a per-category benchmark split rather than one headline, which is the discipline to demand of any memory vendor"
+      },
+      {
+       "id": "R304",
+       "why": "why a benchmark that presents one task per prompt cannot see this effect"
       }
      ]
     },
@@ -7843,6 +7848,24 @@
    ],
    "summary": "A reference architecture for drafting suspicious activity reports — formal filings a regulated financial institution sends to law enforcement, which must be factually correct and meet a deadline — with a language model in the loop. Read it for the structure, not for evidence: the article states its architectures are representative rather than deployed, and it reports no measurements of any kind. The framing is the useful part. Two assumptions sit under most systems we build: a correct component produces correct output, and it keeps behaving that way until somebody changes it. A model breaks both, so the question stops being what the model can do and becomes what the system does when the model is wrong, or gone. The pipeline runs a pre-built event knowledge graph, a query planner that halts the automation entirely and says so rather than drafting when data is missing, a reranker, a drafter citing source identifiers against a defined schema, a judge stage pairing deterministic checks with an independent model judge, and a coordinator that publishes to risk-tiered human review — with reviewers' own edits evaluated too, so a reviewer cannot quietly introduce an unsupported statement. The strongest section is the release gates: version the model, prompts, retrieval logic, data mappings, policies and eval set, each with an owner; test with deterministic factuality checks and jurisdiction-specific regressions; shadow and canary against the incumbent; monitor reviewer edit rate as the leading indicator, because reviewers absorb degradation before factuality failures appear; and roll back through configuration flags not to a previous model version but to <em>more human involvement</em>, ending at the fully manual process. A system that can degrade to the thing it replaced is one you can actually switch off under regulatory pressure. Three gaps to fill if you adopt this: the judge is version-pinned but never validated against human labels, so a frozen judge applies its blind spot to every release; scores are combined by averaging, which lets a factuality miss be offset by good tone when factuality needs a veto; and no numeric threshold is given for any gate or rollback trigger, which leaves the gates advisory.",
    "file": "entries/gates-for-ai-drafted-regulatory-reports.html"
+  },
+  {
+   "id": "R304",
+   "slug": "batching-cuts-the-thinking-budget",
+   "title": "Batching questions into one prompt silently cuts each one's thinking budget",
+   "by": "",
+   "source": "https://arxiv.org/abs/2610.27190",
+   "published": "2026-10-19",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/4vDe59XijJkLVP1q9QrVUt",
+   "tags": [
+    "inference",
+    "reasoning",
+    "evaluation",
+    "cost"
+   ],
+   "summary": "Put several questions a reasoning model answers reliably on its own into one prompt, and it starts getting some of them wrong. The experiment is tight enough to rule out the easy explanations: for each model, only questions that model solved in <strong>three of three independent isolated attempts</strong> were used, then composed 3, 6, 10 or 20 to a prompt, with the single response split and each answer graded separately. All eight models tested lost accuracy — one frontier model dropped about 7 percentage points at ten questions per prompt on a graduate-level science benchmark, on questions it had just solved three times out of three. The mechanism is an implicit per-task thinking budget. Tagging each question and attributing segments of the reasoning trace back to it shows the per-question token share follows a power law in the number of composed tasks, with a median exponent near −0.54, so at six questions per prompt each one gets roughly 38–40% of the thinking it would have received alone. The cut is close to uniform — the model preserves the <em>relative</em> allocation and simply has less to allocate — but the consequence is not: questions whose isolated traces were longest lose far more accuracy than short ones, which were carrying slack. Two controls matter: nearly all responses stayed well inside the context window, so this is not context exhaustion, and imposing a fixed small budget externally on a question answered <em>alone</em> reproduced the same degradation more sharply still. Fragility belongs to the model–task pair: it correlates 0.81 across composition sizes and orderings for the same model but only 0.24 across models, so a batching policy is tuned to one specific model and a routine upgrade invalidates it. Turned around, the effect is also a saving — greedy grouping under a predicted accuracy-drop budget saved 43% of output tokens at −0.6 points using measured fragility, though replacing measurement with a learned predictor drops that to 31%, and on the frontier model the predictor saves almost nothing and costs 2.0 points. The conjecture worth carrying: if the implicit budget is the real variable, the familiar degradation of long-running agents starts well before the context window is anywhere near full, and shows up as a high-effort step quietly under-thinking and handing a wrong intermediate result downstream — no error, no truncation warning. Standard benchmarks present one task per prompt, which is precisely the condition under which the effect does not appear.",
+   "file": "entries/batching-cuts-the-thinking-budget.html"
   }
  ],
  "edges": [
@@ -12075,6 +12098,12 @@
    "b": "R132",
    "strength": "strong",
    "why": "both find that the useful multi-agent question is not how to arrange agents but what each one must satisfy before its work counts; R132 folds subagents into one loop, R298 keeps a thousand of them and puts the discipline at the merge gate."
+  },
+  {
+   "a": "R304",
+   "b": "R118",
+   "strength": "strong",
+   "why": "prefix caching makes repeated agent turns cheap by reusing the prompt; fragility-aware batching makes them cheap by reshaping how many tasks share one prompt - and shows that the second trade costs accuracy on exactly the steps that need reasoning."
   }
  ]
 }
