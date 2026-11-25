@@ -856,6 +856,14 @@
   "R290": {
    "verdict": "revise",
    "round": 1
+  },
+  "R291": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R292": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

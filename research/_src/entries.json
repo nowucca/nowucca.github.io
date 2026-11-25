@@ -1497,6 +1497,10 @@
       {
        "id": "R290",
        "why": "names the four controls that decide whether an agent is operable: budgets, a verifier-backed termination condition, oscillation detection and checkpointing"
+      },
+      {
+       "id": "R293",
+       "why": "the router and the citation gate as reusable harness components"
       }
      ]
     },
@@ -1865,7 +1869,8 @@
       "R039",
       "R050",
       "R259",
-      "R288"
+      "R288",
+      "R293"
      ],
      "also": [
       {
@@ -7583,6 +7588,25 @@
    ],
    "summary": "Task-level quality reviews of 749 tasks across eight frontier benchmarks, plus 767 public model evaluations, asking of each task whether the prompt, the working environment and the grader agree on what counts as a pass. The headline inverts the usual assumption: across confirmed defects <strong>71.7% withhold credit from compliant solutions</strong> and only 28.3% permit shortcut passes, so raw leaderboard ceilings on unverified multi-step benchmarks understate frontier capability, and a model picked off such a leaderboard may be beaten by one sitting lower. Validity stratifies by grading architecture — closed-form suites revised after public error reporting reach 92.5% verified validity against 29.3% across six multi-step suites, which still supply 161 verified complex tasks. Failures follow the architecture: rubric suites break through prompt-versus-checklist mismatches, such as a financial task miscoding a 100-basis-point decline as 1,000, while execution harnesses add incomplete state assertions, shared-channel leaks and grading-time collisions, with defect rates of 56-82% across one suite's six business workflows. The cheap repair is isolation: grading committed patches in a fresh container rather than a shared one cuts confirmed runtime bypasses from 14.7% to 2.7%, so these suites are under-maintained rather than disposable. Key caveats the authors state: a confirmed defect is not a quantified score shift, since rank changes need model cohorts re-run on patched harnesses; the isolation and curation contrasts compare benchmarks that also differ in domain and authoring workflow, so they are associations not ablations; each task is counted under one primary defect class; and four large pools were sampled.",
    "file": "entries/most-broken-benchmarks-punish-correct-answers.html"
+  },
+  {
+   "id": "R293",
+   "slug": "would-a-person-need-to-read-the-papers",
+   "title": "Would a person need to read the papers? Routing and the citation gate in a verifiable research agent",
+   "by": "Hao Hoang",
+   "source": "https://docs.api.scispace.com/introduction",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "https://claude.ai/artifact/AuPcbe8eDdXRBYvYBm88dn",
+   "tags": [
+    "provenance",
+    "human-verification",
+    "retrieval",
+    "harness-design",
+    "agent-architecture"
+   ],
+   "summary": "A system design for an agent that answers research-and-development questions so that <strong>a reviewer can check every claim</strong>, collapsing the naive five-part build — scholarly search API, PDF parser, domain database, a model to read and write, and the glue between them — into two paths and one gate. The router asks a single question of each request: would a person need to read the papers? No goes to a cheap, high-volume retrieval call that fits inside an agent's inner loop; yes goes to a minutes-long deep-work call that plans, reads the papers and the user's own files, and returns a cited answer. That one question is a cost router, a latency router and a capability router at once, and its failure directions differ in kind: under-routing produces a confident answer assembled from abstracts, which is wrong in a way that looks fine, while over-routing is merely expensive. The gate is the part worth owning rather than delegating: every claim must resolve to a source before it reaches the user, resolution is checked against the cited span rather than asserted, and a claim that does not resolve is reinjected for another pass rather than labelled and shipped — shipping it transfers the work to the reviewer whose time the whole system exists to protect. The granularity of \"a claim\" is the honest cost nobody wants to pay, since a sentence can hold a supported fact and an unsupported inference. The weakest part of the original is \"five parts become two calls\": consolidating onto one provider relocates the complexity to a layer you cannot inspect or swap, inheriting its ranking biases, citation-resolution false positives, coverage boundaries and pricing, and it stops being the right trade where retrieval quality becomes the product — which in a verifiable-research product it nearly is. Key caveat: the post's vendor-specific claims do not match that vendor's published introduction and pricing pages, which name no such two products, list none of the claimed patent, clinical-trial, grant or chemical-database coverage, mention no streaming, and price a standard search about an order of magnitude higher — enough to invert the routing economics the design rests on. The architecture survives that check; the specifics do not.",
+   "file": "entries/would-a-person-need-to-read-the-papers.html"
   }
  ],
  "edges": [
@@ -11737,6 +11761,12 @@
    "b": "R287",
    "strength": "strong",
    "why": "two independent audits of overlapping benchmark sets reaching the same verdict — the grader is the weak link — which is the strongest available evidence that this is a property of the field and not one author's sampling; R292 adds the direction of the asymmetry (71.7% of defects withhold credit) and a measured repair (fresh containers, 14.7% to 2.7%)."
+  },
+  {
+   "a": "R293",
+   "b": "R290",
+   "strength": "strong",
+   "why": "the citation gate and reinjection are the same mechanism named twice in one day from unrelated sources — a verifier the harness trusts, and a failure fed back into the loop rather than passed to the human. R293 adds the granularity question (what counts as one claim) that R290 leaves implicit."
   }
  ]
 }
