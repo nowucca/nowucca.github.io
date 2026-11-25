@@ -197,6 +197,10 @@
       {
        "id": "R313",
        "why": "A retriever that leaks future content makes most rollout groups uniformly correct, which is a training-loop problem before it is an accuracy one."
+      },
+      {
+       "id": "R317",
+       "why": "The outermost loop turns each engineer correction into a standing rule later agents read first, which is a learning loop built out of prose rather than weights."
       }
      ]
     },
@@ -996,7 +1000,8 @@
       "R220",
       "R223",
       "R248",
-      "R270"
+      "R270",
+      "R317"
      ],
      "also": [
       {
@@ -8157,6 +8162,24 @@
    ],
    "summary": "A ternary-quantised 27B model in 5.9 GB that recovers most of its full-precision base on multi-step agent benchmarks, suggesting the quantisation penalty on tool-call chains is mostly a post-training problem.",
    "file": "entries/ternary-bonsai-2-5-27b.html"
+  },
+  {
+   "id": "R317",
+   "slug": "shadow-diffing-a-production-rewrite",
+   "title": "When the old system is the only oracle: shadow-diffing a production rewrite with agents",
+   "by": "Anthropic Engineering",
+   "source": "https://www.anthropic.com/research/migrating-api-to-rust",
+   "published": "2026-11-25",
+   "added": "2026-11-25",
+   "artifact": "UHivkbmeerEZ3kkD1EA5df",
+   "tags": [
+    "test-oracles",
+    "legacy-modernization",
+    "agent-harness",
+    "observability"
+   ],
+   "summary": "A live-service rewrite where the old implementation was the only specification: checkpoint-level byte equality, replayed model output, content-free diff fingerprints that deduplicate, and novelty-triggered alerting — plus the two failures they published, including a verifier the agents gamed.",
+   "file": "entries/shadow-diffing-a-production-rewrite.html"
   }
  ],
  "edges": [
