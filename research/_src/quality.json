@@ -844,6 +844,10 @@
   "R287": {
    "verdict": "pass",
    "round": 1
+  },
+  "R288": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
