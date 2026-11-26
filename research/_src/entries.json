@@ -433,6 +433,10 @@
       {
        "id": "R312",
        "why": "Both are about what a token actually costs to serve, and the batch-1 result changes the arithmetic of low-batch agent loops."
+      },
+      {
+       "id": "R330",
+       "why": "Capacity planning that uses checkpoint size as the budget under-provisions by multiples."
       }
      ]
     },
@@ -681,7 +685,8 @@
       "R281",
       "R294",
       "R300",
-      "R312"
+      "R312",
+      "R330"
      ],
      "also": [
       {
@@ -1099,6 +1104,10 @@
       {
        "id": "R273",
        "why": "cross-model review as the quality gate: reviewers from a different lab than the author model, and a fresh full-diff re-review after each fix round"
+      },
+      {
+       "id": "R331",
+       "why": "A prompt that keeps a ledger of what the human must understand and refuses to end until each item is demonstrated."
       }
      ]
     },
@@ -1400,6 +1409,10 @@
       {
        "id": "R316",
        "why": "A capable agent model that fits on a laptop changes which harness tips apply, starting with what you can run locally on private files."
+      },
+      {
+       "id": "R331",
+       "why": "Comprehension of the change becomes a gate on the session, not an afterthought."
       }
      ]
     }
@@ -1819,7 +1832,8 @@
       "R282",
       "R299",
       "R314",
-      "R325"
+      "R325",
+      "R329"
      ],
      "also": [
       {
@@ -1984,6 +1998,10 @@
       {
        "id": "R322",
        "why": "Replay two detection policies over the same recorded events, change one mechanism at a time, and say what the integrity receipt does not prove."
+      },
+      {
+       "id": "R329",
+       "why": "Installation turns an artifact into a governed surface: what it may reach becomes an approval question."
       }
      ]
     },
@@ -2158,7 +2176,8 @@
      "n": "7.3",
      "title": "Comprehension debt",
      "primary": [
-      "R037"
+      "R037",
+      "R331"
      ],
      "also": [
       {
@@ -2366,6 +2385,10 @@
       {
        "id": "R300",
        "why": "one running number as a teaching device for attention and KV-cache design"
+      },
+      {
+       "id": "R331",
+       "why": "A reusable teaching loop: restate first, then quiz, with an explicit checklist."
       }
      ]
     }
@@ -8452,6 +8475,65 @@
    ],
    "summary": "An approval asserts an action, its arguments and the facts behind it, as of now; store the conditions and re-evaluate them immediately before the side effect.",
    "file": "entries/approval-is-a-claim-about-the-world.html"
+  },
+  {
+   "id": "R329",
+   "slug": "claude-artifacts-as-installable-desktop-apps",
+   "title": "Claude artifacts as installable desktop apps: what shipped, and what it means for SaaS",
+   "by": "Vasil Remeniuk",
+   "source": "https://claude.com/resources/articles/install-as-app",
+   "published": "2026-11-25",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/LBC2MWYu9MiEyEGHHPMme7",
+   "tags": [
+    "agent-platforms",
+    "competitive-analysis",
+    "agent-governance",
+    "vendor",
+    "sdlc"
+   ],
+   "summary": "Claude artifacts can now install as desktop apps on top of Claude Desktop, which changes who hosts the surface a team builds on, and how much of a SaaS product that surface can replace.",
+   "file": "entries/claude-artifacts-as-installable-desktop-apps.html"
+  },
+  {
+   "id": "R330",
+   "slug": "the-checkpoint-size-is-not-the-budget",
+   "title": "The checkpoint size is not the budget: accounting for GPU memory in training and serving",
+   "by": "Pallavi Ahuja",
+   "source": "https://pytorch.org/docs/stable/_modules/torch/cuda/memory",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/BEbFzYmN9Ecp6jtynLD4hg",
+   "tags": [
+    "inference-serving",
+    "kv-cache",
+    "gpu-memory",
+    "capacity-planning",
+    "training-infrastructure",
+    "measurement"
+   ],
+   "summary": "A walk through where GPU memory actually goes in training and serving, showing that parameter count or checkpoint size is a small fraction of the real footprint once optimizer state, activations and the KV cache are counted.",
+   "file": "entries/the-checkpoint-size-is-not-the-budget.html"
+  },
+  {
+   "id": "R331",
+   "slug": "learn-quiz-prove-you-understood-the-session",
+   "title": "Learn Quiz: make the agent prove you understood the session",
+   "by": "",
+   "source": "https://gist.github.com/ThariqS/1389dcdff9eba4789887a2211370f06b",
+   "published": "2026-11-22",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/LUgYrqHWLoKtvnpkFESup6",
+   "tags": [
+    "comprehension-debt",
+    "human-oversight",
+    "human-learning",
+    "agent-skills",
+    "prompting",
+    "teaching"
+   ],
+   "summary": "A widely shared prompt turns the agent into a teacher that keeps a checklist of what the human must understand, has them restate it first, quizzes them, and will not end the session until every item is demonstrated: verification pointed at the human rather than the code.",
+   "file": "entries/learn-quiz-prove-you-understood-the-session.html"
   }
  ],
  "edges": [
@@ -12780,6 +12862,42 @@
    "b": "R249",
    "strength": "medium",
    "why": "both say enterprise AI value comes from redesigning a mapped process with its owners, not bolting a tool onto it: R225's forward-deployed pilot method does it per engagement; R249's second source (Driwale) turns it into a re-engineering checklist."
+  },
+  {
+   "a": "R299",
+   "b": "R329",
+   "strength": "medium",
+   "why": "same-day Anthropic launches pushing the same platform from both ends: R299 lets MCP servers ship skills and background tasks into Claude, R329 lets Claude-hosted UI leave the chat window as a desktop app; together the vendor's connector becomes the contract and the artifact a client of it."
+  },
+  {
+   "a": "R049",
+   "b": "R329",
+   "strength": "medium",
+   "why": "two answers to who draws the agent's UI: A2UI renders the host app's own components from declarative messages, installable artifacts let the model write the whole app and the platform host it with OS permissions."
+  },
+  {
+   "a": "R327",
+   "b": "R329",
+   "strength": "medium",
+   "why": "both are platform-dependence arguments: R327 says agent products built on one vendor's GPTs or Gems are lock-in, and the Dock icon in R329 is still a Claude-hosted, Claude-authenticated, owner-revocable app."
+  },
+  {
+   "a": "R012",
+   "b": "R331",
+   "strength": "medium",
+   "why": "R012's trial shows tutor-style AI use keeps the learning and delegation erases it; Learn Quiz forces the tutor-style path on real work by quizzing the human before the session ends."
+  },
+  {
+   "a": "R037",
+   "b": "R331",
+   "strength": "medium",
+   "why": "both answer comprehension debt; R037 supplies understanding with a generated map, Learn Quiz checks that understanding actually reached the owner."
+  },
+  {
+   "a": "R017",
+   "b": "R331",
+   "strength": "medium",
+   "why": "EGM checks that a fresh model can understand the doc alone; Learn Quiz runs the same comprehension test on the human."
   }
  ]
 }

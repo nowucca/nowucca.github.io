@@ -1000,6 +1000,14 @@
   "R326": {
    "verdict": "pass",
    "round": 1
+  },
+  "R327": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R328": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
