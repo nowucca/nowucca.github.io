@@ -147,7 +147,8 @@
       "R258",
       "R260",
       "R274",
-      "R284"
+      "R284",
+      "R333"
      ],
      "also": [
       {
@@ -292,6 +293,10 @@
       {
        "id": "R328",
        "why": "An approval asserts an action, its arguments and the facts behind it, as of now; store the conditions and re-evaluate them immediately before the side effect."
+      },
+      {
+       "id": "R334",
+       "why": "Spend is gated separately from permission, because an authorised action can still cost more than the user would agree to."
       }
      ]
     },
@@ -437,6 +442,10 @@
       {
        "id": "R330",
        "why": "Capacity planning that uses checkpoint size as the budget under-provisions by multiples."
+      },
+      {
+       "id": "R333",
+       "why": "Token count per episode is the cost axis a distillation run can quietly inflate."
       }
      ]
     },
@@ -651,6 +660,10 @@
       {
        "id": "R327",
        "why": "Both vendors are folding their per-persona agent objects into an open skill format, so the remaining lock-in sits in actions, connectors and runtime, not instructions."
+      },
+      {
+       "id": "R334",
+       "why": "A local sandbox and browser of its own, with credentials entered through forms the model cannot read."
       }
      ]
     },
@@ -1819,6 +1832,10 @@
       {
        "id": "R324",
        "why": "A model name cannot encode a capability level, because capability belongs to the model plus its harness, not the weights alone."
+      },
+      {
+       "id": "R333",
+       "why": "A judge shown the candidate’s reasoning discriminates less well on the output itself."
       }
      ]
     },
@@ -1953,7 +1970,8 @@
       "R154",
       "R305",
       "R311",
-      "R328"
+      "R328",
+      "R334"
      ],
      "also": [
       {
@@ -8560,6 +8578,47 @@
    ],
    "summary": "A 12B mixture-of-experts coding model with 2.5B active parameters ships in reasoning and non-reasoning variants from the same training run, conceding the headline benchmark to a dense rival and claiming throughput instead: a release whose argument is the operating point, not the score.",
    "file": "entries/sparse-model-that-admits-it-loses.html"
+  },
+  {
+   "id": "R333",
+   "slug": "grade-the-work-not-the-scratchpad",
+   "title": "Grade the work, not the scratchpad: why on-policy distillation makes small agents ramble",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.28445",
+   "published": "2026-11-21",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/4g1icNhFs2C99a75PJgMWG",
+   "tags": [
+    "distillation",
+    "post-training",
+    "token-efficiency",
+    "reasoning",
+    "llm-judge",
+    "benchmarks"
+   ],
+   "summary": "On-policy distillation that scores the student’s reasoning block teaches the student to ramble: a teacher reading a partial thought extends it rather than concluding it, and the thought dominates the gradient while carrying the filler. Hiding the thought from the teacher and grading only the visible output roughly halves emitted tokens at no accuracy cost.",
+   "file": "entries/grade-the-work-not-the-scratchpad.html"
+  },
+  {
+   "id": "R334",
+   "slug": "personal-agent-with-its-own-computer",
+   "title": "A personal agent with its own computer: Nod's permission model, and the guard that is itself a model",
+   "by": "Andre Lindenberg",
+   "source": "https://blog.n8n.io/meet-nod",
+   "published": "2026-11-10",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/PMDhKZGYHpQtGWLpZ9ZtFN",
+   "tags": [
+    "agent-security",
+    "human-oversight",
+    "prompt-injection",
+    "open-weights-tooling",
+    "personal-agents",
+    "cost",
+    "vendor"
+   ],
+   "summary": "An open-source desktop agent that drives a real browser against sites with no API, whose permission check is itself a model — and whose documentation says so, falling back to asking the human whenever the user’s words do not clearly cover an action.",
+   "file": "entries/personal-agent-with-its-own-computer.html"
   }
  ],
  "edges": [
