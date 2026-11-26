@@ -1410,7 +1410,8 @@
       "R289",
       "R297",
       "R302",
-      "R320"
+      "R320",
+      "R323"
      ],
      "also": [
       {
@@ -1824,6 +1825,10 @@
       {
        "id": "R184",
        "why": "silent MCP tool changes: servers that accept outdated fields turn schema drift into data loss reported as success; read back stored state before claiming completion"
+      },
+      {
+       "id": "R323",
+       "why": "A CLI whose interaction mode follows from the caller and whose errors return the corrected command rather than a description of the mistake."
       }
      ]
     },
@@ -8299,6 +8304,25 @@
    ],
    "summary": "Replay two detection policies over the same recorded events, change one mechanism at a time, and say what the integrity receipt does not prove.",
    "file": "entries/policy-replay-ab-detection-receipt.html"
+  },
+  {
+   "id": "R323",
+   "slug": "error-message-is-the-next-command",
+   "title": "The error message is the next command: designing a CLI for agents that get it wrong",
+   "by": "Adam Moore",
+   "source": "https://developer.atlassian.com/platform/forge/changelog/",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/QSCV383HpYX64H5MXqqPfs",
+   "tags": [
+    "tool-design",
+    "cli",
+    "error-recovery",
+    "harness",
+    "agent-ergonomics"
+   ],
+   "summary": "A CLI whose interaction mode follows from the caller and whose errors return the corrected command rather than a description of the mistake.",
+   "file": "entries/error-message-is-the-next-command.html"
   }
  ],
  "edges": [
