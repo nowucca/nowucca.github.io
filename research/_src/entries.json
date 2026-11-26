@@ -288,6 +288,10 @@
       {
        "id": "R265",
        "why": "memory as governed state: validity windows, curator edits as reviewed proposals, archived superseded facts and stale-fact regression tests"
+      },
+      {
+       "id": "R328",
+       "why": "An approval asserts an action, its arguments and the facts behind it, as of now; store the conditions and re-evaluate them immediately before the side effect."
       }
      ]
     },
@@ -639,6 +643,10 @@
       {
        "id": "R273",
        "why": "threads as the unit of agent context and status, with a worktree and linked PR per thread and status derived from activity"
+      },
+      {
+       "id": "R327",
+       "why": "Both vendors are folding their per-persona agent objects into an open skill format, so the remaining lock-in sits in actions, connectors and runtime, not instructions."
       }
      ]
     },
@@ -1620,7 +1628,8 @@
      "primary": [
       "R015",
       "R109",
-      "R173"
+      "R173",
+      "R327"
      ],
      "also": [
       {
@@ -1844,6 +1853,14 @@
       {
        "id": "R323",
        "why": "A CLI whose interaction mode follows from the caller and whose errors return the corrected command rather than a description of the mistake."
+      },
+      {
+       "id": "R327",
+       "why": "Both vendors are folding their per-persona agent objects into an open skill format, so the remaining lock-in sits in actions, connectors and runtime, not instructions."
+      },
+      {
+       "id": "R328",
+       "why": "An approval asserts an action, its arguments and the facts behind it, as of now; store the conditions and re-evaluate them immediately before the side effect."
       }
      ]
     },
@@ -1916,7 +1933,8 @@
       "R044",
       "R154",
       "R305",
-      "R311"
+      "R311",
+      "R328"
      ],
      "also": [
       {
@@ -8395,6 +8413,45 @@
    ],
    "summary": "A thumbs rating is a consent event attached to a whole transcript, and the feedback corpus is selected towards your messiest data.",
    "file": "entries/thumbs-up-is-a-retention-decision.html"
+  },
+  {
+   "id": "R327",
+   "slug": "gpts-and-gems-become-skills",
+   "title": "GPTs and Gems become skills: Van Clief's case that agent products are lock-in",
+   "by": "Jake Van Clief",
+   "source": "https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq",
+   "published": "2026-11-06",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/QxWyr6zDvEt2wTq8L479iV",
+   "tags": [
+    "agent-workflows",
+    "agent-platforms",
+    "competitive-analysis",
+    "agent-harness",
+    "context-engineering",
+    "deterministic-workflows"
+   ],
+   "summary": "Both vendors are folding their per-persona agent objects into an open skill format, so the remaining lock-in sits in actions, connectors and runtime, not instructions.",
+   "file": "entries/gpts-and-gems-become-skills.html"
+  },
+  {
+   "id": "R328",
+   "slug": "approval-is-a-claim-about-the-world",
+   "title": "An approval is a claim about the world, not a token",
+   "by": "",
+   "source": "https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation.md",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/XFMiZTiq5kovk5DCZQnbe7",
+   "tags": [
+    "human-oversight",
+    "agent-governance",
+    "agent-protocols",
+    "durable-execution",
+    "agent-security"
+   ],
+   "summary": "An approval asserts an action, its arguments and the facts behind it, as of now; store the conditions and re-evaluate them immediately before the side effect.",
+   "file": "entries/approval-is-a-claim-about-the-world.html"
   }
  ],
  "edges": [
@@ -12699,6 +12756,30 @@
    "b": "R316",
    "strength": "medium",
    "why": "two 26-27B models built to run locally for agents: Inkling 2 Mini by architecture, Bonsai 2.5 by ternary weights plus agent post-training."
+  },
+  {
+   "a": "R015",
+   "b": "R327",
+   "strength": "medium",
+   "why": "same author and thesis ('agent is a naming convention'); R015 argues it from the psychology of programming, R327 from vendors retiring GPTs and Gems into skills."
+  },
+  {
+   "a": "R222",
+   "b": "R327",
+   "strength": "medium",
+   "why": "R327 says files beat vendor agents; R222 shows what files do not supply (session log, sandbox, credentials vault), which is where lock-in now sits."
+  },
+  {
+   "a": "R314",
+   "b": "R327",
+   "strength": "medium",
+   "why": "GPTs migrate into plugins whose instructions become a skill; R314 is that plugin shape, a small bundle that fetches skills on demand."
+  },
+  {
+   "a": "R225",
+   "b": "R249",
+   "strength": "medium",
+   "why": "both say enterprise AI value comes from redesigning a mapped process with its owners, not bolting a tool onto it: R225's forward-deployed pilot method does it per engagement; R249's second source (Driwale) turns it into a re-engineering checklist."
   }
  ]
 }
