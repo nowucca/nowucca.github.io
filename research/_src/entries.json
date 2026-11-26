@@ -686,6 +686,10 @@
       {
        "id": "R334",
        "why": "A local sandbox and browser of its own, with credentials entered through forms the model cannot read."
+      },
+      {
+       "id": "R345",
+       "why": "A mounted Docker socket turns a release gate into a suggestion: the contained agent can ask the host daemon for a container with any mounts it likes."
       }
      ]
     },
@@ -1472,6 +1476,10 @@
       {
        "id": "R331",
        "why": "Comprehension of the change becomes a gate on the session, not an afterthought."
+      },
+      {
+       "id": "R345",
+       "why": "A prompt instruction not to touch a folder is not a permission; only the mount enforces it."
       }
      ]
     }
@@ -2039,7 +2047,8 @@
       "R311",
       "R328",
       "R334",
-      "R341"
+      "R341",
+      "R345"
      ],
      "also": [
       {
@@ -8909,6 +8918,26 @@
    ],
    "summary": "",
    "file": "entries/cloudflare-search-for-agents.html"
+  },
+  {
+   "id": "R345",
+   "slug": "the-docker-socket-is-the-hole",
+   "title": "The Docker socket is the hole: isolation levels for coding agents",
+   "by": "Aiza Hasib",
+   "source": "https://thenuancedperspective.substack.com/p/6ddc0aef-2458-4427-9589-d59829a38e28",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "A3Cfgdp52Rdnk8woSiK43a",
+   "tags": [
+    "agent-security",
+    "sandboxing",
+    "human-oversight",
+    "containers",
+    "developer-tooling",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/the-docker-socket-is-the-hole.html"
   }
  ],
  "edges": [
