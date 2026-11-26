@@ -1080,6 +1080,14 @@
   "R346": {
    "verdict": "pass",
    "round": 1
+  },
+  "R347": {
+   "verdict": "revise",
+   "round": 1
+  },
+  "R348": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

@@ -1250,7 +1250,8 @@
       "R203",
       "R276",
       "R336",
-      "R338"
+      "R338",
+      "R349"
      ],
      "also": [
       {
@@ -1303,6 +1304,10 @@
       {
        "id": "R344",
        "why": "A per-site search endpoint is a measurable signal of whether a site is ready for agent visitors."
+      },
+      {
+       "id": "R349",
+       "why": "A concrete agent-readiness checklist for a docs site: an index with per-page descriptions, Markdown by two routes, one canonical dialect, and stated invariants."
       }
      ]
     },
@@ -1991,6 +1996,10 @@
       {
        "id": "R346",
        "why": "A published .rete URL is addressable by an agent over MCP or SPARQL with no database provisioned behind it."
+      },
+      {
+       "id": "R349",
+       "why": "Content negotiation on Accept: text/markdown serves the same page to an agent without it guessing URLs."
       }
      ]
     },
@@ -9027,6 +9036,26 @@
    ],
    "summary": "",
    "file": "entries/swarm-shared-board-parallel-agents.html"
+  },
+  {
+   "id": "R349",
+   "slug": "gradle-llms-txt-docs-for-agents",
+   "title": "Serving docs to agents: Gradle's llms.txt, Markdown by content negotiation, and one DSL",
+   "by": "",
+   "source": "https://docs.gradle.org/llms.txt",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "BmhshUzvVL2kPPQR74YsGW",
+   "tags": [
+    "docs-as-code",
+    "agent-readiness",
+    "retrieval",
+    "conventions",
+    "coding-agents",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/gradle-llms-txt-docs-for-agents.html"
   }
  ],
  "edges": [
