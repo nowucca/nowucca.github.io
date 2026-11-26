@@ -235,23 +235,6 @@
           ]
         }
       ]
-    },
-    "travel": {
-      "title": "Travel",
-      "lede": "Itineraries for upcoming trips, for family and friends.",
-      "items": [
-        {
-          "slug": "brisbane-feb-2027",
-          "title": "Brisbane, February 2027",
-          "summary": "Steven's flights Austin to Brisbane and back, Feb 1 to 23, 2027, via Houston and Auckland.",
-          "date": "2026-11-22",
-          "tags": [
-            "air new zealand",
-            "brisbane"
-          ]
-        }
-      ],
-      "noindex": true
     }
   }
 }
