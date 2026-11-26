@@ -112,6 +112,10 @@
       {
        "id": "R284",
        "why": "measures what a history representation is worth: an attempt you can still pull back in full beats a rolling summary of all of them"
+      },
+      {
+       "id": "R336",
+       "why": "Local storage of a file and local processing of its contents are different properties, and a vault-reading agent breaks the second."
       }
      ]
     },
@@ -572,6 +576,10 @@
       {
        "id": "R246",
        "why": "Platform operations for a company-wide agent skills marketplace"
+      },
+      {
+       "id": "R335",
+       "why": "A single Rust binary replaces a thirteen-project stack, with the line count and its caveats published."
       }
      ]
     },
@@ -618,7 +626,8 @@
       "R222",
       "R262",
       "R286",
-      "R296"
+      "R296",
+      "R335"
      ],
      "also": [
       {
@@ -1208,7 +1217,8 @@
       "R136",
       "R199",
       "R203",
-      "R276"
+      "R276",
+      "R336"
      ],
      "also": [
       {
@@ -1897,6 +1907,10 @@
       {
        "id": "R328",
        "why": "An approval asserts an action, its arguments and the facts behind it, as of now; store the conditions and re-evaluate them immediately before the side effect."
+      },
+      {
+       "id": "R336",
+       "why": "A connector that is seven Markdown instruction files, so every capability is borrowed from the agent’s own file and shell access."
       }
      ]
     },
@@ -2025,6 +2039,10 @@
       {
        "id": "R329",
        "why": "Installation turns an artifact into a governed surface: what it may reach becomes an approval question."
+      },
+      {
+       "id": "R335",
+       "why": "Authorisation keys on who proposed a change as well as what it does, so an agent may propose but not apply."
       }
      ]
     },
@@ -2058,7 +2076,8 @@
      "primary": [
       "R012",
       "R065",
-      "R267"
+      "R267",
+      "R337"
      ],
      "also": [
       {
@@ -2192,6 +2211,10 @@
       {
        "id": "R292",
        "why": "the human-review cost of deciding whether a grader was right"
+      },
+      {
+       "id": "R337",
+       "why": "Information hiding as the recurring move: evidence review before the draft, answer key withheld, before/after labels stripped."
       }
      ]
     },
@@ -2412,6 +2435,10 @@
       {
        "id": "R331",
        "why": "A reusable teaching loop: restate first, then quiz, with an explicit checklist."
+      },
+      {
+       "id": "R337",
+       "why": "Five concrete recipes for AI in learning design, each with the check that keeps it honest."
       }
      ]
     }
@@ -8619,6 +8646,68 @@
    ],
    "summary": "An open-source desktop agent that drives a real browser against sites with no API, whose permission check is itself a model — and whose documentation says so, falling back to asking the human whenever the user’s words do not clearly cover an action.",
    "file": "entries/personal-agent-with-its-own-computer.html"
+  },
+  {
+   "id": "R335",
+   "slug": "reliaburger-release-gate-is-the-product-claim",
+   "title": "Reliaburger: a container platform whose release gate is the product claim",
+   "by": "Miko Pawlikowski",
+   "source": "https://reliaburger.com/",
+   "published": "2026-11-23",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/FguPhWv1PmhP3n1cRBtpnJ",
+   "tags": [
+    "control-plane",
+    "human-oversight",
+    "agent-security",
+    "rust",
+    "release-engineering",
+    "open-source",
+    "vendor"
+   ],
+   "summary": "A single-binary container orchestrator that treats an AI agent as a leashed operator — lease, propose, approve, undo — and publishes its release qualification, including how many candidates a release took, as the thing to judge it by.",
+   "file": "entries/reliaburger-release-gate-is-the-product-claim.html"
+  },
+  {
+   "id": "R336",
+   "slug": "obsidian-agent-connectors-are-skills",
+   "title": "Obsidian's agent connectors are skills, not an integration",
+   "by": "",
+   "source": "https://obsidian.md/help/connectors",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/BjqjUVabEZyZ3VvP49cx4h",
+   "tags": [
+    "agent-skills",
+    "docs-as-code",
+    "vendor",
+    "agent-security",
+    "prompt-injection",
+    "local-first",
+    "interoperability"
+   ],
+   "summary": "Obsidian’s official \"Connectors\" page offers the app to a dozen named agents, but a connector turns out to be a bundle of seven Agent Skills: format documentation and tool drivers, with no server, no index and nowhere to put a permission boundary.",
+   "file": "entries/obsidian-agent-connectors-are-skills.html"
+  },
+  {
+   "id": "R337",
+   "slug": "hardman-five-ai-uses-in-l-and-d",
+   "title": "Hardman's five AI uses in L&D: from faster to better, each with a check",
+   "by": "Philippa Hardman",
+   "source": "https://drphilippahardman.substack.com/p/how-i-ai-my-top-5-daily-ai-use-cases",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/SdqfrWtoJ115HN6SS7Q9Lv",
+   "tags": [
+    "teaching",
+    "learning-design",
+    "verification",
+    "synthetic-users",
+    "evals",
+    "workflows"
+   ],
+   "summary": "A practitioner audits a year of her own AI use across the five ADDIE phases and reports a shift from faster to better: each of the five recipes pairs a use with a verification pass, and the recurring design move is withholding information from the model until after it has committed.",
+   "file": "entries/hardman-five-ai-uses-in-l-and-d.html"
   }
  ],
  "edges": [
@@ -12983,6 +13072,12 @@
    "b": "R331",
    "strength": "medium",
    "why": "EGM checks that a fresh model can understand the doc alone; Learn Quiz runs the same comprehension test on the human."
+  },
+  {
+   "a": "R267",
+   "b": "R337",
+   "strength": "medium",
+   "why": "two Hardman posts on AI in learning design: R267 on which builds move outcomes and the answer leak, this one on her own five-phase workflow, where withholding the key and the design from the model is the guard against the same leak."
   }
  ]
 }
