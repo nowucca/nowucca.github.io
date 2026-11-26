@@ -1076,6 +1076,10 @@
   "R345": {
    "verdict": "pass",
    "round": 1
+  },
+  "R346": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

@@ -479,7 +479,8 @@
       "R245",
       "R251",
       "R273",
-      "R298"
+      "R298",
+      "R348"
      ],
      "also": [
       {
@@ -1485,6 +1486,10 @@
       {
        "id": "R345",
        "why": "A prompt instruction not to touch a folder is not a permission; only the mount enforces it."
+      },
+      {
+       "id": "R348",
+       "why": "Every brief is posted publicly, so ownership boundaries are common knowledge rather than private instruction."
       }
      ]
     }
@@ -1712,6 +1717,10 @@
       {
        "id": "R340",
        "why": "Puts the compaction decision inside the harness rather than a fixed window rule."
+      },
+      {
+       "id": "R348",
+       "why": "Idle members sleep on the board and consume no tokens until mentioned; quota exhaustion pauses a member rather than retrying."
       }
      ]
     },
@@ -1722,7 +1731,8 @@
       "R015",
       "R109",
       "R173",
-      "R327"
+      "R327",
+      "R347"
      ],
      "also": [
       {
@@ -2115,6 +2125,10 @@
       {
        "id": "R335",
        "why": "Authorisation keys on who proposed a change as well as what it does, so an agent may propose but not apply."
+      },
+      {
+       "id": "R347",
+       "why": "Every panel renders in a sandbox that blocks scripts and network, on the same terms whether the agent, a human or an external tool wrote the markup."
       }
      ]
     },
@@ -2380,7 +2394,12 @@
      "primary": [
       "R315"
      ],
-     "also": []
+     "also": [
+      {
+       "id": "R347",
+       "why": "Generation happens while you chat; the saved template then renders deterministically, so two people opening the dashboard see the same panel."
+      }
+     ]
     }
    ]
   },
@@ -8968,6 +8987,46 @@
    ],
    "summary": "",
    "file": "entries/rete-rdf-graph-as-one-file.html"
+  },
+  {
+   "id": "R347",
+   "slug": "kibana-custom-panels-generate-once",
+   "title": "Generate once, render forever: Kibana custom panels freeze the model's output into a template",
+   "by": "",
+   "source": "https://www.elastic.co/search-labs/blog/kibana-custom-panels-ai-dashboard-visuals",
+   "published": "2026-11-23",
+   "added": "2026-11-26",
+   "artifact": "TjeaDuxJ82TrKD7BKR6edK",
+   "tags": [
+    "generative-ui",
+    "determinism",
+    "sandboxing",
+    "observability",
+    "vendor",
+    "dashboards"
+   ],
+   "summary": "",
+   "file": "entries/kibana-custom-panels-generate-once.html"
+  },
+  {
+   "id": "R348",
+   "slug": "swarm-shared-board-parallel-agents",
+   "title": "A shared board instead of private messages: how /swarm structures a parallel agent team",
+   "by": "",
+   "source": "https://antigravity.google/docs/swarm/",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "LKujRCTYRez44rM42Uja7H",
+   "tags": [
+    "multi-agent",
+    "agent-harness",
+    "coding-agents",
+    "orchestration",
+    "token-cost",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/swarm-shared-board-parallel-agents.html"
   }
  ],
  "edges": [

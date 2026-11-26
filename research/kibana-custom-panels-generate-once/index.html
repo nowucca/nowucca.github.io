@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Generate once, render forever: Kibana custom panels freeze the model&#x27;s output into a template · Research</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R347 · Agent principles and patterns › Workflows over agents</span>
+  <h1>Generate once, render forever: Kibana custom panels freeze the model&#x27;s output into a template</h1>
+  <div class="entry-meta"><span></span><span>Published 2026-11-23</span><span>Summarized 2026-11-26</span></div>
+  <p><a href="https://www.elastic.co/search-labs/blog/kibana-custom-panels-ai-dashboard-visuals" rel="noopener">Read the original</a></p>
+  
+  <div class="tags"><span class="tag">generative-ui</span><span class="tag">determinism</span><span class="tag">sandboxing</span><span class="tag">observability</span><span class="tag">vendor</span><span class="tag">dashboards</span></div>
+</header>
+<article class="article"><p><em>Source: Elastic Search Labs, "Kibana custom panels: Any dashboard visual, generated from one prompt", Teresa Alvarez Soler and Stratoula Kalafateli, 23 Nov 2026. The linked documentation and video are not covered here.</em></p>
+<h2 id="what-shipped">What shipped</h2>
+<p>A Kibana dashboard panel can now be described in a sentence — "a health status card for each host" — and generated. An agent in the dashboard writes two artifacts: an ES|QL query, and an HTML/CSS template bound to the columns that query returns. Both are saved inside the dashboard. On every later load Kibana runs the query and refills the saved template with live results.</p>
+<p>The design decision worth copying is in one sentence from the article: <strong>"The AI now runs only while you chat, and its result is saved as a template inside the dashboard. After that, the AI never runs again."</strong> Generation is an authoring-time act; rendering is deterministic code.</p>
+<p>Availability is stated precisely: Elastic Cloud Serverless and Elastic 9.6 on the Basic licence, with the agent itself needing to be set up in the deployment or project to generate by chat.</p>
+<h2 id="why-never-runs-again-is-the-whole-architecture">Why "never runs again" is the whole architecture</h2>
+<p>The team says it tried the two designs most people reach for first, and abandoned both:</p>
+<ul><li><p><strong>Regenerate on load.</strong> Dropped because of nondeterminism, and specifically because of sharing: "A model rarely gives the same answer twice, so a colleague you shared the dashboard with might see a different panel than the one you built."</p></li><li><p><strong>Cache the generated panel.</strong> Dropped because it "quickly grew complicated and still couldn't guarantee that two people would see the same panel."</p></li></ul>
+<p>That is a clean statement of a problem any team shipping generative UI hits. A dashboard is a shared object: its value depends on two people looking at the same artifact and seeing the same thing. A model in the render path breaks that invariant, and a cache only narrows the window in which it breaks. Freezing the output restores it — and as a bonus removes model latency, token cost and provider availability from the read path entirely. The panel keeps working when the agent is switched off, rate-limited, or replaced.</p>
+<p>The cost is equally clear: the panel does not adapt. If the data's shape drifts, the frozen template is what renders, and nothing re-derives it. That is the right trade for a dashboard and the wrong one for, say, an exploratory analysis surface — the choice turns on whether the artifact is shared.</p>
+<h2 id="grounding-the-generation-in-real-columns">Grounding the generation in real columns</h2>
+<p>Before the model writes anything, Kibana runs the query and hands the model the column names, their types and a few sample rows. The justification is blunt and generalises past dashboards: "A model that guesses at your fields invents column names that don't exist."</p>
+<p>This is schema grounding as a pipeline stage rather than a prompt instruction, and the ordering matters — query first, then template against the observed result. Refinement follows the same logic: a look-only change skips re-sampling and refines the existing template, while a change to the query re-samples the data.</p>
+<p>When the prompt does not explicitly ask for a custom panel, the agent tries a standard Kibana visualization first, then a Vega visualization, and only writes a custom panel if neither fits. Preferring the constrained, well-understood renderer over generated markup is the conservative default, and worth noting as a pattern: generated UI is the fallback, not the first choice.</p>
+<h2 id="the-sandbox-and-treating-your-own-output-as-hostile">The sandbox, and treating your own output as hostile</h2>
+<p>Every panel renders in a sandbox that blocks scripts and external resources, strips links except those pointing to Kibana dashboards and Discover, and sanitizes content before rendering. The article's summary: "A panel can draw but nothing else" — "It can't execute code or reach the network, and it can't touch anything else in your browser session."</p>
+<p>Crucially, the sandbox applies to every panel "regardless of who or what produced it", because there are three authoring routes: the agent, a human writing HTML by hand, and markup pasted in from some external agent. That last route is the one that makes the policy necessary. A dashboard is a shared artifact that other people open; markup inside it is untrusted input to their browser, and the fact that your own agent generated it is not a security property. Any team adding generated markup to a multi-user surface should copy this stance wholesale.</p>
+<p>What the article does not say is how the sandbox is implemented. Iframes, CSP and sanitizer libraries go unmentioned, so the strength of "blocks scripts" cannot be assessed from the post — a reader evaluating this for a regulated environment has to go to the documentation or the code.</p>
+<h2 id="integration-details-that-decide-whether-it-is-usable">Integration details that decide whether it is usable</h2>
+<p>Panels respond to the time picker, the KQL query bar, filter pills and controls, which is what separates a real panel from an embedded picture. They use Kibana's colours and spacing and adapt to light and dark modes. Every chat answer keeps its own version, restorable via a Preview on that answer's card — a lightweight history that matches how people actually iterate by prompt.</p>
+<p>One portability constraint is called out: logos and images must be inline SVG, CSS shapes or Unicode, so they travel with the dashboard on export. A generated artifact that silently depends on an external asset is a broken artifact the first time someone exports or shares it.</p>
+<h2 id="what-is-not-measured">What is not measured</h2>
+<p>The article is an engineering narrative, not an evaluation. It gives no model name, no generation latency, no token cost, no limit on panel size or row count, no success or failure rate for generated panels, and no evaluation method. It does not say what a panel does when its query returns zero rows, nor what happens when a hand-edited template is later regenerated from chat — both of which a team adopting this will hit in the first week.</p>
+<p>So the quality claim is unverified: we know the generated panel is <em>stable and shared</em>, which is what the architecture guarantees, and we do not know how often it is <em>good</em>.</p>
+<h2 id="review-checklist-for-a-generative-ui-feature">Review checklist for a generative-UI feature</h2>
+<ul><li><p>Does a model run on the read path? If the artifact is shared by more than one person, the answer should be no. Say where generation stops and deterministic rendering begins.</p></li><li><p>Is the generation grounded in the real schema, fetched before the model writes, rather than described in the prompt?</p></li><li><p>Is generated markup sandboxed on the same terms as pasted markup, with the policy written as "all panels are untrusted" rather than "untrusted unless we made it"?</p></li><li><p>Does the saved artifact survive the agent being unavailable, rate-limited or replaced?</p></li><li><p>Does it travel: no external asset references, no dependence on the authoring session?</p></li><li><p>Is there a version per generation, so a refinement that makes things worse is one click from recovery?</p></li><li><p>What is the behaviour on empty results, a renamed column, and a type change? Those are the three failures that will arrive.</p></li><li><p>Is there any measurement of how often the first generated artifact is accepted without edits? Without it, "one prompt" is a demo claim.</p></li></ul>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
