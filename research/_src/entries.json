@@ -794,7 +794,8 @@
       "R301",
       "R309",
       "R316",
-      "R324"
+      "R324",
+      "R332"
      ],
      "also": [
       {
@@ -1632,6 +1633,10 @@
       {
        "id": "R325",
        "why": "Android makes the OS the tool broker for assistants, shipping 1.0 stable with the access model absent from the documentation."
+      },
+      {
+       "id": "R332",
+       "why": "Halving a sub-agent’s emitted tokens changes the economics of every loop it runs in."
       }
      ]
     },
@@ -8534,6 +8539,27 @@
    ],
    "summary": "A widely shared prompt turns the agent into a teacher that keeps a checklist of what the human must understand, has them restate it first, quizzes them, and will not end the session until every item is demonstrated: verification pointed at the human rather than the code.",
    "file": "entries/learn-quiz-prove-you-understood-the-session.html"
+  },
+  {
+   "id": "R332",
+   "slug": "sparse-model-that-admits-it-loses",
+   "title": "A sparse model that admits it loses: Mellum2.1 Instruct and the case for the fast worker",
+   "by": "Gleb Ingman",
+   "source": "https://blog.jetbrains.com/ai/2026/11/mellum2-1-instruct-is-out-bringing-faster-answers-for-coding-agents/",
+   "published": "2026-11-25",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/JZhwqBKuNm6eJsk5XaCYyf",
+   "tags": [
+    "open-weights",
+    "mixture-of-experts",
+    "coding-agents",
+    "reinforcement-learning",
+    "inference-serving",
+    "benchmarks",
+    "vendor"
+   ],
+   "summary": "A 12B mixture-of-experts coding model with 2.5B active parameters ships in reasoning and non-reasoning variants from the same training run, conceding the headline benchmark to a dense rival and claiming throughput instead: a release whose argument is the operating point, not the score.",
+   "file": "entries/sparse-model-that-admits-it-loses.html"
   }
  ],
  "edges": [

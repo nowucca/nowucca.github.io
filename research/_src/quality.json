@@ -1008,6 +1008,18 @@
   "R328": {
    "verdict": "pass",
    "round": 1
+  },
+  "R329": {
+   "verdict": "revise",
+   "round": 1
+  },
+  "R330": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R331": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
