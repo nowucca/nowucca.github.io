@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>When a model&#x27;s name stops predicting what it can do · Research</title>
+<meta name="description" content="A model name cannot encode a capability level, because capability belongs to the model plus its harness, not the weights alone.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R324 · Infrastructure for agents at scale › Frontier model releases</span>
+  <h1>When a model&#x27;s name stops predicting what it can do</h1>
+  <div class="entry-meta"><span>Ethan Mollick</span><span>Published 2026-11-26</span><span>Summarized 2026-11-26</span></div>
+  <p><a href="https://www.linkedin.com/in/emollick/" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/ethan-mollick/">Ethan Mollick</a></p>
+  <div class="tags"><span class="tag">frontier-models</span><span class="tag">benchmarks</span><span class="tag">model-selection</span><span class="tag">measuring</span></div>
+</header>
+<article class="article"><p><em>Source: a short argument posted by a Wharton professor who writes regularly on applied AI, 2026-11-26. It cites no evidence, so the second half of this summary tests it against published measurements instead.</em></p>
+<p>The claim is blunt: model names and numbers "have never been less useful in determining ability levels". Three reasons are offered — the names themselves have become arbitrary, the version numbers no longer track families or progress (a small decimal increment can carry a large capability jump), and frontier models are diverging in character rather than lining up on a single axis. Then a fourth, larger claim: "no benchmarks are that useful anymore". And a practical conclusion: use the latest paid model from one of the three major labs at the second-highest thinking level, and you will be somewhere near the frontier.</p>
+<p>It is commentary, not reporting. But it is a testable assertion about measurement, and there is a substantial body of published work that bears on it. Taken together, that work says the author is right about something more specific and more interesting than what he actually claimed.</p>
+<h2 id="the-strong-version-of-his-case-which-the-evidence-supports">The strong version of his case, which the evidence supports</h2>
+<p>The sharpest available result is that <strong>the same weights produce wildly different scores depending on the scaffolding around them</strong>. One published comparison put a single model at 12.8% versus 39.0% on the same coding benchmark under two different harnesses — roughly a threefold swing with nothing about the model changed. A separate result found that harness-specific reinforcement-learning tuning lifted an open model's score on a hard software-engineering benchmark from 39.2% to 64.7%.</p>
+<p>That is the real argument, and it is stronger than the one in the post. A model name cannot encode a capability level because <strong>capability is not a property of the model alone.</strong> It is a property of the model plus its harness, its tool definitions, its context budget and its caching behaviour. A version number is being asked to summarise a system when it can only identify a component.</p>
+<p>Two further findings reinforce it from different directions:</p>
+<ul><li><p><strong>Reported numbers skew towards the vendor.</strong> One audit found that vendor launch posts account for roughly three in four first crossings of a benchmark threshold, and that only about a quarter of claimed saturation survives independent replication. A name attached to a launch-day number is attached to the most favourable measurement that existed.</p></li><li><p><strong>Post-training moves the artifact away from its base.</strong> Several documented cases take an open base model, apply domain or harness-specific post-training, and land somewhere the base model's name does not predict at all. When the deployed thing is the base plus a tuning recipe, naming the base is naming an ingredient.</p></li></ul>
+<p>And the divergence point holds in a way worth stating concretely: cost and latency structure now differ enough between frontier models that one independent evaluation's practical conclusion about a high-scoring model was that it was unusable for the task without caching. No benchmark score carries that, and no version number hints at it.</p>
+<h2 id="where-the-claim-overreaches">Where the claim overreaches</h2>
+<p>"No benchmarks are that useful anymore" is the weakest sentence in the post, and the same body of evidence is the counter-example. Every finding above <em>is</em> a benchmark result. What failed in each case was not measurement — it was <strong>measurement reported by an interested party, or aggregated into a single leaderboard figure.</strong></p>
+<p>The distinction the post collapses is between a benchmark as an instrument and a benchmark as a marketing number. Instruments that published their methodology, ran independently, and reported per-task rather than aggregate results did useful work; the thing that misled was the headline. Telling practitioners that benchmarks are no longer useful leaves them with nothing but vibes, which is strictly worse than telling them which benchmarks, run by whom, measured what.</p>
+<p>The version-number argument is also softer than it looks. A large jump at a small decimal increment is equally consistent with the numbers tracking <em>release cadence</em> rather than capability — which would make them informative about something, just not about ability. That is a claim about what the numbers mean, not evidence that they are meaningless.</p>
+<h2 id="the-heuristic-and-what-it-concedes">The heuristic, and what it concedes</h2>
+<p>"Latest paid model, second-highest thinking level, from one of the three majors." There is no evidence offered for this, and it should be read as a rule of thumb from a well-placed observer rather than a measured result. It is still worth recording, because it is the rule a great many practitioners are actually using, and because of what it quietly admits: if the best available advice is <em>take the newest thing and pay for it</em>, then the naming problem has no solution from outside the labs — only a workaround.</p>
+<p>The second-highest-thinking-level detail is the interesting part. It implies the top setting is not worth its cost for most work, which is a claim about diminishing returns on inference-time compute that would be straightforward to test and, as far as published results go, has not been settled.</p>
+<h2 id="what-to-do-instead-of-reading-the-name">What to do instead of reading the name</h2>
+<p>For anyone choosing a model for a real system, the implication of all this is not despair about benchmarks. It is that <strong>the unit of evaluation has to be your system, not the model.</strong></p>
+<ol><li><p><strong>Evaluate the model inside your harness.</strong> Given a threefold swing from scaffolding alone, a public score tells you almost nothing about what you will get. A small task-representative eval in your own loop beats any leaderboard.</p></li><li><p><strong>Treat a vendor's launch number as an upper bound</strong> that survived selection, not as an expectation.</p></li><li><p><strong>Prefer per-task results to aggregates.</strong> The aggregate is where divergence between frontier models disappears, and divergence is the thing you actually need to see.</p></li><li><p><strong>Measure cost and latency in the same run as quality.</strong> A model that wins on accuracy and loses on cache behaviour has not won.</p></li><li><p><strong>Pin exact model identifiers in configuration</strong>, since the name does not tell you what changed and a minor version bump may not be minor.</p></li><li><p><strong>Re-run your eval on every model change</strong>, including point releases. The post's own examples are cases where a decimal increment carried a large shift.</p></li><li><p><strong>Keep a short record of what each model change did to your metrics.</strong> Over a few releases this becomes the only reliable capability map you have for your workload — and unlike a benchmark, it is measured on the thing you ship.</p></li></ol>
+
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

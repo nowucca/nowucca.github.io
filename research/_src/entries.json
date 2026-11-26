@@ -775,7 +775,8 @@
       "R283",
       "R301",
       "R309",
-      "R316"
+      "R316",
+      "R324"
      ],
      "also": [
       {
@@ -1601,6 +1602,10 @@
       {
        "id": "R315",
        "why": "It is a worked example of a harness building block that is deliberately not a model call: a tabular classifier where an LLM would be the wrong tool."
+      },
+      {
+       "id": "R325",
+       "why": "Android makes the OS the tool broker for assistants, shipping 1.0 stable with the access model absent from the documentation."
       }
      ]
     },
@@ -1778,6 +1783,10 @@
       {
        "id": "R309",
        "why": "The post-training result is only legible through the evaluation suite it was measured on."
+      },
+      {
+       "id": "R324",
+       "why": "A model name cannot encode a capability level, because capability belongs to the model plus its harness, not the weights alone."
       }
      ]
     },
@@ -1795,7 +1804,8 @@
       "R190",
       "R282",
       "R299",
-      "R314"
+      "R314",
+      "R325"
      ],
      "also": [
       {
@@ -8323,6 +8333,43 @@
    ],
    "summary": "A CLI whose interaction mode follows from the caller and whose errors return the corrected command rather than a description of the mistake.",
    "file": "entries/error-message-is-the-next-command.html"
+  },
+  {
+   "id": "R324",
+   "slug": "model-name-stops-predicting-ability",
+   "title": "When a model's name stops predicting what it can do",
+   "by": "Ethan Mollick",
+   "source": "https://www.linkedin.com/in/emollick/",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/XfGDgWWBKopjcMckXLuBao",
+   "tags": [
+    "frontier-models",
+    "benchmarks",
+    "model-selection",
+    "measuring"
+   ],
+   "summary": "A model name cannot encode a capability level, because capability belongs to the model plus its harness, not the weights alone.",
+   "file": "entries/model-name-stops-predicting-ability.html"
+  },
+  {
+   "id": "R325",
+   "slug": "os-level-tool-surface-for-assistants",
+   "title": "An OS-level tool surface for assistants, shipped stable with its security model undocumented",
+   "by": "",
+   "source": "https://developer.android.com/jetpack/androidx/releases/appfunctions",
+   "published": "2026-11-18",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/Km9ySi3SWFK3fx7yBhu1Fw",
+   "tags": [
+    "tool-design",
+    "agent-protocols",
+    "mobile",
+    "permissions",
+    "platform"
+   ],
+   "summary": "Android makes the OS the tool broker for assistants, shipping 1.0 stable with the access model absent from the documentation.",
+   "file": "entries/os-level-tool-surface-for-assistants.html"
   }
  ],
  "edges": [
