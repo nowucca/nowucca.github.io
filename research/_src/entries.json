@@ -26,7 +26,8 @@
       "R226",
       "R230",
       "R265",
-      "R278"
+      "R278",
+      "R340"
      ],
      "also": [
       {
@@ -116,6 +117,10 @@
       {
        "id": "R336",
        "why": "Local storage of a file and local processing of its contents are different properties, and a vault-reading agent breaks the second."
+      },
+      {
+       "id": "R343",
+       "why": "Five concrete context cuts: shorter tool schemas, fewer skills, less preamble."
       }
      ]
     },
@@ -450,6 +455,14 @@
       {
        "id": "R333",
        "why": "Token count per episode is the cost axis a distillation run can quietly inflate."
+      },
+      {
+       "id": "R340",
+       "why": "Compaction policy changes KV-cache reuse and token cost per task."
+      },
+      {
+       "id": "R343",
+       "why": "Trimming the prompt is the cheapest lever on per-task token cost."
       }
      ]
     },
@@ -1051,7 +1064,8 @@
       "R223",
       "R248",
       "R270",
-      "R317"
+      "R317",
+      "R339"
      ],
      "also": [
       {
@@ -1131,6 +1145,10 @@
       {
        "id": "R331",
        "why": "A prompt that keeps a ledger of what the human must understand and refuses to end until each item is demonstrated."
+      },
+      {
+       "id": "R339",
+       "why": "Gives a per-edit metric that an eval harness can score without human review."
       }
      ]
     },
@@ -1269,6 +1287,17 @@
      ]
     },
     {
+     "n": "4.2",
+     "title": "Measuring agent-readiness",
+     "primary": [],
+     "also": [
+      {
+       "id": "R344",
+       "why": "A per-site search endpoint is a measurable signal of whether a site is ready for agent visitors."
+      }
+     ]
+    },
+    {
      "n": "4.3",
      "title": "Retrieval over long documents",
      "primary": [
@@ -1360,7 +1389,8 @@
       "R151",
       "R167",
       "R187",
-      "R214"
+      "R214",
+      "R343"
      ],
      "also": [
       {
@@ -1665,6 +1695,10 @@
       {
        "id": "R332",
        "why": "Halving a sub-agent’s emitted tokens changes the economics of every loop it runs in."
+      },
+      {
+       "id": "R340",
+       "why": "Puts the compaction decision inside the harness rather than a fixed window rule."
       }
      ]
     },
@@ -1753,7 +1787,8 @@
       "R307",
       "R313",
       "R319",
-      "R322"
+      "R322",
+      "R342"
      ],
      "also": [
       {
@@ -1855,6 +1890,14 @@
       {
        "id": "R333",
        "why": "A judge shown the candidate’s reasoning discriminates less well on the output itself."
+      },
+      {
+       "id": "R339",
+       "why": "Residue attribution is a code-review signal: which edited lines no test or requirement asked for."
+      },
+      {
+       "id": "R341",
+       "why": "The escape attempts are themselves an eval of agent behaviour under weak isolation."
       }
      ]
     },
@@ -1874,7 +1917,8 @@
       "R299",
       "R314",
       "R325",
-      "R329"
+      "R329",
+      "R344"
      ],
      "also": [
       {
@@ -1994,7 +2038,8 @@
       "R305",
       "R311",
       "R328",
-      "R334"
+      "R334",
+      "R341"
      ],
      "also": [
       {
@@ -2069,6 +2114,14 @@
       {
        "id": "R306",
        "why": "Oversight of AI-run research depends on being able to monitor the reasoning it produces."
+      },
+      {
+       "id": "R341",
+       "why": "Measures sandbox escape rates and three mitigations that cut misuse to near zero."
+      },
+      {
+       "id": "R342",
+       "why": "A shortcut in the environment changes measured effort, which is an eval confound to control for."
       }
      ]
     }
@@ -8737,6 +8790,125 @@
    ],
    "summary": "A team argues a feature out in a meeting, files the transcript as markdown, folds the settled decisions into a versioned skill file changed by its own docs-only PR, and only then points agents at it: judgment first, automation second, with the bottleneck moved from code to one markdown file.",
    "file": "entries/slow-down-to-speed-up-meeting-to-skill.html"
+  },
+  {
+   "id": "R339",
+   "slug": "delta-residue-attribution-coding-agent-over-edit",
+   "title": "How much do coding agents over-edit? Delta Residue Attribution",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.34875",
+   "published": "2026-11-25",
+   "added": "2026-11-26",
+   "artifact": "AYPaqN88Mh9NdU5jHoHNmV",
+   "tags": [
+    "test-oracles",
+    "benchmarks",
+    "code-review",
+    "evals",
+    "ai-built-software",
+    "agent-harness"
+   ],
+   "summary": "",
+   "file": "entries/delta-residue-attribution-coding-agent-over-edit.html"
+  },
+  {
+   "id": "R340",
+   "slug": "who-decides-when-to-compact",
+   "title": "Who decides when to compact: model-managed context in an agent harness",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.34147",
+   "published": "2026-11-25",
+   "added": "2026-11-26",
+   "artifact": "JA72oAsuic8AKs8kvZqMt2",
+   "tags": [
+    "context-engineering",
+    "agent-harness",
+    "memory",
+    "kv-cache",
+    "inference",
+    "benchmarks",
+    "token-efficiency"
+   ],
+   "summary": "",
+   "file": "entries/who-decides-when-to-compact.html"
+  },
+  {
+   "id": "R341",
+   "slug": "siren-agents-leaving-a-weak-sandbox",
+   "title": "Siren: how often agents leave a weak sandbox, and three mitigations that bring misuse to near zero",
+   "by": "O'Rahilly and Kaviani",
+   "source": "https://safeguards.anthropic.com/2026/siren/",
+   "published": "2026-11-24",
+   "added": "2026-11-26",
+   "artifact": "CHYV8VbLS7W6eedeFRA3uj",
+   "tags": [
+    "sandboxing",
+    "agent-safety",
+    "evals",
+    "honeypot",
+    "permissions",
+    "anthropic"
+   ],
+   "summary": "",
+   "file": "entries/siren-agents-leaving-a-weak-sandbox.html"
+  },
+  {
+   "id": "R342",
+   "slug": "a-visible-shortcut-makes-fable-try-less",
+   "title": "A visible shortcut makes Fable 5.2 try less: effort as an eval confound",
+   "by": "Esau and Valentine",
+   "source": "https://goodhartlabs.com/blog/fable-5-2-tries-less-on-some-hard-tasks-when-a-shortcut-is-available",
+   "published": "2026-11-24",
+   "added": "2026-11-26",
+   "artifact": "SomyFFJCWUuhff83xkisBP",
+   "tags": [
+    "evals",
+    "sandbagging",
+    "honeypot",
+    "model-behavior",
+    "effort"
+   ],
+   "summary": "",
+   "file": "entries/a-visible-shortcut-makes-fable-try-less.html"
+  },
+  {
+   "id": "R343",
+   "slug": "trimming-agent-context-for-a-stronger-model",
+   "title": "Trimming agent context for a stronger model: Schmid's five changes for Gemini 4 Neon",
+   "by": "Philipp Schmid",
+   "source": "https://www.philschmid.de/gemini-4-neon-context-engineering",
+   "published": "2026-11-25",
+   "added": "2026-11-26",
+   "artifact": "QJzSLEBu8Z9cF85dVrjaXp",
+   "tags": [
+    "context-engineering",
+    "prompts",
+    "skills",
+    "tool-schemas",
+    "compaction",
+    "harness"
+   ],
+   "summary": "",
+   "file": "entries/trimming-agent-context-for-a-stronger-model.html"
+  },
+  {
+   "id": "R344",
+   "slug": "cloudflare-search-for-agents",
+   "title": "Cloudflare Search for Agents: a per-site search endpoint at /.well-known/search",
+   "by": "",
+   "source": "https://blog.cloudflare.com/search-for-agents",
+   "published": "2026-11-25",
+   "added": "2026-11-26",
+   "artifact": "JdYuTNCYRbzScTcUQHQXuP",
+   "tags": [
+    "agent-web",
+    "discovery",
+    "search",
+    "protocols",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/cloudflare-search-for-agents.html"
   }
  ],
  "edges": [
@@ -13125,6 +13297,48 @@
    "b": "R338",
    "strength": "medium",
    "why": "same author: R327 says skills are the portable layer; R338 shows what his team puts in one (product decisions, versioned by PR)."
+  },
+  {
+   "a": "R270",
+   "b": "R339",
+   "strength": "medium",
+   "why": "shrink-anything keeps a deletion only if the tests still pass; R339 measures that loop on agent patches and finds 46% precision with the agent's own tests."
+  },
+  {
+   "a": "R266",
+   "b": "R339",
+   "strength": "medium",
+   "why": "small-change gates review on diff size; R339 shows size misleads (2.33x the lines, mostly tests) and necessity by reversion is the sharper signal."
+  },
+  {
+   "a": "R224",
+   "b": "R339",
+   "strength": "medium",
+   "why": "both use injected bugs; R224 to build harder evals, R339 to show agent-written tests catch 22.7% of the bugs task tests miss."
+  },
+  {
+   "a": "R305",
+   "b": "R341",
+   "strength": "medium",
+   "why": "two layers of agent containment: Strands Box enforces the boundary at the OS, Siren measures how often models probe a weak one and finds that telling the agent the rules and giving it a report-the-hole tool does most of the work."
+  },
+  {
+   "a": "R304",
+   "b": "R342",
+   "strength": "medium",
+   "why": "two ways a harness quietly cuts a model's effort: batching questions splits the thinking budget, and a visible shortcut makes Fable 5.2 decide the task is impossible."
+  },
+  {
+   "a": "R340",
+   "b": "R343",
+   "strength": "medium",
+   "why": "who manages the context reset: R340 lets the model decide when to compact, Schmid avoids compaction and has the agent write a handoff file for a fresh session."
+  },
+  {
+   "a": "R313",
+   "b": "R344",
+   "strength": "medium",
+   "why": "two retrieval APIs built for agents: Perplexity freezes the whole web at a date, Cloudflare puts a search endpoint on each site's own domain."
   }
  ]
 }

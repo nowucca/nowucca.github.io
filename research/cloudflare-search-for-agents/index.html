@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cloudflare Search for Agents: a per-site search endpoint at /.well-known/search · Research</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R344 · Agent principles and patterns › Agent interaction protocols</span>
+  <h1>Cloudflare Search for Agents: a per-site search endpoint at /.well-known/search</h1>
+  <div class="entry-meta"><span></span><span>Published 2026-11-25</span><span>Summarized 2026-11-26</span></div>
+  <p><a href="https://blog.cloudflare.com/search-for-agents" rel="noopener">Read the original</a></p>
+  
+  <div class="tags"><span class="tag">agent-web</span><span class="tag">discovery</span><span class="tag">search</span><span class="tag">protocols</span><span class="tag">vendor</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://blog.cloudflare.com/search-for-agents">Introducing Search for Agents</a>, Cloudflare blog, 25 Nov 2026 (authors per the page: Celso Martinho, Gabriel Massadas, Nelson Duarte). Found via TLDR Dev 2026-11-26. <strong>Coverage note:</strong> the endpoint metadata below is verbatim from the post; some later detail is summarized rather than quoted, and the linked developer docs are not covered here.</p>
+<h2 id="what-it-does">What it does</h2>
+<p>A zone-level toggle (dashboard Quick Actions or API) creates an AI Search instance for the site, crawls and indexes its pages, and exposes a search endpoint on the site's own domain. Access follows the zone's bot management, AI Crawl Control and WAF settings.</p>
+<h2 id="interface">Interface</h2>
+<ul><li><p><strong>Endpoint:</strong> <code>GET /.well-known/search?q={query}</code>. The blog itself advertises <code>https://blog.cloudflare.com/.well-known/search?q={query}</code> in its head.</p></li><li><p><strong>Discovery:</strong> HTML meta tags <code>agent:instructions</code>, <code>agent:endpoint</code>, <code>agent:method</code> and <code>agent:documentation</code>. The verbatim instruction: "Use this search API to find relevant content across this site with keywords or natural-language queries, instead of crawling individual pages. Results are returned in Markdown." With Markdown for Agents enabled and <code>Accept: text/markdown</code>, the same fields appear as YAML front matter under an <code>agent:</code> key.</p></li><li><p><strong>Query:</strong> keywords or a natural-language question in <code>q</code>. The HTTP <code>QUERY</code> method is also accepted, with a plain-text or JSON <code>{"q": ...}</code> body.</p></li><li><p><strong>Response:</strong> retrieved Markdown passages with source references and a score per result, not a generated answer, since the caller is assumed to have its own model.</p></li></ul>
+<h2 id="availability">Availability</h2>
+<p>All plans including Free, with limits; usage is billed as AI Search (ingestion, index storage, queries). The same instance can also back an MCP endpoint, a REST API, Workers bindings and a human search widget. The post does not state a re-crawl interval or freshness guarantee.</p>
+<h2 id="engineering-takeaways">Engineering takeaways</h2>
+<ul><li><p>This is a step from "make pages readable to agents" (Markdown for Agents) to "answer the agent's query on the site". For a small content site, a <code>.well-known/search</code> endpoint is cheaper for agent visitors than crawling.</p></li><li><p>The discovery convention is meta tags plus a well-known path, not llms.txt. Whether other hosts adopt <code>agent:*</code> tags is the open question.</p></li><li><p>Returning passages rather than answers keeps attribution and leaves reasoning to the caller, which suits agents that cite.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<p>Vendor launch post. No independent latency or quality data.</p>
+<h2 id="related">Related</h2>
+<p>R313 (Perplexity's dated web snapshots for agents), R325 (an OS-level tool surface for assistants).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/dated-web-snapshots-api-parameter/">Dated web snapshots as an API parameter: freezing retrieval for training and evals</a><span class="label">R313 · Agent principles and patterns</span><span class="why">two retrieval APIs built for agents: Perplexity freezes the whole web at a date, Cloudflare puts a search endpoint on each site&#x27;s own domain.</span></li></ul><p><a href="/research/map/#R344">See R344 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
