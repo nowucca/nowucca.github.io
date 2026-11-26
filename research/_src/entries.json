@@ -1199,6 +1199,10 @@
       {
        "id": "R249",
        "why": "Review of AI output emerges as the main internal bottleneck across 58 companies"
+      },
+      {
+       "id": "R338",
+       "why": "A short, versioned skill file as the scaffold every agent run reads before it builds."
       }
      ]
     }
@@ -1218,7 +1222,8 @@
       "R199",
       "R203",
       "R276",
-      "R336"
+      "R336",
+      "R338"
      ],
      "also": [
       {
@@ -1708,6 +1713,10 @@
       {
        "id": "R222",
        "why": "ICM's author reads Managed Agents as proof that process and files beat custom harnesses; the claim holds for the context layer, not the runtime"
+      },
+      {
+       "id": "R338",
+       "why": "Settled product intent, not coding rules, is what the skill carries into each agentic loop."
       }
      ]
     },
@@ -8708,6 +8717,26 @@
    ],
    "summary": "A practitioner audits a year of her own AI use across the five ADDIE phases and reports a shift from faster to better: each of the five recipes pairs a use with a verification pass, and the recurring design move is withholding information from the model until after it has committed.",
    "file": "entries/hardman-five-ai-uses-in-l-and-d.html"
+  },
+  {
+   "id": "R338",
+   "slug": "slow-down-to-speed-up-meeting-to-skill",
+   "title": "Slow down to speed up: Van Clief's meeting-to-skill loop",
+   "by": "Jake Van Clief",
+   "source": "https://www.facebook.com/reel/1439786391068516",
+   "published": "2026-11-12",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/4uniQBBsuTeQGSvQVSSFq9",
+   "tags": [
+    "docs-as-code",
+    "knowledge-management",
+    "product-management",
+    "agent-workflows",
+    "context-engineering",
+    "decision-record"
+   ],
+   "summary": "A team argues a feature out in a meeting, files the transcript as markdown, folds the settled decisions into a versioned skill file changed by its own docs-only PR, and only then points agents at it: judgment first, automation second, with the bottleneck moved from code to one markdown file.",
+   "file": "entries/slow-down-to-speed-up-meeting-to-skill.html"
   }
  ],
  "edges": [
@@ -13078,6 +13107,24 @@
    "b": "R337",
    "strength": "medium",
    "why": "two Hardman posts on AI in learning design: R267 on which builds move outcomes and the answer leak, this one on her own five-phase workflow, where withholding the key and the design from the model is the guard against the same leak."
+  },
+  {
+   "a": "R199",
+   "b": "R338",
+   "strength": "medium",
+   "why": "both keep team decisions as files in the repo; R199 checks every commit against them, R338 feeds them from meeting transcripts into a skill agents read."
+  },
+  {
+   "a": "R203",
+   "b": "R338",
+   "strength": "medium",
+   "why": "R338's meeting-fed skill is exposed to exactly the drift, supersession and lost-intent gaps R203 lists for spec-driven development."
+  },
+  {
+   "a": "R327",
+   "b": "R338",
+   "strength": "medium",
+   "why": "same author: R327 says skills are the portable layer; R338 shows what his team puts in one (product decisions, versioned by PR)."
   }
  ]
 }

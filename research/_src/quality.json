@@ -1032,6 +1032,22 @@
   "R334": {
    "verdict": "pass",
    "round": 1
+  },
+  "R335": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R336": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R337": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R338": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
