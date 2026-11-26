@@ -988,6 +988,14 @@
   "R323": {
    "verdict": "revise",
    "round": 1
+  },
+  "R324": {
+   "verdict": "revise",
+   "round": 1
+  },
+  "R325": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

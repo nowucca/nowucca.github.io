@@ -201,6 +201,10 @@
       {
        "id": "R317",
        "why": "The outermost loop turns each engineer correction into a standing rule later agents read first, which is a learning loop built out of prose rather than weights."
+      },
+      {
+       "id": "R326",
+       "why": "A thumbs rating is a consent event attached to a whole transcript, and the feedback corpus is selected towards your messiest data."
       }
      ]
     },
@@ -209,7 +213,8 @@
      "title": "Governance of agent state",
      "primary": [
       "R183",
-      "R212"
+      "R212",
+      "R326"
      ],
      "also": [
       {
@@ -8370,6 +8375,26 @@
    ],
    "summary": "Android makes the OS the tool broker for assistants, shipping 1.0 stable with the access model absent from the documentation.",
    "file": "entries/os-level-tool-surface-for-assistants.html"
+  },
+  {
+   "id": "R326",
+   "slug": "thumbs-up-is-a-retention-decision",
+   "title": "A thumbs-up is a five-year data-retention decision",
+   "by": "Ruben Hassid",
+   "source": "https://privacy.anthropic.com/",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/7ozRcjQHMgmas1fzUi4Vp5",
+   "tags": [
+    "privacy",
+    "feedback-loops",
+    "data-retention",
+    "human-oversight",
+    "agent-governance",
+    "harness-config"
+   ],
+   "summary": "A thumbs rating is a consent event attached to a whole transcript, and the feedback corpus is selected towards your messiest data.",
+   "file": "entries/thumbs-up-is-a-retention-decision.html"
   }
  ],
  "edges": [
