@@ -1682,7 +1682,8 @@
       "R292",
       "R307",
       "R313",
-      "R319"
+      "R319",
+      "R322"
      ],
      "also": [
       {
@@ -1941,6 +1942,10 @@
       {
        "id": "R320",
        "why": "Two graphs plus an anchor table make agent coverage a query, and the project grades its own brakes by failure mode."
+      },
+      {
+       "id": "R322",
+       "why": "Replay two detection policies over the same recorded events, change one mechanism at a time, and say what the integrity receipt does not prove."
       }
      ]
     },
@@ -8275,6 +8280,25 @@
    ],
    "summary": "Name a published document genre as the prompt scaffold, then derive the feature set from the repository rather than from memory.",
    "file": "entries/document-genre-as-prompt-scaffold.html"
+  },
+  {
+   "id": "R322",
+   "slug": "policy-replay-ab-detection-receipt",
+   "title": "Blue-team policy replay: A/B a detection change over one event log, with a tamper-evident receipt",
+   "by": "",
+   "source": "https://github.com/ruvnet/metaharness",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/2pVMBHuVvthute1FksmDJU",
+   "tags": [
+    "evaluation-design",
+    "agent-security",
+    "benchmarks",
+    "provenance",
+    "verification"
+   ],
+   "summary": "Replay two detection policies over the same recorded events, change one mechanism at a time, and say what the integrity receipt does not prove.",
+   "file": "entries/policy-replay-ab-detection-receipt.html"
   }
  ],
  "edges": [
