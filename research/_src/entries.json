@@ -1142,7 +1142,8 @@
      "n": "3.7",
      "title": "Product management above agentic delivery",
      "primary": [
-      "R145"
+      "R145",
+      "R321"
      ],
      "also": [
       {
@@ -1208,6 +1209,10 @@
       {
        "id": "R222",
        "why": "memory stores and repo skills in Managed Agents are markdown folders mounted into the sandbox; maps an ICM workspace onto them"
+      },
+      {
+       "id": "R321",
+       "why": "Name a published document genre as the prompt scaffold, then derive the feature set from the repository rather than from memory."
       }
      ]
     },
@@ -8251,6 +8256,25 @@
    ],
    "summary": "Two graphs plus an anchor table make agent coverage a query, and the project grades its own brakes by failure mode.",
    "file": "entries/two-graphs-fail-open-judge-agent-state.html"
+  },
+  {
+   "id": "R321",
+   "slug": "document-genre-as-prompt-scaffold",
+   "title": "Borrowing a document genre as a prompt scaffold, and grounding it in the repository",
+   "by": "Adrian Cockcroft",
+   "source": "https://adr.github.io/",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/86EjjvqSQxse31eQW6WKW8",
+   "tags": [
+    "product-definition",
+    "prompting",
+    "docs-as-code",
+    "grounding",
+    "practitioner-report"
+   ],
+   "summary": "Name a published document genre as the prompt scaffold, then derive the feature set from the repository rather than from memory.",
+   "file": "entries/document-genre-as-prompt-scaffold.html"
   }
  ],
  "edges": [
