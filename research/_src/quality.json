@@ -964,6 +964,14 @@
   "R317": {
    "verdict": "pass",
    "round": 1
+  },
+  "R318": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R319": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

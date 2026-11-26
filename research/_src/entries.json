@@ -1404,7 +1404,8 @@
       "R218",
       "R289",
       "R297",
-      "R302"
+      "R302",
+      "R320"
      ],
      "also": [
       {
@@ -1931,6 +1932,10 @@
       {
        "id": "R216",
        "why": "put the check out of the agent's reach: base-branch review rules, inert proof exports, held-back tests"
+      },
+      {
+       "id": "R320",
+       "why": "Two graphs plus an anchor table make agent coverage a query, and the project grades its own brakes by failure mode."
       }
      ]
     },
@@ -8226,6 +8231,26 @@
    ],
    "summary": "A vendor word-level speaker-mismatch metric worth borrowing, and a benchmark that filters out the model's one weakness.",
    "file": "entries/streaming-diarization-speaker-mismatch-metric.html"
+  },
+  {
+   "id": "R320",
+   "slug": "two-graphs-fail-open-judge-agent-state",
+   "title": "Two graphs and a fail-open judge: the state model inside an autonomous security agent",
+   "by": "",
+   "source": "https://github.com/BaaRai/ARTEX",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "https://claude.ai/artifact/3TDWj42aurUMDYaz972NUt",
+   "tags": [
+    "agent-state",
+    "knowledge-graph",
+    "tool-gating",
+    "agent-security",
+    "multi-agent",
+    "verification"
+   ],
+   "summary": "Two graphs plus an anchor table make agent coverage a query, and the project grades its own brakes by failure mode.",
+   "file": "entries/two-graphs-fail-open-judge-agent-state.html"
   }
  ],
  "edges": [
