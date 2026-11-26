@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>rete: an RDF graph as one file on object storage, queried by range request · Research</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R346 · Knowledge for agents › Retrieval over long documents</span>
+  <h1>rete: an RDF graph as one file on object storage, queried by range request</h1>
+  <div class="entry-meta"><span></span><span>Published 2026-11-26</span><span>Summarized 2026-11-26</span></div>
+  <p><a href="https://github.com/caviri/rete" rel="noopener">Read the original</a></p>
+  
+  <div class="tags"><span class="tag">knowledge-graph</span><span class="tag">rdf</span><span class="tag">sparql</span><span class="tag">retrieval</span><span class="tag">mcp</span><span class="tag">object-storage</span><span class="tag">open-source</span></div>
+</header>
+<article class="article"><p><em>Source: caviri/rete, Apache-2.0, surfaced 26 Nov 2026. The benchmark page's later sections are not verified line by line against the current revision.</em></p>
+<h2 id="what-it-is">What it is</h2>
+<p>Publishing a queryable RDF graph has normally meant running a triplestore: load the data, keep a SPARQL endpoint alive, pay for it while nobody queries. rete removes the server. A graph is built once into a single immutable <code>.rete</code> file, that file is dropped on anything that serves HTTP range requests — S3, Cloudflare R2, GitHub Pages, Zenodo — and clients run SPARQL against it in place, fetching only the byte ranges a query touches. The project's own analogy is the right one: this is to RDF what Parquet is to tables and PMTiles is to maps.</p>
+<p>The same engine runs in four places — a Rust CLI and crate, Python, JavaScript, and the browser via WebAssembly — so a dataset published once is queryable from a notebook, a web page, or an agent, with no deployment in between.</p>
+<h2 id="how-the-file-works">How the file works</h2>
+<p>A 1 KiB header points at every section. A reader fetches the header, then only the sections it needs; there is no parse step and no index build on open, which the project measures at roughly 20 milliseconds even for a 62 GB file. Behind the header sit a dataset card, a front-coded term dictionary, and six permutation indexes cut into roughly 64 KiB tiles, each tile carrying a min/max synopsis so the planner can skip tiles without reading them. The file ends in a four-byte magic value, which gives a cheap integrity check a truncated download cannot fake.</p>
+<p>The design consequence worth internalising: the unit of I/O is the tile, so a query's cost is the number of tiles it has to touch, not the size of the graph. The project reports opening a 62 GB file with a single range request fetching 128 KB.</p>
+<p>Files are immutable. A change means a rebuild and a republish — there is no update path, and until the format reaches 1.0 a release may force you to rebuild what you have already published, so the source RDF has to be kept.</p>
+<h2 id="build-inputs-and-reasoning">Build inputs and reasoning</h2>
+<p>It ingests N-Triples, N-Quads, Turtle, TriG, RDF/XML, Jelly, JSON-LD and YAML-LD, and can merge several inputs into one file. Reasoning is handled at two different times: <code>--entail</code> rewrites queries for OWL 2 QL at query time, while <code>--materialize</code> bakes RDFS/OWL RL inferences into the file at build time. There is no full entailment at query time, which is the honest trade for having no server to do the work.</p>
+<h2 id="the-agent-angle">The agent angle</h2>
+<p>The part that makes this more than a storage trick is that a published file is directly addressable by a model. There is an MCP bundle for one desktop assistant, a plugin for one coding agent that installs both build/publish skills and an MCP server over public datasets, and a hosted gateway that exposes MCP, REST and a SPARQL endpoint per published dataset. An agent given a <code>.rete</code> URL can issue SPARQL against a billion-triple graph without anyone provisioning a database for it — and, because the file is immutable and content-addressable by URL, the exact graph version an answer came from is a citable artifact rather than whatever the endpoint happened to contain that day.</p>
+<h2 id="what-the-numbers-actually-support">What the numbers actually support</h2>
+<p>Two figures are solid and worth remembering:</p>
+<ul><li><p>Real files at real scale exist: OpenCitations Meta ships as <strong>a single 62 GB file with 5.7 billion triples</strong>, and the DataCite build is <strong>52 GB with 9.83 billion unique triples</strong>.</p></li><li><p>Memory does not scale with the graph: counting the <strong>779,399</strong> software records in that 9.83-billion-triple DataCite file <strong>completes in 4 seconds inside a 2 GiB container</strong>, with the file opened through the lazy range reader. That is the claim that matters, because it is the one a triplestore cannot match without ingesting the data first.</p></li></ul>
+<p>Local query timings on a small synthetic graph are in the tens of milliseconds (33 ms for a triple pattern, 39 ms for a two-hop join, 107 ms for a GROUP BY), reported as five-run averages of a release build in a dev container.</p>
+<h2 id="where-to-be-sceptical">Where to be sceptical</h2>
+<p><strong>The deployment target is the thing not measured.</strong> Every HTTP figure on the benchmark page was produced "cold over HTTP against a local Range server" or a local nginx. The pitch is object storage across a network; the measurements are localhost. Range-request latency against S3 or R2, where each round trip costs tens of milliseconds and a query may need dozens of requests, is exactly where this design either works or does not, and no number addresses it. The project itself notes only a hypothesis — that the gap to a triplestore "would widen with faster storage and narrow over a slow link" — which concedes the point.</p>
+<p><strong>Benchmark provenance is weak, by the page's own statement.</strong> It says its tables "are not rerun by the documentation build" and that older sections "should not be treated as measurements of the current revision"; one comparison's most recent run is dated June 2026. The repository and docs also disagree about the version (0.3.2 against 0.7.8), which is a fair proxy for how fast this is moving.</p>
+<p><strong>The laziness is partial.</strong> Reads are lazy; evaluation is not fully streaming. Hash-join build sides, GROUP BY groups, DISTINCT sets and an ORDER BY without LIMIT are all held in memory, so the memory-bounded result above holds for the shape of query that was measured — a filtered count — and not for an arbitrary aggregation. A small local file is read whole. <code>rete federate</code> unions results across files and does not join them, so splitting a graph across files is not a scaling strategy.</p>
+<p><strong>It is pre-1.0 and says so plainly</strong> — "a highly experimental project", breaking changes expected in both the format and the APIs. It also declines the jobs it cannot do: for writes, transactions or an always-on endpoint under load it points at Oxigraph, Jena or GraphDB rather than claiming to replace them.</p>
+<h2 id="why-an-engineering-team-should-care">Why an engineering team should care</h2>
+<p>The interesting case is not replacing a triplestore you already run. It is the graph you never published because standing up and paying for an endpoint was not worth it: a dependency graph, a citation subset, an internal ontology with its instance data, a snapshot of a catalogue. Build, upload, hand out a URL — and the read path is a CDN rather than a service with an on-call rota. Against that, the costs are real and front-loaded: no writes, a full rebuild per change, no numbers for the network you would actually deploy on, and a format that is explicitly allowed to break before 1.0. The sensible move today is a spike on a dataset whose write pattern is genuinely publish-once, with your own range-request timings taken against the bucket you would really use.</p>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

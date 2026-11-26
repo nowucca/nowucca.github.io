@@ -617,6 +617,10 @@
       {
        "id": "R307",
        "why": "The trace store is where evaluation data for agents comes from, and the storage tradeoffs decide what is cheap to ask."
+      },
+      {
+       "id": "R346",
+       "why": "Retrieval cost is the number of 64 KiB tiles a query touches, not the size of the graph, so a billion-triple graph answers from a 2 GiB container."
       }
      ]
     },
@@ -1315,7 +1319,8 @@
       "R204",
       "R256",
       "R261",
-      "R268"
+      "R268",
+      "R346"
      ],
      "also": [
       {
@@ -1972,6 +1977,10 @@
       {
        "id": "R336",
        "why": "A connector that is seven Markdown instruction files, so every capability is borrowed from the agent’s own file and shell access."
+      },
+      {
+       "id": "R346",
+       "why": "A published .rete URL is addressable by an agent over MCP or SPARQL with no database provisioned behind it."
       }
      ]
     },
@@ -8938,6 +8947,27 @@
    ],
    "summary": "",
    "file": "entries/the-docker-socket-is-the-hole.html"
+  },
+  {
+   "id": "R346",
+   "slug": "rete-rdf-graph-as-one-file",
+   "title": "rete: an RDF graph as one file on object storage, queried by range request",
+   "by": "",
+   "source": "https://github.com/caviri/rete",
+   "published": "2026-11-26",
+   "added": "2026-11-26",
+   "artifact": "X5GoSiWtsfvmBHmajcFQRE",
+   "tags": [
+    "knowledge-graph",
+    "rdf",
+    "sparql",
+    "retrieval",
+    "mcp",
+    "object-storage",
+    "open-source"
+   ],
+   "summary": "",
+   "file": "entries/rete-rdf-graph-as-one-file.html"
   }
  ],
  "edges": [
