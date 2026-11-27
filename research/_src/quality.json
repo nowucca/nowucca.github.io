@@ -1116,6 +1116,22 @@
   "R355": {
    "verdict": "revise",
    "round": 1
+  },
+  "R356": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R357": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R358": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R359": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [

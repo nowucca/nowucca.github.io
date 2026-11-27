@@ -27,7 +27,8 @@
       "R230",
       "R265",
       "R278",
-      "R340"
+      "R340",
+      "R361"
      ],
      "also": [
       {
@@ -472,6 +473,10 @@
       {
        "id": "R343",
        "why": "Trimming the prompt is the cheapest lever on per-task token cost."
+      },
+      {
+       "id": "R361",
+       "why": "Several purpose-built memory systems score below using no history at all, while keyword retrieval over the raw history holds up."
       }
      ]
     },
@@ -9358,6 +9363,25 @@
    ],
    "summary": "",
    "file": "entries/google-workspace-agents-must-use-mcp.html"
+  },
+  {
+   "id": "R361",
+   "slug": "hyperharness-personalized-retrieval-harness",
+   "title": "HyperHarness: one generator that writes a retrieval harness per user, and what the numbers say about memory systems",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.29062",
+   "published": "2026-11-21",
+   "added": "2026-11-27",
+   "artifact": "9Jr5PhEg9fqV3k8v6HZMRg",
+   "tags": [
+    "agent-memory",
+    "personalization",
+    "context-engineering",
+    "benchmarks",
+    "agent-harness"
+   ],
+   "summary": "",
+   "file": "entries/hyperharness-personalized-retrieval-harness.html"
   }
  ],
  "edges": [
