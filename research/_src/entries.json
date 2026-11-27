@@ -306,6 +306,10 @@
       {
        "id": "R334",
        "why": "Spend is gated separately from permission, because an authorised action can still cost more than the user would agree to."
+      },
+      {
+       "id": "R352",
+       "why": "Argues for a persistent, inspectable belief state separate from the transcript: a conversation log is not an epistemic state."
       }
      ]
     },
@@ -314,7 +318,8 @@
      "title": "Mental models of the agent system",
      "primary": [
       "R005",
-      "R110"
+      "R110",
+      "R352"
      ],
      "also": [
       {
@@ -2169,6 +2174,10 @@
       {
        "id": "R342",
        "why": "A shortcut in the environment changes measured effort, which is an eval confound to control for."
+      },
+      {
+       "id": "R352",
+       "why": "The essay cites two papers for post-hoc rationalisation; both are real measurement papers about CoT secrecy and legibility, and neither tests that claim."
       }
      ]
     }
@@ -9112,6 +9121,25 @@
    ],
    "summary": "",
    "file": "entries/defunct-startup-workspace-data-market.html"
+  },
+  {
+   "id": "R352",
+   "slug": "alphago-author-against-llm-reasoning",
+   "title": "An AlphaGo author's case against LLM reasoning, and the two citations that don't support it",
+   "by": "Thore Graepel",
+   "source": "https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason",
+   "published": "2026-10-02",
+   "added": "2026-11-27",
+   "artifact": "PTLHKKeMqghSUPcwdkDpa5",
+   "tags": [
+    "reasoning",
+    "chain-of-thought",
+    "agent-state",
+    "human-oversight",
+    "citation-checking"
+   ],
+   "summary": "",
+   "file": "entries/alphago-author-against-llm-reasoning.html"
   }
  ],
  "edges": [
