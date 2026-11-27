@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Google will require AI agents to reach Workspace through its MCP servers from 1 Feb 2027 · Research</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R360 · Agent principles and patterns › Agent interaction protocols</span>
+  <h1>Google will require AI agents to reach Workspace through its MCP servers from 1 Feb 2027</h1>
+  <div class="entry-meta"><span></span><span>Published 2026-11-26</span><span>Summarized 2026-11-27</span></div>
+  <p><a href="https://techstackups.com/articles/google-workspace-ai-agents-mcp/" rel="noopener">Read the original</a></p>
+  
+  <div class="tags"><span class="tag">mcp</span><span class="tag">google-workspace</span><span class="tag">platform-policy</span><span class="tag">gmail</span><span class="tag">data-retention</span><span class="tag">quotas</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://techstackups.com/articles/google-workspace-ai-agents-mcp/">Google will make AI agents use its Workspace MCP servers. The Gmail one can't send email</a>, techstackups (byline "Al Smith", which the site says marks AI-drafted, human-edited articles), 26 Nov 2026. Found via TLDR Dev 2026-11-27. <strong>Secondary source:</strong> Google's own pages (<a href="https://workspace.google.com/terms/ai-tools">Workspace AI Tools terms</a>, <a href="https://developers.google.com/workspace/gmail/api/guides/quotas">Gmail quotas</a>, <a href="https://developers.google.com/workspace/tools-safety">tools safety</a>) are not quoted directly here, so the wording and dates below are the article's.</p>
+<h2 id="the-rule">The rule</h2>
+<p>On 24 November Google made eight Workspace MCP servers generally available and added a clause to the Workspace AI Tools Addendum of the Google APIs Terms. From 1 February 2027, any tool that "is or is driven by an AI Agent" (or an AI harness or model) must reach Gmail, Drive, Calendar and other Workspace data through Google's MCP servers, and must not disguise itself to avoid that. Breach lets Google restrict access or suspend the account. Non-AI apps are unaffected.</p>
+<p>Related terms reported:</p>
+<ul><li><p>Data may be processed only to fulfil active, user-authorized tasks and must be deleted on disconnect.</p></li><li><p>Google may cap retention of derived "Google Technical Information" (embeddings, memory indexes, user profiles, org graphs) at 30 days.</p></li><li><p>No training, fine-tuning, evals or distillation on the data, and no competing Workspace product.</p></li><li><p>OAuth clients now carry a "Use this client for an AI-powered agent" checkbox; since 11 November the MCP servers reject clients without it. Service accounts with domain-wide delegation and Apps Script's built-in client can't set it.</p></li></ul>
+<h2 id="what-the-mcp-servers-expose">What the MCP servers expose</h2>
+<div class="table-scroll"><table><thead><tr><th>Product</th><th>Public tools</th><th>Partner-only or missing</th></tr></thead><tbody><tr><td>Gmail</td><td>search and read threads, create and list drafts, labels, trash, spam</td><td>send, reply, forward, editing a draft after creation; drafts with attachments not yet supported</td></tr><tr><td>Drive</td><td>search, read and download, create files and folders, copy, upload a revision</td><td>move, rename, share, trash, comments, shared drives</td></tr><tr><td>Calendar</td><td>list, search, create, update, delete, RSVP</td><td></td></tr><tr><td>Sheets</td><td>read and write</td><td>creating a spreadsheet</td></tr><tr><td>Docs, Slides, Chat, Tasks</td><td>near parity</td><td></td></tr></tbody></table></div>
+<p>Google hasn't said who qualifies for partner access. The article says Anthropic's Workspace connector advertises send, reply, forward and Drive move/trash, which this entry did not verify.</p>
+<h2 id="quotas-and-pricing">Quotas and pricing</h2>
+<p>Agents get a Standard tier of 5,000 MCP requests per day per project per product, with a Gmail <code>search_threads</code> or <code>list_drafts</code> call counting as 10. Paid Scaled-tier billing for Gmail, Calendar and Drive starts 1 April 2027; REST keeps large free allowances but, per the article, falling back to REST from an agent after 1 February breaches the terms. Google hasn't said how it will detect undeclared agents.</p>
+<h2 id="engineering-takeaways">Engineering takeaways</h2>
+<ul><li><p>Agent builders on Workspace lose direct REST as an option and inherit Google's tool surface, quotas and retention rules.</p></li><li><p>The 30-day cap on derived data hits agent memory designs that keep embeddings or profiles of mail and documents.</p></li><li><p>A read-mostly Gmail surface (search, read, draft) is what Google is willing to give agents by default; sending stays gated.</p></li></ul>
+<h2 id="related">Related</h2>
+<p>R299 (MCP skills, tasks, elicitation), R358 (MCP in 2027, filed alongside).</p>
+</article>
+<p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

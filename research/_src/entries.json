@@ -310,6 +310,10 @@
       {
        "id": "R352",
        "why": "Argues for a persistent, inspectable belief state separate from the transcript: a conversation log is not an epistemic state."
+      },
+      {
+       "id": "R360",
+       "why": "Agent memory designs that keep embeddings of mail or documents hit the retention cap."
       }
      ]
     },
@@ -552,6 +556,10 @@
       {
        "id": "R302",
        "why": "the merge bar as the coordination mechanism that actually did the work"
+      },
+      {
+       "id": "R359",
+       "why": "One manager session briefing 84 separate agents in their own worktrees."
       }
      ]
     }
@@ -786,6 +794,10 @@
       {
        "id": "R319",
        "why": "A vendor word-level speaker-mismatch metric worth borrowing, and a benchmark that filters out the model's one weakness."
+      },
+      {
+       "id": "R357",
+       "why": "Hashing tool definitions catches an MCP server changing a tool description under you."
       }
      ]
     },
@@ -796,7 +808,8 @@
       "R033",
       "R053",
       "R275",
-      "R351"
+      "R351",
+      "R357"
      ],
      "also": [
       {
@@ -983,7 +996,8 @@
      "primary": [
       "R017",
       "R058",
-      "R310"
+      "R310",
+      "R359"
      ],
      "also": [
       {
@@ -1743,6 +1757,14 @@
       {
        "id": "R348",
        "why": "Idle members sleep on the board and consume no tokens until mentioned; quota exhaustion pauses a member rather than retrying."
+      },
+      {
+       "id": "R356",
+       "why": "A national agency confirmed agent-assisted intrusions while recommending patching, MFA and least privilege."
+      },
+      {
+       "id": "R358",
+       "why": "Events and Tasks as the protocol pieces for long-running multi-agent work."
       }
      ]
     },
@@ -1955,6 +1977,10 @@
       {
        "id": "R355",
        "why": "Agents gamed the proof obligation and the cost accounting, and found loopholes in the specifications themselves."
+      },
+      {
+       "id": "R357",
+       "why": "A paired statistical gate for deciding whether a model upgrade is safe to promote."
       }
      ]
     },
@@ -1975,7 +2001,9 @@
       "R314",
       "R325",
       "R329",
-      "R344"
+      "R344",
+      "R358",
+      "R360"
      ],
      "also": [
       {
@@ -2404,7 +2432,8 @@
       "R195",
       "R291",
       "R306",
-      "R308"
+      "R308",
+      "R356"
      ],
      "also": [
       {
@@ -2434,6 +2463,10 @@
       {
        "id": "R354",
        "why": "Deleting your old writing does not remove it from the weights of models already trained on it, so \"you can remove your content\" is not a remedy."
+      },
+      {
+       "id": "R360",
+       "why": "A 30-day cap on derived data and a no-training clause for agent access to mail and documents."
       }
      ]
     },
@@ -9226,6 +9259,105 @@
    ],
    "summary": "",
    "file": "entries/agent-teams-shared-wiki-61-15-24.html"
+  },
+  {
+   "id": "R356",
+   "slug": "what-switzerland-said-about-ai-agent-intrusions",
+   "title": "What Switzerland actually said about AI-agent intrusions, and what travelled instead",
+   "by": "",
+   "source": "https://www.bacs.admin.ch/en/26-ki-agenten-1-en",
+   "published": "2026-11-24",
+   "added": "2026-11-27",
+   "artifact": "Lm7dmxpSmxteWqCZfav642",
+   "tags": [
+    "security",
+    "agent-security",
+    "incidents",
+    "policy",
+    "critical-infrastructure"
+   ],
+   "summary": "",
+   "file": "entries/what-switzerland-said-about-ai-agent-intrusions.html"
+  },
+  {
+   "id": "R357",
+   "slug": "your-model-is-a-dependency",
+   "title": "Your model is a dependency: a lockfile, a statistical upgrade gate and an exit plan for LLMs",
+   "by": "César Soto Valero",
+   "source": "https://www.cesarsotovalero.net/blog/your-model-is-a-dependency.html",
+   "published": "2026-11-26",
+   "added": "2026-11-27",
+   "artifact": "2fcEaHtHpfg57vFssoAiBK",
+   "tags": [
+    "model-supply-chain",
+    "evals",
+    "lockfile",
+    "sbom",
+    "mcp-security",
+    "model-retirement"
+   ],
+   "summary": "",
+   "file": "entries/your-model-is-a-dependency.html"
+  },
+  {
+   "id": "R358",
+   "slug": "mcp-in-2027-code-mode-skills-events-tasks",
+   "title": "MCP in 2027: Code Mode, skills, events and tasks, per Philipp Schmid",
+   "by": "Philipp Schmid",
+   "source": "https://www.philschmid.de/mcp-2027",
+   "published": "2026-11-26",
+   "added": "2026-11-27",
+   "artifact": "EnnJi177BLo3qkMZ3xx8hQ",
+   "tags": [
+    "mcp",
+    "protocols",
+    "code-mode",
+    "skills",
+    "events",
+    "async-tasks"
+   ],
+   "summary": "",
+   "file": "entries/mcp-in-2027-code-mode-skills-events-tasks.html"
+  },
+  {
+   "id": "R359",
+   "slug": "manager-session-that-writes-almost-no-code",
+   "title": "A manager session that writes almost no code: 84 agents, 37 betas in five days",
+   "by": "Juraj Blahunka",
+   "source": "https://jurajb.dev/main-session-manager/",
+   "published": "2026-11-26",
+   "added": "2026-11-27",
+   "artifact": "5TGguAeYSBLQVAKRVA337j",
+   "tags": [
+    "orchestration",
+    "worktrees",
+    "claude-code",
+    "delivery",
+    "verification",
+    "multi-agent"
+   ],
+   "summary": "",
+   "file": "entries/manager-session-that-writes-almost-no-code.html"
+  },
+  {
+   "id": "R360",
+   "slug": "google-workspace-agents-must-use-mcp",
+   "title": "Google will require AI agents to reach Workspace through its MCP servers from 1 Feb 2027",
+   "by": "",
+   "source": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+   "published": "2026-11-26",
+   "added": "2026-11-27",
+   "artifact": "TZy4YLSe9X5YvkRyoecNNF",
+   "tags": [
+    "mcp",
+    "google-workspace",
+    "platform-policy",
+    "gmail",
+    "data-retention",
+    "quotas"
+   ],
+   "summary": "",
+   "file": "entries/google-workspace-agents-must-use-mcp.html"
   }
  ],
  "edges": [
@@ -13656,6 +13788,24 @@
    "b": "R344",
    "strength": "medium",
    "why": "two retrieval APIs built for agents: Perplexity freezes the whole web at a date, Cloudflare puts a search endpoint on each site's own domain."
+  },
+  {
+   "a": "R357",
+   "b": "R324",
+   "strength": "medium",
+   "why": "model identity drift: R324 says a model's name no longer predicts what it can do, Soto Valero's answer is to pin the dated snapshot and gate every upgrade with repeated runs."
+  },
+  {
+   "a": "R358",
+   "b": "R299",
+   "strength": "medium",
+   "why": "the MCP extension set two ways: R299 on servers that ship skills, run tasks and elicit, Schmid on Code Mode and Events as what make them usable for multi-agent work."
+  },
+  {
+   "a": "R359",
+   "b": "R302",
+   "strength": "medium",
+   "why": "two scales of agent fleets on one codebase: Hugging Face's 1,000-agent swarm and Blahunka's manager with one agent per feature; both found the merge gate, not code generation, is the bottleneck."
   }
  ]
 }

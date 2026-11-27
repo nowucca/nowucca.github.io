@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A manager session that writes almost no code: 84 agents, 37 betas in five days · Research</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R359 · AI-built software and its verification › Agent delivery workflows</span>
+  <h1>A manager session that writes almost no code: 84 agents, 37 betas in five days</h1>
+  <div class="entry-meta"><span>Juraj Blahunka</span><span>Published 2026-11-26</span><span>Summarized 2026-11-27</span></div>
+  <p><a href="https://jurajb.dev/main-session-manager/" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/juraj-blahunka/">Juraj Blahunka</a></p>
+  <div class="tags"><span class="tag">orchestration</span><span class="tag">worktrees</span><span class="tag">claude-code</span><span class="tag">delivery</span><span class="tag">verification</span><span class="tag">multi-agent</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://jurajb.dev/main-session-manager/">My main Claude Code session writes almost no code</a>, Juraj Blahunka, 26 Nov 2026. Found via TLDR Dev 2026-11-27. The linked SKILL.md and Herdr site are outside the scope of this summary.</p>
+<h2 id="the-setup">The setup</h2>
+<p>The main Claude Code session is a manager defined by one 129-line skill file. It plans, briefs separate Claude Code agents, checks their output, merges and ships. Each feature gets its own agent in its own git worktree; items that might conflict run in sequence, the rest in parallel. Agents are started and messaged through Herdr's <code>hc</code> CLI (<code>hc --skill</code> prints the manual the manager reads).</p>
+<p>Per-feature pipeline:</p>
+<ol><li><p>The agent writes a plan; the human approves it.</p></li><li><p>It builds with tests and a simulator video as proof, committing each logical chunk.</p></li><li><p>It self-reviews with <code>/code-review</code>, and a GPT model reviews the diff as a second opinion.</p></li><li><p>It reproduces each finding before fixing the real ones.</p></li><li><p>The manager checks commits, tests, the video and a Release build itself ("doesn't trust a 'done'"), merges and ships a TestFlight beta. A failed beta blocks the queue.</p></li></ol>
+<h2 id="numbers-one-developer-one-ios-app">Numbers (one developer, one iOS app)</h2>
+<ul><li><p>37 TestFlight betas in five days (builds 12 to 48), against 9 in the previous five.</p></li><li><p>The manager started 84 agents, which sent it 303 messages.</p></li><li><p>Of the manager's 2,057 tool calls, 44 were file edits, about 2%, against 11% in his other sessions.</p></li></ul>
+<h2 id="why-separate-agents-rather-than-subagents">Why separate agents rather than subagents</h2>
+<p>For hour-long work, a full session can run its own review, the human can type into any agent's terminal, the manager's context stays small, and agents survive manager restarts or compaction. The cost is plumbing: terminals, messaging and worktree cleanup.</p>
+<h2 id="failure-modes-he-hit">Failure modes he hit</h2>
+<ul><li><p>Agents stalled on permission prompts nobody watched, so all agents now run in auto mode.</p></li><li><p>An approval relayed by the manager doesn't count as human consent when auto mode blocks something; the fix is Remote Control on that terminal.</p></li><li><p>Three features merged without a beta; one 35-finding sync feature ran a whole day.</p></li><li><p><code>hc send</code> doesn't run slash commands (<code>hc keys</code> does); the manager may clean up only agents it started; and the manager has occasionally fixed a Release build or test itself.</p></li></ul>
+<h2 id="engineering-takeaways">Engineering takeaways</h2>
+<ul><li><p>The manager's value is verification it does itself: Release build plus recorded proof, not the worker's report.</p></li><li><p>Plan approval is the one human gate; everything else is automated checks.</p></li><li><p>Measuring the manager's edit ratio (2%) is a simple way to tell whether it is managing or coding.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<p>Self-reported, one app, no controlled comparison beyond the prior five days.</p>
+<h2 id="related">Related</h2>
+<p>R302 (a thousand-agent swarm on one codebase), R310 (a solo 100x claim with 159 checks), R298 (swarms trade tokens for speed), R342 (effort as an eval confound).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/thousand-agents-one-codebase/">A thousand agents, one codebase: what it takes to keep a swarm merging</a><span class="label">R302 · Agent principles and patterns</span><span class="why">two scales of agent fleets on one codebase: Hugging Face&#x27;s 1,000-agent swarm and Blahunka&#x27;s manager with one agent per feature; both found the merge gate, not code generation, is the bottleneck.</span></li></ul><p><a href="/research/map/#R359">See R359 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>

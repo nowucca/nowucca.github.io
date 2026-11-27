@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MCP in 2027: Code Mode, skills, events and tasks, per Philipp Schmid · Research</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/library/style.css">
+<link rel="stylesheet" href="/research/style.css">
+</head>
+<body>
+<main class="wrap">
+<nav class="crumbs" aria-label="Section"><a href="/">&larr; nowucca.com</a><a href="/research/">Research</a> <a href="/research/map/">Knowledge map</a> <a href="/research/guides/">Field guides</a> <a href="/research/authors/">Authors</a> <a href="/library/">Library</a></nav>
+<header class="masthead">
+  <span class="label">R358 · Agent principles and patterns › Agent interaction protocols</span>
+  <h1>MCP in 2027: Code Mode, skills, events and tasks, per Philipp Schmid</h1>
+  <div class="entry-meta"><span>Philipp Schmid</span><span>Published 2026-11-26</span><span>Summarized 2026-11-27</span></div>
+  <p><a href="https://www.philschmid.de/mcp-2027" rel="noopener">Read the original</a></p>
+  <p class="credits"><span class="label">Authors</span> <a href="/research/authors/philipp-schmid/">Philipp Schmid</a></p>
+  <div class="tags"><span class="tag">mcp</span><span class="tag">protocols</span><span class="tag">code-mode</span><span class="tag">skills</span><span class="tag">events</span><span class="tag">async-tasks</span></div>
+</header>
+<article class="article"><p><strong>Source:</strong> <a href="https://www.philschmid.de/mcp-2027">Why I'm Bullish on MCP for 2027</a>, Philipp Schmid, 26 Nov 2026. Found via TLDR AI and TLDR Dev 2026-11-27. Diagrams and linked sources are outside the scope of this summary, so usage numbers are the author's citations.</p>
+<h2 id="adoption-numbers-cited">Adoption numbers cited</h2>
+<ul><li><p>Linear and Notion: agents create roughly half of all issues (about 2.4M a week) and pages; Notion reports 60x MCP traffic growth.</p></li><li><p>Atlassian: over 5M MCP tool calls per workday, 44% from users outside software teams.</p></li><li><p>Neon: agent usage over MCP growing 14% week over week.</p></li><li><p>Apple ships local MCP servers for Pages, Numbers and Keynote.</p></li></ul>
+<h2 id="what-changed-in-the-protocol">What changed in the protocol</h2>
+<p>The 2026-07-28 spec dropped stateful sessions and added official extensions:</p>
+<ul><li><p><strong>Code Mode.</strong> Instead of loading many tool schemas into the prompt and calling one per turn, the harness exposes MCP tools as typed functions in a sandbox. The model writes one script that chains calls, filters and joins in memory, and returns only the result (the example joins a Linear issue list with per-issue Sentry lookups). It depends on servers declaring <code>outputSchema</code> alongside <code>inputSchema</code>. The author says it is already the default in OpenCode 2.0, Claude Code, Codex, Pi and Factory Droid. Auth stays outside the sandbox as per-user OAuth 2.1.</p></li><li><p><strong>Skills</strong> (<code>io.modelcontextprotocol/skills</code>, SEP-2640). Each skill has a <code>skill://</code> URI, frontmatter and a file manifest with SHA-256 digests. On connect the harness lists only names and descriptions and loads the full SKILL.md on demand; digests let clients cache and pick up vendor updates.</p></li><li><p><strong>Events</strong> (<code>io.modelcontextprotocol/events</code>, beta). Webhook, push stream or poll delivery, with a client cursor and dedup by <code>eventId</code>; the harness can wake the agent into the same or a new trajectory (for example a Vercel <code>deployment.succeeded</code>).</p></li><li><p><strong>Tasks</strong> (<code>io.modelcontextprotocol/tasks</code>). Combined with Events, async work needs no custom webhook glue. He proposes subagents as MCP Tasks with a shared board and Events waking the coordinator.</p></li><li><p><strong>Apps</strong> (<code>io.modelcontextprotocol/ui</code>). Servers return sandboxed interactive HTML views.</p></li></ul>
+<h2 id="gaps-he-names">Gaps he names</h2>
+<ul><li><p><strong>Intent:</strong> servers see tool calls, not the conversation; "most servers still don't know why they were called." Proposed: <code>telemetry.intent</code> metadata and feedback tools.</p></li><li><p><strong>Discovery:</strong> registering with five registries doesn't scale; he proposes a <code>/.well-known</code> endpoint with automated security scanning.</p></li><li><p><strong>Security:</strong> webhook payloads, Code Mode sandboxes and embedded UI iframes all widen the prompt-injection surface.</p></li></ul>
+<p>His design rule: "Good MCP servers expose tools for agents, not agents as tools."</p>
+<h2 id="engineering-takeaways">Engineering takeaways</h2>
+<ul><li><p>Declaring <code>outputSchema</code> is now what makes a server cheap to use, because Code Mode clients can chain it without round-tripping results through the model.</p></li><li><p>Skills over MCP turn a server into a versioned distribution channel for instructions, with digests as the update mechanism.</p></li><li><p>Events plus Tasks are the missing pieces for long-running multi-agent work over a standard protocol.</p></li></ul>
+<h2 id="caveats">Caveats</h2>
+<p>An advocate's view from Google DeepMind's developer relations lead; adoption numbers are second-hand.</p>
+<h2 id="related">Related</h2>
+<p>R299 (MCP servers ship skills, run tasks, elicit), R344 (Cloudflare's /.well-known/search), R314 (plugins that fetch skills on demand), R343 (Schmid on context trimming).</p>
+</article>
+<section class="article"><h2>Connections</h2><ul class="links"><li style="--c:var(--t6)"><a class="to" href="/research/mcp-servers-skills-tasks-elicitation/">MCP servers can ship skills, run background tasks and ask the user</a><span class="label">R299 · Agent principles and patterns</span><span class="why">the MCP extension set two ways: R299 on servers that ship skills, run tasks and elicit, Schmid on Code Mode and Events as what make them usable for multi-agent work.</span></li></ul><p><a href="/research/map/#R358">See R358 on the knowledge map</a></p></section><p class="foot">Part of the <a href="/research/">Research</a> notes on nowucca.com. Figures and claims are the source's own unless the summary says otherwise.</p>
+</main>
+</body>
+</html>
