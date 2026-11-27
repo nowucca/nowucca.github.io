@@ -1299,6 +1299,10 @@
       {
        "id": "R321",
        "why": "Name a published document genre as the prompt scaffold, then derive the feature set from the repository rather than from memory."
+      },
+      {
+       "id": "R353",
+       "why": "An index of what each function is for, not just what calls what: a description written with the callees in view."
       }
      ]
     },
@@ -1378,7 +1382,8 @@
      "title": "Code knowledge graphs for agents",
      "primary": [
       "R076",
-      "R134"
+      "R134",
+      "R353"
      ],
      "also": [
       {
@@ -2011,6 +2016,10 @@
       {
        "id": "R349",
        "why": "Content negotiation on Accept: text/markdown serves the same page to an agent without it guessing URLs."
+      },
+      {
+       "id": "R353",
+       "why": "Serves 14 MCP tools over streamable HTTP as a curated layer rather than raw access to the underlying store."
       }
      ]
     },
@@ -9140,6 +9149,26 @@
    ],
    "summary": "",
    "file": "entries/alphago-author-against-llm-reasoning.html"
+  },
+  {
+   "id": "R353",
+   "slug": "codekb-descriptions-through-callees",
+   "title": "CodeKB: a model writes what each function does, including through its callees",
+   "by": "",
+   "source": "https://github.com/awslabs/codekb",
+   "published": "2026-11-27",
+   "added": "2026-11-27",
+   "artifact": "F2mdjVoQmyXShzYM56JX5y",
+   "tags": [
+    "code-knowledge-graph",
+    "retrieval",
+    "mcp",
+    "coding-agents",
+    "aws",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/codekb-descriptions-through-callees.html"
   }
  ],
  "edges": [

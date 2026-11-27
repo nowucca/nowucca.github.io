@@ -1100,6 +1100,10 @@
   "R351": {
    "verdict": "pass",
    "round": 1
+  },
+  "R352": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
