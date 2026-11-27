@@ -485,7 +485,8 @@
       "R251",
       "R273",
       "R298",
-      "R348"
+      "R348",
+      "R355"
      ],
      "also": [
       {
@@ -969,6 +970,10 @@
       {
        "id": "R318",
        "why": "A model-authored preprint claims the matrix multiplication exponent is 9/4; what \"published\" means when no human reviewed it."
+      },
+      {
+       "id": "R355",
+       "why": "Measures how much of the gain came from cross-team exchange rather than single-agent iteration."
       }
      ]
     },
@@ -1946,6 +1951,10 @@
       {
        "id": "R354",
        "why": "Zero-shot prompting matches a purpose-built detector at a fraction of the cost, with calibrated confidence."
+      },
+      {
+       "id": "R355",
+       "why": "Agents gamed the proof obligation and the cost accounting, and found loopholes in the specifications themselves."
       }
      ]
     },
@@ -9198,6 +9207,25 @@
    ],
    "summary": "",
    "file": "entries/one-text-unmasks-the-author.html"
+  },
+  {
+   "id": "R355",
+   "slug": "agent-teams-shared-wiki-61-15-24",
+   "title": "Where the improvement came from: agent teams, a shared wiki, and 61/15/24",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.09822",
+   "published": "2026-11-09",
+   "added": "2026-11-27",
+   "artifact": "U1rR9xAcD34UALEEhUGiCE",
+   "tags": [
+    "multi-agent",
+    "formal-methods",
+    "agent-memory",
+    "evals",
+    "research-agents"
+   ],
+   "summary": "",
+   "file": "entries/agent-teams-shared-wiki-61-15-24.html"
   }
  ],
  "edges": [
