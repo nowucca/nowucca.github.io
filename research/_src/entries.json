@@ -323,6 +323,10 @@
       {
        "id": "R360",
        "why": "Agent memory designs that keep embeddings of mail or documents hit the retention cap."
+      },
+      {
+       "id": "R365",
+       "why": "A rulebook grew from 2,000 to 11,700 words in four days while the only mechanical enforcement stayed a single check."
       }
      ]
     },
@@ -504,7 +508,8 @@
       "R298",
       "R348",
       "R355",
-      "R362"
+      "R362",
+      "R365"
      ],
      "also": [
       {
@@ -1550,6 +1555,10 @@
       {
        "id": "R348",
        "why": "Every brief is posted publicly, so ownership boundaries are common knowledge rather than private instruction."
+      },
+      {
+       "id": "R365",
+       "why": "Peer-written text is untrusted input even inside a trusted system, and a self-asserted actor field cannot gate an action."
       }
      ]
     }
@@ -9467,6 +9476,26 @@
    ],
    "summary": "",
    "file": "entries/ephyra-agent-written-generators.html"
+  },
+  {
+   "id": "R365",
+   "slug": "board-made-of-github-issues",
+   "title": "A board made of GitHub Issues: one practitioner's multi-agent coordination layer",
+   "by": "Rick Hightower",
+   "source": "https://rickhigh.substack.com/p/how-my-agent-board-works",
+   "published": "2026-11-27",
+   "added": "2026-11-27",
+   "artifact": "UV1Eb8pges2XATQoDgUsDa",
+   "tags": [
+    "multi-agent",
+    "agent-harness",
+    "agent-governance",
+    "coordination",
+    "prompt-injection",
+    "practitioner"
+   ],
+   "summary": "",
+   "file": "entries/board-made-of-github-issues.html"
   }
  ],
  "edges": [
