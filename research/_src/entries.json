@@ -618,6 +618,10 @@
       {
        "id": "R335",
        "why": "A single Rust binary replaces a thirteen-project stack, with the line count and its caveats published."
+      },
+      {
+       "id": "R363",
+       "why": "Co-locating a compute loop with an I/O serving layer in one scheduling domain starves the loop; the device looks idle rather than saturated."
       }
      ]
     },
@@ -754,7 +758,8 @@
       "R294",
       "R300",
       "R312",
-      "R330"
+      "R330",
+      "R363"
      ],
      "also": [
       {
@@ -2075,6 +2080,10 @@
       {
        "id": "R353",
        "why": "Serves 14 MCP tools over streamable HTTP as a curated layer rather than raw access to the underlying store."
+      },
+      {
+       "id": "R363",
+       "why": "Observable API behaviour changed without error: event counts per answer are no longer deterministic and usage moved behind a flag."
       }
      ]
     },
@@ -9410,6 +9419,25 @@
    ],
    "summary": "",
    "file": "entries/equal-budget-ladder-multi-agent.html"
+  },
+  {
+   "id": "R363",
+   "slug": "transformers-serve-refactor",
+   "title": "Moving the model out of the web server: the transformers serve refactor",
+   "by": "Marc Sun",
+   "source": "https://github.com/huggingface/transformers/pull/50927",
+   "published": "2026-11-27",
+   "added": "2026-11-27",
+   "artifact": "GZAVSuA4aud1hkQfpjLwzd",
+   "tags": [
+    "inference-serving",
+    "throughput",
+    "api-design",
+    "breaking-changes",
+    "open-source"
+   ],
+   "summary": "",
+   "file": "entries/transformers-serve-refactor.html"
   }
  ],
  "edges": [
