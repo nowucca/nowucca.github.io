@@ -220,6 +220,10 @@
       {
        "id": "R362",
        "why": "Passing facts between agents beats exchanging conclusions, and one agent holding all the facts is close to the ceiling."
+      },
+      {
+       "id": "R364",
+       "why": "Coverage is the inner metric and bugs found is the outer check, which is what stops the agent optimising the proxy."
       }
      ]
     },
@@ -1002,6 +1006,10 @@
       {
        "id": "R355",
        "why": "Measures how much of the gain came from cross-team exchange rather than single-agent iteration."
+      },
+      {
+       "id": "R364",
+       "why": "Triage is 59% of the agent spend, so a plan that budgets for discovery and not adjudication has the proportions backwards."
       }
      ]
     },
@@ -1114,7 +1122,8 @@
       "R248",
       "R270",
       "R317",
-      "R339"
+      "R339",
+      "R364"
      ],
      "also": [
       {
@@ -9438,6 +9447,26 @@
    ],
    "summary": "",
    "file": "entries/transformers-serve-refactor.html"
+  },
+  {
+   "id": "R364",
+   "slug": "ephyra-agent-written-generators",
+   "title": "Agents that write the generators: Ephyra and $4-a-bug property testing",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.23282",
+   "published": "2026-10-23",
+   "added": "2026-11-27",
+   "artifact": "A5agS6dXe9qu1wtwiXLYi3",
+   "tags": [
+    "agent-testing",
+    "test-oracles",
+    "property-based-testing",
+    "reward-hacking",
+    "open-source",
+    "token-cost"
+   ],
+   "summary": "",
+   "file": "entries/ephyra-agent-written-generators.html"
   }
  ],
  "edges": [
