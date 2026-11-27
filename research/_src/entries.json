@@ -1405,7 +1405,8 @@
       "R167",
       "R187",
       "R214",
-      "R343"
+      "R343",
+      "R350"
      ],
      "also": [
       {
@@ -2318,6 +2319,10 @@
       {
        "id": "R337",
        "why": "Information hiding as the recurring move: evidence review before the draft, answer key withheld, before/after labels stripped."
+      },
+      {
+       "id": "R350",
+       "why": "Compression per answer does not help when the number of answers is what grew; the reading cost is the bottleneck."
       }
      ]
     },
@@ -2344,6 +2349,10 @@
       {
        "id": "R270",
        "why": "attacks comprehension debt by removing what has to be understood, and claims 46% fewer tokens for an agent to read its demo app"
+      },
+      {
+       "id": "R350",
+       "why": "A required \"what failed or went unchecked\" field is what keeps a compressed ending honest enough to review."
       }
      ]
     },
@@ -9056,6 +9065,25 @@
    ],
    "summary": "",
    "file": "entries/gradle-llms-txt-docs-for-agents.html"
+  },
+  {
+   "id": "R350",
+   "slug": "fixed-answer-contract-not-be-shorter",
+   "title": "Reading the agent is the bottleneck: a fixed answer contract instead of \"be shorter\"",
+   "by": "Ruben Hassid",
+   "source": "https://ruben.substack.com/p/tldr",
+   "published": "2026-11-27",
+   "added": "2026-11-27",
+   "artifact": "8LrVhnwEmFV5WrdtG345Uo",
+   "tags": [
+    "harness-config",
+    "prompting",
+    "human-oversight",
+    "comprehension-debt",
+    "output-contracts"
+   ],
+   "summary": "",
+   "file": "entries/fixed-answer-contract-not-be-shorter.html"
   }
  ],
  "edges": [
