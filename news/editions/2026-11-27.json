@@ -1,0 +1,196 @@
+{
+  "date": "2026-11-27",
+  "generated": "2026-11-27T07:20:00-06:00",
+  "headline": "Drone strike in Kuwait kills two Italians; EU budget summit collapses; storms snarl US Thanksgiving",
+  "sections": {
+    "us": [
+      {
+        "headline": "Storms batter much of the U.S. over Thanksgiving",
+        "summary": "Heavy rain, 50-plus mph gusts and flooding hit the East Coast, New Jersey declared a state of emergency, the Chesapeake Bay Bridge-Tunnel closed for hours and up to 13 inches of snow was forecast near St. Louis.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/nation/thanksgiving-holiday-plagued-by-heavy-rain-wind-and-flooding-across-much-of-the-u-s",
+        "date": "2026-11-26"
+      },
+      {
+        "headline": "Trump calls revised GDP figures 'fake' and seeks Commerce probe",
+        "summary": "Trump accused the Bureau of Economic Analysis of deliberately publishing wrong third-quarter figures before the midterms after growth was revised up to a 4.3% annual rate; the same release showed PCE inflation climbing to 3.8% in October.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/politics/trump-calls-gdp-figures-fake-and-demands-an-investigation-of-commerce-department",
+        "date": "2026-11-26"
+      },
+      {
+        "headline": "Trump says Iran war will end when he decides",
+        "summary": "The president said the conflict with Iran would be over essentially whenever he wants it to be.",
+        "source": "The Hill",
+        "url": "https://thehill.com/homenews/administration/6245034-trump-says-iran-war-ends-whenever/",
+        "date": "2026-11-26"
+      },
+      {
+        "headline": "Black Friday shopping opens amid inflation worries",
+        "summary": "Retailers expect heavy Black Friday spending as shoppers hunt for value deals after a stormy holiday week.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/27/black-friday-2026-inflation-value-deals.html",
+        "date": "2026-11-27"
+      }
+    ],
+    "australia": [
+      {
+        "headline": "National gas reservation scheme clears the Senate",
+        "summary": "The scheme passed the Senate in a late sitting and awaited a final House vote on the last sitting day of the year, with Western Australia carved out because it has run its own reservation policy since 2006.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/federal-politics-live-blog-november-27/107431796",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Victorian Coalition costings lean on asset sales and a hiring freeze",
+        "summary": "Parliamentary Budget Office figures released on the eve of Saturday's vote show a 90-year sewerage lease and other sales saving $13.8 billion, a public service hiring freeze saving $3.8 billion and level crossing removals scrapped.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/victorian-coalition-election-spending-savings/107433826",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "One Nation vows to oppose Coalition's sewerage privatisation",
+        "summary": "With more than 2.2 million Victorians already voted, One Nation said it would fight the proposed sewerage lease, while ABC analysis rates a Coalition win likely but a majority uncertain.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/victorian-election-live-coalition-labor-costings-polling-day-eve/107433332",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Unofficial lobby groups outspend Victorian Labor on social ads",
+        "summary": "Better Victoria and FixVictoria together spent more on Meta ads than Labor's official account since late August, while a disclosure loophole keeps their funders hidden.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/fix-victoria-better-victoria-election-ads/107433368",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Senate committee urges review of aged care co-payments",
+        "summary": "A committee report on the aged care overhaul recommended reviewing Support at Home co-payments and changing the law so clinicians can override assessment algorithms.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/federal-politics-live-blog-november-27/107431796",
+        "date": "2026-11-27"
+      }
+    ],
+    "ai": [
+      {
+        "headline": "ACCC warns shoppers about AI agents in Black Friday sales",
+        "summary": "The consumer watchdog advised Australians to check AI shopping answers against other sources and to set spending limits on AI agents allowed to buy on their behalf.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/asx-markets-business-news-live-updates/107430390",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Denny's restores plaque honoring returning Nvidia CEO Huang",
+        "summary": "The restaurant chain put back a plaque honoring Jensen Huang to mark his return as Nvidia's chief executive.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/26/dennys-jensen-huang-nvidia.html",
+        "date": "2026-11-26"
+      }
+    ],
+    "tech": [
+      {
+        "headline": "Germany and Austria push for European ownership of TikTok",
+        "summary": "Two ministers called for TikTok's European business and recommendation algorithm to come under European control and plan to raise it at an EU council meeting on Dec. 2; TikTok said the idea has no merit.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/27/germany-and-austria-push-for-european-ownership-of-tiktok",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Denmark arrests teen over civil registry breach",
+        "summary": "An 18-year-old was remanded in custody, accused of pulling 11,000 identification numbers from Denmark's civil registration system in a breach caught by monitoring added after an October attack.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/27/denmark-arrests-teenager-over-data-breach-affecting-11000-people",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "SpaceX to donate stock to children with Trump accounts",
+        "summary": "Elon Musk pledged SpaceX shares to American children who have active Trump accounts.",
+        "source": "The Hill",
+        "url": "https://thehill.com/policy/technology/6244857-elon-musk-pledges-spacex-shares-to-american-children/",
+        "date": "2026-11-26"
+      }
+    ],
+    "world": [
+      {
+        "headline": "Iran denies drone strike in Kuwait that killed two Italians",
+        "summary": "Italy says Iranian drones hit Kuwaiti military sites including a radar centre where two Italian contractors died; Gulf states condemned the attack while Tehran called the accusation baseless and offered a joint inquiry.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/27/iran-denies-responsibility-for-kuwait-drone-strike-that-killed-two-italians",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "EU budget summit ends without a deal",
+        "summary": "Leaders rejected a €1.78 trillion seven-year compromise from all sides, cancelled Friday's talks and barely discussed the €45 billion Ukraine loan, with Macron setting a Dec. 31 deadline.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/27/a-lot-of-political-theatre-eu-summit-ends-in-disarray-as-leaders-cling-to-red-lines",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "NATO jets scrambled as drone enters Latvian airspace",
+        "summary": "An unidentified drone briefly flew over Ludza municipality near the Russian border overnight, and Latvia's military warned more incursions are likely.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/27/nato-jets-scrambled-after-drone-briefly-enters-latvian-airspace",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Congo's Ebola outbreak reaches 12,000 cases",
+        "summary": "The outbreak has passed 12,000 cases as some responders are evacuated.",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/11/26/g-s1-155957/congo-ebola-responders",
+        "date": "2026-11-26"
+      },
+      {
+        "headline": "Spain's Hernández de Cos nominated to lead the ECB",
+        "summary": "Pablo Hernández de Cos was put forward to succeed Christine Lagarde when she steps down on Feb. 7, pending final approval by EU leaders in December.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/asx-markets-business-news-live-updates/107430390",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "French inflation slows to 2.9% as energy prices ease",
+        "summary": "Prices fell 0.7% in November, bringing annual inflation down to 2.9%, while official data showed GDP shrank 0.2% in the third quarter.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/27/frances-inflation-slows-to-29-in-november-as-energy-prices-fall",
+        "date": "2026-11-27"
+      }
+    ],
+    "aus-cricket": [
+      {
+        "headline": "Overton's 5-12 routs Australia at the Gabba as England lead 2-1",
+        "summary": "Australia were bowled out for 108, their lowest home T20I total, and England chased a rain-revised 93 to win by seven wickets on DLS.",
+        "source": "cricket.com.au",
+        "url": "https://www.cricket.com.au/news/4615413/match-report-australia-england-3rd-t20i-jamie-overton-stats-highlights-latest-news",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Stanlake returns for first T20I in seven years",
+        "summary": "Billy Stanlake and Mitch Owen came in for Jack Edwards and Lachlan Shaw, with Spencer Johnson out with a calf niggle; the series moves to the SCG on Sunday and Canberra on Wednesday.",
+        "source": "cricket.com.au",
+        "url": "https://www.cricket.com.au/news/4615337/toss-teams-news-australia-england-third-t20-international-gabba-xi-stanlake-owen-edwards-shaw",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Tasmania hold on for Shield draw as Bird sets record",
+        "summary": "WA finished five runs short of a 142-run chase in 13 overs in Perth, and Jackson Bird's 442nd wicket made him the Shield's most successful fast bowler; Jhye Richardson left the field in discomfort.",
+        "source": "cricket.com.au",
+        "url": "https://www.cricket.com.au/news/4614820/match-report-western-australia-tasmania-perth-stadium-sheffield-shield-round-five-day-four",
+        "date": "2026-11-26"
+      }
+    ],
+    "warriors": [
+      {
+        "headline": "Warriors at Trail Blazers tonight in final NBA Cup group game",
+        "summary": "Golden State (10-8) visits Portland at 6:30 p.m. Pacific at the Moda Center, with Stephen Curry (abdomen), Jimmy Butler III, Kristaps Porzingis and Moses Moody listed out.",
+        "source": "ESPN (AP)",
+        "url": "https://www.espn.com/nba/preview?gameId=401909336",
+        "date": "2026-11-26"
+      },
+      {
+        "headline": "Lillard and Morant headline revamped Portland",
+        "summary": "The Blazers added a returning Damian Lillard and traded for Ja Morant, who is nursing a hamstring strain, ahead of the Cup finale.",
+        "source": "NBA.com",
+        "url": "https://www.nba.com/warriors/news/gameday-preview-20261127",
+        "date": "2026-11-25"
+      }
+    ]
+  }
+}
