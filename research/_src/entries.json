@@ -789,7 +789,8 @@
      "primary": [
       "R033",
       "R053",
-      "R275"
+      "R275",
+      "R351"
      ],
      "also": [
       {
@@ -1927,6 +1928,10 @@
       {
        "id": "R341",
        "why": "The escape attempts are themselves an eval of agent behaviour under weak isolation."
+      },
+      {
+       "id": "R351",
+       "why": "The buyers want RL gyms built on real workspace archives, but nobody has published a real-versus-synthetic comparison."
       }
      ]
     },
@@ -2389,6 +2394,10 @@
       {
        "id": "R285",
        "why": "proposes shared capability thresholds tied to one number, which is a governance proposal as much as a measurement one"
+      },
+      {
+       "id": "R351",
+       "why": "Contracts usually say what happens on termination, rarely what happens in insolvency, where the estate decides who gets the workspace data."
       }
      ]
     },
@@ -9084,6 +9093,25 @@
    ],
    "summary": "",
    "file": "entries/fixed-answer-contract-not-be-shorter.html"
+  },
+  {
+   "id": "R351",
+   "slug": "defunct-startup-workspace-data-market",
+   "title": "Your Slack is an asset in insolvency: the market in defunct companies' workspace data",
+   "by": "Matthew King",
+   "source": "https://www.technologyreview.com/2026/10/13/1145755/ai-labs-buying-data-from-dead-startups-to-train-models",
+   "published": "2026-10-13",
+   "added": "2026-11-27",
+   "artifact": "KPZBg5F78hnQxFRbTCDS5K",
+   "tags": [
+    "training-data",
+    "data-provenance",
+    "data-privacy",
+    "model-supply-chain",
+    "rl-environments"
+   ],
+   "summary": "",
+   "file": "entries/defunct-startup-workspace-data-market.html"
   }
  ],
  "edges": [
