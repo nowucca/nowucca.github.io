@@ -216,6 +216,10 @@
       {
        "id": "R326",
        "why": "A thumbs rating is a consent event attached to a whole transcript, and the feedback corpus is selected towards your messiest data."
+      },
+      {
+       "id": "R362",
+       "why": "Passing facts between agents beats exchanging conclusions, and one agent holding all the facts is close to the ceiling."
       }
      ]
     },
@@ -495,7 +499,8 @@
       "R273",
       "R298",
       "R348",
-      "R355"
+      "R355",
+      "R362"
      ],
      "also": [
       {
@@ -1986,6 +1991,10 @@
       {
        "id": "R357",
        "why": "A paired statistical gate for deciding whether a model upgrade is safe to promote."
+      },
+      {
+       "id": "R362",
+       "why": "A self-training gain can come from a cheaper behaviour rather than a better one, which score-only evaluation misses."
       }
      ]
     },
@@ -9382,6 +9391,25 @@
    ],
    "summary": "",
    "file": "entries/hyperharness-personalized-retrieval-harness.html"
+  },
+  {
+   "id": "R362",
+   "slug": "equal-budget-ladder-multi-agent",
+   "title": "The equal-budget ladder: when a team of agents is actually smarter than one agent",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.32606",
+   "published": "2026-11-24",
+   "added": "2026-11-27",
+   "artifact": "HKL2m4NduckqnvtSiAa8eU",
+   "tags": [
+    "multi-agent",
+    "evaluation",
+    "benchmarks",
+    "self-improvement",
+    "context-engineering"
+   ],
+   "summary": "",
+   "file": "entries/equal-budget-ladder-multi-agent.html"
   }
  ],
  "edges": [

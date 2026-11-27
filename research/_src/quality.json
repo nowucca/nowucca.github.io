@@ -1132,6 +1132,14 @@
   "R359": {
    "verdict": "pass",
    "round": 1
+  },
+  "R360": {
+   "verdict": "pass",
+   "round": 1
+  },
+  "R361": {
+   "verdict": "revise",
+   "round": 1
   }
  },
  "trusted": [
