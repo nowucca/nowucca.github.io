@@ -1888,7 +1888,8 @@
       "R313",
       "R319",
       "R322",
-      "R342"
+      "R342",
+      "R366"
      ],
      "also": [
       {
@@ -2292,6 +2293,10 @@
       {
        "id": "R014",
        "why": "a general-audience AI literacy course; its verify, iterate and know-when-AI-is-the-wrong-tool habits are what R012's harness lesson asks users to bring"
+      },
+      {
+       "id": "R366",
+       "why": "Accuracy tracks language resource tier almost monotonically, but at the frontier the gap narrows to two communities."
       }
      ]
     },
@@ -2675,6 +2680,10 @@
       {
        "id": "R337",
        "why": "Five concrete recipes for AI in learning design, each with the check that keeps it honest."
+      },
+      {
+       "id": "R366",
+       "why": "An agreement-gated judge ladder with a measured human floor, and the 48% of correct answers exact match throws away."
       }
      ]
     }
@@ -9496,6 +9505,26 @@
    ],
    "summary": "",
    "file": "entries/board-made-of-github-issues.html"
+  },
+  {
+   "id": "R366",
+   "slug": "culturalriddles-benchmark",
+   "title": "CulturalRiddles: 6,191 riddles written by locals, and what the leaderboard hides",
+   "by": "",
+   "source": "https://arxiv.org/abs/2610.29968",
+   "published": "2026-10-22",
+   "added": "2026-11-27",
+   "artifact": "2hry2yMpfNyZ5DRM94avxS",
+   "tags": [
+    "benchmarks",
+    "evaluation",
+    "multilingual",
+    "llm-judge",
+    "calibration",
+    "open-data-licensing"
+   ],
+   "summary": "",
+   "file": "entries/culturalriddles-benchmark.html"
   }
  ],
  "edges": [
