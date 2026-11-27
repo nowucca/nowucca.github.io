@@ -1942,6 +1942,10 @@
       {
        "id": "R351",
        "why": "The buyers want RL gyms built on real workspace archives, but nobody has published a real-versus-synthetic comparison."
+      },
+      {
+       "id": "R354",
+       "why": "Zero-shot prompting matches a purpose-built detector at a fraction of the cost, with calibrated confidence."
       }
      ]
     },
@@ -2224,7 +2228,8 @@
       "R288",
       "R293",
       "R303",
-      "R318"
+      "R318",
+      "R354"
      ],
      "also": [
       {
@@ -2416,6 +2421,10 @@
       {
        "id": "R351",
        "why": "Contracts usually say what happens on termination, rarely what happens in insolvency, where the estate decides who gets the workspace data."
+      },
+      {
+       "id": "R354",
+       "why": "Deleting your old writing does not remove it from the weights of models already trained on it, so \"you can remove your content\" is not a remedy."
       }
      ]
     },
@@ -9169,6 +9178,26 @@
    ],
    "summary": "",
    "file": "entries/codekb-descriptions-through-callees.html"
+  },
+  {
+   "id": "R354",
+   "slug": "one-text-unmasks-the-author",
+   "title": "One text is enough: frontier models naming anonymous authors with no tools",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.26216",
+   "published": "2026-11-19",
+   "added": "2026-11-27",
+   "artifact": "JHNyB1Eb4gwiAaSdPHiART",
+   "tags": [
+    "privacy",
+    "deanonymisation",
+    "ai-text-detection",
+    "model-provenance",
+    "data-retention",
+    "evals"
+   ],
+   "summary": "",
+   "file": "entries/one-text-unmasks-the-author.html"
   }
  ],
  "edges": [
