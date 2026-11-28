@@ -785,7 +785,8 @@
       "R312",
       "R330",
       "R363",
-      "R369"
+      "R369",
+      "R371"
      ],
      "also": [
       {
@@ -2044,6 +2045,10 @@
       {
        "id": "R370",
        "why": "static injection benchmarks score near zero where an adaptive attacker succeeds two-thirds of the time"
+      },
+      {
+       "id": "R371",
+       "why": "efficiency figures reported only against the author’s own baseline, with no external reference point"
       }
      ]
     },
@@ -2469,6 +2474,10 @@
       {
        "id": "R368",
        "why": "an agentic system producing unconditional complexity-theory proofs on a weekly cadence"
+      },
+      {
+       "id": "R371",
+       "why": "a self-published architecture claim placed against the decades-old public benchmark it did not cite"
       }
      ]
     },
@@ -9641,6 +9650,26 @@
    ],
    "summary": "",
    "file": "entries/fork-guardrail-adaptive-attacker.html"
+  },
+  {
+   "id": "R371",
+   "slug": "compressor-at-1-79-bits-per-byte",
+   "title": "A compressor at 1.79 bits per byte: placing a solo architecture claim against the benchmark it didn't cite",
+   "by": "",
+   "source": "https://mattmahoney.net/dc/text.html",
+   "published": "2026-11-28",
+   "added": "2026-11-28",
+   "artifact": "W7QE3x3N2odWUxDsrT3GAe",
+   "tags": [
+    "inference-efficiency",
+    "benchmarks",
+    "claim-checking",
+    "compression",
+    "conditional-computation",
+    "provenance"
+   ],
+   "summary": "",
+   "file": "entries/compressor-at-1-79-bits-per-byte.html"
   }
  ],
  "edges": [
