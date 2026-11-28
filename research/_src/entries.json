@@ -224,6 +224,10 @@
       {
        "id": "R364",
        "why": "Coverage is the inner metric and bugs found is the outer check, which is what stops the agent optimising the proxy."
+      },
+      {
+       "id": "R368",
+       "why": "a single prompt driving a full proof and formalisation with no human interaction after it"
       }
      ]
     },
@@ -2443,6 +2447,10 @@
       {
        "id": "R350",
        "why": "Compression per answer does not help when the number of answers is what grew; the reading cost is the bottleneck."
+      },
+      {
+       "id": "R368",
+       "why": "an agentic system producing unconditional complexity-theory proofs on a weekly cadence"
       }
      ]
     },
@@ -2488,7 +2496,8 @@
       "R291",
       "R306",
       "R308",
-      "R356"
+      "R356",
+      "R368"
      ],
      "also": [
       {
@@ -9554,6 +9563,26 @@
    ],
    "summary": "",
    "file": "entries/capability-types-in-a-systems-language.html"
+  },
+  {
+   "id": "R368",
+   "slug": "the-constant-is-105",
+   "title": "The constant is 105: what an agent actually proved about factoring, and what the rumour became",
+   "by": "",
+   "source": "https://github.com/google-research/google-research/tree/master/cogentic_research_papers",
+   "published": "2026-11-25",
+   "added": "2026-11-28",
+   "artifact": "GSnuQ7Y4pnqnraysPvy7Zf",
+   "tags": [
+    "ai-for-science",
+    "provenance",
+    "verification",
+    "formal-methods",
+    "claim-degradation",
+    "cryptography"
+   ],
+   "summary": "",
+   "file": "entries/the-constant-is-105.html"
   }
  ],
  "edges": [
