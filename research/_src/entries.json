@@ -335,6 +335,10 @@
       {
        "id": "R365",
        "why": "A rulebook grew from 2,000 to 11,700 words in four days while the only mechanical enforcement stayed a single check."
+      },
+      {
+       "id": "R373",
+       "why": "a file-based shared memory any worker can write and every later worker reads as background"
       }
      ]
     },
@@ -525,7 +529,8 @@
       "R348",
       "R355",
       "R362",
-      "R365"
+      "R365",
+      "R373"
      ],
      "also": [
       {
@@ -1585,6 +1590,10 @@
       {
        "id": "R365",
        "why": "Peer-written text is untrusted input even inside a trusted system, and a self-asserted actor field cannot gate an action."
+      },
+      {
+       "id": "R373",
+       "why": "checked-in permission rules that do not travel to cloud sessions, leaving the environment as the enforcing boundary"
       }
      ]
     }
@@ -9699,6 +9708,26 @@
    ],
    "summary": "",
    "file": "entries/metr-time-horizon-graph-read-properly.html"
+  },
+  {
+   "id": "R373",
+   "slug": "claude-code-projects-blind-coordinator",
+   "title": "Claude Code Projects: a coordinator that cannot read its own threads",
+   "by": "",
+   "source": "https://code.claude.com/docs/en/claude-projects",
+   "published": "2026-09-17",
+   "added": "2026-11-28",
+   "artifact": "9zfE7PCaf1pJCpkj7FDRvj",
+   "tags": [
+    "multi-agent",
+    "coordination",
+    "agent-harness",
+    "agent-memory",
+    "governance",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/claude-code-projects-blind-coordinator.html"
   }
  ],
  "edges": [
