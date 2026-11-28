@@ -358,6 +358,10 @@
       {
        "id": "R158",
        "why": "one OpenTelemetry-shaped event model for sessions, prompts, tools, commands, files, approvals, MCP and tokens across 25+ harnesses, also forwarded to SIEMs"
+      },
+      {
+       "id": "R372",
+       "why": "models grading other models score about 0.2 of 1 more generously than a human on the same work"
       }
      ]
     },
@@ -1911,7 +1915,8 @@
       "R319",
       "R322",
       "R342",
-      "R366"
+      "R366",
+      "R372"
      ],
      "also": [
       {
@@ -2478,6 +2483,10 @@
       {
        "id": "R371",
        "why": "a self-published architecture claim placed against the decades-old public benchmark it did not cite"
+      },
+      {
+       "id": "R372",
+       "why": "a headline capability figure quoted without the interval, the reliability ceiling or the tighter sensitivity analyses beside it"
       }
      ]
     },
@@ -9670,6 +9679,26 @@
    ],
    "summary": "",
    "file": "entries/compressor-at-1-79-bits-per-byte.html"
+  },
+  {
+   "id": "R372",
+   "slug": "metr-time-horizon-graph-read-properly",
+   "title": "The time-horizon graph, read properly: 40 hours with a 13-to-2645 interval, and a reliability ceiling of 16",
+   "by": "",
+   "source": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/",
+   "published": "2026-11-20",
+   "added": "2026-11-28",
+   "artifact": "XHqYDMYHjLpsqRgREcXCdj",
+   "tags": [
+    "benchmarks",
+    "evaluation",
+    "llm-judge",
+    "claim-checking",
+    "measuring-capability",
+    "agent-autonomy"
+   ],
+   "summary": "",
+   "file": "entries/metr-time-horizon-graph-read-properly.html"
   }
  ],
  "edges": [
