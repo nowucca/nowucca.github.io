@@ -122,6 +122,10 @@
       {
        "id": "R343",
        "why": "Five concrete context cuts: shorter tool schemas, fewer skills, less preamble."
+      },
+      {
+       "id": "R374",
+       "why": "a cheap model for extraction and a mid-tier one for resolution, summarisation and querying"
       }
      ]
     },
@@ -1415,7 +1419,8 @@
       "R256",
       "R261",
       "R268",
-      "R346"
+      "R346",
+      "R374"
      ],
      "also": [
       {
@@ -1453,6 +1458,10 @@
       {
        "id": "R288",
        "why": "where the reference comes from is a retrieval-layer decision: a record of (doc, version, span offsets) makes a citation unforgeable by construction"
+      },
+      {
+       "id": "R375",
+       "why": "a compliant open-web crawl is a quality-biased sample, with the direction of the bias now measured"
       }
      ]
     },
@@ -2063,6 +2072,10 @@
       {
        "id": "R371",
        "why": "efficiency figures reported only against the author’s own baseline, with no external reference point"
+      },
+      {
+       "id": "R374",
+       "why": "a guide that prints its own evaluation: precision 1.00 against recall 0.38 to 0.64"
       }
      ]
     },
@@ -2496,6 +2509,10 @@
       {
        "id": "R372",
        "why": "a headline capability figure quoted without the interval, the reliability ceiling or the tighter sensitivity analyses beside it"
+      },
+      {
+       "id": "R375",
+       "why": "a solid, well-denominated figure travelling bundled with citation-composition claims the paper never makes"
       }
      ]
     },
@@ -2542,7 +2559,8 @@
       "R306",
       "R308",
       "R356",
-      "R368"
+      "R368",
+      "R375"
      ],
      "also": [
       {
@@ -9728,6 +9746,46 @@
    ],
    "summary": "",
    "file": "entries/claude-code-projects-blind-coordinator.html"
+  },
+  {
+   "id": "R374",
+   "slug": "anthropic-knowledge-graph-cookbook",
+   "title": "Anthropic's knowledge-graph cookbook: precision 1.00, recall 0.38",
+   "by": "",
+   "source": "https://platform.claude.com/cookbook/capabilities-knowledge-graph-guide",
+   "published": "2026-03-23",
+   "added": "2026-11-28",
+   "artifact": "JByjD6XN3xjuPmCSyiotb6",
+   "tags": [
+    "knowledge-graphs",
+    "retrieval",
+    "entity-resolution",
+    "provenance",
+    "evaluation",
+    "vendor"
+   ],
+   "summary": "",
+   "file": "entries/anthropic-knowledge-graph-cookbook.html"
+  },
+  {
+   "id": "R375",
+   "slug": "robots-txt-quality-filter-backwards",
+   "title": "robots.txt as a quality filter running backwards: 60% versus 9.1%",
+   "by": "",
+   "source": "https://arxiv.org/abs/2510.10315",
+   "published": "2025",
+   "added": "2026-11-28",
+   "artifact": "5G5V9ZiCNDQLdKuViXA7r9",
+   "tags": [
+    "data-provenance",
+    "retrieval",
+    "web-crawling",
+    "corpus-quality",
+    "claim-checking",
+    "measurement"
+   ],
+   "summary": "",
+   "file": "entries/robots-txt-quality-filter-backwards.html"
   }
  ],
  "edges": [
