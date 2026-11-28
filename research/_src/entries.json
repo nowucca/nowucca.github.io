@@ -732,6 +732,10 @@
       {
        "id": "R345",
        "why": "A mounted Docker socket turns a release gate into a suggestion: the contained agent can ask the host daemon for a container with any mounts it likes."
+      },
+      {
+       "id": "R367",
+       "why": "capability types enforced by the compiler, as a language-level alternative to runtime containment"
       }
      ]
     },
@@ -1015,6 +1019,10 @@
       {
        "id": "R364",
        "why": "Triage is 59% of the agent spend, so a plan that budgets for discovery and not adjudication has the proportions backwards."
+      },
+      {
+       "id": "R367",
+       "why": "a build flag a consumer sets to assert a dependency contains no privileged operations"
       }
      ]
     },
@@ -2179,7 +2187,8 @@
       "R328",
       "R334",
       "R341",
-      "R345"
+      "R345",
+      "R367"
      ],
      "also": [
       {
@@ -9525,6 +9534,26 @@
    ],
    "summary": "",
    "file": "entries/culturalriddles-benchmark.html"
+  },
+  {
+   "id": "R367",
+   "slug": "capability-types-in-a-systems-language",
+   "title": "Rights from main: capability types in a systems language, and the one that collapses them",
+   "by": "",
+   "source": "https://github.com/vx-lang/Vx",
+   "published": "2026-11-28",
+   "added": "2026-11-28",
+   "artifact": "QJV1rVkm1TGxZrcJ4icKux",
+   "tags": [
+    "sandboxing",
+    "capabilities",
+    "compiler",
+    "supply-chain",
+    "agent-governance",
+    "security"
+   ],
+   "summary": "",
+   "file": "entries/capability-types-in-a-systems-language.html"
   }
  ],
  "edges": [

@@ -1156,6 +1156,10 @@
   "R365": {
    "verdict": "pass",
    "round": 1
+  },
+  "R366": {
+   "verdict": "pass",
+   "round": 1
   }
  },
  "trusted": [
