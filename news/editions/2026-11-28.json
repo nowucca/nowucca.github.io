@@ -1,0 +1,154 @@
+{
+  "date": "2026-11-28",
+  "generated": "2026-11-28T07:30:00-06:00",
+  "headline": "Coalition sweeps Victoria as Labor era ends; U.S. disables another Iran blockade runner; Lyon axed",
+  "sections": {
+    "us": [
+      {
+        "headline": "East Coast cleans up after Thanksgiving storm",
+        "summary": "More than 600,000 customers were still without power Friday morning, down from over 900,000 a day earlier, after storms forced water rescues from New York to Virginia, including 39 people in Norfolk.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/nation/heavy-rain-winds-down-as-power-remains-out-for-hundreds-of-thousands-on-the-east-coast",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Black Friday shoppers return as record holiday spending forecast",
+        "summary": "The National Retail Federation expects November-December sales to grow 4.1% to about $1.01 trillion, and Adobe put online spending for Nov. 1-22 at $82.5 billion, up 9.1%.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/economy/before-sunrise-at-macys-a-familiar-black-friday-ritual-returns-despite-weeks-of-online-deals",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Protesters march in San Juan over Puerto Rico's living standards",
+        "summary": "Demonstrators took to the streets of Puerto Rico's capital over a deteriorating standard of living.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/nation/protesters-take-to-the-streets-in-puerto-ricos-capital-as-standard-of-living-deteriorates",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Melania Trump and LSU launch scholarships for former foster youth",
+        "summary": "The first lady and Louisiana State University announced a scholarship program for students who spent time in foster care.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/politics/melania-trump-and-lsu-announce-a-scholarship-program-for-students-who-were-in-foster-care",
+        "date": "2026-11-27"
+      }
+    ],
+    "australia": [
+      {
+        "headline": "Jess Wilson to become Victoria's 51st premier",
+        "summary": "The Coalition ended 12 years of Labor government in a landslide, and Premier Ben Carroll conceded after losing his own seat of Niddrie.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-28/jess-wilson-victorian-liberals-form-government-state-election/107438320",
+        "date": "2026-11-28"
+      },
+      {
+        "headline": "One Nation outpolls Labor in Victorian primary vote",
+        "summary": "Early counting put the Coalition near 34% of the primary vote, One Nation about 23.5%, the Greens 15.9% and Labor 15.6%.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-28/victorian-election-live-updates-voting-results-seat-count/107418038",
+        "date": "2026-11-28"
+      },
+      {
+        "headline": "PNG to sell power stations Australia paid to upgrade",
+        "summary": "Papua New Guinea will tender 18 regional PNG Power centres, six of which were earmarked for $25 million in Australian-funded upgrades, citing financial pressure.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-28/australia-poured-millions-into-png-power-stations-now-being-sold/107433586",
+        "date": "2026-11-28"
+      }
+    ],
+    "ai": [
+      {
+        "headline": "OpenAI reportedly countersues Apple over trade secrets",
+        "summary": "OpenAI has filed a countersuit accusing Apple of stealing trade secrets, according to a Financial Times report.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/27/openai-countersues-apple-for-stealing-trade-secrets-ft-reports.html",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "SAP reportedly plans at least 10,000 job cuts in AI push",
+        "summary": "The German software maker is reported to be cutting at least 10,000 jobs as part of an AI-focused restructuring.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/11/27/sap-job-cuts-ai-restructuring.html",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "AI boom steers recovery in China's factory profits",
+        "summary": "Chinese industrial profits grew again in October, with AI-related industries among the biggest gainers.",
+        "source": "CNBC",
+        "url": "https://cnbc.com/2026/11/27/china-industrial-profits-october.html",
+        "date": "2026-11-27"
+      }
+    ],
+    "tech": [
+      {
+        "headline": "U.S. military says systems secure after reported cloud breach",
+        "summary": "The military did not say whether the Air Force's Cloud One platform was hacked after reports that a breach found last month could expose sensitive data such as air-defence radar feeds.",
+        "source": "Euronews",
+        "url": "https://www.euronews.com/2026/11/28/us-military-denied-any-issues-with-computing-platform-after-hack-reported",
+        "date": "2026-11-28"
+      },
+      {
+        "headline": "Rockstar Games employees vote against unionizing",
+        "summary": "Workers at the developer of Grand Theft Auto VI rejected a union.",
+        "source": "The Hill",
+        "url": "https://thehill.com/blogs/in-the-know/6245743-rockstar-employees-reject-union/",
+        "date": "2026-11-27"
+      }
+    ],
+    "world": [
+      {
+        "headline": "U.S. disables another ship trying to breach Iran blockade",
+        "summary": "Central Command said an aircraft struck the stern of the Palau-flagged Pacific Archer in the Gulf of Oman, disabling it without harming the crew; it is at least the 15th vessel disabled since the blockade began.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/world/u-s-military-says-it-disabled-another-ship-that-tried-to-breach-naval-blockade-on-iranian-ports",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Zelenskyy urges U.S. pressure on Putin",
+        "summary": "Ukraine's president called Trump's description of Putin as a friend strange, drawing a rebuke from the Kremlin, a day after EU leaders failed to agree on a loan for Ukraine.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/world/zelenskyy-urges-the-u-s-to-pressure-putin-calling-trumps-my-friend-remark-strange",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Mexico condemns DEA crime tip line as interference",
+        "summary": "Mexico's government denounced a U.S. Drug Enforcement Administration tip line as foreign interference, while some Mexicans welcomed it.",
+        "source": "AP via PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/world/mexicos-government-is-slamming-a-dea-crime-tip-line-as-foreign-interference-others-are-thrilled",
+        "date": "2026-11-27"
+      }
+    ],
+    "aus-cricket": [
+      {
+        "headline": "Nathan Lyon dropped from Test squad for New Zealand",
+        "summary": "Corey Rocchiccioli takes over as the frontline spinner, ending Lyon's 13-year run, with Lyon one of three players left out ahead of the first Test on Dec. 9.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-28/nathan-lyon-axed-as-australia-names-test-squad/107437842",
+        "date": "2026-11-28"
+      },
+      {
+        "headline": "Cricket Australia to publish Sandpapergate forum findings",
+        "summary": "CA said the findings of an independent forum into the 2018 ball-tampering scandal will be made public, after players gave conflicting accounts of who knew of the plan.",
+        "source": "ABC News",
+        "url": "https://www.abc.net.au/news/2026-11-27/sandpapergate-independent-forum-results-to-be-made-public/107433870",
+        "date": "2026-11-27"
+      }
+    ],
+    "warriors": [
+      {
+        "headline": "Blazers rout Warriors 116-94, ending NBA Cup run",
+        "summary": "Golden State, missing Stephen Curry, was eliminated from the NBA Cup with a 22-point loss in Portland on Friday night.",
+        "source": "NBA.com",
+        "url": "https://www.nba.com/warriors/news/gameday-recap-20261127",
+        "date": "2026-11-27"
+      },
+      {
+        "headline": "Curry to miss next three games, including the Clippers",
+        "summary": "Curry, out since tearing an oblique on Nov. 11, will sit at least through Sunday's home game against the LA Clippers and two more after it.",
+        "source": "ESPN",
+        "url": "https://www.espn.com/nba/story/_/id/50616740/golden-state-warriors-rule-steph-curry-next-3-games",
+        "date": "2026-11-27"
+      }
+    ]
+  }
+}
