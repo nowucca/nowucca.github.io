@@ -2040,6 +2040,10 @@
       {
        "id": "R362",
        "why": "A self-training gain can come from a cheaper behaviour rather than a better one, which score-only evaluation misses."
+      },
+      {
+       "id": "R370",
+       "why": "static injection benchmarks score near zero where an adaptive attacker succeeds two-thirds of the time"
       }
      ]
     },
@@ -2201,7 +2205,8 @@
       "R334",
       "R341",
       "R345",
-      "R367"
+      "R367",
+      "R370"
      ],
      "also": [
       {
@@ -2292,6 +2297,10 @@
       {
        "id": "R352",
        "why": "The essay cites two papers for post-hoc rationalisation; both are real measurement papers about CoT secrecy and legibility, and neither tests that claim."
+      },
+      {
+       "id": "R370",
+       "why": "a refusal message an adversary can read is part of the attack surface, and a prompt instruction not to leak does not close it"
       }
      ]
     }
@@ -9612,6 +9621,26 @@
    ],
    "summary": "",
    "file": "entries/test-time-baking-fast-weights.html"
+  },
+  {
+   "id": "R370",
+   "slug": "fork-guardrail-adaptive-attacker",
+   "title": "FORK: a guardrail that decides before it explains, and the benchmark that says your agent is safe when it isn't",
+   "by": "",
+   "source": "https://arxiv.org/abs/2611.33879",
+   "published": "2026-11-25",
+   "added": "2026-11-28",
+   "artifact": "VwCYQkzvNchrJZ6egR8k9A",
+   "tags": [
+    "guardrails",
+    "prompt-injection",
+    "agent-governance",
+    "benchmarks",
+    "evaluation",
+    "security"
+   ],
+   "summary": "",
+   "file": "entries/fork-guardrail-adaptive-attacker.html"
   }
  ],
  "edges": [
